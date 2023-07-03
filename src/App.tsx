@@ -1,12 +1,15 @@
 import { useState } from 'react'
 
-import { Button, Pagination } from '@/components'
+import { AvatarDropdownMenu, Button, Header, Pagination } from '@/components'
 
 export const App = () => {
   const [page, setPage] = useState(1)
 
   return (
     <>
+      <Header>
+        <AvatarDropdownMenu />
+      </Header>
       <Button />
       <Pagination
         currentPage={page}
