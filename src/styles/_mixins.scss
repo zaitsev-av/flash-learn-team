@@ -1,0 +1,27 @@
+@mixin font(
+  $fSize: var(--font-size-m),
+  $lHeight: var(--line-height-m),
+  $fWeight: var(--font-weight-bold),
+  $fFamily: var(--font-family-primary)
+) {
+  font-size: $fSize;
+  font-family: $fFamily;
+  font-weight: $fWeight;
+  line-height: $lHeight;
+
+  &.inherit {
+    color: inherit;
+  }
+  &.primary {
+    color: var(--color-light-100);
+  }
+  &.secondary {
+    color: var(--color-dark-100);
+  }
+  &.disabled {
+    color: var(--color-dark-300);
+  }
+  &.error {
+    color: var(--color-danger-300);
+  }
+}

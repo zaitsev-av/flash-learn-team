@@ -1,0 +1,96 @@
+button {
+  all: unset;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 6px;
+
+  &.left {
+    margin-left: -8px;
+  }
+}
+
+.disabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 100px;
+}
+
+.stateLayer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 100px;
+
+  &:focus-within {
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-500);
+  }
+
+  &:active {
+    background-color: var(--color-dark-100);
+  }
+}
+
+.CheckboxRoot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  background-color: transparent;
+  border: 1px solid;
+  border-color: var(--color-light-900);
+  border-radius: 2px;
+
+  &:enabled {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: initial;
+    border-color: var(--color-dark-100);
+  }
+
+  &[data-state='checked'] {
+    background-color: var(--color-dark-900);
+  }
+
+  &[data-state='checked']:disabled {
+    background-color: var(--color-light-700);
+  }
+}
+
+.CheckboxIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  font-family: Roboto, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: var(--color-light-100);
+
+  &.disabledLabel {
+    color: var(--color-dark-100);
+  }
+}

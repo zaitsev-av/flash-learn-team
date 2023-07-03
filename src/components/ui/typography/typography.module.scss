@@ -1,0 +1,79 @@
+@use 'src/styles/index';
+
+* {
+  margin: 0;
+}
+
+.large {
+  @include index.font(var(--font-size-xxl), var(--line-height-l));
+}
+
+.h1 {
+  @include index.font(var(--font-size-xl), var(--line-height-l));
+}
+
+.h2 {
+  @include index.font(var(--font-size-l));
+}
+
+.h3 {
+  @include index.font;
+}
+
+.body1 {
+  @include index.font($fWeight: var(--font-weight-regular));
+}
+
+.subtitle1 {
+  @include index.font;
+}
+
+.body2 {
+  @include index.font(var(--font-size-s), $fWeight: var(--font-weight-regular));
+}
+
+.subtitle2 {
+  @include index.font(var(--font-size-s));
+}
+
+.caption {
+  @include index.font(var(--font-size-xs), var(--line-height-s), var(--font-weight-regular));
+}
+
+.overline {
+  @include index.font(var(--font-size-xs), var(--line-height-s));
+}
+
+.link1,
+.link1:visited {
+  @include index.font(var(--font-size-s), $fWeight: var(--font-weight-regular));
+
+  cursor: pointer;
+  color: var(--color-info-500);
+  text-decoration-line: underline;
+}
+
+.link2,
+.link2:visited {
+  @include index.font(var(--font-size-xs), var(--line-height-s), var(--font-weight-regular));
+
+  cursor: pointer;
+  color: var(--color-info-500);
+  text-decoration-line: underline;
+}
+
+.error1 {
+  @include index.font($fWeight: var(--font-weight-regular));
+
+  color: var(--color-danger-300);
+}
+
+.error2 {
+  @include index.font(var(--font-size-xs), $fWeight: var(--font-weight-regular));
+
+  color: var(--color-danger-300);
+}
+
+.unselectable {
+  user-select: none;
+}

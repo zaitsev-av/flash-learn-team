@@ -1,0 +1,112 @@
+@mixin icons {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .inputContainer {
+    position: relative;
+    width: 100%;
+
+    .input {
+      display: flex;
+      align-items: center;
+
+      width: 100%;
+      padding-right: 12px;
+      padding-left: 12px;
+
+      font-family: Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 36px;
+      color: var(--color-light-100);
+
+      background-color: transparent;
+      border: 1px solid var(--color-dark-300);
+      border-radius: 2px;
+
+      &:disabled {
+        color: var(--color-dark-300);
+
+        &::placeholder {
+          color: var(--color-dark-300);
+        }
+      }
+
+      &:focus {
+        border-color: var(--color-info-700);
+        outline: none;
+      }
+
+      &:enabled:hover {
+        background-color: var(--color-dark-700);
+      }
+
+      &:enabled:active {
+        border-color: var(--color-light-100);
+
+        &::placeholder {
+          color: var(--color-light-100);
+        }
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        box-shadow: 0 0 0 30px var(--color-dark-700) inset !important;
+
+        -webkit-text-fill-color: var(--color-dark-100) !important;
+      }
+
+      &:enabled:not(:focus):hover {
+        background-color: var(--color-dark-700);
+        border-color: var(--color-dark-100);
+      }
+
+      &[type='search']::-webkit-search-cancel-button {
+        cursor: pointer;
+
+        width: 16px;
+        height: 16px;
+
+        appearance: none;
+        background-image: url('src/assets/icons/close-outline.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+
+    .password {
+      padding-right: 48px;
+    }
+
+    .search {
+      padding-left: 48px;
+    }
+
+    .searchIcon {
+      @include icons;
+
+      left: 12px;
+    }
+
+    .rightIcon {
+      @include icons;
+
+      right: 12px;
+    }
+  }
+}
