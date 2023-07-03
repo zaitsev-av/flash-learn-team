@@ -6,7 +6,7 @@ import s from './pagination.module.scss'
 import { usePagination } from './usePagination'
 
 import { ChevronLeft, ChevronRight } from '@/assets/icons'
-import { Typography } from '@/components'
+import { CustomSelect, Typography } from '@/components'
 
 export type PaginationPropsType = {
   currentPage: number
@@ -109,6 +109,7 @@ export const Pagination: FC<PaginationPropsType> = props => {
       >
         <ChevronRight />
       </div>
+      <CustomSelect items={['1', '2', '3']} />
     </div>
   )
 }
