@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { UserAvatar } from '../avatar/avatar.tsx'
 import { Button } from '../button'
 
 import { Header } from './header.tsx'
 
 import { LogoIncubator } from '@/assets'
+import { UserAvatar } from '@/components'
 import { AvatarDropdownMenu } from '@/components/ui/dropdown-menu'
 
 const meta = {
