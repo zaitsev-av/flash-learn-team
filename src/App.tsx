@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { AvatarDropdownMenu, Header, Pagination } from '@/components'
+import { AvatarDropdownMenu, Button, Header, Pagination } from '@/components'
 
 export const App = () => {
   const [page, setPage] = useState(1)
@@ -10,6 +10,7 @@ export const App = () => {
       <Header>
         <AvatarDropdownMenu />
       </Header>
+      <Button />
       <Pagination
         currentPage={page}
         pageSize={2}
