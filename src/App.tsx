@@ -1,15 +1,13 @@
 import { useState } from 'react'
 
-import { Avatar } from '@radix-ui/react-avatar'
-
-import { Pagination } from '@/components'
+import { Button, Pagination } from '@/components'
 
 export const App = () => {
   const [page, setPage] = useState(1)
 
   return (
     <>
-      <Avatar />
+      <Button />
       <Pagination
         currentPage={page}
         pageSize={2}
