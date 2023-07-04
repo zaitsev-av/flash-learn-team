@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 import * as Select from '@radix-ui/react-select'
+import { clsx } from 'clsx'
 
 import s from './custom-select.module.scss'
 
@@ -15,17 +16,31 @@ export type CustomSelectPropsType = {
   placeholder?: string
   onChange?: (value: string) => void
   width?: number | string
+  className?: string
+  value?: string
 }
 export const CustomSelect: FC<CustomSelectPropsType> = props => {
-  const { disabled, items, label, onChange, placeholder = items[0], width = '' } = props
+  const {
+    className,
+    value,
+    disabled,
+    items,
+    label,
+    onChange,
+    placeholder = items[0],
+    width = '',
+  } = props
+
+  const triggerClass = clsx(s.trigger, className)
+  const itemClass = clsx(s.item, className)
 
   return (
     <div>
       <label className={`${s.label} ${disabled && s.disabled}`} aria-disabled={disabled}>
         <Typography variant={'body1'}>{label}</Typography>
       </label>
-      <Select.Root disabled={disabled} onValueChange={onChange}>
-        <Select.Trigger className={s.trigger} style={{ width: `${width}px` }}>
+      <Select.Root disabled={disabled} onValueChange={onChange} value={value}>
+        <Select.Trigger className={triggerClass} style={{ width: `${width}px` }}>
           <Select.Value placeholder={<Typography variant={'body2'}>{placeholder}</Typography>} />
           <Select.Icon className={s.icon}>
             <ChevronDownIcon />
@@ -35,7 +50,7 @@ export const CustomSelect: FC<CustomSelectPropsType> = props => {
           <Select.Content className={s.content} position={'popper'} side={'bottom'} sideOffset={0}>
             <Select.Viewport>
               {items.map((el, i) => {
-                return <SelectItem key={i} value={el} className={s.item} />
+                return <SelectItem key={i} value={el} className={itemClass} />
               })}
             </Select.Viewport>
           </Select.Content>

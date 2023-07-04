@@ -1,0 +1,48 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  opacity: 0.7;
+  background-color: var(--color-dark-900);
+  filter: blur(3%);
+}
+
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 33.875rem;
+  padding: 1.125rem 1.5rem;
+
+  background: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  border-radius: 0.125rem 0.125rem 0 0;
+}
+
+.description {
+  border-top: none;
+  border-right: 1px solid var(--color-dark-500);
+  border-bottom: none;
+  border-left: 1px solid var(--color-dark-500);
+  border-radius: 0;
+}
+
+.closeIcon {
+  color: var(--color-light-100);
+
+  &:hover {
+    color: var(--color-dark-500);
+  }
+
+  &:active {
+    color: var(--color-dark-300);
+  }
+}

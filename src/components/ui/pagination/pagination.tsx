@@ -34,14 +34,16 @@ export const Pagination: FC<PaginationPropsType> = props => {
 
   const leftTabIndex = disabledLeft ? -1 : 0
   const rightTabIndex = disableRight ? -1 : 0
+
   const cNames = {
     container: clsx(s.container),
     pages: clsx(s.pages),
     page: clsx(s.page),
-    leftArrow: clsx(s.pageContainer, disabledLeft && s.disabled),
-    rightArrow: clsx(s.pageContainer, disableRight && s.disabled),
-    dots: clsx(s.pageContainer, s.dots),
+    leftArrow: clsx(s.page, disabledLeft && s.disabled),
+    rightArrow: clsx(s.page, disableRight && s.disabled),
+    dots: clsx(s.page, s.dots),
     rowsPerPage: clsx(s.rowsPerPage),
+    select: clsx(s.select),
   }
 
   if (currentPage === 0 || paginationRange.length < 2) {
@@ -66,7 +68,7 @@ export const Pagination: FC<PaginationPropsType> = props => {
     }
   }
   const pages = paginationRange.map((pageNumber, index) => {
-    const activePage = clsx(s.pageContainer, currentPage === pageNumber && s.active)
+    const activePage = clsx(s.page, currentPage === pageNumber && s.active)
     const setActivePage = () => {
       onPageChange(+pageNumber)
     }
@@ -94,27 +96,29 @@ export const Pagination: FC<PaginationPropsType> = props => {
   })
 
   return (
-    <div className={cNames.pages}>
-      <div
-        tabIndex={leftTabIndex}
-        className={cNames.leftArrow}
-        onKeyDown={onKeyDownSpaceLeft}
-        onClick={onPrevious}
-      >
-        <ChevronLeft />
-      </div>
-      {pages}
-      <div
-        tabIndex={rightTabIndex}
-        className={cNames.rightArrow}
-        onKeyDown={onKeyDownSpaceRight}
-        onClick={onNext}
-      >
-        <ChevronRight />
+    <div className={cNames.container}>
+      <div className={cNames.pages}>
+        <div
+          tabIndex={leftTabIndex}
+          className={cNames.leftArrow}
+          onKeyDown={onKeyDownSpaceLeft}
+          onClick={onPrevious}
+        >
+          <ChevronLeft />
+        </div>
+        {pages}
+        <div
+          tabIndex={rightTabIndex}
+          className={cNames.rightArrow}
+          onKeyDown={onKeyDownSpaceRight}
+          onClick={onNext}
+        >
+          <ChevronRight />
+        </div>
       </div>
       <div className={cNames.rowsPerPage}>
         <Typography variant={'body2'}>Rows</Typography>
-        <CustomSelect items={ROWS_PER_PAGE} />
+        <CustomSelect className={cNames.select} width={50} items={ROWS_PER_PAGE} />
         <Typography variant={'body2'}>per page</Typography>
       </div>
     </div>
