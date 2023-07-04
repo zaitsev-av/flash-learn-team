@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { Button, CustomSelect, DropdownMenu, Header, Pagination } from '@/components'
 import { Modal } from '@/components/ui/modal'
+import { DropdownMenu, Button, Header, Pagination, CustomSelect, Checkbox } from '@/components'
 
 export const App = () => {
   const [page, setPage] = useState(1)
@@ -39,6 +39,9 @@ export const App = () => {
         }
         trigger={<Button variant={'primary'}>modal</Button>}
       />
+      <div style={{ paddingLeft: '35%' }}>
+        <Checkbox />
+      </div>
     </>
   )
 }
