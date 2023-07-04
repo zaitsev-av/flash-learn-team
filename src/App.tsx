@@ -1,10 +1,19 @@
 import { useState } from 'react'
 
+import {
+  Button,
+  Checkbox,
+  CustomSelect,
+  DropdownMenu,
+  Header,
+  Pagination,
+  TextField,
+} from '@/components'
 import { Modal } from '@/components/ui/modal'
-import { DropdownMenu, Button, Header, Pagination, CustomSelect, Checkbox } from '@/components'
 
 export const App = () => {
   const [page, setPage] = useState(1)
+  const [isModalOpen, setModalOpen] = useState(false)
 
   return (
     <>
@@ -24,18 +33,32 @@ export const App = () => {
         <CustomSelect items={['select1', 'select1', 'select1', 'select1']} width={210} />
       </div>
       <Modal
+        isOpen={isModalOpen}
+        onOpenChange={setModalOpen}
         body={
-          <div>
-            <CustomSelect items={['select1', 'select1', 'select1', 'select1']} />
-            <CustomSelect items={['select1', 'select1', 'select1', 'select1']} />
-            <CustomSelect items={['select1', 'select1', 'select1', 'select1']} />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '1.5rem',
+            }}
+          >
+            <CustomSelect
+              label={'Choose a question format'}
+              items={['select1', 'select1', 'select1', 'select1']}
+            />
+            <TextField inputType={'text'} title={'Question'} />
+            <TextField inputType={'text'} title={'Answer'} />
           </div>
         }
         footer={
-          <div>
-            <Button variant={'secondary'}>secondary</Button>
-            <Button variant={'primary'}>primary</Button>
-          </div>
+          <>
+            <Button variant={'secondary'} onClick={() => setModalOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant={'primary'}>Add new card</Button>
+          </>
         }
         trigger={<Button variant={'primary'}>modal</Button>}
       />
