@@ -1,9 +1,11 @@
 import { SVGProps, Ref, forwardRef, memo } from 'react'
 const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" ref={ref} {...props}>
-    <g fill="#fff">
-      <path d="M8 1.3a6.7 6.7 0 1 0 0 13.4A6.7 6.7 0 0 0 8 1.3Zm0 12A5.3 5.3 0 1 1 8 2.7a5.3 5.3 0 0 1 0 10.6Z" />
-      <path d="M8.2 5A1.1 1.1 0 0 0 7 4.8a1 1 0 0 0-.7 1v4.4a1 1 0 0 0 .7 1 1.1 1.1 0 0 0 1.2-.2l2.5-2.2a1 1 0 0 0 0-1.6L8.2 5Zm-.5 4.7V6.3L9.5 8 7.7 9.7Z" />
+    <g>
+      <path
+        fill="#fff"
+        d="M14 4h-3.3V2.9A1.6 1.6 0 0 0 9 1.3H7A1.6 1.6 0 0 0 5.3 3V4H2a.7.7 0 0 0 0 1.3h.7v7.4a2 2 0 0 0 2 2h6.6a2 2 0 0 0 2-2V5.3h.7A.7.7 0 1 0 14 4ZM6.7 2.9c0-.1.1-.2.3-.2h2c.2 0 .3 0 .3.2V4H6.7V2.9Zm5.3 9.8a.7.7 0 0 1-.7.6H4.7a.7.7 0 0 1-.7-.6V5.3h8v7.4Z"
+      />
     </g>
     <defs>
       <clipPath id="a">

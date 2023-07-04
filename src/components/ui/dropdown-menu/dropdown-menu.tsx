@@ -3,12 +3,12 @@ import { FC } from 'react'
 import * as DropdownMenuRDX from '@radix-ui/react-dropdown-menu'
 
 import s from './dropdown-menu.module.scss'
+import { MenuItem } from './menu-item/menu-item.tsx'
 
-import { LearnPackIcon, ProfileIcon, SignOutIcon } from '@/assets'
+import { DeletePackIcon, EditPackIcon, LearnPackIcon, ProfileIcon, SignOutIcon } from '@/assets'
 import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 import { Typography } from '@/components'
 import { Avatar } from '@/components/ui/avatar/avatar.tsx'
-import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 
 export type DropdownMenuPropsType = {
   variant?: 'avatar' | 'learn-menu'
@@ -49,13 +49,16 @@ export const DropdownMenu: FC<DropdownMenuPropsType> = ({ variant = 'avatar' }) 
           ) : (
             <>
               <MenuItem>
-                <LearnPackIcon /> <Typography variant={'caption'}>Learn</Typography>
+                <LearnPackIcon />
+                <Typography variant={'caption'}>Learn</Typography>
               </MenuItem>
               <MenuItem>
-                <LearnPackIcon /> <Typography variant={'caption'}>Edit</Typography>
+                <EditPackIcon />
+                <Typography variant={'caption'}>Edit</Typography>
               </MenuItem>
               <MenuItem separator={false}>
-                <LearnPackIcon /> <Typography variant={'caption'}>Delete</Typography>
+                <DeletePackIcon />
+                <Typography variant={'caption'}>Delete</Typography>
               </MenuItem>
             </>
           )}

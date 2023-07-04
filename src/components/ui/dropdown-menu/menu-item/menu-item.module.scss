@@ -1,13 +1,12 @@
 .item {
+  cursor: pointer;
   user-select: none;
-
-  position: relative;
 
   display: flex;
   gap: 0.75rem;
   align-items: center;
 
-  height: 1.563rem;
+  height: 1.25rem;
 
   line-height: 1;
 
@@ -17,6 +16,7 @@
 
 .separator {
   height: 0.063rem;
-  margin: 0.75rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
   background-color: var(--color-dark-500);
 }
