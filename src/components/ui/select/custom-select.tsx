@@ -14,9 +14,10 @@ export type CustomSelectPropsType = {
   label?: string
   placeholder?: string
   onChange?: (value: string) => void
+  width?: number | string
 }
 export const CustomSelect: FC<CustomSelectPropsType> = props => {
-  const { disabled, items, label, onChange, placeholder = items[0] } = props
+  const { disabled, items, label, onChange, placeholder = items[0], width = '' } = props
 
   return (
     <div>
@@ -24,7 +25,7 @@ export const CustomSelect: FC<CustomSelectPropsType> = props => {
         <Typography variant={'body1'}>{label}</Typography>
       </label>
       <Select.Root disabled={disabled} onValueChange={onChange}>
-        <Select.Trigger className={s.trigger}>
+        <Select.Trigger className={s.trigger} style={{ width: `${width}px` }}>
           <Select.Value placeholder={<Typography variant={'body2'}>{placeholder}</Typography>} />
           <Select.Icon className={s.icon}>
             <ChevronDownIcon />

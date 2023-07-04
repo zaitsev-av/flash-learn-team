@@ -19,7 +19,7 @@ export const App = () => {
         onPageChange={setPage}
       />
       <div style={{ paddingLeft: '35%' }}>
-        <CustomSelect items={['select1', 'select1', 'select1', 'select1']} />
+        <CustomSelect items={['select1', 'select1', 'select1', 'select1']} width={210} />
       </div>
     </>
   )

@@ -38,6 +38,7 @@
 
   .icon {
     color: var(--color-light-100);
+    transition: transform 0.3s ease;
   }
 
   &[data-state='open'] {
