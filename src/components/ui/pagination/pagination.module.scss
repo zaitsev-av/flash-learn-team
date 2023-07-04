@@ -1,10 +1,15 @@
 .container {
   display: flex;
+  gap: 1.5rem;
   align-items: center;
-  list-style-type: none;
 }
 
-.pageContainer {
+.pages {
+  display: flex;
+  align-items: center;
+}
+
+.page {
   all: unset;
 
   cursor: pointer;
@@ -43,4 +48,10 @@
 .dots {
   pointer-events: none;
   user-select: none;
+}
+
+.rowsPerPage {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
