@@ -14,7 +14,7 @@ export const SelectItem: FC<SelectItemPropsType> = ({ value, ...props }) => {
   return (
     <Select.Item className={s.item} value={value} {...props}>
       <Select.ItemText>
-        <Typography variant={'body_1'}>{value}</Typography>
+        <Typography variant={'body1'}>{value}</Typography>
       </Select.ItemText>
     </Select.Item>
   )
