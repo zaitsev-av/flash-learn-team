@@ -66,7 +66,7 @@ export const Pagination: FC<PaginationPropsType> = props => {
     }
   }
   const pages = paginationRange.map((pageNumber, index) => {
-    const activePage = clsx(s.page, currentPage === pageNumber && s.active)
+    const activePage = clsx(s.pageContainer, currentPage === pageNumber && s.active)
     const setActivePage = () => {
       onPageChange(+pageNumber)
     }
@@ -94,29 +94,27 @@ export const Pagination: FC<PaginationPropsType> = props => {
   })
 
   return (
-    <div className={cNames.container}>
-      <div className={cNames.pages}>
-        <div
-          tabIndex={leftTabIndex}
-          className={cNames.leftArrow}
-          onKeyDown={onKeyDownSpaceLeft}
-          onClick={onPrevious}
-        >
-          <ChevronLeft />
-        </div>
-        {pages}
-        <div
-          tabIndex={rightTabIndex}
-          className={cNames.rightArrow}
-          onKeyDown={onKeyDownSpaceRight}
-          onClick={onNext}
-        >
-          <ChevronRight />
-        </div>
+    <div className={cNames.pages}>
+      <div
+        tabIndex={leftTabIndex}
+        className={cNames.leftArrow}
+        onKeyDown={onKeyDownSpaceLeft}
+        onClick={onPrevious}
+      >
+        <ChevronLeft />
+      </div>
+      {pages}
+      <div
+        tabIndex={rightTabIndex}
+        className={cNames.rightArrow}
+        onKeyDown={onKeyDownSpaceRight}
+        onClick={onNext}
+      >
+        <ChevronRight />
       </div>
       <div className={cNames.rowsPerPage}>
         <Typography variant={'body2'}>Rows</Typography>
-        <CustomSelect onChange={testSelect} items={ROWS_PER_PAGE} />
+        <CustomSelect items={ROWS_PER_PAGE} />
         <Typography variant={'body2'}>per page</Typography>
       </div>
     </div>
