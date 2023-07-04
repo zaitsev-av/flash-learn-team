@@ -39,9 +39,9 @@ export const Pagination: FC<PaginationPropsType> = props => {
     container: clsx(s.container),
     pages: clsx(s.pages),
     page: clsx(s.page),
-    leftArrow: clsx(s.pageContainer, disabledLeft && s.disabled),
-    rightArrow: clsx(s.pageContainer, disableRight && s.disabled),
-    dots: clsx(s.pageContainer, s.dots),
+    leftArrow: clsx(s.page, disabledLeft && s.disabled),
+    rightArrow: clsx(s.page, disableRight && s.disabled),
+    dots: clsx(s.page, s.dots),
     rowsPerPage: clsx(s.rowsPerPage),
     select: clsx(s.select),
   }
