@@ -7,6 +7,7 @@ import { usePagination } from './usePagination'
 
 import { ChevronLeft, ChevronRight } from '@/assets/icons'
 import { CustomSelect, Typography } from '@/components'
+import { ROWS_PER_PAGE } from '@/components/ui/pagination/constants.ts'
 
 export type PaginationPropsType = {
   currentPage: number
@@ -34,11 +35,13 @@ export const Pagination: FC<PaginationPropsType> = props => {
   const leftTabIndex = disabledLeft ? -1 : 0
   const rightTabIndex = disableRight ? -1 : 0
   const cNames = {
-    pages: clsx(s.container),
-    pageItem: clsx(s.pageContainer),
+    container: clsx(s.container),
+    pages: clsx(s.pages),
+    page: clsx(s.page),
     leftArrow: clsx(s.pageContainer, disabledLeft && s.disabled),
     rightArrow: clsx(s.pageContainer, disableRight && s.disabled),
     dots: clsx(s.pageContainer, s.dots),
+    rowsPerPage: clsx(s.rowsPerPage),
   }
 
   if (currentPage === 0 || paginationRange.length < 2) {
@@ -63,7 +66,7 @@ export const Pagination: FC<PaginationPropsType> = props => {
     }
   }
   const pages = paginationRange.map((pageNumber, index) => {
-    const activePage = clsx(s.pageContainer, currentPage === pageNumber && s.active)
+    const activePage = clsx(s.page, currentPage === pageNumber && s.active)
     const setActivePage = () => {
       onPageChange(+pageNumber)
     }
@@ -91,25 +94,31 @@ export const Pagination: FC<PaginationPropsType> = props => {
   })
 
   return (
-    <div className={cNames.pages}>
-      <div
-        tabIndex={leftTabIndex}
-        className={cNames.leftArrow}
-        onKeyDown={onKeyDownSpaceLeft}
-        onClick={onPrevious}
-      >
-        <ChevronLeft />
+    <div className={cNames.container}>
+      <div className={cNames.pages}>
+        <div
+          tabIndex={leftTabIndex}
+          className={cNames.leftArrow}
+          onKeyDown={onKeyDownSpaceLeft}
+          onClick={onPrevious}
+        >
+          <ChevronLeft />
+        </div>
+        {pages}
+        <div
+          tabIndex={rightTabIndex}
+          className={cNames.rightArrow}
+          onKeyDown={onKeyDownSpaceRight}
+          onClick={onNext}
+        >
+          <ChevronRight />
+        </div>
       </div>
-      {pages}
-      <div
-        tabIndex={rightTabIndex}
-        className={cNames.rightArrow}
-        onKeyDown={onKeyDownSpaceRight}
-        onClick={onNext}
-      >
-        <ChevronRight />
+      <div className={cNames.rowsPerPage}>
+        <Typography variant={'body2'}>Rows</Typography>
+        <CustomSelect onChange={testSelect} items={ROWS_PER_PAGE} />
+        <Typography variant={'body2'}>per page</Typography>
       </div>
-      <CustomSelect items={['1', '2', '3']} />
     </div>
   )
 }
