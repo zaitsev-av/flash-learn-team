@@ -5,8 +5,8 @@ import { Button } from '../button'
 import { Header } from './header.tsx'
 
 import { LogoIncubator } from '@/assets'
-import { UserAvatar } from '@/components'
-import { AvatarDropdownMenu } from '@/components/ui/dropdown-menu'
+import { Avatar } from '@/components'
+import { DropdownMenu } from '@/components/ui/dropdown-menu'
 
 const meta = {
   title: 'Components/Header',
@@ -33,7 +33,7 @@ export const Header_App_User_Avatar: Story = {
     children: (
       <>
         <LogoIncubator />
-        <UserAvatar name={'User name'} variant={'header'} />
+        <Avatar name={'User name'} variant={'header'} />
       </>
     ),
   },
@@ -44,7 +44,7 @@ export const Header_App_User_Avatar_Dropdown_menu: Story = {
     children: (
       <>
         <LogoIncubator />
-        <AvatarDropdownMenu />
+        <DropdownMenu />
       </>
     ),
   },

@@ -6,36 +6,36 @@
   &.menu {
     padding: 0;
   }
-}
 
-.label_wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  align-items: center;
+  .label_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
 
-  padding: 0 2px;
-}
+    padding: 0 2px;
+  }
 
-.root {
-  user-select: none;
+  .root {
+    user-select: none;
 
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-  width: 36px;
-  height: 36px;
+    width: 36px;
+    height: 36px;
 
-  vertical-align: middle;
+    vertical-align: middle;
 
-  border-radius: 100%;
-}
+    border-radius: 100%;
 
-.avatar_image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
+    .avatar_image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+  }
 }

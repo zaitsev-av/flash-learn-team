@@ -2,87 +2,63 @@ button {
   all: unset;
 }
 
-.dropdown_menu_content {
+.content {
   will-change: transform, opacity;
 
-  padding: 12px;
+  gap: 0.75rem;
+
+  padding: 0.75rem;
 
   background: var(--color-dark-700);
-  border: 1px solid var(--color-dark-500);
-  border-radius: 6px;
-
-  /* box-shadow: 0 10px 38px -10px var(--color-dark-100), 0 10px 20px -15px var(--color-dark-100); */
+  border: 0.063rem solid var(--color-dark-500);
+  border-radius: 0.375rem;
 
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.dropdown_menu_content[data-side='top'] {
+.content[data-side='top'] {
   animation-name: slide-down-and-fade;
 }
 
-.dropdown_menu_content[data-side='right'] {
+.content[data-side='right'] {
   animation-name: slide-left-and-fade;
 }
 
-.dropdown_menu_content[data-side='bottom'] {
+.content[data-side='bottom'] {
   animation-name: slide-up-and-fade;
 }
 
-.dropdown_menu_content[data-side='left'] {
+.content[data-side='left'] {
   animation-name: slide-right-and-fade;
 }
 
-.dropdown_menu_item {
-  user-select: none;
-
-  position: relative;
-
-  display: flex;
-  gap: 12px;
-  align-items: center;
-
-  height: 25px;
-
-  font-size: 13px;
-  line-height: 1;
-
-  border-radius: 3px;
-  outline: none;
-}
-
-.dropdown_menu_separator {
-  height: 1px;
-  margin: 12px;
-  background-color: var(--color-dark-500);
-}
-
-.dropdown_menu_arrow {
+.arrow {
   fill: var(--color-dark-700);
   stroke: var(--color-dark-500); /* Цвет обводки */
   stroke-dasharray: 34; /* Длина прерывистой линии */
   stroke-dashoffset: 37; /* Смещение прерывистой линии */
-  stroke-width: 2px; /* Толщина обводки */
+  stroke-width: 0.125rem; /* Толщина обводки */
 }
 
 .icon_button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  width: 35px;
-  height: 35px;
-
   border-radius: 100%;
 
+  > div {
+    padding: 0;
+  }
+
   &:focus-visible {
-    box-shadow: 0 0 0 2px var(--color-info-700);
+    box-shadow: 0 0 0 0.125rem var(--color-info-700);
   }
 }
 
 @keyframes slide-up-and-fade {
   from {
-    transform: translateY(2px);
+    transform: translateY(0.125rem);
     opacity: 0;
   }
 
@@ -94,7 +70,7 @@ button {
 
 @keyframes slide-right-and-fade {
   from {
-    transform: translateX(-2px);
+    transform: translateX(-0.125rem);
     opacity: 0;
   }
 
@@ -106,7 +82,7 @@ button {
 
 @keyframes slide-down-and-fade {
   from {
-    transform: translateY(-2px);
+    transform: translateY(-0.125rem);
     opacity: 0;
   }
 
@@ -118,7 +94,7 @@ button {
 
 @keyframes slide-left-and-fade {
   from {
-    transform: translateX(2px);
+    transform: translateX(0.125rem);
     opacity: 0;
   }
 

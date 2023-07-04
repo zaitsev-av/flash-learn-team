@@ -2,7 +2,8 @@ import { SVGProps, Ref, forwardRef, memo } from 'react'
 const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" ref={ref} {...props}>
     <g fill="#fff">
-      <path d="M4.7 4a.7.7 0 1 0 0-1.3H3.3a.7.7 0 0 0-.6.6v9.4a.7.7 0 0 0 .6.6h1.4a.7.7 0 1 0 0-1.3H4V4h.7ZM13.9 7.6 12 5a.7.7 0 1 0-1 .8l1 1.6H6.8a.7.7 0 0 0 0 1.4H12l-1.2 1.6a.7.7 0 0 0 .1.9.7.7 0 0 0 1-.1l2-2.7a.7.7 0 0 0 0-.8Z" />
+      <path d="M8 1.3a6.7 6.7 0 1 0 0 13.4A6.7 6.7 0 0 0 8 1.3Zm0 12A5.3 5.3 0 1 1 8 2.7a5.3 5.3 0 0 1 0 10.6Z" />
+      <path d="M8.2 5A1.1 1.1 0 0 0 7 4.8a1 1 0 0 0-.7 1v4.4a1 1 0 0 0 .7 1 1.1 1.1 0 0 0 1.2-.2l2.5-2.2a1 1 0 0 0 0-1.6L8.2 5Zm-.5 4.7V6.3L9.5 8 7.7 9.7Z" />
     </g>
     <defs>
       <clipPath id="a">
@@ -13,4 +14,4 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
 )
 const ForwardRef = forwardRef(SvgComponent)
 
-export const SignOutIcon = memo(ForwardRef)
+export default memo(ForwardRef)

@@ -1,54 +1,70 @@
 import { FC } from 'react'
 
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import * as DropdownMenuRDX from '@radix-ui/react-dropdown-menu'
 
 import s from './dropdown-menu.module.scss'
+import { MenuItem } from './menu-item/menu-item.tsx'
 
-import { ProfileIcon, SignOutIcon } from '@/assets'
-import { UserAvatar } from '@/components/ui/avatar/avatar.tsx'
-import { Typography } from '@/components/ui/typography'
+import { DeletePackIcon, EditPackIcon, LearnPackIcon, ProfileIcon, SignOutIcon } from '@/assets'
+import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
+import { Typography } from '@/components'
+import { Avatar } from '@/components/ui/avatar/avatar.tsx'
 
-export const AvatarDropdownMenu: FC = () => {
+export type DropdownMenuPropsType = {
+  variant?: 'avatar' | 'learn-menu'
+}
+export const DropdownMenu: FC<DropdownMenuPropsType> = ({ variant = 'avatar' }) => {
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button className={s.icon_button} aria-label="Customise options">
-          <UserAvatar variant={'header'} />
+    <DropdownMenuRDX.Root>
+      <DropdownMenuRDX.Trigger asChild>
+        <button className={s.icon_button}>
+          {variant === 'avatar' ? <Avatar variant={'header'} /> : <OpenPackMenuIcon />}
         </button>
-      </DropdownMenu.Trigger>
+      </DropdownMenuRDX.Trigger>
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className={s.dropdown_menu_content}
-          sideOffset={5}
-          align={'end'}
-          alignOffset={5}
-        >
-          <DropdownMenu.Item className={s.dropdown_menu_item}>
-            <UserAvatar variant={'menu'} />
-            <div style={{ flexDirection: 'column' }}>
-              <Typography variant={'caption'}>
-                <div>Alex</div>
-                <div>name@gmail.com</div>
-              </Typography>
-            </div>
-          </DropdownMenu.Item>
-          <DropdownMenu.Separator className={s.dropdown_menu_separator} />
-          <DropdownMenu.Item className={s.dropdown_menu_item}>
-            <Typography variant={'caption'}>
-              <ProfileIcon /> My Profile
-            </Typography>
-          </DropdownMenu.Item>
-          <DropdownMenu.Separator className={s.dropdown_menu_separator} />
-          <DropdownMenu.Item className={s.dropdown_menu_item}>
-            <Typography variant={'caption'}>
-              <SignOutIcon /> Sign Out
-            </Typography>
-          </DropdownMenu.Item>
-
-          <DropdownMenu.Arrow className={s.dropdown_menu_arrow} />
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+      <DropdownMenuRDX.Portal>
+        <DropdownMenuRDX.Content className={s.content} sideOffset={0} align={'end'} alignOffset={0}>
+          {variant === 'avatar' ? (
+            <>
+              <MenuItem>
+                <>
+                  <Avatar variant={'menu'} />
+                  <div style={{ flexDirection: 'column' }}>
+                    <Typography variant={'caption'}>
+                      <div>userName</div>
+                      <div>userEmail</div>
+                    </Typography>
+                  </div>
+                </>
+              </MenuItem>
+              <MenuItem>
+                <ProfileIcon />
+                <Typography variant={'caption'}>My Profile</Typography>
+              </MenuItem>
+              <MenuItem separator={false}>
+                <SignOutIcon />
+                <Typography variant={'caption'}>Sign Out</Typography>
+              </MenuItem>
+            </>
+          ) : (
+            <>
+              <MenuItem>
+                <LearnPackIcon />
+                <Typography variant={'caption'}>Learn</Typography>
+              </MenuItem>
+              <MenuItem>
+                <EditPackIcon />
+                <Typography variant={'caption'}>Edit</Typography>
+              </MenuItem>
+              <MenuItem separator={false}>
+                <DeletePackIcon />
+                <Typography variant={'caption'}>Delete</Typography>
+              </MenuItem>
+            </>
+          )}
+          <DropdownMenuRDX.Arrow className={s.arrow} />
+        </DropdownMenuRDX.Content>
+      </DropdownMenuRDX.Portal>
+    </DropdownMenuRDX.Root>
   )
 }

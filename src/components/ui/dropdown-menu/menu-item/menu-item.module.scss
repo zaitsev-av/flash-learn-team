@@ -1,0 +1,22 @@
+.item {
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  height: 100%;
+
+  line-height: 1;
+
+  border-radius: 0.188rem;
+  outline: none;
+}
+
+.separator {
+  height: 0.063rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  background-color: var(--color-dark-500);
+}
