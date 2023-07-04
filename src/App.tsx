@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { DropdownMenu, Button, Header, Pagination, CustomSelect } from '@/components'
+import { DropdownMenu, Button, Header, Pagination, CustomSelect, Checkbox } from '@/components'
 
 export const App = () => {
   const [page, setPage] = useState(1)
@@ -21,6 +21,9 @@ export const App = () => {
       />
       <div style={{ paddingLeft: '35%' }}>
         <CustomSelect items={['select1', 'select1', 'select1', 'select1']} width={210} />
+      </div>
+      <div style={{ paddingLeft: '35%' }}>
+        <Checkbox />
       </div>
     </>
   )
