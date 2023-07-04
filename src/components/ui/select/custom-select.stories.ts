@@ -12,11 +12,14 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Select_default: Story = {
-  args: {},
+  args: {
+    items: ['select1', 'select1', 'select1', 'select1'],
+  },
 }
 
 export const Select_disabled: Story = {
   args: {
+    items: ['select1', 'select1', 'select1', 'select1'],
     disabled: true,
   },
 }

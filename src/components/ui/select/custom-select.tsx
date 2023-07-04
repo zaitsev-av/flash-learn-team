@@ -21,11 +21,11 @@ export const CustomSelect: FC<CustomSelectPropsType> = props => {
   return (
     <div>
       <label className={`${s.label} ${disabled && s.disabled}`} aria-disabled={disabled}>
-        <Typography variant={'body_2'}>{label}</Typography>
+        <Typography variant={'body1'}>{label}</Typography>
       </label>
       <Select.Root disabled={disabled} onValueChange={onChange}>
         <Select.Trigger className={s.trigger}>
-          <Select.Value placeholder={<Typography variant={'body_1'}>{placeholder}</Typography>} />
+          <Select.Value placeholder={<Typography variant={'body2'}>{placeholder}</Typography>} />
           <Select.Icon className={s.icon}>
             <ChevronDownIcon />
           </Select.Icon>
