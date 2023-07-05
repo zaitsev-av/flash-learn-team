@@ -1,21 +1,28 @@
-import { FC, useState } from 'react'
+import { ComponentProps, FC, useState } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './text-field.module.scss'
 
+import { SearchIcon, ShowIcon } from '@/assets'
 import HideIcon from '@/assets/icons/HideIcon.tsx'
-import SearchIcon from '@/assets/icons/SearchIcon.tsx'
-import ShowIcon from '@/assets/icons/ShowIcon.tsx'
 import { Typography } from '@/components'
 
-type InputProps = {
+export type InputProps = {
+  containerProps?: ComponentProps<'div'>
   title: string
   inputType: 'text' | 'password' | 'search'
   error?: string
 } & React.ComponentProps<'input'>
 
-export const TextField: FC<InputProps> = ({ title, inputType, disabled, error, ...rest }) => {
+export const TextField: FC<InputProps> = ({
+  title,
+  inputType,
+  disabled,
+  error,
+  containerProps,
+  ...rest
+}) => {
   const [showPassword, setShowPassword] = useState(false)
   const color = disabled ? 'var(--color-dark-300)' : 'var(--color-light-100)'
   const cNames = {
@@ -25,7 +32,7 @@ export const TextField: FC<InputProps> = ({ title, inputType, disabled, error, .
       inputType === 'search' && s.search
     ),
     container: clsx(s.inputContainer),
-    root: clsx(s.root),
+    root: clsx(s.root, containerProps?.className),
     search: clsx(s.searchIcon),
   }
   const type = showPassword && inputType === 'password' ? 'text' : inputType

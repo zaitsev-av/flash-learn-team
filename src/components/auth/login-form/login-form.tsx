@@ -4,9 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { LookPassword } from '@/assets'
+import s from './login-form.module.scss'
+
+import { Typography } from '@/components'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { ControlledCheckbox } from '@/components/ui/controlled'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field.tsx'
 
 const schema = z.object({
@@ -38,22 +41,53 @@ export const LoginForm: FC = () => {
   // eslint-disable-next-line no-console
   const onSubmit = handleSubmit(data => console.log(data))
 
-  const {} = useForm()
-
   // eslint-disable-next-line no-console
   console.log(errors)
 
   return (
-    <Card>
+    <Card className={s.card}>
+      <Typography variant="large" as={'h1'} className={s.title}>
+        Sign in
+      </Typography>
       <form onSubmit={onSubmit}>
-        <ControlledTextField name={'login'} control={control} />
-        <ControlledTextField name={'password'} control={control} variant={'password'}>
-          <LookPassword />
-        </ControlledTextField>
+        <ControlledTextField
+          name={'login'}
+          control={control}
+          inputType={'text'}
+          title={'Login'}
+          containerProps={{ className: s.textField }}
+        />
+        <ControlledTextField
+          name={'password'}
+          control={control}
+          inputType={'password'}
+          title={'Password'}
+          containerProps={{ className: s.textField }}
+        />
+        <ControlledCheckbox
+          label={'Remember me'}
+          name={'rememberMe'}
+          control={control}
+          left={true}
+          className={s.checkbox}
+        />
+
+        <Typography variant="body2" as={'a'} className={s.forgotPassword}>
+          Forgot password?
+        </Typography>
+
         <Button type={'submit'} fullWidth={true}>
-          submit
+          Sign In
         </Button>
       </form>
+      <Typography variant="body2" className={s.noAccount}>
+        {/* eslint-disable-next-line react/no-unescaped-entities */}
+        Don't have an account?
+      </Typography>
+
+      <Typography as={'a'} href={'/sing-up'} className={s.signUp}>
+        Sign Up
+      </Typography>
     </Card>
   )
 }
