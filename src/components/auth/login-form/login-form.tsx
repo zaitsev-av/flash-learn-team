@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 const schema = z.object({
-  login: z.string().trim().nonempty('Enter login').min(3, 'Login must be at least 3 characters'),
+  // login: z.string().trim().nonempty('Enter login').min(3, 'Login must be at least 3 characters'),
   password: z
     .string()
     .trim()
@@ -49,7 +49,7 @@ export const LoginForm: FC = () => {
       </Typography>
       <form onSubmit={onSubmit}>
         <ControlledTextField
-          name={'login'}
+          name={'email'}
           control={control}
           inputType={'text'}
           title={'Login'}
@@ -78,14 +78,16 @@ export const LoginForm: FC = () => {
           Sign In
         </Button>
       </form>
-      <Typography variant="body2" className={s.noAccount}>
-        {/* eslint-disable-next-line react/no-unescaped-entities */}
-        Don't have an account?
-      </Typography>
+      <div className={s.formFooter}>
+        <Typography variant="body2" className={s.noAccount}>
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
+          Don't have an account?
+        </Typography>
 
-      <Typography as={'a'} href={'/sing-up'} className={s.signUp}>
-        Sign Up
-      </Typography>
+        <Typography as={'a'} href={'/sing-up'} className={s.signUp}>
+          Sign Up
+        </Typography>
+      </div>
     </Card>
   )
 }
