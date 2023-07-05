@@ -6,11 +6,9 @@ import { z } from 'zod'
 
 import s from './login-form.module.scss'
 
-import { Typography } from '@/components'
+import { ControlledCheckbox, ControlledTextField, Typography } from '@/components'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ControlledCheckbox } from '@/components/ui/controlled'
-import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field.tsx'
 
 const schema = z.object({
   login: z.string().trim().nonempty('Enter login').min(3, 'Login must be at least 3 characters'),
@@ -39,7 +37,7 @@ export const LoginForm: FC = () => {
   })
 
   // eslint-disable-next-line no-console
-  const onSubmit = handleSubmit(data => console.log(data))
+  const onSubmit = handleSubmit(data => console.log('login-form', data))
 
   // eslint-disable-next-line no-console
   console.log(errors)
