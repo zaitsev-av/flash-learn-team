@@ -13,5 +13,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    onSubmit: data => {
+      console.log(data)
+    },
+  },
 }
