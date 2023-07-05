@@ -4,22 +4,22 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import s from './login-form.module.scss'
+import s from './forgot-password.module.scss'
 
-import { ControlledCheckbox, ControlledTextField, Typography } from '@/components'
-import { loginFormSchema } from '@/components/auth/login-form/login-form-schema.ts'
+import { ControlledTextField, Typography } from '@/components'
+import { forgotPasswordSchema } from '@/components/auth/forgot-password/forgot-password-schema.ts'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
-type Form = z.infer<typeof loginFormSchema>
-export const LoginForm: FC = () => {
+type Form = z.infer<typeof forgotPasswordSchema>
+export const ForgotPassword: FC = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
     reset,
   } = useForm<Form>({
-    resolver: zodResolver(loginFormSchema),
+    resolver: zodResolver(forgotPasswordSchema),
     mode: 'onSubmit',
   })
 
@@ -28,8 +28,6 @@ export const LoginForm: FC = () => {
     console.log('login-form', data)
     reset({
       email: '',
-      password: '',
-      rememberMe: false,
     })
   })
 
@@ -39,47 +37,32 @@ export const LoginForm: FC = () => {
   return (
     <Card className={s.card}>
       <Typography variant="large" as={'h1'} className={s.title}>
-        Sign in
+        Forgot your password?
       </Typography>
       <form onSubmit={onSubmit}>
         <ControlledTextField
           name={'email'}
           control={control}
           inputType={'text'}
-          title={'Login'}
+          title={'Email'}
           containerProps={{ className: s.textField }}
         />
-        <ControlledTextField
-          name={'password'}
-          control={control}
-          inputType={'password'}
-          title={'Password'}
-          containerProps={{ className: s.textField }}
-        />
-        <ControlledCheckbox
-          label={'Remember me'}
-          name={'rememberMe'}
-          control={control}
-          left={true}
-          className={s.checkbox}
-        />
-
-        <Typography variant="body2" as={'a'} href={'/forgot_password'} className={s.forgotPassword}>
-          Forgot password?
+        <Typography variant="body2" className={s.description}>
+          Enter your email address and we will send you further instructions
         </Typography>
 
         <Button type={'submit'} fullWidth={true}>
-          Sign In
+          Send Instructions
         </Button>
       </form>
       <div className={s.formFooter}>
-        <Typography variant="body2" className={s.noAccount}>
+        <Typography variant="body2" className={s.rememberPassword}>
           {/* eslint-disable-next-line react/no-unescaped-entities */}
-          Don't have an account?
+          Did you remember your password?
         </Typography>
 
-        <Typography as={'a'} href={'/sing-up'} className={s.signUp}>
-          Sign Up
+        <Typography as={'a'} href={'/login'} className={s.link}>
+          Try logging in
         </Typography>
       </div>
     </Card>
