@@ -5,7 +5,7 @@ import * as DropdownMenuRDX from '@radix-ui/react-dropdown-menu'
 import s from './dropdown-menu.module.scss'
 import { MenuItem } from './menu-item/menu-item.tsx'
 
-import { DeletePackIcon, EditPackIcon, LearnPackIcon, ProfileIcon, SignOutIcon } from '@/assets'
+import { DeletePackIcon, LearnPackIcon, PencilIcon, ProfileIcon, SignOutIcon } from '@/assets'
 import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 import { Typography } from '@/components'
 import { Avatar } from '@/components/ui/avatar/avatar.tsx'
@@ -53,7 +53,7 @@ export const DropdownMenu: FC<DropdownMenuPropsType> = ({ variant = 'avatar' }) 
                 <Typography variant={'caption'}>Learn</Typography>
               </MenuItem>
               <MenuItem>
-                <EditPackIcon />
+                <PencilIcon />
                 <Typography variant={'caption'}>Edit</Typography>
               </MenuItem>
               <MenuItem separator={false}>
