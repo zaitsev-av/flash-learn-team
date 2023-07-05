@@ -13,10 +13,11 @@ export type InputProps = {
   title: string
   inputType: 'text' | 'password' | 'search'
   error?: string
+  className?: string
 } & React.ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, InputProps>(
-  ({ title, inputType, disabled, error, containerProps, ...rest }, ref) => {
+  ({ className, title, inputType, disabled, error, containerProps, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
     const color = disabled ? 'var(--color-dark-300)' : 'var(--color-light-100)'
     const cNames = {
@@ -26,7 +27,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
         inputType === 'search' && s.search
       ),
       container: clsx(s.inputContainer),
-      root: clsx(s.root, containerProps?.className),
+      root: clsx(s.root, className, containerProps?.className),
       search: clsx(s.searchIcon),
     }
     const type = showPassword && inputType === 'password' ? 'text' : inputType

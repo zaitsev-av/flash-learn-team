@@ -9,7 +9,7 @@ import {
   Pagination,
   TextField,
 } from '@/components'
-import { LoginForm } from '@/components/auth/login-form/login-form.tsx'
+import { LoginForm } from '@/components/auth'
 import { Modal } from '@/components/ui/modal'
 
 export const App = () => {

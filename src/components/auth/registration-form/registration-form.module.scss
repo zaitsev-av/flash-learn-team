@@ -1,0 +1,41 @@
+.card {
+  gap: 0;
+  width: 26.25rem;
+  padding: 2.063rem 2.25rem 1.813rem;
+
+  .title {
+    margin-bottom: 1.69rem;
+    text-align: center;
+  }
+
+  .email {
+    margin-bottom: 1.5rem;
+  }
+
+  .password {
+    margin-bottom: 1.5rem;
+  }
+
+  .confirmPassword {
+    margin-bottom: 3.75rem;
+  }
+
+  .button {
+    margin-bottom: 1.25rem;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.69rem;
+    align-items: center;
+  }
+}
+
+.footerLink {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.5rem !important;
+  color: var(--primary-500, #8c61ff) !important;
+}
