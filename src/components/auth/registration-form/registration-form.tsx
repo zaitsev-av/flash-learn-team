@@ -3,30 +3,20 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import s from './registration-form.module.scss'
+import { registrationSchema } from './schema.ts'
 
 import { Button, Card, ControlledTextField, Typography } from '@/components'
 
-const schema = z.object({
-  email: z.string().email('Email is not valid').trim().nonempty('Enter email'),
-  password: z
-    .string()
-    .trim()
-    .nonempty('Enter password')
-    .min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.literal<boolean>(true, {
-    errorMap: () => {
-      return { message: 'You must agree to the terms and conditions' }
-    },
-  }),
-})
-
-type Form = z.infer<typeof schema>
+type Form = z.infer<typeof registrationSchema>
 export const RegistrationForm = () => {
-  const { control, handleSubmit } = useForm<Form>({
-    resolver: zodResolver(schema),
+  const { control, handleSubmit, reset } = useForm<Form>({
+    resolver: zodResolver(registrationSchema),
     mode: 'onSubmit',
   })
-  const onSubmit = handleSubmit(data => console.log(data))
+  const onSubmit = handleSubmit(data => {
+    console.log(data)
+    reset()
+  })
 
   return (
     <Card className={s.card}>
