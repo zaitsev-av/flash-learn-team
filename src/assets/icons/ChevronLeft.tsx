@@ -1,4 +1,5 @@
-import { forwardRef, memo, SVGProps } from 'react'
+import { memo, SVGProps } from 'react'
+
 const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +20,4 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-const ForwardRef = forwardRef(SvgComponent)
-
-export default memo(ForwardRef)
+export default memo(SvgComponent)

@@ -9,7 +9,6 @@ import {
   Pagination,
   TextField,
 } from '@/components'
-import { Button, Checkbox, CustomSelect, DropdownMenu, Header, Pagination } from '@/components'
 import { LoginForm } from '@/components/auth/login-form/login-form.tsx'
 import { Modal } from '@/components/ui/modal'
 
