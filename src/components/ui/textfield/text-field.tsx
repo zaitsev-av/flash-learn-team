@@ -1,4 +1,4 @@
-import { ComponentProps, FC, useState } from 'react'
+import { ComponentProps, forwardRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -13,63 +13,58 @@ export type InputProps = {
   title: string
   inputType: 'text' | 'password' | 'search'
   error?: string
-} & React.ComponentProps<'input'>
+} & React.ComponentPropsWithoutRef<'input'>
 
-export const TextField: FC<InputProps> = ({
-  title,
-  inputType,
-  disabled,
-  error,
-  containerProps,
-  ...rest
-}) => {
-  const [showPassword, setShowPassword] = useState(false)
-  const color = disabled ? 'var(--color-dark-300)' : 'var(--color-light-100)'
-  const cNames = {
-    input: clsx(
-      s.input,
-      inputType === 'password' && s.password,
-      inputType === 'search' && s.search
-    ),
-    container: clsx(s.inputContainer),
-    root: clsx(s.root, containerProps?.className),
-    search: clsx(s.searchIcon),
-  }
-  const type = showPassword && inputType === 'password' ? 'text' : inputType
-
-  const showHidePassword = () => {
-    if (!disabled) {
-      setShowPassword(!showPassword)
+export const TextField = forwardRef<HTMLInputElement, InputProps>(
+  ({ title, inputType, disabled, error, containerProps, ...rest }, ref) => {
+    const [showPassword, setShowPassword] = useState(false)
+    const color = disabled ? 'var(--color-dark-300)' : 'var(--color-light-100)'
+    const cNames = {
+      input: clsx(
+        s.input,
+        inputType === 'password' && s.password,
+        inputType === 'search' && s.search
+      ),
+      container: clsx(s.inputContainer),
+      root: clsx(s.root, containerProps?.className),
+      search: clsx(s.searchIcon),
     }
-  }
+    const type = showPassword && inputType === 'password' ? 'text' : inputType
 
-  const rightIcons = inputType === 'password' && (
-    <div className={s.rightIcon} onClick={showHidePassword}>
-      {showPassword && !disabled ? <HideIcon color={color} /> : <ShowIcon color={color} />}
-    </div>
-  )
+    const showHidePassword = () => {
+      if (!disabled) {
+        setShowPassword(!showPassword)
+      }
+    }
 
-  const leftIcon = (
-    <div className={cNames.search}>{inputType === 'search' && <SearchIcon color={color} />}</div>
-  )
-
-  const errorMessage = error && (
-    <Typography variant="caption" color="error" unselectable="on">
-      {error}
-    </Typography>
-  )
-
-  return (
-    <div className={cNames.root}>
-      <Typography variant="body2" color="secondary" unselectable="on">
-        {title}
-      </Typography>
-      <div className={cNames.container}>
-        <input disabled={disabled} className={cNames.input} type={type} {...rest} />
-        {rightIcons}
-        {leftIcon}
+    const rightIcons = inputType === 'password' && (
+      <div className={s.rightIcon} onClick={showHidePassword}>
+        {showPassword && !disabled ? <HideIcon color={color} /> : <ShowIcon color={color} />}
       </div>
-      {errorMessage}
-    </div>
-  )
-}
+    )
+
+    const leftIcon = (
+      <div className={cNames.search}>{inputType === 'search' && <SearchIcon color={color} />}</div>
+    )
+
+    const errorMessage = error && (
+      <Typography variant="caption" color="error" unselectable="on">
+        {error}
+      </Typography>
+    )
+
+    return (
+      <div className={cNames.root}>
+        <Typography variant="body2" color="secondary" unselectable="on">
+          {title}
+        </Typography>
+        <div className={cNames.container}>
+          <input ref={ref} disabled={disabled} className={cNames.input} type={type} {...rest} />
+          {rightIcons}
+          {leftIcon}
+        </div>
+        {errorMessage}
+      </div>
+    )
+  }
+)
