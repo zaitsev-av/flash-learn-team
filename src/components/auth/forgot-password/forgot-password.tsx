@@ -57,7 +57,6 @@ export const ForgotPassword: FC = () => {
       </form>
       <div className={s.formFooter}>
         <Typography variant="body2" className={s.rememberPassword}>
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
           Did you remember your password?
         </Typography>
 
