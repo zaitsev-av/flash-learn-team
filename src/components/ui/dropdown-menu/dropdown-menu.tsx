@@ -16,7 +16,7 @@ export type DropdownMenuPropsType = {
 export const DropdownMenu: FC<DropdownMenuPropsType> = ({ variant = 'avatar' }) => {
   return (
     <DropdownMenuRDX.Root>
-      <DropdownMenuRDX.Trigger asChild>
+      <DropdownMenuRDX.Trigger asChild className={s.trigger}>
         <button className={s.icon_button}>
           {variant === 'avatar' ? <Avatar variant={'header'} /> : <OpenPackMenuIcon />}
         </button>

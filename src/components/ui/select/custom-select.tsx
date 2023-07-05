@@ -41,7 +41,7 @@ export const CustomSelect: FC<CustomSelectPropsType> = props => {
       </label>
       <Select.Root disabled={disabled} onValueChange={onChange} value={value}>
         <Select.Trigger className={triggerClass} style={{ width: `${width}px` }}>
-          <Select.Value placeholder={<Typography variant={'body2'}>{placeholder}</Typography>} />
+          <Select.Value placeholder={<Typography variant={'body1'}>{placeholder}</Typography>} />
           <Select.Icon className={s.icon}>
             <ChevronDownIcon />
           </Select.Icon>

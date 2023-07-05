@@ -2,6 +2,10 @@ button {
   all: unset;
 }
 
+.trigger {
+  cursor: pointer;
+}
+
 .content {
   will-change: transform, opacity;
 

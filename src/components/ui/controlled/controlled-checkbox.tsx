@@ -1,23 +1,31 @@
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 
-import { CustomCheckbox } from '@/components/ui/checkbox'
-import { TextField } from '@/components/ui/tetx-field'
+import { Checkbox, CheckboxProps } from '@/components'
 
-type ControlledTextFieldProps<T extends FieldValues> = {
-  control: Control<T>
-  name: FieldPath<T>
-} & Omit<React.ComponentProps<typeof TextField>, 'onChange' | 'value'>
+type ControlledCheckboxProps<T extends FieldValues> = Omit<
+  UseControllerProps<T>,
+  'rules' | 'defaultValues'
+> &
+  Omit<CheckboxProps, 'onChange' | 'value'>
 
 export const ControlledCheckbox = <T extends FieldValues>({
   control,
   name,
+  shouldUnregister,
   ...rest
-}: ControlledTextFieldProps<T>) => {
+}: ControlledCheckboxProps<T>) => {
   const {
-    field: { value, onChange },
-  } = useController({ name, control })
+    field: { value, onChange: onChange },
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+    shouldUnregister,
+  })
 
-  const handleChange = onChange as (value: boolean) => boolean
+  const handleChange = onChange as (value: boolean) => void
 
-  return <CustomCheckbox checked={value} onChange={handleChange} {...rest} />
+  return (
+    <Checkbox checked={value} onChange={handleChange} errorMessage={error?.message} {...rest} />
+  )
 }
