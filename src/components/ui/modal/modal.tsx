@@ -8,23 +8,24 @@ import { ModalContent } from '@/components/ui/modal/content.tsx'
 import { ModalTitle } from '@/components/ui/modal/title.tsx'
 
 type ModalProps = {
+  title: string
   trigger?: ReactNode
   isOpen?: boolean
   onOpenChange?: (isOpen: boolean) => void
-  body?: string | ReactNode
-  footer?: string | ReactNode
+  body?: string | ReactNode | string[] | ReactNode[]
+  footer?: string | ReactNode | string[] | ReactNode[]
 }
 
-export const Modal: FC<ModalProps> = ({ body, footer, isOpen, trigger, onOpenChange }) => {
+export const Modal: FC<ModalProps> = ({ title, body, footer, isOpen, trigger, onOpenChange }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
         <Dialog.Content className={s.content}>
-          <ModalTitle title={'ModalTitle'} />
-          <ModalContent description={body} />
-          <ModalContent className={s.footer} description={footer} />
+          <ModalTitle title={title} />
+          {body && <ModalContent content={body} />}
+          {footer && <ModalContent className={s.footer} content={footer} />}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

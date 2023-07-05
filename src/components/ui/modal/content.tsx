@@ -7,16 +7,16 @@ import { Card } from '@/components'
 import s from '@/components/ui/modal/modal.module.scss'
 
 type ModalDescriptionProps = {
-  description: string | ReactNode
+  content: string | ReactNode | string[] | ReactNode[]
   className?: string
 }
 
-export const ModalContent: FC<ModalDescriptionProps> = ({ description, className }) => {
+export const ModalContent: FC<ModalDescriptionProps> = ({ content, className }) => {
   const style = clsx(s.body, className)
 
   return (
     <Dialog.Description>
-      <Card className={style}>{description}</Card>
+      <Card className={style}>{content}</Card>
     </Dialog.Description>
   )
 }

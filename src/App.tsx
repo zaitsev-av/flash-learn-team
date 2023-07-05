@@ -52,15 +52,16 @@ export const App = () => {
             <TextField inputType={'text'} title={'Answer'} />
           </div>
         }
-        footer={
-          <>
-            <Button variant={'secondary'} onClick={() => setModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant={'primary'}>Add new card</Button>
-          </>
-        }
+        footer={[
+          <Button key={1} variant={'secondary'} onClick={() => setModalOpen(false)}>
+            Cancel
+          </Button>,
+          <Button key={2} variant={'primary'}>
+            Add new card
+          </Button>,
+        ]}
         trigger={<Button variant={'primary'}>modal</Button>}
+        title={'Title'}
       />
       <div style={{ paddingLeft: '35%' }}>
         <Checkbox />
