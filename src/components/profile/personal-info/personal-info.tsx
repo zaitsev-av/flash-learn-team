@@ -5,8 +5,7 @@ import s from './personal-info.module.scss'
 import { LogoutIcon, PencilIcon } from '@/assets'
 import { Avatar, Button, Typography } from '@/components'
 import { Card } from '@/components/ui/card'
-import { EditableText } from '@/components/ui/editeble-text/editable-text.tsx'
-import { useEditableText } from '@/components/ui/editeble-text/useEditableText.ts'
+import { EditableText, useEditableText } from '@/components/ui/editeble-text'
 
 export const PersonalInfo: FC = () => {
   const { activateEditMode, setEditMode, editMode } = useEditableText('')
