@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import s from './personal-info.module.scss'
 
@@ -6,12 +6,10 @@ import { LogoutIcon, PencilIcon } from '@/assets'
 import { Avatar, Button, Typography } from '@/components'
 import { Card } from '@/components/ui/card'
 import { EditableText } from '@/components/ui/editeble-text/editable-text.tsx'
+import { useEditableText } from '@/components/ui/editeble-text/useEditableText.ts'
 
 export const PersonalInfo: FC = () => {
-  const [editMode, setEditMode] = useState<boolean>(false)
-  const activateEditMode = () => {
-    setEditMode(true)
-  }
+  const { activateEditMode, setEditMode, editMode } = useEditableText('')
 
   return (
     <Card className={`${s.card} ${editMode && s.editMode}`}>
@@ -40,7 +38,7 @@ export const PersonalInfo: FC = () => {
           </Button>
         </>
       ) : (
-        <EditableText text={'UserName'} />
+        <EditableText callback={setEditMode} text={'UserName'} />
       )}
     </Card>
   )
