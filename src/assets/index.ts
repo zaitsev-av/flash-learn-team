@@ -1,5 +1,1 @@
-export * from './logo-incubator.tsx'
-export * from './look-password.tsx'
-export * from './sign-out-icon.tsx'
-export * from './profile-icon.tsx'
 export * from './icons'
