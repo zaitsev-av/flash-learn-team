@@ -1,2 +1,5 @@
 export * from './registration-form'
 export * from './login-form'
+export * from './check-email'
+export * from './forgot-password'
+export * from './create-new-password'

@@ -1,0 +1,62 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: center;
+  justify-content: center;
+
+  width: 26.25rem;
+  padding: 2.063rem 5rem 2.563rem;
+
+  &.editMode {
+    padding: 2.063rem 2.25rem 5.25rem;
+  }
+
+  .avatar {
+    width: 6rem !important;
+    height: 6rem !important;
+    margin-top: 1.688rem;
+  }
+
+  .edit_avtar {
+    position: absolute;
+    top: 13.95rem;
+    left: 16.35rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px;
+
+    background: var(--color-dark-300);
+    border-radius: 0.25rem;
+  }
+
+  .userName_container {
+    display: flex;
+    gap: 0.563rem;
+    align-items: center;
+  }
+
+  .email {
+    font-weight: 400 !important;
+    font-style: normal !important;
+    line-height: 1.5rem !important;
+    color: var(--color-dark-100) !important;
+  }
+
+  .btn {
+    margin-top: 0.813rem;
+  }
+
+  .signUp {
+    margin-top: 0.813rem;
+
+    font-weight: 700 !important;
+    font-style: normal !important;
+    line-height: 1.5rem !important;
+    color: var(--color-accent-500) !important;
+    text-align: center;
+  }
+}

@@ -23,7 +23,7 @@ type TypographyProps<T> = {
     | 'error2'
   children?: ReactNode
   className?: string
-  color?: 'primary' | 'secondary' | 'error' | 'inherit'
+  color?: 'primary' | 'secondary' | 'error' | 'inherit' | 'disabled'
 }
 export const Typography = <T extends ElementType = 'p'>(
   props: TypographyProps<T> & ComponentPropsWithoutRef<T>
