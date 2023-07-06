@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { LoginForm } from '@/components/auth/login-form/login-form.tsx'
+import { LoginForm } from './login-form.tsx'
 
 const meta = {
-  title: 'Components/Forms/LoginForm',
+  title: 'Forms/LoginForm',
   component: LoginForm,
   tags: ['autodocs'],
   argTypes: {},
