@@ -12,7 +12,10 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 type Form = z.infer<typeof forgotPasswordSchema>
-export const ForgotPassword: FC = () => {
+type ForgotPasswordPropsType = {
+  onSubmit: (data: Form) => void
+}
+export const ForgotPassword: FC<ForgotPasswordPropsType> = ({ onSubmit }) => {
   const {
     handleSubmit,
     control,
@@ -23,9 +26,10 @@ export const ForgotPassword: FC = () => {
     mode: 'onSubmit',
   })
 
-  // eslint-disable-next-line no-console
-  const onSubmit = handleSubmit(data => {
-    console.log('login-form', data)
+  const onSubmitForm = handleSubmit(data => {
+    onSubmit({ email: data.email })
+    // eslint-disable-next-line no-console
+    console.log('login-form', data.email)
     reset({
       email: '',
     })
@@ -39,7 +43,7 @@ export const ForgotPassword: FC = () => {
       <Typography variant="large" as={'h1'} className={s.title}>
         Forgot your password?
       </Typography>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitForm}>
         <ControlledTextField
           name={'email'}
           control={control}

@@ -12,7 +12,10 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 type Form = z.infer<typeof loginFormSchema>
-export const LoginForm: FC = () => {
+type LoginFormPropsType = {
+  onSubmit: (data: Form) => void
+}
+export const LoginForm: FC<LoginFormPropsType> = ({ onSubmit }) => {
   const {
     handleSubmit,
     control,
@@ -24,7 +27,8 @@ export const LoginForm: FC = () => {
   })
 
   // eslint-disable-next-line no-console
-  const onSubmit = handleSubmit(data => {
+  const onSubmitForm = handleSubmit(data => {
+    onSubmit({ email: data.email, password: data.password, rememberMe: data.rememberMe })
     console.log('login-form', data)
     reset({
       email: '',
@@ -41,7 +45,7 @@ export const LoginForm: FC = () => {
       <Typography variant="large" as={'h1'} className={s.title}>
         Sign in
       </Typography>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitForm}>
         <ControlledTextField
           name={'email'}
           control={control}

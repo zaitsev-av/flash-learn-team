@@ -9,7 +9,6 @@ import {
   Pagination,
   TextField,
 } from '@/components'
-import { LoginForm } from '@/components/auth'
 import { Modal } from '@/components/ui/modal'
 
 export const App = () => {
@@ -66,10 +65,6 @@ export const App = () => {
       />
       <div style={{ paddingLeft: '35%' }}>
         <Checkbox />
-      </div>
-
-      <div style={{ paddingLeft: '35%' }}>
-        <LoginForm />
       </div>
     </>
   )
