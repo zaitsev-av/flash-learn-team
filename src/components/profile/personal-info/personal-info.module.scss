@@ -8,6 +8,10 @@
   width: 26.25rem;
   padding: 2.063rem 5rem 2.563rem;
 
+  &.editMode {
+    padding: 2.063rem 2.25rem 5.25rem;
+  }
+
   .avatar {
     width: 6rem !important;
     height: 6rem !important;
