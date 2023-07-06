@@ -24,11 +24,13 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
       input: clsx(
         s.input,
         inputType === 'password' && s.password,
-        inputType === 'search' && s.search
+        inputType === 'search' && s.search,
+        error && s.inputError
       ),
       container: clsx(s.inputContainer),
       root: clsx(s.root, className, containerProps?.className),
       search: clsx(s.searchIcon),
+      error: clsx(s.error),
     }
     const type = showPassword && inputType === 'password' ? 'text' : inputType
 
@@ -64,7 +66,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
           {rightIcons}
           {leftIcon}
         </div>
-        {errorMessage}
+        <div className={cNames.error}>{errorMessage}</div>
       </div>
     )
   }

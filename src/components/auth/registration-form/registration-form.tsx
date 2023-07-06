@@ -1,39 +1,39 @@
+import { FC } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import s from './registration-form.module.scss'
+import { registrationSchema } from './schema.ts'
 
 import { Button, Card, ControlledTextField, Typography } from '@/components'
 
-const schema = z.object({
-  email: z.string().email('Email is not valid').trim().nonempty('Enter email'),
-  password: z
-    .string()
-    .trim()
-    .nonempty('Enter password')
-    .min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.literal<boolean>(true, {
-    errorMap: () => {
-      return { message: 'You must agree to the terms and conditions' }
-    },
-  }),
-})
-
-type Form = z.infer<typeof schema>
-export const RegistrationForm = () => {
-  const { control, handleSubmit } = useForm<Form>({
-    resolver: zodResolver(schema),
+type Form = z.infer<typeof registrationSchema>
+type PropsType = {
+  onSubmit: (data: Omit<Form, 'confirmPassword'>) => void
+}
+export const RegistrationForm: FC<PropsType> = ({ onSubmit }) => {
+  const { control, handleSubmit, reset } = useForm<Form>({
+    resolver: zodResolver(registrationSchema),
     mode: 'onSubmit',
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
   })
-  const onSubmit = handleSubmit(data => console.log(data))
+  const onSubmitForm = handleSubmit(data => {
+    onSubmit({ email: data.email, password: data.password })
+    reset()
+  })
 
   return (
     <Card className={s.card}>
       <Typography variant={'large'} as={'h1'} className={s.title}>
         Sign Up
       </Typography>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitForm}>
         <ControlledTextField
           control={control}
           title={'Email'}

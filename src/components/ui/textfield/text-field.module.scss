@@ -111,3 +111,12 @@
     }
   }
 }
+
+.error {
+  height: 1.13rem;
+}
+
+.inputError {
+  color: var(--color-danger-300) !important;
+  border-color: var(--color-danger-300) !important;
+}
