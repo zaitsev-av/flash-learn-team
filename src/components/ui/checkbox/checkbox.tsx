@@ -17,11 +17,11 @@ export type CheckboxProps = {
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-  const { checked, left, label, disabled, onChange, errorMessage } = props
+  const { className, checked, left, label, disabled, onChange, errorMessage } = props
   const checkColor = disabled ? 'var(--color-dark-100)' : 'var(--color-light-100)'
 
   const cNames = {
-    container: clsx(s.container, left && s.left),
+    container: clsx(s.container, className, left && s.left),
     stateLayer: clsx({ [s.disabled]: disabled, [s.stateLayer]: !disabled }),
     root: s.CheckboxRoot,
     indicator: s.CheckboxIndicator,
