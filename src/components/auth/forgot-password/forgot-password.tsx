@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { forgotPasswordSchema } from './forgot-password-schema.ts'
 import s from './forgot-password.module.scss'
 
 import { ControlledTextField, Typography } from '@/components'
-import { forgotPasswordSchema } from '@/components/auth/forgot-password/forgot-password-schema.ts'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 

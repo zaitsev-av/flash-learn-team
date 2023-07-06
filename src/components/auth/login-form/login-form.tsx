@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { loginFormSchema } from './login-form-schema.ts'
 import s from './login-form.module.scss'
 
 import { ControlledCheckbox, ControlledTextField, Typography } from '@/components'
-import { loginFormSchema } from '@/components/auth/login-form/login-form-schema.ts'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
