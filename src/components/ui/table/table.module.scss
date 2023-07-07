@@ -6,18 +6,16 @@
 }
 
 .row {
-  height: var(--line-height-m);
+  min-height: 40px;
 }
 
 .headCell {
   gap: 0.625rem;
-  height: var(--line-height-m);
   padding: 0.375rem 1.5rem;
   background: var(--color-dark-500);
 }
 
 .dataCell {
-  height: var(--line-height-m);
   padding: 0.375rem 1.5rem;
 
   text-align: center;

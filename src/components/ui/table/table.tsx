@@ -26,9 +26,7 @@ const Body: FC<BodyProps> = ({ className, ...rest }) => {
 
 type RowProps = { className?: string } & ComponentProps<'tr'>
 const Row: FC<RowProps> = ({ className, ...rest }) => {
-  const style = clsx(s.row, className)
-
-  return <tr className={style} {...rest} />
+  return <tr className={className} {...rest} />
 }
 
 type HeadCellProps = {
@@ -52,7 +50,7 @@ const DataCell: FC<DataCellProps> = ({ children, content, className, ...rest }) 
 
   return (
     <td className={style} {...rest}>
-      <Typography variant={'body2'}>{children}</Typography>
+      {children}
     </td>
   )
 }

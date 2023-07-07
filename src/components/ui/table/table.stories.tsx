@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Checkbox, Grade, Table } from '@/components'
+import s from './table.module.scss'
 
+import { Checkbox, Grade, Table } from '@/components'
 const meta = {
   title: 'Components/Table',
   component: Table.Root,
@@ -44,7 +45,7 @@ export const Default: Story = {
             <Table.DataCell>{'Test2'}</Table.DataCell>
             <Table.DataCell>{'Test3'}</Table.DataCell>
             <Table.DataCell>{'Test4'}</Table.DataCell>
-            <Table.DataCell>{'Test5'}</Table.DataCell>
+            <Table.DataCell>{'Test77'}</Table.DataCell>
           </Table.Row>
         </Table.Body>
       </>
@@ -117,14 +118,14 @@ export const Data_Cell: Story = {
 }
 export const Data_Cell_WithReactNode: Story = {
   args: {
-    children: <Table.DataCell>{<Checkbox label={'Name'} />}</Table.DataCell>,
+    children: <Table.DataCell className={s.row}>{<Checkbox label={'Name'} />}</Table.DataCell>,
   },
 }
 
 export const Data_Cell_WithGrade: Story = {
   args: {
     children: (
-      <Table.DataCell>
+      <Table.DataCell className={s.row}>
         {
           <Grade
             grade={3}
