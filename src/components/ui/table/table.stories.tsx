@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Checkbox, DataCell, HeadCell, Table, TableBody, TableHead, TableRow } from '@/components'
+import { Checkbox, Grade, Table } from '@/components'
 
 const meta = {
   title: 'Components/Table',
-  component: Table,
+  component: Table.Root,
   tags: ['autodocs'],
-  render: args => <Table {...args} />,
-} satisfies Meta<typeof Table>
+  render: args => <Table.Root {...args} />,
+} satisfies Meta<typeof Table.Root>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -15,38 +15,38 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <TableHead>
-          <TableRow>
-            <HeadCell title={'Name'} />
-            <HeadCell title={'Cards'} />
-            <HeadCell title={'Last Updated'} />
-            <HeadCell title={'Created by'} />
-            <HeadCell />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <DataCell>{'Test1'}</DataCell>
-            <DataCell>{'Test2'}</DataCell>
-            <DataCell>{'Test3'}</DataCell>
-            <DataCell>{'Test4'}</DataCell>
-            <DataCell>{'Test5'}</DataCell>
-          </TableRow>
-          <TableRow>
-            <DataCell>{'Test1'}</DataCell>
-            <DataCell>{'Test2'}</DataCell>
-            <DataCell>{'Test3'}</DataCell>
-            <DataCell>{'Test4'}</DataCell>
-            <DataCell>{'Test5'}</DataCell>
-          </TableRow>
-          <TableRow>
-            <DataCell>{'Test1'}</DataCell>
-            <DataCell>{'Test2'}</DataCell>
-            <DataCell>{'Test3'}</DataCell>
-            <DataCell>{'Test4'}</DataCell>
-            <DataCell>{'Test5'}</DataCell>
-          </TableRow>
-        </TableBody>
+        <Table.Head>
+          <Table.Row>
+            <Table.HeadCell title={'Name'} />
+            <Table.HeadCell title={'Cards'} />
+            <Table.HeadCell title={'Last Updated'} />
+            <Table.HeadCell title={'Created by'} />
+            <Table.HeadCell />
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          <Table.Row>
+            <Table.DataCell>{'Test1'}</Table.DataCell>
+            <Table.DataCell>{'Test2'}</Table.DataCell>
+            <Table.DataCell>{'Test3'}</Table.DataCell>
+            <Table.DataCell>{'Test4'}</Table.DataCell>
+            <Table.DataCell>{'Test5'}</Table.DataCell>
+          </Table.Row>
+          <Table.Row>
+            <Table.DataCell>{'Test1'}</Table.DataCell>
+            <Table.DataCell>{'Test2'}</Table.DataCell>
+            <Table.DataCell>{'Test3'}</Table.DataCell>
+            <Table.DataCell>{'Test4'}</Table.DataCell>
+            <Table.DataCell>{'Test5'}</Table.DataCell>
+          </Table.Row>
+          <Table.Row>
+            <Table.DataCell>{'Test1'}</Table.DataCell>
+            <Table.DataCell>{'Test2'}</Table.DataCell>
+            <Table.DataCell>{'Test3'}</Table.DataCell>
+            <Table.DataCell>{'Test4'}</Table.DataCell>
+            <Table.DataCell>{'Test5'}</Table.DataCell>
+          </Table.Row>
+        </Table.Body>
       </>
     ),
   },
@@ -56,31 +56,49 @@ export const TableWithReactNode: Story = {
   args: {
     children: (
       <>
-        <TableHead>
-          <TableRow>
-            <HeadCell title={'Name'} />
-            <HeadCell title={'Cards'} />
-            <HeadCell title={'Last Updated'} />
-            <HeadCell title={'Created by'} />
-            <HeadCell />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <DataCell>{'Test'}</DataCell>
-            <DataCell>{'Test2'}</DataCell>
-            <DataCell>{'Test3'}</DataCell>
-            <DataCell>{'Test4'}</DataCell>
-            <DataCell>{'Test5'}</DataCell>
-          </TableRow>
-          <TableRow>
-            <DataCell>{'Test1'}</DataCell>
-            <DataCell>{'Test2'}</DataCell>
-            <DataCell>{'Test3'}</DataCell>
-            <DataCell>{'Test4'}</DataCell>
-            <DataCell>{'Test5'}</DataCell>
-          </TableRow>
-        </TableBody>
+        <Table.Head>
+          <Table.Row>
+            <Table.HeadCell title={'Name'} />
+            <Table.HeadCell title={'Cards'} />
+            <Table.HeadCell title={'Last Updated'} />
+            <Table.HeadCell title={'Created by'} />
+            <Table.HeadCell />
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          <Table.Row>
+            <Table.DataCell>{'Test'}</Table.DataCell>
+            <Table.DataCell>{'Test2'}</Table.DataCell>
+            <Table.DataCell>{'Test3'}</Table.DataCell>
+            <Table.DataCell>{'Test5'}</Table.DataCell>
+            <Table.DataCell>
+              {
+                <Grade
+                  grade={3}
+                  onClick={() => {
+                    console.log()
+                  }}
+                />
+              }
+            </Table.DataCell>
+          </Table.Row>
+          <Table.Row>
+            <Table.DataCell>{'Test1'}</Table.DataCell>
+            <Table.DataCell>{'Test2'}</Table.DataCell>
+            <Table.DataCell>{'Test3'}</Table.DataCell>
+            <Table.DataCell>{'Test5'}</Table.DataCell>
+            <Table.DataCell>
+              {
+                <Grade
+                  grade={3}
+                  onClick={() => {
+                    console.log()
+                  }}
+                />
+              }
+            </Table.DataCell>
+          </Table.Row>
+        </Table.Body>
       </>
     ),
   },
@@ -88,17 +106,34 @@ export const TableWithReactNode: Story = {
 
 export const Head_Cell: Story = {
   args: {
-    children: <HeadCell title={'Name'} />,
+    children: <Table.HeadCell title={'Name'} />,
   },
 }
 
 export const Data_Cell: Story = {
   args: {
-    children: <DataCell>{'Name'}</DataCell>,
+    children: <Table.DataCell>{'Name'}</Table.DataCell>,
   },
 }
 export const Data_Cell_WithReactNode: Story = {
   args: {
-    children: <DataCell>{<Checkbox label={'Name'} />}</DataCell>,
+    children: <Table.DataCell>{<Checkbox label={'Name'} />}</Table.DataCell>,
+  },
+}
+
+export const Data_Cell_WithGrade: Story = {
+  args: {
+    children: (
+      <Table.DataCell>
+        {
+          <Grade
+            grade={3}
+            onClick={() => {
+              console.log()
+            }}
+          />
+        }
+      </Table.DataCell>
+    ),
   },
 }

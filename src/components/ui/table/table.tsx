@@ -8,25 +8,27 @@ import { Typography } from '@/components'
 
 type TableProps = { className?: string } & ComponentProps<'table'>
 
-export const Table: FC<TableProps> = ({ className, ...rest }) => {
+const Root: FC<TableProps> = ({ className, ...rest }) => {
   const style = clsx(s.table, className)
 
   return <table className={style} {...rest} />
 }
 
 type HeadProps = { className?: string } & ComponentProps<'thead'>
-export const TableHead: FC<HeadProps> = ({ className, ...rest }) => {
+const Head: FC<HeadProps> = ({ className, ...rest }) => {
   return <thead className={className} {...rest} />
 }
 
 type BodyProps = { className?: string } & ComponentProps<'tbody'>
-export const TableBody: FC<BodyProps> = ({ className, ...rest }) => {
+const Body: FC<BodyProps> = ({ className, ...rest }) => {
   return <tbody className={className} {...rest} />
 }
 
 type RowProps = { className?: string } & ComponentProps<'tr'>
-export const TableRow: FC<RowProps> = ({ className, ...rest }) => {
-  return <tr className={className} {...rest} />
+const Row: FC<RowProps> = ({ className, ...rest }) => {
+  const style = clsx(s.row, className)
+
+  return <tr className={style} {...rest} />
 }
 
 type HeadCellProps = {
@@ -34,7 +36,7 @@ type HeadCellProps = {
   className?: string
   title?: string
 } & ComponentProps<'th'>
-export const HeadCell: FC<HeadCellProps> = ({ title, className, ...rest }) => {
+const HeadCell: FC<HeadCellProps> = ({ title, className, ...rest }) => {
   const style = clsx(s.headCell, className)
 
   return (
@@ -45,7 +47,7 @@ export const HeadCell: FC<HeadCellProps> = ({ title, className, ...rest }) => {
 }
 
 type DataCellProps = { className?: string } & ComponentProps<'td'>
-export const DataCell: FC<DataCellProps> = ({ children, content, className, ...rest }) => {
+const DataCell: FC<DataCellProps> = ({ children, content, className, ...rest }) => {
   const style = clsx(s.dataCell, className)
 
   return (
@@ -54,3 +56,5 @@ export const DataCell: FC<DataCellProps> = ({ children, content, className, ...r
     </td>
   )
 }
+
+export const Table = { DataCell, HeadCell, Row, Body, Head, Root }
