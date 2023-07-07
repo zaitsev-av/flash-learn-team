@@ -1,0 +1,21 @@
+.wrapper {
+  display: inline-flex;
+  align-items: flex-end;
+  width: 100%;
+
+  .text_field {
+    margin-right: 1.5rem;
+    margin-bottom: -1.13rem;
+  }
+
+  .slider {
+    margin-left: 4.563rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    width: 30%;
+    height: 36px;
+    margin-left: 25px;
+  }
+}

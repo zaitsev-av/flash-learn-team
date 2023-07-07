@@ -19,7 +19,9 @@ export const CustomTabs: FC<CustomTabsPropsType> = props => {
 
   return (
     <div>
-      <label>{label}</label>
+      <label>
+        <Typography variant={'body2'}> {label}</Typography>
+      </label>
       <Tabs.Root className={s.root} defaultValue={tabs[defaultValue]}>
         <Tabs.List className={s.list}>
           {tabs.map((el, i) => {
