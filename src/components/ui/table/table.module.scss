@@ -1,31 +1,35 @@
 .table {
   border-collapse: collapse;
-  border: 1px solid var(--color-dark-500);
+  border: 0.06rem solid var(--color-dark-500);
 }
 
 .headCell {
   gap: 0.625rem;
-  align-items: center;
   padding: 0.375rem 1.5rem;
+  line-height: var(--line-height-m) !important;
   background: var(--color-dark-500);
 }
 
 .dataCell {
-  align-items: center;
   padding: 0.375rem 1.5rem;
+
+  line-height: var(--line-height-m) !important;
+  text-align: center;
+
   background: var(--color-dark-900);
-  border-bottom: 1px solid var(--color-dark-500);
+  border-bottom: 0.06rem solid var(--color-dark-500);
 
-  .dataCellChildren {
-    display: flex;
-    flex-direction: row;
-    gap: 0.62rem;
-    align-items: center;
-    justify-content: center;
-  }
+  //.dataCellChildren {
+  //  display: flex;
+  //  flex-direction: row;
+  //  gap: 0.62rem;
+  //  align-items: center;
+  //  justify-content: center;
+  //}
 }
 
-.checkbox {
-  margin: 0;
-  padding: 0;
-}
+//
+//.checkbox {
+//  margin: 0;
+//  padding: 0;
+//}

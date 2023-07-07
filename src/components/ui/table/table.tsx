@@ -21,7 +21,7 @@ export const TableHead: FC<HeadProps> = ({ className, ...rest }) => {
 
 type BodyProps = { className?: string } & ComponentProps<'tbody'>
 export const TableBody: FC<BodyProps> = ({ className, ...rest }) => {
-  return <thead className={className} {...rest} />
+  return <tbody className={className} {...rest} />
 }
 
 type RowProps = { className?: string } & ComponentProps<'tr'>
@@ -50,7 +50,7 @@ export const DataCell: FC<DataCellProps> = ({ children, content, className, ...r
 
   return (
     <td className={style} {...rest}>
-      <div className={s.dataCellChildren}>{children}</div>
+      <Typography variant={'body2'}>{children}</Typography>
     </td>
   )
 }
