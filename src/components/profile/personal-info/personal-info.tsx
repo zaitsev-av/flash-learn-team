@@ -4,31 +4,46 @@ import s from './personal-info.module.scss'
 
 import { LogoutIcon, PencilIcon } from '@/assets'
 import { Avatar, Button, Typography } from '@/components'
+import { useAvatarUploader } from '@/components/ui/avatar/useAvatarUploader.ts'
 import { Card } from '@/components/ui/card'
 import { EditableText, useEditableText } from '@/components/ui/editeble-text'
 
-export const PersonalInfo: FC = () => {
+export type PersonalInfoPropsType = {
+  userName: string
+  userEmail: string
+}
+
+export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
+  const { userName, userEmail } = props
   const { activateEditMode, setEditMode, editMode } = useEditableText('')
+  const { file, handleFileChange, openFileInput, fileInputRef } = useAvatarUploader()
 
   return (
     <Card className={`${s.card} ${editMode && s.editMode}`}>
       <Typography variant="large" as={'h1'} className={s.title}>
         Personal Information
       </Typography>
-      <Avatar variant={'header'} className={s.avatar} />
+      <Avatar variant={'header'} className={s.avatar} avatar={file} />
       {!editMode ? (
         <>
           <div className={s.edit_avtar}>
-            <PencilIcon />
+            <input
+              type="file"
+              className={`${s.reset_input}`}
+              id="input_file"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+            />
+            <PencilIcon onClick={openFileInput} />
           </div>
           <div className={s.userName_container}>
             <Typography as={'h1'} variant={'h1'}>
-              UserName
+              {userName}
             </Typography>
             <PencilIcon onDoubleClick={activateEditMode} />
           </div>
           <Typography variant="body2" className={s.email}>
-            user_email@blabla.com
+            {userEmail}
           </Typography>
 
           <Button variant={'secondary'} className={s.btn}>
@@ -37,7 +52,7 @@ export const PersonalInfo: FC = () => {
           </Button>
         </>
       ) : (
-        <EditableText callback={setEditMode} text={'UserName'} />
+        <EditableText callback={setEditMode} text={userName} />
       )}
     </Card>
   )

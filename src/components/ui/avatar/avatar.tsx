@@ -10,8 +10,9 @@ export type UserAvatarPropsType = {
   className?: string
   name?: string
   variant: 'header' | 'menu'
+  avatar?: string
 }
-export const Avatar: FC<UserAvatarPropsType> = ({ name, variant, className }) => {
+export const Avatar: FC<UserAvatarPropsType> = ({ name, variant, className, avatar }) => {
   const classNames = {
     root: clsx(s.root, className),
   }
@@ -24,11 +25,7 @@ export const Avatar: FC<UserAvatarPropsType> = ({ name, variant, className }) =>
         </Label.Root>
       )}
       <AvatarRDX.Root className={classNames.root}>
-        <AvatarRDX.Image
-          className={s.avatar_image}
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          alt="Colm Tuite"
-        />
+        <AvatarRDX.Image className={s.avatar_image} src={avatar} alt="Colm Tuite" />
       </AvatarRDX.Root>
     </div>
   )

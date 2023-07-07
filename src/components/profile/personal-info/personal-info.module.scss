@@ -20,8 +20,8 @@
 
   .edit_avtar {
     position: absolute;
-    top: 13.95rem;
-    left: 16.35rem;
+    top: 12.45rem;
+    left: 15.5rem;
 
     display: flex;
     align-items: center;
@@ -31,6 +31,10 @@
 
     background: var(--color-dark-300);
     border-radius: 0.25rem;
+
+    .reset_input {
+      display: none;
+    }
   }
 
   .userName_container {

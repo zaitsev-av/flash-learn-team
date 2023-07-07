@@ -16,6 +16,8 @@ import {
   ProfileIcon,
   SearchIcon,
   ShowIcon,
+  StarIcon,
+  StarOutlineIcon,
 } from '@/assets'
 import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 
@@ -182,6 +184,26 @@ export const CheckedIcon_story: Story = {
     return (
       <div style={{ width: '50px', height: '50px' }}>
         <CheckedIcon color={'red'} />
+      </div>
+    )
+  },
+}
+
+export const StarIcon_story: Story = {
+  render: () => {
+    return (
+      <div style={{ width: '50px', height: '50px' }}>
+        <StarIcon />
+      </div>
+    )
+  },
+}
+
+export const StarOutlineIcon_story: Story = {
+  render: () => {
+    return (
+      <div style={{ width: '50px', height: '50px' }}>
+        <StarOutlineIcon />
       </div>
     )
   },
