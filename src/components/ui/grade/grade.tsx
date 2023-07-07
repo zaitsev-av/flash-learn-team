@@ -65,9 +65,11 @@ export const StarItem: FC<StarItemProps> = ({
   onClick,
   id,
 }) => {
+  const style = clsx(s.starItem, className)
+
   return (
     <div
-      className={className}
+      className={style}
       onMouseEnter={() => onMouseEnter(id)}
       onMouseLeave={() => onMouseLeave(0)}
       onClick={() => onClick(id)}
