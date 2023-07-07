@@ -16,6 +16,8 @@ export const Avatar: FC<UserAvatarPropsType> = ({ name, variant, className, avat
   const classNames = {
     root: clsx(s.root, className),
   }
+  const fake =
+    'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
 
   return (
     <div className={`${s.wrapper} ${variant === 'menu' && s.menu}`}>
@@ -25,7 +27,7 @@ export const Avatar: FC<UserAvatarPropsType> = ({ name, variant, className, avat
         </Label.Root>
       )}
       <AvatarRDX.Root className={classNames.root}>
-        <AvatarRDX.Image className={s.avatar_image} src={avatar} alt="Colm Tuite" />
+        <AvatarRDX.Image className={s.avatar_image} src={avatar ?? fake} alt="Colm Tuite" />
       </AvatarRDX.Root>
     </div>
   )

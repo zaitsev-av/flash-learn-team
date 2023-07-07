@@ -1,15 +1,25 @@
 import { FC } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './filter-panel.module.scss'
 
 import DeleteIcon from '@/assets/icons/DeleteIcon.tsx'
 import { Button, TextField, Typography } from '@/components'
 import { CustomSlider } from '@/components/ui/slider'
 import { CustomTabs } from '@/components/ui/switch'
+type FilterPanelPropsType = {
+  className?: string
+}
 
-export const FilterPanel: FC = () => {
+export const FilterPanel: FC<FilterPanelPropsType> = props => {
+  const { className } = props
+  const classNames = {
+    root: clsx(s.wrapper, className),
+  }
+
   return (
-    <div className={s.wrapper}>
+    <div className={classNames.root}>
       <TextField title={''} inputType={'search'} className={s.text_field} />
       <CustomTabs tabs={['Me cards', 'All cards']} label={'Show packs cards'} />
       <CustomSlider
