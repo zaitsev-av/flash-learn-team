@@ -1,31 +1,18 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { FC } from 'react'
 
 import s from './editable-text.module.scss'
 
 import { Button, TextField } from '@/components'
+import { useEditableText } from '@/components/ui/editeble-text/useEditableText.ts'
 
 export type EditableTextPropsType = {
   text: string | undefined
+  callback: (value: boolean) => void
 }
 export const EditableText: FC<EditableTextPropsType> = props => {
-  const { text } = props
-  const [value, setValue] = useState<string | undefined>(text)
-  const [error, setError] = useState<string | undefined>('')
+  const { text, callback } = props
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value)
-  }
-  const disableEditMode = () => {
-    if (value) {
-      if (value.trim() !== '') {
-        // dispatch отправим в стейт
-        // setEditMode(false) получить из пропсов
-        setError('')
-      } else {
-        setError('Nickname in required')
-      }
-    }
-  }
+  const { disableEditMode, error, value, handleInputChange } = useEditableText(text && text)
 
   return (
     <>
@@ -37,7 +24,12 @@ export const EditableText: FC<EditableTextPropsType> = props => {
         error={error}
         autoFocus
       />
-      <Button variant={'primary'} fullWidth={true} onClick={disableEditMode} className={s.btn}>
+      <Button
+        variant={'primary'}
+        fullWidth={true}
+        onClick={() => disableEditMode(callback)}
+        className={s.btn}
+      >
         Save Changes
       </Button>
       {error && <span className={s.error}>{}</span>}

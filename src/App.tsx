@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { StarIcon, StarOutlineIcon } from '@/assets'
 import {
   Button,
   Checkbox,
@@ -10,7 +9,6 @@ import {
   Pagination,
   TextField,
 } from '@/components'
-import { LoginForm } from '@/components/auth'
 import { Modal } from '@/components/ui/modal'
 
 export const App = () => {
@@ -67,15 +65,6 @@ export const App = () => {
       />
       <div style={{ paddingLeft: '35%' }}>
         <Checkbox />
-      </div>
-
-      <div style={{ paddingLeft: '35%' }}>
-        <LoginForm />
-      </div>
-      <div style={{ paddingLeft: '35%' }}>
-        <StarIcon fill={'var(--color-warning-300)'} />
-
-        <StarOutlineIcon fill={'var(--color-warning-300)'} />
       </div>
     </>
   )

@@ -25,7 +25,7 @@ export const CustomTabs: FC<CustomTabsPropsType> = props => {
           {tabs.map((el, i) => {
             return (
               <Tabs.Trigger asChild className={s.trigger} value={el} key={i} disabled={disabled}>
-                <Typography variant={'body_1'}>{el}</Typography>
+                <Typography variant={'body1'}>{el}</Typography>
               </Tabs.Trigger>
             )
           })}

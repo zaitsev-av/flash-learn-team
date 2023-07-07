@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { CheckEmail } from '@/components/auth'
 
 const meta = {
-  title: 'Components/Forms/CheckEmail',
+  title: 'Forms/CheckEmail',
   component: CheckEmail,
   tags: ['autodocs'],
   argTypes: {},

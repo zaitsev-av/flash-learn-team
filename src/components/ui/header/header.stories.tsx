@@ -4,7 +4,7 @@ import { Button } from '../button'
 
 import { Header } from './header.tsx'
 
-import { LogoIncubator } from '@/assets'
+import { Logo } from '@/assets'
 import { Avatar } from '@/components'
 import { DropdownMenu } from '@/components/ui/dropdown-menu'
 
@@ -21,7 +21,7 @@ export const Header_App: Story = {
   args: {
     children: (
       <>
-        <LogoIncubator />
+        <Logo />
         <Button variant={'primary'}>Sign In</Button>
       </>
     ),
@@ -32,7 +32,7 @@ export const Header_App_User_Avatar: Story = {
   args: {
     children: (
       <>
-        <LogoIncubator />
+        <Logo />
         <Avatar name={'User name'} variant={'header'} />
       </>
     ),
@@ -43,7 +43,7 @@ export const Header_App_User_Avatar_Dropdown_menu: Story = {
   args: {
     children: (
       <>
-        <LogoIncubator />
+        <Logo />
         <DropdownMenu />
       </>
     ),

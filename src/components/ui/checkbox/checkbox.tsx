@@ -4,7 +4,6 @@ import { clsx } from 'clsx'
 import s from './checkbox.module.scss'
 
 import { CheckedIcon } from '@/assets'
-import { Typography } from '@/components'
 
 export type CheckboxProps = {
   left?: boolean
@@ -13,11 +12,10 @@ export type CheckboxProps = {
   onChange?: (checked: boolean) => void
   checked?: boolean
   disabled?: boolean
-  errorMessage?: string
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-  const { className, checked, left, label, disabled, onChange, errorMessage } = props
+  const { className, checked, left, label, disabled, onChange } = props
   const checkColor = disabled ? 'var(--color-dark-100)' : 'var(--color-light-100)'
 
   const cNames = {
@@ -47,11 +45,6 @@ export const Checkbox = (props: CheckboxProps) => {
           <label className={cNames.label}>{label}</label>
         </div>
       </div>
-      {errorMessage && (
-        <Typography variant="error1" className={s.errorMessage}>
-          {errorMessage}
-        </Typography>
-      )}
     </>
   )
 }
