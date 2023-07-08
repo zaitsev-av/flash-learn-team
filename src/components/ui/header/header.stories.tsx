@@ -33,7 +33,12 @@ export const Header_App_User_Avatar: Story = {
     children: (
       <>
         <Logo />
-        <Avatar name={'User name'} variant={'header'} />
+        <Avatar
+          name={'User name'}
+          src={
+            'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
+          }
+        />
       </>
     ),
   },

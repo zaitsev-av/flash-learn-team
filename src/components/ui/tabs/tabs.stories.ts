@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CustomTabs } from './'
+import { Tabs } from './'
 
 const meta = {
   title: 'Components/Custom-tabs',
-  component: CustomTabs,
+  component: Tabs,
   tags: ['autodocs'],
   argTypes: {
     disabled: {
@@ -16,7 +16,7 @@ const meta = {
       control: { type: 'radio' },
     },
   },
-} satisfies Meta<typeof CustomTabs>
+} satisfies Meta<typeof Tabs>
 
 export default meta
 type Story = StoryObj<typeof meta>

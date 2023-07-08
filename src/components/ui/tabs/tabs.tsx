@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import * as Tabs from '@radix-ui/react-tabs'
+import * as TabsRDX from '@radix-ui/react-tabs'
 import { clsx } from 'clsx'
 
-import s from './custom-tabs.module.scss'
+import s from './tabs.module.scss'
 
 import { Typography } from '@/components/ui/typography'
 
@@ -16,7 +16,7 @@ export type CustomTabsPropsType = {
 }
 //todo: add callback in onChangeValue
 
-export const CustomTabs: FC<CustomTabsPropsType> = props => {
+export const Tabs: FC<CustomTabsPropsType> = props => {
   const { tabs, label, defaultValue = 1, disabled = false, className } = props
   const classNames = {
     root: clsx(s.root, className),
@@ -27,17 +27,17 @@ export const CustomTabs: FC<CustomTabsPropsType> = props => {
       <label>
         <Typography variant={'body2'}> {label}</Typography>
       </label>
-      <Tabs.Root className={classNames.root} defaultValue={tabs[defaultValue]}>
-        <Tabs.List className={s.list}>
+      <TabsRDX.Root className={classNames.root} defaultValue={tabs[defaultValue]}>
+        <TabsRDX.List className={s.list}>
           {tabs.map((el, i) => {
             return (
-              <Tabs.Trigger asChild className={s.trigger} value={el} key={i} disabled={disabled}>
+              <TabsRDX.Trigger asChild className={s.trigger} value={el} key={i} disabled={disabled}>
                 <Typography variant={'body1'}>{el}</Typography>
-              </Tabs.Trigger>
+              </TabsRDX.Trigger>
             )
           })}
-        </Tabs.List>
-      </Tabs.Root>
+        </TabsRDX.List>
+      </TabsRDX.Root>
     </div>
   )
 }
