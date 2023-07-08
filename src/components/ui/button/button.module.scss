@@ -7,6 +7,7 @@
   user-select: none;
 
   display: inline-flex;
+  flex-shrink: 0;
   gap: 0.625rem;
   align-items: center;
   justify-content: center;
