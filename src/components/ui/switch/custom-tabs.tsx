@@ -19,7 +19,7 @@ export type CustomTabsPropsType = {
 export const CustomTabs: FC<CustomTabsPropsType> = props => {
   const { tabs, label, defaultValue = 1, disabled = false, className } = props
   const classNames = {
-    root: clsx(s.wrapper, className),
+    root: clsx(s.root, className),
   }
 
   return (
