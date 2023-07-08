@@ -22,7 +22,7 @@ import {
 import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 
 const meta = {
-  title: 'Icons/All_icons',
+  title: 'Icons/Icons',
   tags: ['autodocs'],
   argTypes: {},
 }
@@ -30,7 +30,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const CheckEmailLogo_Story: Story = {
+export const CheckEmail: Story = {
   render: () => {
     return (
       <div style={{ width: '300px', height: '300px' }}>
@@ -40,171 +40,115 @@ export const CheckEmailLogo_Story: Story = {
   },
 }
 
-export const ChevronDown_story: Story = {
+export const Chevron_Down: Story = {
+  render: () => {
+    return <ChevronDown />
+  },
+}
+
+export const Chevron_Left: Story = {
+  render: () => {
+    return <ChevronLeft />
+  },
+}
+export const Chevron_Right: Story = {
+  render: () => {
+    return <ChevronRight />
+  },
+}
+
+export const Close_Icon: Story = {
+  render: () => {
+    return <CloseIcon />
+  },
+}
+
+export const Delete_Pack_Icon: Story = {
+  render: () => {
+    return <DeletePackIcon />
+  },
+}
+
+export const Hide_Icon: Story = {
   render: () => {
     return (
       <div style={{ width: '30px', height: '30px' }}>
-        <ChevronDown />
+        <HideIcon fill={'#fff'} />
       </div>
     )
   },
 }
 
-export const ChevronLeft_story: Story = {
+export const Learn_Pack_Icon: Story = {
   render: () => {
-    return (
-      <div style={{ width: '30px', height: '30px' }}>
-        <ChevronLeft />
-      </div>
-    )
-  },
-}
-export const ChevronRight_story: Story = {
-  render: () => {
-    return (
-      <div style={{ width: '30px', height: '30px' }}>
-        <ChevronRight />
-      </div>
-    )
+    return <LearnPackIcon />
   },
 }
 
-export const CloseIcon_story: Story = {
+export const Logo_Incubator: Story = {
   render: () => {
-    return (
-      <div style={{ width: '30px', height: '30px' }}>
-        <CloseIcon />
-      </div>
-    )
+    return <Logo />
   },
 }
 
-export const DeletePackIcon_story: Story = {
+export const Logout_Icon: Story = {
   render: () => {
-    return (
-      <div style={{ width: '30px', height: '30px' }}>
-        <DeletePackIcon />
-      </div>
-    )
+    return <LogoutIcon />
   },
 }
 
-export const HideIcon_story: Story = {
+export const Open_Pack_Menu_Icon: Story = {
   render: () => {
-    return (
-      <div style={{ width: '30px', height: '30px' }}>
-        <HideIcon fill={'red'} />
-      </div>
-    )
+    return <OpenPackMenuIcon />
   },
 }
 
-export const LearnPackIcon_story: Story = {
+export const Pencil_Icon: Story = {
+  render: () => {
+    return <PencilIcon />
+  },
+}
+
+export const Profile_Icon: Story = {
+  render: () => {
+    return <ProfileIcon />
+  },
+}
+
+export const Search_Icon: Story = {
   render: () => {
     return (
       <div style={{ width: '50px', height: '50px' }}>
-        <LearnPackIcon />
+        <SearchIcon color={'#fff'} />
       </div>
     )
   },
 }
 
-export const Logo_story: Story = {
-  render: () => {
-    return (
-      <div style={{ width: '450px' }}>
-        <Logo />
-      </div>
-    )
-  },
-}
-
-export const LogoutIcon_story: Story = {
+export const Show_Icon: Story = {
   render: () => {
     return (
       <div style={{ width: '50px', height: '50px' }}>
-        <LogoutIcon />
+        <ShowIcon color={'#fff'} />
       </div>
     )
   },
 }
 
-export const OpenPackMenuIcon_story: Story = {
+export const Checked_Icon: Story = {
   render: () => {
-    return (
-      <div style={{ width: '50px', height: '50px' }}>
-        <OpenPackMenuIcon />
-      </div>
-    )
+    return <CheckedIcon color={'#fff'} />
   },
 }
 
-export const PencilIcon_story: Story = {
+export const Star_Icon: Story = {
   render: () => {
-    return (
-      <div style={{ width: '50px', height: '50px' }}>
-        <PencilIcon />
-      </div>
-    )
+    return <StarIcon />
   },
 }
 
-export const ProfileIcon_story: Story = {
+export const Star_Outline_Icon: Story = {
   render: () => {
-    return (
-      <div>
-        <ProfileIcon />
-      </div>
-    )
-  },
-}
-
-export const SearchIcon_story: Story = {
-  render: () => {
-    return (
-      <div style={{ width: '50px', height: '50px' }}>
-        <SearchIcon color={'red'} />
-      </div>
-    )
-  },
-}
-
-export const ShowIcon_story: Story = {
-  render: () => {
-    return (
-      <div style={{ width: '50px', height: '50px' }}>
-        <ShowIcon color={'red'} />
-      </div>
-    )
-  },
-}
-
-export const CheckedIcon_story: Story = {
-  render: () => {
-    return (
-      <div style={{ width: '50px', height: '50px' }}>
-        <CheckedIcon color={'red'} />
-      </div>
-    )
-  },
-}
-
-export const StarIcon_story: Story = {
-  render: () => {
-    return (
-      <div style={{ width: '50px', height: '50px' }}>
-        <StarIcon />
-      </div>
-    )
-  },
-}
-
-export const StarOutlineIcon_story: Story = {
-  render: () => {
-    return (
-      <div style={{ width: '50px', height: '50px' }}>
-        <StarOutlineIcon />
-      </div>
-    )
+    return <StarOutlineIcon />
   },
 }
