@@ -10,6 +10,8 @@ import { CustomSlider } from '@/components/ui/slider'
 import { CustomTabs } from '@/components/ui/switch'
 type FilterPanelPropsType = {
   className?: string
+  userEmail?: string
+  userName?: string
 }
 
 export const FilterPanel: FC<FilterPanelPropsType> = props => {
