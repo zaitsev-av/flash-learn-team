@@ -47,14 +47,16 @@ const HeadCell: FC<HeadCellProps> = ({
   ...rest
 }) => {
   const showSortDirectionIcon = sortDirection?.slice(1) === columnName && sortDirection
+  const desc = '0'
+  const asc = '1'
   const handleColumnClick = () => {
     let newSortValue = ''
 
     if (setSortDirection) {
       if (sortDirection === '') {
-        newSortValue = `0${columnName}`
-      } else if (sortDirection?.startsWith('0') && sortDirection.slice(1) === columnName) {
-        newSortValue = `1${columnName}`
+        newSortValue = `${desc + columnName}`
+      } else if (sortDirection?.startsWith(desc) && sortDirection.slice(1) === columnName) {
+        newSortValue = `${asc + columnName}`
       }
       setSortDirection(newSortValue)
     }
@@ -62,7 +64,7 @@ const HeadCell: FC<HeadCellProps> = ({
   const style = {
     th: clsx(s.headCell, className),
     title: clsx(s.title),
-    icon: clsx(s.sortDscIcon, sortDirection?.startsWith('1') && s.sortAscIcon),
+    icon: clsx(s.sortDscIcon, sortDirection?.startsWith(asc) && s.sortAscIcon),
   }
 
   return (
