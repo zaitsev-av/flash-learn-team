@@ -4,6 +4,7 @@ import { clsx } from 'clsx'
 
 import s from './table.module.scss'
 
+import { ChevronDown } from '@/assets'
 import { Typography } from '@/components'
 
 type TableProps = { className?: string } & ComponentProps<'table'>
@@ -33,13 +34,43 @@ type HeadCellProps = {
   minWidth?: number
   className?: string
   title?: string
+  columnName?: string
+  sortDirection?: string
+  setSortDirection?: (sortDirection: string) => void
 } & ComponentProps<'th'>
-const HeadCell: FC<HeadCellProps> = ({ title, className, ...rest }) => {
-  const style = clsx(s.headCell, className)
+const HeadCell: FC<HeadCellProps> = ({
+  setSortDirection,
+  sortDirection,
+  columnName,
+  title,
+  className,
+  ...rest
+}) => {
+  const showSortDirectionIcon = sortDirection?.slice(1) === columnName && sortDirection
+  const handleColumnClick = () => {
+    let newSortValue = ''
+
+    if (setSortDirection) {
+      if (sortDirection === '') {
+        newSortValue = `0${columnName}`
+      } else if (sortDirection?.startsWith('0') && sortDirection.slice(1) === columnName) {
+        newSortValue = `1${columnName}`
+      }
+      setSortDirection(newSortValue)
+    }
+  }
+  const style = {
+    th: clsx(s.headCell, className),
+    title: clsx(s.title),
+    icon: clsx(s.sortDscIcon, sortDirection?.startsWith('1') && s.sortAscIcon),
+  }
 
   return (
-    <th className={style} {...rest}>
-      <Typography variant={'subtitle2'}>{title}</Typography>
+    <th className={style.th} {...rest} onClick={handleColumnClick}>
+      <div className={style.title}>
+        <Typography variant={'subtitle2'}>{title}</Typography>
+        <div className={style.icon}>{showSortDirectionIcon && <ChevronDown />}</div>
+      </div>
     </th>
   )
 }
