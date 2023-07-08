@@ -14,6 +14,7 @@ export type CustomSliderPropsType = {
   onValueCommit: (values: [number, number]) => void
   onChange: (values: [number, number]) => void
   className?: string
+  value: [number, number]
 }
 
 export const CustomSlider: FC<CustomSliderPropsType> = props => {

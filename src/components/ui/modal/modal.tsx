@@ -4,7 +4,6 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 import s from './modal.module.scss'
 
-import { ModalContent } from '@/components/ui/modal/content.tsx'
 import { ModalTitle } from '@/components/ui/modal/title.tsx'
 
 type ModalProps = {
@@ -24,8 +23,8 @@ export const Modal: FC<ModalProps> = ({ title, body, footer, isOpen, trigger, on
         <Dialog.Overlay className={s.overlay} />
         <Dialog.Content className={s.content}>
           <ModalTitle title={title} />
-          {body && <ModalContent content={body} />}
-          {footer && <ModalContent className={s.footer} content={footer} />}
+          {body}
+          {footer}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

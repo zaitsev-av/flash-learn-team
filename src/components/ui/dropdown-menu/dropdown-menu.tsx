@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import * as DropdownMenuRDX from '@radix-ui/react-dropdown-menu'
 
@@ -10,15 +10,13 @@ import { MenuWithAvtar } from '@/components/ui/dropdown-menu/menu-with-avtar.tsx
 import { MenuWithLearnIcon } from '@/components/ui/dropdown-menu/menu-with-learn-icon.tsx'
 
 export type DropdownMenuPropsType = {
-  variant?: 'avatar' | 'learn-menu'
+  trigger: ReactNode
 }
-export const DropdownMenu: FC<DropdownMenuPropsType> = ({ variant = 'avatar' }) => {
+export const DropdownMenu: FC<DropdownMenuPropsType> = ({ trigger }) => {
   return (
     <DropdownMenuRDX.Root>
       <DropdownMenuRDX.Trigger asChild className={s.trigger}>
-        <button className={s.icon_button}>
-          {variant === 'avatar' ? <Avatar variant={'header'} /> : <OpenPackMenuIcon />}
-        </button>
+        {trigger}
       </DropdownMenuRDX.Trigger>
 
       <DropdownMenuRDX.Portal>

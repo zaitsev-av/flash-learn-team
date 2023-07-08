@@ -31,6 +31,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
         onChange={() => {}}
         label={'Number of cards'}
         className={s.slider}
+        value={[10, 90]}
       />
       <Button variant={'secondary'} className={s.btn}>
         <DeleteIcon />

@@ -153,14 +153,12 @@ export const Data_Cell_WithGrade: Story = {
   args: {
     children: (
       <Table.DataCell className={s.row}>
-        {
-          <Grade
-            grade={3}
-            onClick={() => {
-              console.log()
-            }}
-          />
-        }
+        <Grade
+          grade={3}
+          onClick={() => {
+            console.log()
+          }}
+        />
       </Table.DataCell>
     ),
   },
