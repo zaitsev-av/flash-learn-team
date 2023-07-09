@@ -23,7 +23,7 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
       <Typography variant="large" as={'h1'} className={s.title}>
         Personal Information
       </Typography>
-      <Avatar variant={'header'} className={s.avatar} avatar={file} />
+      <Avatar label={userName} className={s.avatar} src={file} />
       {!editMode ? (
         <>
           <div className={s.edit_avtar}>
