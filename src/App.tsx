@@ -1,14 +1,6 @@
 import { useState } from 'react'
 
-import {
-  Button,
-  Checkbox,
-  CustomSelect,
-  DropdownMenu,
-  Header,
-  Pagination,
-  TextField,
-} from '@/components'
+import { Button, Checkbox, CustomSelect, Pagination, TextField } from '@/components'
 import { Modal } from '@/components/ui/modal'
 
 export const App = () => {
@@ -17,9 +9,6 @@ export const App = () => {
 
   return (
     <>
-      <Header>
-        <DropdownMenu />
-      </Header>
       <Button />
       <CustomSelect items={['1', '2']} />
       <Pagination

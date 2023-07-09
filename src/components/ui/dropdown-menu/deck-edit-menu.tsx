@@ -2,7 +2,7 @@ import { DeletePackIcon, LearnPackIcon, PencilIcon } from '@/assets'
 import { Typography } from '@/components'
 import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 
-export const MenuWithLearnIcon = () => {
+export const DeckEditMenu = () => {
   return (
     <>
       <MenuItem>

@@ -7,7 +7,7 @@ import s from './filter-panel.module.scss'
 import DeleteIcon from '@/assets/icons/DeleteIcon.tsx'
 import { Button, TextField, Typography } from '@/components'
 import { CustomSlider } from '@/components/ui/slider'
-import { CustomTabs } from '@/components/ui/switch'
+import { Tabs } from '@/components/ui/tabs'
 type FilterPanelPropsType = {
   className?: string
   userEmail?: string
@@ -23,7 +23,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
   return (
     <div className={classNames.root}>
       <TextField title={''} inputType={'search'} className={s.text_field} />
-      <CustomTabs tabs={['Me cards', 'All cards']} label={'Show packs cards'} />
+      <Tabs tabs={['Me cards', 'All cards']} label={'Show packs cards'} />
       <CustomSlider
         minValue={10}
         maxValue={99}

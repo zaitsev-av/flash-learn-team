@@ -13,11 +13,12 @@ export type UserAvatarPropsType = {
 }
 export const Avatar: FC<UserAvatarPropsType> = ({ label, className, src }) => {
   const classNames = {
-    root: clsx(s.root, className),
+    wrapper: clsx(s.wrapper, className),
+    root: clsx(s.root),
   }
 
   return (
-    <div className={`${s.wrapper}`}>
+    <div className={classNames.wrapper}>
       {label && (
         <Label.Root className={s.label_wrapper} htmlFor="user name">
           {label}
