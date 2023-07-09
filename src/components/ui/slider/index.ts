@@ -1,1 +1,1 @@
-export * from './custom-slider.tsx'
+export * from './slider.tsx'

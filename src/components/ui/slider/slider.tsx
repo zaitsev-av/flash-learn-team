@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import * as Slider from '@radix-ui/react-slider'
+import * as SliderRDX from '@radix-ui/react-slider'
 import { clsx } from 'clsx'
 
-import s from './custom-slider.module.scss'
+import s from './slider.module.scss'
 
 import { Typography } from '@/components'
 
@@ -15,10 +15,11 @@ export type CustomSliderPropsType = {
   onChange: (values: [number, number]) => void
   className?: string
   value: [number, number]
+  step?: number
 }
 
-export const CustomSlider: FC<CustomSliderPropsType> = props => {
-  const { maxValue, minValue, onValueCommit, label, onChange, className } = props
+export const Slider: FC<CustomSliderPropsType> = props => {
+  const { maxValue, minValue, onValueCommit, label, onChange, className, value, step = 1 } = props
   const classNames = {
     container: clsx(s.container, className),
   }
@@ -30,20 +31,21 @@ export const CustomSlider: FC<CustomSliderPropsType> = props => {
       </label>
       <form className={s.wrapper}>
         <div className={s.values}>{minValue}</div>
-        <Slider.Root
+        <SliderRDX.Root
+          value={value}
           className={s.root}
           defaultValue={[minValue, maxValue]}
           max={100}
-          step={1}
+          step={step}
           onValueCommit={onValueCommit}
           onValueChange={onChange}
         >
-          <Slider.Track className={s.track}>
-            <Slider.Range className={s.range} />
-          </Slider.Track>
-          <Slider.Thumb className={s.thumb} aria-label="Volume" />
-          <Slider.Thumb className={s.thumb} aria-label="Volume" />
-        </Slider.Root>
+          <SliderRDX.Track className={s.track}>
+            <SliderRDX.Range className={s.range} />
+          </SliderRDX.Track>
+          <SliderRDX.Thumb className={s.thumb} aria-label="Volume" />
+          <SliderRDX.Thumb className={s.thumb} aria-label="Volume" />
+        </SliderRDX.Root>
         <div className={s.values}>{maxValue}</div>
       </form>
     </div>

@@ -2,11 +2,11 @@ import { useState } from 'react'
 
 import { Meta } from '@storybook/react'
 
-import { CustomSlider } from '@/components/ui/slider/custom-slider.tsx'
+import { Slider } from '@/components/ui/slider/slider.tsx'
 
 const meta = {
   title: 'Components/Slider',
-  component: CustomSlider,
+  component: Slider,
   tags: ['autodocs'],
   argTypes: {
     minValue: { control: 'number' },
@@ -14,7 +14,7 @@ const meta = {
     onValueCommit: () => {},
     onChange: () => {},
   },
-} satisfies Meta<typeof CustomSlider>
+} satisfies Meta<typeof Slider>
 
 export default meta
 
@@ -29,7 +29,8 @@ export const Slider_ = {
     }
 
     return (
-      <CustomSlider
+      <Slider
+        value={values}
         minValue={values[0]}
         maxValue={values[1]}
         onValueCommit={showSliderValues}
