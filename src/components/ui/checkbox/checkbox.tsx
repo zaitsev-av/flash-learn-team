@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import * as CheckboxRDX from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 
@@ -14,37 +16,40 @@ export type CheckboxProps = {
   disabled?: boolean
 }
 
-export const Checkbox = (props: CheckboxProps) => {
-  const { className, checked, left, label, disabled, onChange } = props
-  const checkColor = disabled ? 'var(--color-dark-100)' : 'var(--color-light-100)'
-
+export const Checkbox: FC<CheckboxProps> = ({
+  className,
+  checked,
+  left,
+  label,
+  disabled,
+  onChange,
+}) => {
   const cNames = {
-    container: clsx(s.container, className, left && s.left),
-    stateLayer: clsx({ [s.disabled]: disabled, [s.stateLayer]: !disabled }),
-    root: s.CheckboxRoot,
-    indicator: s.CheckboxIndicator,
+    wrapper: clsx(s.wrapper, left && s.left, className),
+    stateLayer: clsx(s.stateLayer, disabled && s.disabled),
+    root: clsx(s.checkboxRoot),
+    indicator: clsx(s.checkboxIndicator),
     label: clsx(s.label, disabled && s.disabledLabel),
   }
 
   return (
-    <>
-      <div>
-        <div className={cNames.container}>
-          <div className={cNames.stateLayer}>
-            <CheckboxRDX.Root
-              onCheckedChange={onChange}
-              className={cNames.root}
-              checked={checked}
-              disabled={disabled}
-            >
-              <CheckboxRDX.Indicator className={cNames.indicator}>
-                <CheckedIcon color={checkColor} />
-              </CheckboxRDX.Indicator>
-            </CheckboxRDX.Root>
-          </div>
-          <label className={cNames.label}>{label}</label>
-        </div>
-      </div>
-    </>
+    <div className={cNames.wrapper}>
+      <label className={cNames.stateLayer} tabIndex={0} htmlFor="c1">
+        <CheckboxRDX.Root
+          onCheckedChange={onChange}
+          className={cNames.root}
+          checked={checked}
+          disabled={disabled}
+          id="c1"
+        >
+          <CheckboxRDX.Indicator className={cNames.indicator}>
+            <CheckedIcon />
+          </CheckboxRDX.Indicator>
+        </CheckboxRDX.Root>
+      </label>
+      <label className={cNames.label} htmlFor="c1">
+        {label}
+      </label>
+    </div>
   )
 }

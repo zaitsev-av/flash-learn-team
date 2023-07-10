@@ -2,17 +2,16 @@ import { memo, SVGProps } from 'react'
 
 const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width={19}
-    height={19}
-    viewBox="3 3 18 18"
-    preserveAspectRatio="xMinYMin meet"
+    width={18}
+    height={18}
+    viewBox="0 0 18 18"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
-      d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-      fill={props.color}
+      d="M16 0H2a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V2a2 2 0 00-2-2zM7 14L2 9l1.41-1.41L7 11.17l7.59-7.59L16 5l-9 9z"
+      fill="currentColor"
     />
   </svg>
 )
