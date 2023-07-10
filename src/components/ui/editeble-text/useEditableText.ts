@@ -11,16 +11,13 @@ export const useEditableText = (text: '' | undefined | string) => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
   }
-  const disableEditMode = (callback: Function) => {
-    if (value) {
-      if (value.trim() !== '') {
-        // dispatch отправим в стейт
-        callback(false)
-        setError('')
-      } else {
-        setError('Nickname in required')
-      }
-    }
+  const disableEditMode = () => {
+    if (!value) return
+
+    if (!value.trim()) return setError('Nickname in required')
+
+    // dispatch отправим в стейт
+    setError('')
   }
 
   return {

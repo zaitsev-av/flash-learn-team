@@ -9,6 +9,7 @@ const meta = {
   args: {
     userEmail: 'bababa@gmail.com',
     userName: 'User',
+    onLogout: () => console.log('logout'),
   },
 } satisfies Meta<typeof PersonalInfo>
 
