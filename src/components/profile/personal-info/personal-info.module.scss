@@ -1,4 +1,6 @@
 .card {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -12,16 +14,10 @@
     padding: 2.063rem 2.25rem 5.25rem;
   }
 
-  .avatar {
-    width: 6rem !important;
-    height: 6rem !important;
-    margin-top: 1.688rem;
-  }
-
   .edit_avtar {
     position: absolute;
-    top: 13.95rem;
-    left: 16.15rem;
+    bottom: 10.5rem;
+    left: 14.3rem;
 
     display: flex;
     align-items: center;

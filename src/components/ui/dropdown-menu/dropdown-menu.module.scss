@@ -19,6 +19,10 @@ button {
 
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+  .menu_item {
+    padding: 0;
+  }
 }
 
 .content[data-side='top'] {
@@ -106,8 +110,4 @@ button {
     transform: translateX(0);
     opacity: 1;
   }
-}
-
-.menu_item {
-  padding: 0;
 }

@@ -13,6 +13,10 @@ export const EditableText: FC<EditableTextPropsType> = props => {
   const { text, callback } = props
 
   const { disableEditMode, error, value, handleInputChange } = useEditableText(text && text)
+  const disableEditModeHandler = () => {
+    disableEditMode()
+    callback(false)
+  }
 
   return (
     <>
@@ -27,7 +31,7 @@ export const EditableText: FC<EditableTextPropsType> = props => {
       <Button
         variant={'primary'}
         fullWidth={true}
-        onClick={() => disableEditMode(callback)}
+        onClick={disableEditModeHandler}
         className={s.btn}
       >
         Save Changes
