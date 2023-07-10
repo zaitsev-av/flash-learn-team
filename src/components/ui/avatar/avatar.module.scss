@@ -1,15 +1,15 @@
 .wrapper {
   display: flex;
-  gap: 5px;
-  padding: 17.5px;
+  gap: 0.3rem;
+  padding: 1.1rem;
 
   .label_wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 0.3rem;
     align-items: center;
 
-    padding: 0 2px;
+    padding: 0 0.13rem;
   }
 
   .root {
@@ -22,7 +22,7 @@
 
     vertical-align: middle;
 
-    border-radius: 9999px;
+    border-radius: 50%;
 
     .avatar_image {
       object-fit: cover;
@@ -33,9 +33,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      width: 50px;
-      height: 50px;
 
       font-weight: var(--font-weight-bold);
       color: var(--color-dark-900);
