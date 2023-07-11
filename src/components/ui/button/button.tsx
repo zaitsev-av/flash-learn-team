@@ -22,7 +22,6 @@ const Button = <T extends ElementType = 'button'>(
     className,
     ...rest
   } = props
-  // const isDisabled = clsx(className, disabled && s.disabledLink)
 
   const classNames = {
     root: clsx(
