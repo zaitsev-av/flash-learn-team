@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef, FC } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -15,9 +15,57 @@ const Root: FC<TableProps> = ({ className, ...rest }) => {
   return <table className={style} {...rest} />
 }
 
-type HeadProps = { className?: string } & ComponentProps<'thead'>
-const Head: FC<HeadProps> = ({ className, ...rest }) => {
-  return <thead className={className} {...rest} />
+export type Sort = {
+  columnKey: string
+  direction: 'asc' | 'desc' | null
+} | null
+type Column = {
+  key: string
+  title: string
+  sortable: boolean
+}
+type HeadProps = Omit<
+  ComponentPropsWithoutRef<'thead'> & {
+    columns: Column[]
+    sort?: Sort
+    onSort?: (sort: Sort) => void
+    className?: string
+  },
+  'children'
+>
+const Head: FC<HeadProps> = ({ columns, sort, onSort, className, ...rest }) => {
+  const handlerSort = (key: string, sortable?: boolean) => {
+    if (!onSort || !sortable) return
+
+    if (key !== sort?.columnKey) {
+      return onSort({ columnKey: key, direction: 'asc' })
+    }
+    if (sort.direction === 'asc') {
+      return onSort({ columnKey: key, direction: 'desc' })
+    }
+
+    onSort(null)
+  }
+
+  return (
+    <thead className={className} {...rest}>
+      {columns.map(col => {
+        const handler = () => {
+          handlerSort(col.key, col.sortable)
+        }
+
+        return (
+          <Table.HeadCell
+            sort={sort}
+            title={col.title}
+            onClick={handler}
+            key={col.key}
+            columnKey={col.key}
+          />
+        )
+      })}
+    </thead>
+  )
 }
 
 type BodyProps = { className?: string } & ComponentProps<'tbody'>
@@ -34,44 +82,28 @@ type HeadCellProps = {
   minWidth?: number
   className?: string
   title?: string
-  columnName?: string
-  sortDirection?: string
-  setSortDirection?: (sortDirection: string) => void
+  columnKey?: string
+  sort?: Sort
+  onClick?: (sortDirection: string) => void
 } & ComponentProps<'th'>
-const HeadCell: FC<HeadCellProps> = ({
-  setSortDirection,
-  sortDirection,
-  columnName,
-  title,
-  className,
-  ...rest
-}) => {
-  const showSortDirectionIcon = sortDirection?.slice(1) === columnName && sortDirection
-  const desc = '0'
-  const asc = '1'
-  const handleColumnClick = () => {
-    let newSortValue = ''
-
-    if (setSortDirection) {
-      if (sortDirection === '') {
-        newSortValue = `${desc + columnName}`
-      } else if (sortDirection?.startsWith(desc) && sortDirection.slice(1) === columnName) {
-        newSortValue = `${asc + columnName}`
-      }
-      setSortDirection(newSortValue)
-    }
-  }
+const HeadCell: FC<HeadCellProps> = ({ onClick, sort, columnKey, title, className, ...rest }) => {
   const style = {
     th: clsx(s.headCell, className),
     title: clsx(s.title),
-    icon: clsx(s.sortDscIcon, sortDirection?.startsWith(asc) && s.sortAscIcon),
+    icon: clsx(s.sortDscIcon, sort?.direction === 'asc' && s.sortAscIcon),
+  }
+  const showSortIcon = sort?.columnKey === columnKey && sort?.direction
+  const handleClick = () => {
+    if (onClick && columnKey) {
+      onClick(columnKey)
+    }
   }
 
   return (
-    <th className={style.th} {...rest} onClick={handleColumnClick}>
+    <th className={style.th} {...rest} onClick={handleClick}>
       <div className={style.title}>
         <Typography variant={'subtitle2'}>{title}</Typography>
-        <div className={style.icon}>{showSortDirectionIcon && <ChevronDown />}</div>
+        <div className={style.icon}>{showSortIcon && <ChevronDown />}</div>
       </div>
     </th>
   )
