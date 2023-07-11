@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button, Checkbox, CustomSelect, TextField } from '@/components'
+import { Button, Checkbox, Select, TextField } from '@/components'
 import { Modal } from '@/components/ui/modal'
 
 export const App = () => {
@@ -8,14 +8,11 @@ export const App = () => {
 
   return (
     <>
-      <Button as={'a'} variant={'link'} href={'/test'}>
-        link
-      </Button>
-      <a href="">link</a>
-      <CustomSelect items={['1', '2']} />
+      <Button />
+      <Select items={['1', '2']} />
 
       <div style={{ paddingLeft: '35%' }}>
-        <CustomSelect items={['select1', 'select1', 'select1', 'select1']} width={210} />
+        <Select items={['select1', 'select1', 'select1', 'select1']} width={210} />
       </div>
       <Modal
         isOpen={isModalOpen}
@@ -29,7 +26,7 @@ export const App = () => {
               gap: '1.5rem',
             }}
           >
-            <CustomSelect
+            <Select
               label={'Choose a question format'}
               items={['select1', 'select1', 'select1', 'select1']}
             />

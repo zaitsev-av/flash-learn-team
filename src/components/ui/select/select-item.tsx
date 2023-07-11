@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import * as Select from '@radix-ui/react-select'
 
-import s from '@/components/ui/select/custom-select.module.scss'
+import s from '@/components/ui/select/select.module.scss'
 import { Typography } from '@/components/ui/typography'
 
 type SelectItemPropsType = {
