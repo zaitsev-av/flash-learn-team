@@ -42,6 +42,7 @@ export const Select_with_label: Story = {
   args: {
     items: ['select1', 'select2', 'select3', 'select4'],
     label: 'Label',
+    fullWidth: true,
   },
 }
 

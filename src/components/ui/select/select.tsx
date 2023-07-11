@@ -17,6 +17,8 @@ export type SelectPropsType = {
   onChange?: (value: string) => void
   width?: CSSProperties['width']
   className?: string
+  value?: string
+  fullWidth?: boolean
 }
 export const Select: FC<SelectPropsType> = props => {
   const {
@@ -26,7 +28,9 @@ export const Select: FC<SelectPropsType> = props => {
     label,
     onChange,
     placeholder = items[0],
-    width = '100%',
+    width,
+    value,
+    fullWidth,
   } = props
 
   const classNames = {
@@ -35,16 +39,18 @@ export const Select: FC<SelectPropsType> = props => {
     itemClass: clsx(s.item, className),
     icon: clsx(s.icon),
     content: clsx(s.content),
+    root: clsx(s.root, fullWidth && s.fullWidth),
+    val: clsx(s.value),
   }
 
   return (
-    <div style={{ width: width }}>
+    <div className={classNames.root} style={{ width: width }}>
       <label className={classNames.label} aria-disabled={disabled}>
         <Typography variant={'body1'}>{label}</Typography>
       </label>
-      <SelectRDX.Root disabled={disabled} onValueChange={onChange}>
-        <SelectRDX.Trigger className={classNames.trigger} style={{ width: width }}>
-          <SelectRDX.Value placeholder={<Typography variant={'body1'}>{placeholder}</Typography>} />
+      <SelectRDX.Root value={value} disabled={disabled} onValueChange={onChange}>
+        <SelectRDX.Trigger className={classNames.trigger}>
+          <SelectRDX.Value className={s.value} placeholder={placeholder} />
           <SelectRDX.Icon
             className={classNames.icon}
             data-state={disabled ? 'disabled' : 'not-disabled'}
