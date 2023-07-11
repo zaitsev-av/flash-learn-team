@@ -7,8 +7,16 @@ import { Slider } from '@/components/ui/slider/slider.tsx'
 const meta = {
   title: 'Components/Slider',
   component: Slider,
+  decorators: [
+    Story => (
+      <div style={{ margin: '3rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   argTypes: {
+    value: [],
     minValue: { control: 'number' },
     maxValue: { control: 'number' },
     onValueCommit: () => {},
@@ -30,6 +38,7 @@ export const Slider_ = {
 
     return (
       <Slider
+        label={'this label'}
         value={values}
         minValue={values[0]}
         maxValue={values[1]}
