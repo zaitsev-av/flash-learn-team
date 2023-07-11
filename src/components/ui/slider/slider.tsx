@@ -7,47 +7,65 @@ import s from './slider.module.scss'
 
 import { Typography } from '@/components'
 
-export type CustomSliderPropsType = {
-  label?: string
+export type SliderPropsType = {
+  value: [number, number]
   minValue: number
   maxValue: number
+  step?: number
+  max?: number
+  min?: number
+  label?: string
+  className?: string
   onValueCommit: (values: [number, number]) => void
   onChange: (values: [number, number]) => void
-  className?: string
-  value: [number, number]
-  step?: number
 }
 
-export const Slider: FC<CustomSliderPropsType> = props => {
-  const { maxValue, minValue, onValueCommit, label, onChange, className, value, step = 1 } = props
+export const Slider: FC<SliderPropsType> = props => {
+  const {
+    maxValue,
+    minValue,
+    onValueCommit,
+    label,
+    onChange,
+    className,
+    value,
+    step = 1,
+    min = 0,
+    max = 100,
+  } = props
   const classNames = {
     container: clsx(s.container, className),
+    wrapper: clsx(s.wrapper),
+    values: clsx(s.values),
+    root: clsx(s.root),
+    track: clsx(s.track),
+    range: clsx(s.range),
+    thumb: clsx(s.thumb),
   }
 
   return (
     <div className={classNames.container}>
-      <label className={s.label}>
-        <Typography variant={'body2'}>{label}</Typography>{' '}
-      </label>
-      <form className={s.wrapper}>
-        <div className={s.values}>{minValue}</div>
+      {label && <Typography variant={'body2'}>{label}</Typography>}
+      <div className={classNames.wrapper}>
+        <div className={classNames.values}>{minValue}</div>
         <SliderRDX.Root
           value={value}
-          className={s.root}
+          className={classNames.root}
           defaultValue={[minValue, maxValue]}
-          max={100}
+          min={min}
+          max={max}
           step={step}
           onValueCommit={onValueCommit}
           onValueChange={onChange}
         >
-          <SliderRDX.Track className={s.track}>
-            <SliderRDX.Range className={s.range} />
+          <SliderRDX.Track className={classNames.track}>
+            <SliderRDX.Range className={classNames.range} />
           </SliderRDX.Track>
-          <SliderRDX.Thumb className={s.thumb} aria-label="Volume" />
-          <SliderRDX.Thumb className={s.thumb} aria-label="Volume" />
+          <SliderRDX.Thumb className={classNames.thumb} />
+          <SliderRDX.Thumb className={classNames.thumb} />
         </SliderRDX.Root>
         <div className={s.values}>{maxValue}</div>
-      </form>
+      </div>
     </div>
   )
 }
