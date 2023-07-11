@@ -16,9 +16,17 @@ export type PaginationPropsType = {
   siblingCount: number
   className?: string
   onPageChange: (page: number) => void
+  onPageSizeChange: (pageSize: string) => void
 }
 export const Pagination: FC<PaginationPropsType> = props => {
-  const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize } = props
+  const {
+    onPageSizeChange,
+    onPageChange,
+    totalCount,
+    siblingCount = 1,
+    currentPage,
+    pageSize,
+  } = props
   const DOTS = '\u2026'
   const paginationRange = usePagination({
     currentPage,
@@ -46,7 +54,7 @@ export const Pagination: FC<PaginationPropsType> = props => {
     select: clsx(s.select),
   }
 
-  if (currentPage === 0 || paginationRange.length < 2) {
+  if (currentPage === 0 || paginationRange.length < 1) {
     return null
   }
 
@@ -118,7 +126,13 @@ export const Pagination: FC<PaginationPropsType> = props => {
       </div>
       <div className={cNames.rowsPerPage}>
         <Typography variant={'body2'}>Rows</Typography>
-        <CustomSelect className={cNames.select} width={50} items={ROWS_PER_PAGE} />
+        <CustomSelect
+          className={cNames.select}
+          width={50}
+          value={`${pageSize}`}
+          items={ROWS_PER_PAGE}
+          onChange={onPageSizeChange}
+        />
         <Typography variant={'body2'}>per page</Typography>
       </div>
     </div>
