@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { CSSProperties, FC } from 'react'
 
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 import * as SelectRDX from '@radix-ui/react-select'
@@ -15,7 +15,7 @@ export type SelectPropsType = {
   label?: string
   placeholder?: string
   onChange?: (value: string) => void
-  width?: number | string
+  width?: CSSProperties['width']
   className?: string
 }
 export const Select: FC<SelectPropsType> = props => {
@@ -38,12 +38,12 @@ export const Select: FC<SelectPropsType> = props => {
   }
 
   return (
-    <div>
+    <div style={{ width: width }}>
       <label className={classNames.label} aria-disabled={disabled}>
         <Typography variant={'body1'}>{label}</Typography>
       </label>
       <SelectRDX.Root disabled={disabled} onValueChange={onChange}>
-        <SelectRDX.Trigger className={classNames.trigger} style={{ width: `${width}px` }}>
+        <SelectRDX.Trigger className={classNames.trigger} style={{ width: width }}>
           <SelectRDX.Value placeholder={<Typography variant={'body1'}>{placeholder}</Typography>} />
           <SelectRDX.Icon
             className={classNames.icon}

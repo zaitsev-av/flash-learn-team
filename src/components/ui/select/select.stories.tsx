@@ -31,6 +31,20 @@ export const Select_default: Story = {
   },
 }
 
+export const Select_for_pagination: Story = {
+  args: {
+    items: ['10', '20', '50', '80', '100'],
+    width: 50,
+  },
+}
+
+export const Select_with_label: Story = {
+  args: {
+    items: ['select1', 'select2', 'select3', 'select4'],
+    label: 'Label',
+  },
+}
+
 export const Select_disabled: Story = {
   args: {
     items: ['select1', 'select1', 'select1', 'select1'],
