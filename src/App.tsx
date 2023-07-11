@@ -1,10 +1,9 @@
 import { useState } from 'react'
 
-import { Button, Checkbox, CustomSelect, Pagination, TextField } from '@/components'
+import { Button, Checkbox, CustomSelect, TextField } from '@/components'
 import { Modal } from '@/components/ui/modal'
 
 export const App = () => {
-  const [page, setPage] = useState(1)
   const [isModalOpen, setModalOpen] = useState(false)
 
   return (
@@ -14,13 +13,7 @@ export const App = () => {
       </Button>
       <a href="">link</a>
       <CustomSelect items={['1', '2']} />
-      <Pagination
-        currentPage={page}
-        pageSize={2}
-        totalCount={30}
-        siblingCount={1}
-        onPageChange={setPage}
-      />
+
       <div style={{ paddingLeft: '35%' }}>
         <CustomSelect items={['select1', 'select1', 'select1', 'select1']} width={210} />
       </div>
