@@ -1,12 +1,26 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { CustomSelect } from '@/components/ui/select/custom-select.tsx'
+import { Select } from '@/components'
 
 const meta = {
   title: 'Components/Select',
-  component: CustomSelect,
+  component: Select,
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
+  argTypes: {
+    width: { control: 'number' },
+  },
+  args: {
+    label: '',
+    onChange: value => console.log(value),
+  },
   tags: ['autodocs'],
-} satisfies Meta<typeof CustomSelect>
+} satisfies Meta<typeof Select>
 
 export default meta
 type Story = StoryObj<typeof meta>

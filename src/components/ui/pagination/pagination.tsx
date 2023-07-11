@@ -6,7 +6,7 @@ import s from './pagination.module.scss'
 import { usePagination } from './usePagination'
 
 import { ChevronLeft, ChevronRight } from '@/assets/icons'
-import { CustomSelect, Typography } from '@/components'
+import { Select, Typography } from '@/components'
 import { ROWS_PER_PAGE } from '@/components/ui/pagination/constants.ts'
 
 export type PaginationPropsType = {
@@ -118,7 +118,7 @@ export const Pagination: FC<PaginationPropsType> = props => {
       </div>
       <div className={cNames.rowsPerPage}>
         <Typography variant={'body2'}>Rows</Typography>
-        <CustomSelect className={cNames.select} width={50} items={ROWS_PER_PAGE} />
+        <Select className={cNames.select} width={50} items={ROWS_PER_PAGE} />
         <Typography variant={'body2'}>per page</Typography>
       </div>
     </div>

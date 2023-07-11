@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Button, Checkbox, CustomSelect, Pagination, TextField } from '@/components'
+import { Button, Checkbox, Pagination, Select, TextField } from '@/components'
 import { Modal } from '@/components/ui/modal'
 
 export const App = () => {
@@ -10,7 +10,7 @@ export const App = () => {
   return (
     <>
       <Button />
-      <CustomSelect items={['1', '2']} />
+      <Select items={['1', '2']} />
       <Pagination
         currentPage={page}
         pageSize={2}
@@ -19,7 +19,7 @@ export const App = () => {
         onPageChange={setPage}
       />
       <div style={{ paddingLeft: '35%' }}>
-        <CustomSelect items={['select1', 'select1', 'select1', 'select1']} width={210} />
+        <Select items={['select1', 'select1', 'select1', 'select1']} width={210} />
       </div>
       <Modal
         isOpen={isModalOpen}
@@ -33,7 +33,7 @@ export const App = () => {
               gap: '1.5rem',
             }}
           >
-            <CustomSelect
+            <Select
               label={'Choose a question format'}
               items={['select1', 'select1', 'select1', 'select1']}
             />
