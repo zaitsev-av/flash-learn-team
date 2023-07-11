@@ -9,7 +9,10 @@ export const App = () => {
 
   return (
     <>
-      <Button />
+      <Button as={'a'} variant={'link'} href={'/test'}>
+        link
+      </Button>
+      <a href="">link</a>
       <CustomSelect items={['1', '2']} />
       <Pagination
         currentPage={page}
