@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from '@/components'
+import { Button, TextField } from '@/components'
 import { Modal } from '@/components/ui/modal/modal.tsx'
 
 const meta = {
@@ -18,8 +18,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     title: 'Title',
-    body: 'Body',
-    footer: 'Footer',
+    body: <TextField inputType={'text'} title={'test'} />,
   },
 }
 

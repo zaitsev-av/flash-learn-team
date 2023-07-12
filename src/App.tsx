@@ -26,10 +26,6 @@ export const App = () => {
               gap: '1.5rem',
             }}
           >
-            <Select
-              label={'Choose a question format'}
-              items={['select1', 'select1', 'select1', 'select1']}
-            />
             <TextField inputType={'text'} title={'Question'} />
             <TextField inputType={'text'} title={'Answer'} />
           </div>

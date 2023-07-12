@@ -14,8 +14,8 @@ export const ModalTitle: FC<ModalTitleProps> = ({ title }) => {
   return (
     <Dialog.Title className={s.titleContainer}>
       <Typography variant={'h2'}>{title}</Typography>
-      <Dialog.Close asChild className={s.closeIcon}>
-        <button>
+      <Dialog.Close asChild>
+        <button className={s.closeIcon}>
           <CloseIcon />
         </button>
       </Dialog.Close>
