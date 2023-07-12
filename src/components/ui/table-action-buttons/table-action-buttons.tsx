@@ -3,6 +3,7 @@ import { FC } from 'react'
 import s from './table-action-buttons.module.scss'
 
 import { EditIcon, PlayIcon, DeleteIcon } from '@/assets'
+import { AddNewPackModal } from '@/components/ui/modal/add-new-pack-modal'
 
 type TableActionsProps = {
   editable?: boolean
@@ -10,17 +11,32 @@ type TableActionsProps = {
 export const TableActions: FC<TableActionsProps> = ({ editable = true }) => {
   return (
     <div className={s.container}>
-      <button>
-        <PlayIcon />
-      </button>
+      <AddNewPackModal
+        trigger={
+          <button>
+            <PlayIcon />
+          </button>
+        }
+        onSubmit={() => {}}
+      />
       {editable && (
         <>
-          <button>
-            <EditIcon />
-          </button>
-          <button>
-            <DeleteIcon />
-          </button>
+          <AddNewPackModal
+            trigger={
+              <button>
+                <EditIcon />
+              </button>
+            }
+            onSubmit={() => {}}
+          />
+          <AddNewPackModal
+            trigger={
+              <button>
+                <DeleteIcon />
+              </button>
+            }
+            onSubmit={() => {}}
+          />
         </>
       )}
     </div>
