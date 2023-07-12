@@ -17,7 +17,7 @@ export const MenuItem = <T extends ElementType = 'div'>({
   onSelect,
   ...rest
 }: MenuItemPropsType<T>) => {
-  const onSelectHandler = (e: any) => {
+  const onSelectHandler = (e: Event) => {
     onSelect && onSelect()
     e.preventDefault()
   }
