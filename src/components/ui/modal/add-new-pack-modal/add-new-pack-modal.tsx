@@ -49,6 +49,7 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = props => {
               control={control}
               title={'Name Pack'}
               inputType={'text'}
+              error={'12312312'}
             />
             <ControlledCheckbox control={control} name={'private'} label={'Private pack'} left />
           </form>

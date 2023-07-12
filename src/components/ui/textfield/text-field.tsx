@@ -46,8 +46,8 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
       </div>
     )
 
-    const leftIcon = (
-      <div className={cNames.search}>{inputType === 'search' && <SearchIcon color={color} />}</div>
+    const leftIcon = inputType === 'search' && (
+      <div className={cNames.search}>{<SearchIcon color={color} />}</div>
     )
 
     const errorMessage = error && (
@@ -65,8 +65,8 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
           <input ref={ref} disabled={disabled} className={cNames.input} type={type} {...rest} />
           {rightIcons}
           {leftIcon}
+          <div className={cNames.error}>{errorMessage}</div>
         </div>
-        <div className={cNames.error}>{errorMessage}</div>
       </div>
     )
   }

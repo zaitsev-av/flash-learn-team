@@ -49,7 +49,7 @@ export const Select_with_label: Story = {
 
 export const Select_disabled: Story = {
   args: {
-    items: ['select1', 'select1', 'select1', 'select1'],
+    items: ['select13', 'select1', 'select1', 'select1'],
     disabled: true,
   },
 }

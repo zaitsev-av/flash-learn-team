@@ -20,11 +20,17 @@ export const App = () => {
         isOpen={isModalOpen}
         onOpenChange={setModalOpen}
         body={
-          <div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '1.5rem',
+            }}
+          >
             <Select
-              fullWidth
               label={'Choose a question format'}
-              items={['select1', 'select2', 'select13', 'select133']}
+              items={['select1', 'select1', 'select1', 'select1']}
             />
             <TextField inputType={'text'} title={'Question'} />
             <TextField inputType={'text'} title={'Answer'} />
