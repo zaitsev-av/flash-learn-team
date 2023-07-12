@@ -42,29 +42,27 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = props => {
       onOpenChange={onOpenChange}
       isOpen={isOpen}
       body={
-        <>
-          <form onSubmit={onSubmitForm}>
-            <ControlledTextField
-              name={'namePack'}
-              control={control}
-              title={'Name Pack'}
-              inputType={'text'}
-              error={'12312312'}
-            />
-            <ControlledCheckbox control={control} name={'private'} label={'Private pack'} left />
-          </form>
-        </>
+        <form onSubmit={onSubmitForm}>
+          <ControlledTextField
+            style={{ marginBottom: '1.5rem' }}
+            name={'namePack'}
+            control={control}
+            title={'Name Pack'}
+            inputType={'text'}
+          />
+          <ControlledCheckbox control={control} name={'private'} label={'Private pack'} left />
+        </form>
       }
       footer={
         <>
-          <Button variant={'secondary'} onClick={() => onOpenChange && onOpenChange(false)}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
-          </Button>
           <form onSubmit={onSubmitForm}>
             <Button variant={'primary'} type={'submit'}>
               <Typography variant={'subtitle2'}>Add New Pack</Typography>
             </Button>
           </form>
+          <Button variant={'secondary'} onClick={() => onOpenChange && onOpenChange(false)}>
+            <Typography variant={'subtitle2'}>Cancel</Typography>
+          </Button>
         </>
       }
     />

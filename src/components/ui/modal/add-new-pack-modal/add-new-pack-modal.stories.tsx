@@ -26,7 +26,7 @@ export const Default: Story = {
         trigger={args.trigger}
         isOpen={modalOpen}
         onOpenChange={setModalOpen}
-        onSubmit={data => console.log(data)}
+        onSubmit={data => data}
       />
     )
   },
