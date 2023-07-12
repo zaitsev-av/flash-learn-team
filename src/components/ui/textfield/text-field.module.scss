@@ -52,6 +52,14 @@
         outline: none;
       }
 
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        box-shadow: 0 0 0 30px var(--color-dark-700) inset !important;
+
+        -webkit-text-fill-color: var(--color-dark-100) !important;
+      }
+
       &:enabled:hover {
         background-color: var(--color-dark-700);
       }
@@ -62,14 +70,6 @@
         &::placeholder {
           color: var(--color-light-100);
         }
-      }
-
-      &:-webkit-autofill,
-      &:-webkit-autofill:hover,
-      &:-webkit-autofill:focus {
-        box-shadow: 0 0 0 30px var(--color-dark-700) inset !important;
-
-        -webkit-text-fill-color: var(--color-dark-100) !important;
       }
 
       &:enabled:not(:focus):hover {
@@ -113,6 +113,13 @@
 }
 
 .error {
+  position: absolute;
+  bottom: -1.13rem;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+
   height: 1.13rem;
 }
 

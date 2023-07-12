@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
+import ChangeConverIcon from '@/assets/icons/ChangeConverIcon.tsx'
 import { Button, Checkbox, Select, TextField, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal/modal.tsx'
 
@@ -47,9 +48,31 @@ export const Body_variant: Story = {
   args: {
     body: (
       <>
-        <Select items={['item1', 'item2', 'item3', 'item4']} />
+        <Select fullWidth items={['item1', 'item2', 'item3', 'item4']} />
         <TextField title={'input'} inputType={'text'} />
         <TextField title={'input'} inputType={'password'} />
+        <Checkbox left label={'Check-box'} />
+      </>
+    ),
+  },
+}
+export const Body_variant2: Story = {
+  args: {
+    title: 'Header',
+    body: (
+      <>
+        <Select label={'select-box'} fullWidth items={['item1', 'item2', 'item3', 'item4']} />
+        <Typography variant={'subtitle2'}>Question:</Typography>
+        <Button variant={'secondary'}>
+          <ChangeConverIcon />
+          <>Change cover</>
+        </Button>
+        <Typography variant={'subtitle2'}>Answer:</Typography>
+        <Button variant={'secondary'}>
+          <ChangeConverIcon />
+          <>Change cover</>
+        </Button>
+        <TextField title={'input'} inputType={'text'} />
         <Checkbox left label={'Check-box'} />
       </>
     ),

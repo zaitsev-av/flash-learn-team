@@ -29,9 +29,9 @@ export const Modal: FC<ModalProps> = ({
   className,
 }) => {
   const cNames = {
-    content: clsx(s.content, className),
+    content: clsx(s.content),
     overlay: clsx(s.overlay),
-    body: clsx(s.body),
+    body: clsx(s.body, className),
     footer: clsx(s.footer),
   }
 
