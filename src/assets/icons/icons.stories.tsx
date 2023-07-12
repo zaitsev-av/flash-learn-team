@@ -7,7 +7,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CloseIcon,
-  DeletePackIcon,
+  DeleteIcon,
   HideIcon,
   LearnPackIcon,
   Logo,
@@ -63,9 +63,9 @@ export const Close_Icon: Story = {
   },
 }
 
-export const Delete_Pack_Icon: Story = {
+export const Delete_Icon: Story = {
   render: () => {
-    return <DeletePackIcon />
+    return <DeleteIcon />
   },
 }
 

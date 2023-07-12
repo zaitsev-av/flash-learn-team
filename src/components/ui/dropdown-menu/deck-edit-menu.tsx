@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { DeletePackIcon, LearnPackIcon, PencilIcon } from '@/assets'
+import { DeleteIcon, LearnPackIcon, PencilIcon } from '@/assets'
 import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 import { DropdownMenu, Typography } from '@/components'
 import s from '@/components/ui/dropdown-menu/dropdown-menu.module.scss'
@@ -18,7 +18,7 @@ export const DeckEditMenu: FC = () => {
         <Typography variant={'caption'}>Edit</Typography>
       </MenuItem>
       <MenuItem separator={false}>
-        <DeletePackIcon />
+        <DeleteIcon />
         <Typography variant={'caption'}>Delete</Typography>
       </MenuItem>
     </DropdownMenu>

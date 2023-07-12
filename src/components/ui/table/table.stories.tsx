@@ -5,6 +5,8 @@ import { Meta, StoryObj } from '@storybook/react'
 import s from './table.module.scss'
 
 import { Checkbox, Grade, Sort, Table } from '@/components'
+import { TableActions } from '@/components/ui/table-action-buttons'
+
 const data = [
   {
     title: 'Project A',
@@ -114,7 +116,7 @@ export const Data_Cell_WithReactNode: Story = {
   },
 }
 
-export const Data_Cell_WithGrade: Story = {
+export const Data_Cell_With_Grade: Story = {
   args: {
     children: (
       <Table.DataCell className={s.row}>
@@ -124,6 +126,16 @@ export const Data_Cell_WithGrade: Story = {
             console.log()
           }}
         />
+      </Table.DataCell>
+    ),
+  },
+}
+
+export const Data_Cell_With_Actions: Story = {
+  args: {
+    children: (
+      <Table.DataCell className={s.row}>
+        <TableActions />
       </Table.DataCell>
     ),
   },
