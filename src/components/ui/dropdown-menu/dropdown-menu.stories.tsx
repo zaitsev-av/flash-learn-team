@@ -5,6 +5,13 @@ import { AvtarDropdown, DeckEditMenu, DropdownMenu } from '@/components'
 const meta = {
   title: 'Components/Dropdown-menu',
   component: DropdownMenu,
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof DropdownMenu>
 

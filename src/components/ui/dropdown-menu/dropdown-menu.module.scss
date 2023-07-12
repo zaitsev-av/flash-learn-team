@@ -55,10 +55,6 @@ button {
   justify-content: center;
   border-radius: 100%;
 
-  > div {
-    padding: 0;
-  }
-
   &:focus-visible {
     box-shadow: 0 0 0 0.125rem var(--color-info-700);
   }

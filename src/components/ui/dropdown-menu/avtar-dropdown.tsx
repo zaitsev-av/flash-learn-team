@@ -5,6 +5,10 @@ import { Avatar, DropdownMenu, Typography } from '@/components'
 import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 
 export const AvtarDropdown = () => {
+  const onSignOut = () => {
+    console.log('onSignOut called')
+  }
+
   return (
     <DropdownMenu
       trigger={
@@ -37,11 +41,9 @@ export const AvtarDropdown = () => {
       </MenuItem>
       <MenuItem as={'a'} href={'#'}>
         <ProfileIcon />
-        <Typography variant={'caption'} as={'a'} href={'#'}>
-          My Profile
-        </Typography>
+        <Typography variant={'caption'}>My Profile</Typography>
       </MenuItem>
-      <MenuItem separator={false}>
+      <MenuItem separator={false} onSelect={onSignOut}>
         <LogoutIcon />
         <Typography variant={'caption'}>Sign Out</Typography>
       </MenuItem>
