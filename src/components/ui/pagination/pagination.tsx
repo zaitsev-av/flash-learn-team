@@ -128,7 +128,7 @@ export const Pagination: FC<PaginationPropsType> = props => {
         <Typography variant={'body2'}>Rows</Typography>
         <Select
           className={cNames.select}
-          width={50}
+          width={80}
           value={`${pageSize}`}
           items={ROWS_PER_PAGE}
           onChange={onPageSizeChange}

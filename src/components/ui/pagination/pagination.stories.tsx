@@ -31,7 +31,7 @@ const ControlledPagination: FC<PaginationPropsType> = ({
   ...args
 }) => {
   const [page, setPage] = useState(1)
-  const [pSize, setPSize] = useState('10')
+  const [pSize, setPSize] = useState('20')
 
   return (
     <Pagination
