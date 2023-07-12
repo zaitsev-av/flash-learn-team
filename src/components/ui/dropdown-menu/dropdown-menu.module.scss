@@ -54,10 +54,6 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-
-  &:focus-visible {
-    box-shadow: 0 0 0 0.125rem var(--color-info-700);
-  }
 }
 
 @keyframes slide-up-and-fade {

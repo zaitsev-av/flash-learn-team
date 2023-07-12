@@ -33,7 +33,7 @@ export const Avatar: FC<UserAvatarPropsType> = ({
   return (
     <div className={classNames.wrapper}>
       {label && <Label.Root className={classNames.label}>{label}</Label.Root>}
-      <AvatarRDX.Root className={classNames.root}>
+      <AvatarRDX.Root className={classNames.root} tabIndex={0}>
         <AvatarRDX.Image
           className={classNames.avatar}
           src={src}
