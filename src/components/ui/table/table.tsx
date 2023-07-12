@@ -61,6 +61,7 @@ const Head: FC<HeadProps> = ({ columns, sort, onSort, className, ...rest }) => {
             onClick={handler}
             key={col.key}
             columnKey={col.key}
+            sortable={col.sortable}
           />
         )
       })}
@@ -85,10 +86,19 @@ type HeadCellProps = {
   columnKey?: string
   sort?: Sort
   onClick?: (sortDirection: string) => void
+  sortable?: boolean
 } & ComponentProps<'th'>
-const HeadCell: FC<HeadCellProps> = ({ onClick, sort, columnKey, title, className, ...rest }) => {
+const HeadCell: FC<HeadCellProps> = ({
+  sortable,
+  onClick,
+  sort,
+  columnKey,
+  title,
+  className,
+  ...rest
+}) => {
   const style = {
-    th: clsx(s.headCell, className),
+    th: clsx(s.headCell, !sortable && s.noSort, className),
     title: clsx(s.title),
     icon: clsx(s.sortDscIcon, sort?.direction === 'asc' && s.sortAscIcon),
   }

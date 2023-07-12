@@ -18,6 +18,10 @@
   padding: 0.375rem 1.5rem;
 
   background: var(--color-dark-500);
+
+  &.noSort {
+    cursor: initial;
+  }
 }
 
 .dataCell {

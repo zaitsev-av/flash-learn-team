@@ -13,30 +13,35 @@ const data = [
     cardsCount: 10,
     updated: '2023-07-07',
     createdBy: 'John Doe',
+    editable: false,
   },
   {
     title: 'Project B',
     cardsCount: 5,
     updated: '2023-07-06',
     createdBy: 'Jane Smith',
+    editable: true,
   },
   {
     title: 'Project C',
     cardsCount: 8,
     updated: '2023-07-05',
     createdBy: 'Alice Johnson',
+    editable: false,
   },
   {
     title: 'Project D',
     cardsCount: 3,
     updated: '2023-07-07',
     createdBy: 'Bob Anderson',
+    editable: true,
   },
   {
     title: 'Project E',
     cardsCount: 12,
     updated: '2023-07-04',
     createdBy: 'Emma Davis',
+    editable: false,
   },
 ]
 
@@ -61,6 +66,11 @@ const columns = [
     title: 'Created by',
     sortable: true,
   },
+  {
+    key: 'actions',
+    title: '',
+    sortable: false,
+  },
 ]
 const meta = {
   title: 'Components/Table',
@@ -83,6 +93,9 @@ const Container = () => {
               <Table.DataCell>{row.cardsCount}</Table.DataCell>
               <Table.DataCell>{row.updated}</Table.DataCell>
               <Table.DataCell>{row.createdBy}</Table.DataCell>
+              <Table.DataCell>
+                <TableActions editable={row.editable} />
+              </Table.DataCell>
             </Table.Row>
           )
         })}
@@ -96,6 +109,11 @@ type Story = StoryObj<typeof meta>
 export const DefaultWithSort: Story = {
   args: {
     children: <Container />,
+  },
+  parameters: {
+    controls: {
+      exclude: /(?:\b|')(children)(?:\b|')/g,
+    },
   },
 }
 
@@ -123,6 +141,7 @@ export const Data_Cell_With_Grade: Story = {
         <Grade
           grade={3}
           onClick={() => {
+            // eslint-disable-next-line no-console
             console.log()
           }}
         />
