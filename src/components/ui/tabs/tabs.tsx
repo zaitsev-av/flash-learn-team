@@ -18,11 +18,12 @@ export type TabsPropsType = {
   label?: string
   defaultValue?: string
   className?: string
+  value?: string
   onValueChange: (value: string) => void
 }
 
 export const Tabs: FC<TabsPropsType> = props => {
-  const { tabs, label, defaultValue, className, onValueChange } = props
+  const { tabs, label, defaultValue, className, onValueChange, value } = props
   const classNames = {
     root: clsx(s.root, className),
     trigger: clsx(s.trigger),
@@ -34,6 +35,7 @@ export const Tabs: FC<TabsPropsType> = props => {
         <Typography variant={'body2'}> {label}</Typography>
       </label>
       <TabsRDX.Root
+        value={value}
         className={classNames.root}
         defaultValue={defaultValue}
         onValueChange={onValueChange}

@@ -37,9 +37,7 @@ export const AvtarDropdown = () => {
       </MenuItem>
       <MenuItem as={'a'} href={'#'}>
         <ProfileIcon />
-        <Typography variant={'caption'} as={'a'} href={'#'}>
-          My Profile
-        </Typography>
+        <Typography variant={'caption'}>My Profile</Typography>
       </MenuItem>
       <MenuItem separator={false}>
         <LogoutIcon />
