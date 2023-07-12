@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: var(--color-dark-300);
+    }
+  }
+}
