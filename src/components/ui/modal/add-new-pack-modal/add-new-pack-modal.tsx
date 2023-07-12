@@ -37,7 +37,6 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = props => {
 
   return (
     <Modal
-      width={'33.875rem'}
       title={'Add New Pack'}
       trigger={trigger}
       onOpenChange={onOpenChange}

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Button, TextField } from '@/components'
+import { Button, Checkbox, Select, TextField, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal/modal.tsx'
 
 const meta = {
@@ -19,6 +19,16 @@ export const Default: Story = {
   args: {
     title: 'Title',
     body: <TextField inputType={'text'} title={'test'} />,
+    footer: (
+      <>
+        <Button variant={'primary'} type={'submit'}>
+          <Typography variant={'subtitle2'}>Add New Pack</Typography>
+        </Button>
+        <Button variant={'secondary'}>
+          <Typography variant={'subtitle2'}>Cancel</Typography>
+        </Button>
+      </>
+    ),
   },
 }
 
@@ -28,9 +38,26 @@ export const Header: Story = {
   },
 }
 
-export const FooterOneButton: Story = {
+export const Body: Story = {
   args: {
-    title: 'Header Only',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniamdsa',
+  },
+}
+export const Body_variant: Story = {
+  args: {
+    body: (
+      <>
+        <Select items={['item1', 'item2', 'item3', 'item4']} />
+        <TextField title={'input'} inputType={'text'} />
+        <TextField title={'input'} inputType={'password'} />
+        <Checkbox left label={'Check-box'} />
+      </>
+    ),
+  },
+}
+export const Footer_One_Button: Story = {
+  args: {
+    title: 'Header',
     footer: <Button variant={'primary'}>Primary</Button>,
   },
 }

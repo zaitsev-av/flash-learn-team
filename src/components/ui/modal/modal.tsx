@@ -5,16 +5,16 @@ import { clsx } from 'clsx'
 
 import s from './modal.module.scss'
 
-import { Card } from '@/components'
-import { ModalTitle } from '@/components/ui/modal/title.tsx'
+import { CloseIcon } from '@/assets'
+import { Typography } from '@/components'
 
 type ModalProps = {
-  title: string
+  title?: string
   trigger?: ReactNode
   isOpen?: boolean
   onOpenChange?: (isOpen: boolean) => void
-  body?: string | ReactNode | string[] | ReactNode[]
-  footer?: string | ReactNode | string[] | ReactNode[]
+  body?: ReactNode
+  footer?: ReactNode
   width?: string
   className?: string
 }
@@ -31,6 +31,8 @@ export const Modal: FC<ModalProps> = ({
   const cNames = {
     content: clsx(s.content, className),
     overlay: clsx(s.overlay),
+    body: clsx(s.body),
+    footer: clsx(s.footer),
   }
 
   return (
@@ -39,13 +41,27 @@ export const Modal: FC<ModalProps> = ({
       <Dialog.Portal>
         <Dialog.Overlay className={cNames.overlay} />
         <Dialog.Content className={cNames.content}>
-          <ModalTitle title={title} />
-          <Card>
-            <div className={s.body}>{body}</div>
-            {footer}
-          </Card>
+          {title && <ModalTitle title={title} />}
+          {body && <div className={cNames.body}>{body}</div>}
+          {footer && <div className={cNames.footer}>{footer}</div>}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  )
+}
+
+type ModalTitleProps = {
+  title: string
+}
+const ModalTitle: FC<ModalTitleProps> = ({ title }) => {
+  return (
+    <Dialog.Title className={s.titleContainer}>
+      <Typography variant={'h2'}>{title}</Typography>
+      <Dialog.Close asChild>
+        <button className={s.closeIcon}>
+          <CloseIcon />
+        </button>
+      </Dialog.Close>
+    </Dialog.Title>
   )
 }

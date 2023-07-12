@@ -46,8 +46,8 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
       </div>
     )
 
-    const leftIcon = (
-      <div className={cNames.search}>{inputType === 'search' && <SearchIcon color={color} />}</div>
+    const leftIcon = inputType === 'search' && (
+      <div className={cNames.search}>{<SearchIcon color={color} />}</div>
     )
 
     const errorMessage = error && (
