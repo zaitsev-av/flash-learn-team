@@ -19,6 +19,7 @@ const meta = {
       { value: 'string456', tabName: 'my packs' },
     ],
     defaultValue: 'string123',
+    // eslint-disable-next-line no-console
     onValueChange: value => console.log(value),
   },
 } satisfies Meta<typeof Tabs>

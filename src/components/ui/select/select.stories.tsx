@@ -17,6 +17,7 @@ const meta = {
   },
   args: {
     label: '',
+    // eslint-disable-next-line no-console
     onChange: value => console.log(value),
   },
   tags: ['autodocs'],
