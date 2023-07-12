@@ -6,27 +6,32 @@
     flex-shrink: 0;
 
     .trigger {
+      cursor: pointer;
       user-select: none;
 
-      display: flex;
+      /* display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: center; */
 
       padding: 6px 24px;
 
       color: var(--color-light-100);
 
       background: transparent;
+      border: 1px solid var(--color-dark-300);
+      border-left: none;
+
+      transition: 350ms all;
+
+      &:hover {
+        color: var(--color-light-900);
+        background: var(--color-dark-500);
+        border-color: var(--color-dark-100);
+      }
 
       &:first-child {
         border: 1px solid var(--color-dark-300);
         border-radius: 2px 0 0 2px;
-
-        &:focus-visible {
-          background: var(--color-dark-700);
-          border-radius: 2px;
-          outline: 2px solid var(--color-info-900);
-        }
       }
 
       &:last-child {
@@ -34,18 +39,18 @@
         border-right: 1px solid var(--color-dark-300);
         border-bottom: 1px solid var(--color-dark-300);
         border-radius: 0 2px 2px 0;
-
-        &:focus-visible {
-          background: var(--color-dark-700);
-          border-radius: 2px;
-          outline: 2px solid var(--color-info-900);
-        }
       }
 
-      &:hover {
-        color: var(--color-light-900);
-        background: var(--color-dark-500);
-        border-color: var(--color-dark-100);
+      &:focus-visible:first-child {
+        background: var(--color-dark-700);
+        border-radius: 2px;
+        outline: 2px solid var(--color-info-900);
+      }
+
+      &:focus-visible:last-child {
+        background: var(--color-dark-700);
+        border-radius: 2px;
+        outline: 2px solid var(--color-info-900);
       }
 
       &[data-state='active'] {
@@ -54,6 +59,8 @@
       }
 
       &[data-disabled] {
+        cursor: initial;
+        color: var(--color-dark-300);
         background: var(--color-dark-700);
         border-color: var(--color-dark-300);
       }

@@ -23,7 +23,14 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
   return (
     <div className={classNames.root}>
       <TextField title={''} inputType={'search'} className={s.text_field} />
-      <Tabs tabs={['Me cards', 'All cards']} label={'Show packs cards'} />
+      <Tabs
+        tabs={[
+          { tabName: 'Me cards', value: '123' },
+          { tabName: 'All cards', value: '456' },
+        ]}
+        label={'Show packs cards'}
+        onValueChange={() => {}}
+      />
       <Slider
         minValue={10}
         maxValue={99}

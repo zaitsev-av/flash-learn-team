@@ -34,7 +34,7 @@ export const Select_default: Story = {
 export const Select_for_pagination: Story = {
   args: {
     items: ['10', '20', '50', '80', '100'],
-    width: 50,
+    width: 70,
   },
 }
 
