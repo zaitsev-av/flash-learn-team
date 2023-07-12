@@ -10,6 +10,13 @@ const meta = {
   title: 'Modals/AddNewPackModal',
   component: AddNewPackModal,
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     trigger: <Button variant={'primary'}>modal</Button>,
   },

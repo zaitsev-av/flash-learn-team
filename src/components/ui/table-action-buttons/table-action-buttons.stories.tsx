@@ -5,6 +5,13 @@ import { TableActions } from '@/components/ui/table-action-buttons/table-action-
 const meta = {
   title: 'Components/TableActions',
   component: TableActions,
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   argTypes: {},
 } satisfies Meta<typeof TableActions>

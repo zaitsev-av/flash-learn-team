@@ -6,6 +6,13 @@ const meta = {
   title: 'Forms/LoginForm',
   component: LoginForm,
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {},
 } satisfies Meta<typeof LoginForm>
 

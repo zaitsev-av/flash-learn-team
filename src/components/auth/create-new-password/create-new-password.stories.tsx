@@ -6,6 +6,13 @@ const meta = {
   title: 'Forms/CreateNewPassword',
   component: CreateNewPassword,
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {},
 } satisfies Meta<typeof CreateNewPassword>
 

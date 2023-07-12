@@ -6,6 +6,13 @@ const meta = {
   title: 'Components/Typography',
   component: Typography,
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     color: {
       options: ['primary', 'secondary', 'error', 'inherit'],

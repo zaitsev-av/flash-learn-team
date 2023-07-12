@@ -24,6 +24,13 @@ import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 const meta = {
   title: 'Icons/Icons',
   tags: ['autodocs'],
+  decorators: [
+    (Story: any) => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {},
 }
 

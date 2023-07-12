@@ -7,6 +7,13 @@ const meta = {
   title: 'Forms/CheckEmail',
   component: CheckEmail,
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {},
 } satisfies Meta<typeof CheckEmail>
 

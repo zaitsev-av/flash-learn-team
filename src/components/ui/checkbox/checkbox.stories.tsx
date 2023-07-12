@@ -6,6 +6,13 @@ const meta = {
   title: 'Components/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {},
 } satisfies Meta<typeof Checkbox>
 

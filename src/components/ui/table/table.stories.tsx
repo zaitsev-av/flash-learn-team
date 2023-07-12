@@ -75,6 +75,13 @@ const columns = [
 const meta = {
   title: 'Components/Table',
   component: Table.Root,
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof Table.Root>
 

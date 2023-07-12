@@ -6,6 +6,13 @@ import { Card } from '@/components/ui/card/card.tsx'
 const meta = {
   title: 'Components/Card',
   component: Card,
+  decorators: [
+    Story => (
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   argTypes: {},
 } satisfies Meta<typeof Card>
