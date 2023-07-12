@@ -16,7 +16,6 @@ export const DropdownMenu: FC<DropdownMenuPropsType> = props => {
       <DropdownMenuRDX.Trigger asChild className={s.trigger}>
         {trigger}
       </DropdownMenuRDX.Trigger>
-
       <DropdownMenuRDX.Portal>
         <DropdownMenuRDX.Content className={s.content} sideOffset={0} align={'end'} alignOffset={0}>
           {children}

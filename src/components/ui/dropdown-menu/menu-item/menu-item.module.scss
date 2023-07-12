@@ -1,20 +1,22 @@
-.item {
+.menu_item {
   cursor: pointer;
-  user-select: none;
-
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
 
   height: 100%;
 
   line-height: 1;
 
   border-radius: 0.188rem;
-  outline: none;
 
-  > a {
-    text-decoration: none;
+  .item {
+    user-select: none;
+
+    display: inline-flex;
+    gap: 0.75rem;
+    align-items: center;
+
+    color: var(--color-light-100);
+
+    outline: none;
   }
 }
 
