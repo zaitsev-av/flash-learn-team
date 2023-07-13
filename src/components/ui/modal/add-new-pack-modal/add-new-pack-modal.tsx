@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -11,38 +11,27 @@ import { Modal } from '@/components/ui/modal'
 
 type AddNewPackModalPropsType = {
   trigger: ReactNode
-  isOpen?: boolean
-  onOpenChange?: (isOpen: boolean) => void
   onSubmit: (data: Form) => void
 }
 type Form = z.infer<typeof addNewPackSchema>
 
 export const AddNewPackModal: FC<AddNewPackModalPropsType> = props => {
-  const { trigger, onOpenChange, isOpen, onSubmit } = props
-  const { handleSubmit, control, reset } = useForm<Form>({
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { trigger, onSubmit } = props
+  const { handleSubmit, control } = useForm<Form>({
     resolver: zodResolver(addNewPackSchema),
     mode: 'onSubmit',
   })
 
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ namePack: data.namePack, private: data.private })
-    // eslint-disable-next-line no-console
-    console.log('login-form', data)
-    reset({
-      namePack: '',
-      private: false,
-    })
-    onOpenChange && onOpenChange(false)
+    setIsOpen(false)
   })
 
   return (
-    <Modal
-      title={'Add New Pack'}
-      trigger={trigger}
-      onOpenChange={onOpenChange}
-      isOpen={isOpen}
-      body={
-        <form onSubmit={onSubmitForm}>
+    <Modal.Root title={'Add New Pack'} trigger={trigger} onOpenChange={setIsOpen} isOpen={isOpen}>
+      <form onSubmit={onSubmitForm}>
+        <Modal.Body>
           <ControlledTextField
             style={{ marginBottom: '1.5rem' }}
             name={'namePack'}
@@ -51,20 +40,16 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = props => {
             inputType={'text'}
           />
           <ControlledCheckbox control={control} name={'private'} label={'Private pack'} left />
-        </form>
-      }
-      footer={
-        <>
-          <form onSubmit={onSubmitForm}>
-            <Button variant={'primary'} type={'submit'}>
-              <Typography variant={'subtitle2'}>Add New Pack</Typography>
-            </Button>
-          </form>
-          <Button variant={'secondary'} onClick={() => onOpenChange && onOpenChange(false)}>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant={'primary'} type={'submit'}>
+            <Typography variant={'subtitle2'}>Add New Pack</Typography>
+          </Button>
+          <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
             <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
-        </>
-      }
-    />
+        </Modal.Footer>
+      </form>
+    </Modal.Root>
   )
 }
