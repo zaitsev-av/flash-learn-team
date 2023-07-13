@@ -1,17 +1,18 @@
+import { FC } from 'react'
+
 import { DeletePackIcon, LearnPackIcon, PencilIcon } from '@/assets'
 import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 import { DropdownMenu, Typography } from '@/components'
 import s from '@/components/ui/dropdown-menu/dropdown-menu.module.scss'
 import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 
-export const DeckEditMenu = () => {
-  const onEdit = () => {
-    console.log('onEdit called')
-  }
+type DeckEditMenuPropsType = {
+  onEdit: () => void
+  onDelete: () => void
+}
 
-  const onDelete = () => {
-    console.log('onDelete called')
-  }
+export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
+  const { onDelete, onEdit } = props
 
   return (
     <DropdownMenu trigger={<button className={s.icon_button}>{<OpenPackMenuIcon />}</button>}>
