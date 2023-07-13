@@ -1,7 +1,6 @@
-import { FC, ReactNode, useState } from 'react'
-
 import { Button, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal'
+import { FC, ReactNode, useState } from 'react'
 
 export type ItemType = PackItemType | CardItemType
 type PackItemType = {
@@ -39,24 +38,17 @@ export const DeleteDialog: FC<DeleteDialogProps> = ({
 
   return (
     <div>
-      <Modal
-        onOpenChange={setOpen}
-        trigger={trigger}
-        isOpen={open}
-        title={title}
-        body={bodyMessage}
-        footer={
-          <>
-            <Button variant={'primary'} onClick={clickHandler}>
-              <Typography variant={'subtitle2'}>{buttonTitle}</Typography>
-            </Button>
-
-            <Button variant={'secondary'} onClick={() => setOpen(false)}>
-              <Typography variant={'subtitle2'}>Cancel</Typography>
-            </Button>
-          </>
-        }
-      />
+      <Modal.Root onOpenChange={setOpen} trigger={trigger} isOpen={open} title={title}>
+        <Modal.Body>{bodyMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant={'primary'} onClick={clickHandler}>
+            <Typography variant={'subtitle2'}>{buttonTitle}</Typography>
+          </Button>
+          <Button variant={'secondary'} onClick={() => setOpen(false)}>
+            <Typography variant={'subtitle2'}>Cancel</Typography>
+          </Button>
+        </Modal.Footer>
+      </Modal.Root>
     </div>
   )
 }
