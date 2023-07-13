@@ -1,36 +1,30 @@
+import { FC } from 'react'
+
 import s from './dropdown-menu.module.scss'
 
 import { LogoutIcon, ProfileIcon } from '@/assets'
 import { Avatar, DropdownMenu, Typography } from '@/components'
 import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 
-export const AvtarDropdown = () => {
+type AvtarDropdownPropsType = {
+  userName: string
+  userEmail: string
+  src: string
+  onSignOut: () => void
+}
+
+export const AvtarDropdown: FC<AvtarDropdownPropsType> = props => {
+  const { src, userName, userEmail, onSignOut } = props
+
   return (
-    <DropdownMenu
-      trigger={
-        <button className={s.icon_button}>
-          {
-            <Avatar
-              src={
-                'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
-              }
-            />
-          }
-        </button>
-      }
-    >
+    <DropdownMenu trigger={<button className={s.icon_button}>{<Avatar src={src} />}</button>}>
       <MenuItem>
         <>
-          <Avatar
-            src={
-              'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
-            }
-            menuItem={s.menu_item}
-          />
+          <Avatar src={src} menuItem={s.menu_item} />
           <div style={{ flexDirection: 'column' }}>
             <Typography variant={'caption'}>
-              <div>userName</div>
-              <div>userEmail</div>
+              <div>{userName}</div>
+              <div>{userEmail}</div>
             </Typography>
           </div>
         </>
@@ -39,7 +33,7 @@ export const AvtarDropdown = () => {
         <ProfileIcon />
         <Typography variant={'caption'}>My Profile</Typography>
       </MenuItem>
-      <MenuItem separator={false}>
+      <MenuItem separator={false} onSelect={onSignOut}>
         <LogoutIcon />
         <Typography variant={'caption'}>Sign Out</Typography>
       </MenuItem>
