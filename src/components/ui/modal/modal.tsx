@@ -3,6 +3,7 @@ import { FC, ReactNode } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { clsx } from 'clsx'
 
+//TODO check border-bottom styles
 import s from './modal.module.scss'
 
 import { CloseIcon } from '@/assets'
@@ -13,25 +14,16 @@ type ModalProps = {
   trigger?: ReactNode
   isOpen?: boolean
   onOpenChange?: (isOpen: boolean) => void
-  body?: ReactNode
-  footer?: ReactNode
   width?: string
   className?: string
+  children?: ReactNode
 }
 
-export const Modal: FC<ModalProps> = ({
-  title,
-  body,
-  footer,
-  isOpen,
-  trigger,
-  onOpenChange,
-  className,
-}) => {
+const Root: FC<ModalProps> = ({ title, isOpen, trigger, onOpenChange, children }) => {
   const cNames = {
     content: clsx(s.content),
     overlay: clsx(s.overlay),
-    body: clsx(s.body, className),
+    body: clsx(s.body),
     footer: clsx(s.footer),
   }
 
@@ -42,8 +34,7 @@ export const Modal: FC<ModalProps> = ({
         <Dialog.Overlay className={cNames.overlay} />
         <Dialog.Content className={cNames.content}>
           {title && <ModalTitle title={title} />}
-          {body && <div className={cNames.body}>{body}</div>}
-          {footer && <div className={cNames.footer}>{footer}</div>}
+          {children}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
@@ -65,3 +56,26 @@ const ModalTitle: FC<ModalTitleProps> = ({ title }) => {
     </Dialog.Title>
   )
 }
+
+type ModalChildType = {
+  children: ReactNode
+  className?: string
+}
+
+const Body: FC<ModalChildType> = ({ className, children }) => {
+  const cNames = {
+    body: clsx(s.body, className),
+  }
+
+  return <div className={cNames.body}>{children}</div>
+}
+
+const Footer: FC<ModalChildType> = ({ className, children }) => {
+  const cNames = {
+    footer: clsx(s.footer, className),
+  }
+
+  return <div className={cNames.footer}>{children}</div>
+}
+
+export const Modal = { Root, Body, Footer }
