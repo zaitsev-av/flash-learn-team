@@ -26,18 +26,14 @@ export const Header_App: Story = {
     ),
   },
 }
+const src = 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
 
 export const Header_App_User_Avatar: Story = {
   args: {
     children: (
       <>
         <Logo />
-        <Avatar
-          label={'User name'}
-          src={
-            'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
-          }
-        />
+        <Avatar label={'User name'} src={src} />
       </>
     ),
   },
@@ -48,7 +44,7 @@ export const Header_App_User_Avatar_Dropdown_menu: Story = {
     children: (
       <>
         <Logo />
-        <AvtarDropdown />
+        <AvtarDropdown src={src} />
       </>
     ),
   },

@@ -3,9 +3,9 @@ import { useState } from 'react'
 import type { Meta } from '@storybook/react'
 import { v4 } from 'uuid'
 
-import { ItemType, RadioGroup } from '@/components'
+import { RadioGroupItemType, RadioGroup } from '@/components'
 
-const items: ItemType[] = [
+const items: RadioGroupItemType[] = [
   { id: v4(), label: 'label1', value: 'value1' },
   { id: v4(), label: 'label2', value: 'value2' },
   { id: v4(), label: 'label3', value: 'value3' },
