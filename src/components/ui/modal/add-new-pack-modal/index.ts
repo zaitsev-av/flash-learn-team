@@ -1,1 +1,1 @@
-export * from './add-new-pack-modal.tsx'
+export * from './add-new-pack-modal'

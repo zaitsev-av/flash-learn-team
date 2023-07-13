@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { v4 } from 'uuid'
 
 import { TableActions } from '@/components/ui/table-action-buttons/table-action-buttons.tsx'
 
@@ -20,5 +21,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {},
+  args: { item: { id: v4(), title: 'title' } },
 }

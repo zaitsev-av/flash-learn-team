@@ -7,7 +7,7 @@ import { AddNewPackModal } from './add-new-pack-modal.tsx'
 import { Button } from '@/components'
 
 const meta = {
-  title: 'Modals/AddNewPackModal',
+  title: 'Modals/Add New Pack Modal',
   component: AddNewPackModal,
   tags: ['autodocs'],
   decorators: [

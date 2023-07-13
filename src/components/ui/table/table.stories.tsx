@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
+import { v4 as uuidv4 } from 'uuid'
 
 import s from './table.module.scss'
 
@@ -9,6 +10,7 @@ import { TableActions } from '@/components/ui/table-action-buttons'
 
 const data = [
   {
+    id: uuidv4(),
     title: 'Project A',
     cardsCount: 10,
     updated: '2023-07-07',
@@ -16,6 +18,7 @@ const data = [
     editable: false,
   },
   {
+    id: uuidv4(),
     title: 'Project B',
     cardsCount: 5,
     updated: '2023-07-06',
@@ -23,6 +26,7 @@ const data = [
     editable: true,
   },
   {
+    id: uuidv4(),
     title: 'Project C',
     cardsCount: 8,
     updated: '2023-07-05',
@@ -30,6 +34,7 @@ const data = [
     editable: false,
   },
   {
+    id: uuidv4(),
     title: 'Project D',
     cardsCount: 3,
     updated: '2023-07-07',
@@ -37,6 +42,7 @@ const data = [
     editable: true,
   },
   {
+    id: uuidv4(),
     title: 'Project E',
     cardsCount: 12,
     updated: '2023-07-04',
@@ -101,7 +107,7 @@ const Container = () => {
               <Table.DataCell>{row.updated}</Table.DataCell>
               <Table.DataCell>{row.createdBy}</Table.DataCell>
               <Table.DataCell>
-                <TableActions editable={row.editable} />
+                <TableActions editable={row.editable} item={row} />
               </Table.DataCell>
             </Table.Row>
           )
@@ -161,7 +167,7 @@ export const Data_Cell_With_Actions: Story = {
   args: {
     children: (
       <Table.DataCell className={s.row}>
-        <TableActions />
+        <TableActions item={data[0]} />
       </Table.DataCell>
     ),
   },

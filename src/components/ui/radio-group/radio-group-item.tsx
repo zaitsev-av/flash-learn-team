@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import * as RadioGroup from '@radix-ui/react-radio-group'
 
-import s from '@/components/ui/radio-group/custom-radio-group.module.scss'
+import s from '@/components/ui/radio-group/radio-group.module.scss'
 
 export type RadioGroupItemPropsType = {
   label: string

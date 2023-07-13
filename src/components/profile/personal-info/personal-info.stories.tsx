@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { PersonalInfo } from './personal-info.tsx'
 
 const meta = {
-  title: 'Profile/PersonalInformation',
+  title: 'Profile/Personal Information',
   component: PersonalInfo,
   tags: ['autodocs'],
   args: {
