@@ -12,18 +12,20 @@ type LearnPackPropsType = {
   question: string
   attempts: string | number
   answer: string
-  // onSubmit: (data: Form) => void
+  loadNextQuestion: () => void
+  onChange: (value: string) => void
+  value: string
 }
 
 export const LearnDesk: FC<LearnPackPropsType> = props => {
-  const { packName, question, attempts, answer } = props
+  const { packName, question, attempts, answer, loadNextQuestion, onChange, value } = props
   const [showAnswer, setShowAnswer] = useState(false)
 
   const classNames = {
     container: clsx(s.container),
     question: clsx(s.question),
     attempts: clsx(s.attempts),
-    answer_btn: clsx(s.answer_btn),
+    answer: clsx(s.answer),
   }
 
   return (
@@ -32,7 +34,8 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
         Learn {packName}
       </Typography>
       <Typography variant={'body1'} className={classNames.question}>
-        Question: {question}
+        <Typography variant={'subtitle1'}>Question: </Typography>
+        {question}
       </Typography>
       <Typography variant={'body2'} className={classNames.attempts}>
         Number of attempts to answer the question: {attempts}
@@ -40,14 +43,19 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
       {!showAnswer ? (
         <Button
           variant={'primary'}
-          className={s.answer}
+          className={classNames.answer}
           onClick={() => setShowAnswer(true)}
           fullWidth
         >
           Show Answer
         </Button>
       ) : (
-        <AnswerFeedback answer={answer} />
+        <AnswerFeedback
+          answer={answer}
+          loadNextQuestion={loadNextQuestion}
+          onChange={onChange}
+          value={value}
+        />
       )}
     </Card>
   )
@@ -55,10 +63,19 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
 
 type AnswerFeedbackPropsType = {
   answer: string
+  loadNextQuestion: () => void
+  onChange: (value: string) => void
+  value: string
 }
 
 const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
-  const { answer } = props
+  const { answer, loadNextQuestion, onChange, value } = props
+  const classNames = {
+    answer: clsx(s.answer),
+    feedback: clsx(s.feedback),
+    next: clsx(s.next_question),
+    radioGroup: s.radioGroup,
+  }
   const items = [
     { id: v4(), label: 'Did not know', value: 'value1' },
     { id: v4(), label: 'Forgot', value: 'value2' },
@@ -69,14 +86,20 @@ const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
 
   return (
     <>
-      <Typography variant={'body1'} className={s.answer}>
-        Answer:{answer}
+      <Typography variant={'body1'} className={classNames.answer}>
+        <Typography variant={'subtitle1'}>Answer: </Typography>
+        {answer}
       </Typography>
-      <Typography variant={'subtitle1'} className={s.feedback}>
+      <Typography variant={'subtitle1'} className={classNames.feedback}>
         Rate yourself:
       </Typography>
-      <RadioGroup items={items} onChange={() => {}} value={'value'} />
-      <Button variant={'primary'} className={s.next_question} fullWidth>
+      <RadioGroup
+        items={items}
+        className={classNames.radioGroup}
+        onChange={onChange}
+        value={value}
+      />
+      <Button variant={'primary'} className={classNames.next} onClick={loadNextQuestion} fullWidth>
         Next Question
       </Button>
     </>
