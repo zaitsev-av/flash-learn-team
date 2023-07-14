@@ -15,6 +15,20 @@ const items: RadioGroupItemType[] = [
 const meta = {
   title: 'Components/Radio Group',
   component: RadioGroup,
+  decorators: [
+    Story => (
+      <div
+        style={{
+          margin: '3em',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof RadioGroup>
 
