@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   decorators: [
     Story => (
-      <div style={{ margin: '3rem' }}>
+      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
         <Story />
       </div>
     ),
@@ -25,5 +25,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     packName: 'Pack Name',
+    question: 'How "This" works in JavaScript?',
+    attempts: 10,
   },
 }
