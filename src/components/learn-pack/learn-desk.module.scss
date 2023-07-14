@@ -8,15 +8,22 @@
 
   .question {
     margin-top: 45px;
-    text-align: center;
   }
 
   .attempts {
     color: var(--color-dark-100) !important;
-    text-align: center;
   }
 
-  .answer_btn {
+  .answer {
     margin-top: 41px;
+  }
+
+  .feedback {
+    margin-top: 12px;
+    margin-bottom: 13px;
+  }
+
+  .next_question {
+    margin-top: 29px;
   }
 }

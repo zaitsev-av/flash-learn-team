@@ -27,5 +27,6 @@ export const Default: Story = {
     packName: 'Pack Name',
     question: 'How "This" works in JavaScript?',
     attempts: 10,
+    answer: 'This is how "This" works in JavaScript',
   },
 }

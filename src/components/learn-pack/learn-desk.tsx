@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { v4 } from 'uuid'
@@ -16,7 +16,9 @@ type LearnPackPropsType = {
 }
 
 export const LearnDesk: FC<LearnPackPropsType> = props => {
-  const { packName, question, attempts } = props
+  const { packName, question, attempts, answer } = props
+  const [showAnswer, setShowAnswer] = useState(false)
+
   const classNames = {
     container: clsx(s.container),
     question: clsx(s.question),
@@ -35,10 +37,18 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
       <Typography variant={'body2'} className={classNames.attempts}>
         Number of attempts to answer the question: {attempts}
       </Typography>
-      <Button variant={'primary'} className={s.answer_btn} fullWidth>
-        Show Answer
-      </Button>
-      <AnswerFeedback answer={'This is how "This" works in JavaScript'} />
+      {!showAnswer ? (
+        <Button
+          variant={'primary'}
+          className={s.answer}
+          onClick={() => setShowAnswer(true)}
+          fullWidth
+        >
+          Show Answer
+        </Button>
+      ) : (
+        <AnswerFeedback answer={answer} />
+      )}
     </Card>
   )
 }
@@ -54,14 +64,21 @@ const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
     { id: v4(), label: 'Forgot', value: 'value2' },
     { id: v4(), label: 'A lot of thought', value: 'value3' },
     { id: v4(), label: 'Confused', value: 'value4' },
-    { id: v4(), label: 'labKnew the answer', value: 'value5' },
+    { id: v4(), label: 'Knew the answer', value: 'value5' },
   ]
 
   return (
     <>
-      <Typography variant={'body1'}>Answer:{answer}</Typography>
-      <Typography variant={'subtitle1'}>Rate yourself:</Typography>
+      <Typography variant={'body1'} className={s.answer}>
+        Answer:{answer}
+      </Typography>
+      <Typography variant={'subtitle1'} className={s.feedback}>
+        Rate yourself:
+      </Typography>
       <RadioGroup items={items} onChange={() => {}} value={'value'} />
+      <Button variant={'primary'} className={s.next_question} fullWidth>
+        Next Question
+      </Button>
     </>
   )
 }
