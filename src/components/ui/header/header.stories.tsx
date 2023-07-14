@@ -48,7 +48,12 @@ export const Header_App_User_Avatar_Dropdown_menu: Story = {
     children: (
       <>
         <Logo />
-        <AvtarDropdown />
+        <AvtarDropdown
+          onSignOut={() => {}}
+          src={''}
+          userEmail={'test@email.com'}
+          userName={'userName'}
+        />
       </>
     ),
   },

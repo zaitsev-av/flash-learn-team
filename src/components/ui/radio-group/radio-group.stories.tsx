@@ -3,7 +3,8 @@ import { useState } from 'react'
 import type { Meta } from '@storybook/react'
 import { v4 } from 'uuid'
 
-import { ItemType, RadioGroup } from '@/components'
+import { RadioGroup } from '@/components'
+import { ItemType } from '@/components/ui/radio-group/radio-group.tsx'
 
 const items: ItemType[] = [
   { id: v4(), label: 'label1', value: 'value1' },

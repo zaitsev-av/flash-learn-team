@@ -1,6 +1,7 @@
+import { FC, ReactNode, useState } from 'react'
+
 import { Button, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal'
-import { FC, ReactNode, useState } from 'react'
 
 export type ItemType = PackItemType | CardItemType
 type PackItemType = {
