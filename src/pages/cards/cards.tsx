@@ -1,66 +1,126 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './cards.module.scss'
 
-import { Button, DeckEditMenu, Grade, Table, TextField, Typography } from '@/components'
+import {
+  Button,
+  DeckEditMenu,
+  Grade,
+  Pagination,
+  Sort,
+  Table,
+  TextField,
+  Typography,
+} from '@/components'
+import { TableActions } from '@/components/ui/table-action-buttons'
 import { columns } from '@/pages/cards/table-columns.ts'
 import { testData } from '@/pages/cards/test-data.ts'
 
-export const Cards = () => {
+type CardsPropsType = {
+  userId: string
+  img?: string
+}
+
+export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
+  const [sort, setSort] = useState<Sort>(null)
+  const [page, setPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<string>('5')
+
   const classNames = {
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
   }
 
+  // eslint-disable-next-line no-console
+  console.log(sort)
+
   return (
     <div style={{ width: '100%' }}>
-      <div className={classNames.header}>
-        <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
-          My pack
-          <DeckEditMenu onEdit={() => {}} onDelete={() => {}} />
-        </Typography>
-        <Button variant={'primary'}>Add New Card</Button>
-      </div>
+      <div className={classNames.header}>{renderDeckHeading(userId)}</div>
       <div style={{ width: '170px', height: '107px' }}>
-        <img
-          src="https://www.patterns.dev/img/reactjs/react-logo@3x.svg"
-          alt="dsfsdfs"
-          style={{ width: '170px', height: '107px' }}
-        />
+        {img && <img src={img} alt="" style={{ width: '170px', height: '107px' }} />}
       </div>
       <TextField inputType={'search'} className={classNames.textField} />
-      <CardTable rowData={testData} />
+      <CardTable
+        rowData={testData}
+        sort={sort}
+        setSort={setSort}
+        userId={userId}
+        pageSize={pageSize}
+      />
+      <Pagination
+        currentPage={page}
+        totalCount={14}
+        pageSize={+pageSize}
+        siblingCount={3}
+        onPageChange={setPage}
+        onPageSizeChange={setPageSize}
+      />
     </div>
   )
 }
 
 type CardTablePropsType = {
-  rowData: typeof testData //для теста todo remove
+  rowData: any
+  userId: string
+  pageSize: string
+  sort: Sort
+  setSort: (sort: Sort) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
-  const { rowData } = props
+  const { rowData, sort, setSort, userId, pageSize } = props
   const classNames = {
     head: clsx(s.tableHead),
   }
 
   return (
-    <Table.Root style={{ width: '100%' }}>
-      <Table.Head columns={columns} sort={null} onSort={() => {}} className={classNames.head} />
-      {rowData.map(el => {
-        return (
-          <Table.Row key={el.id}>
-            <Table.DataCell>{el.question}</Table.DataCell>
-            <Table.DataCell>{el.answer}</Table.DataCell>
-            <Table.DataCell>{el.updated}</Table.DataCell>
-            <Table.DataCell>
-              <Grade onClick={() => {}} grade={5} />
-            </Table.DataCell>
-            <Table.DataCell>{el.question}</Table.DataCell>
-          </Table.Row>
-        )
-      })}
+    <Table.Root style={{ width: '100%', marginBottom: '25px' }}>
+      <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
+      <Table.Body>{rowData.slice(0, +pageSize).map((el: any) => TableRows(el, userId))}</Table.Body>
     </Table.Root>
+  )
+}
+const TableRows = (el: any, userId: string) => {
+  return (
+    <Table.Row key={el.question}>
+      <Table.DataCell>{el.question}</Table.DataCell>
+      <Table.DataCell>{el.answer}</Table.DataCell>
+      <Table.DataCell>{el.updated}</Table.DataCell>
+      <Table.DataCell>
+        <Grade onClick={id => console.log(id)} grade={5} />
+      </Table.DataCell>
+      <Table.DataCell>
+        <TableActions item={{ id: el.id, title: el.question }} editable={userId === '1'} />
+      </Table.DataCell>
+    </Table.Row>
+  )
+}
+
+const renderDeckHeading = (userId: string) => {
+  const me = {
+    id: '1',
+  }
+
+  return userId === me.id ? (
+    <>
+      <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
+        My pack
+        <DeckEditMenu
+          onEdit={() => console.log('onEdit called')}
+          onDelete={() => console.log('onDelete called')}
+        />
+      </Typography>
+      <Button variant={'primary'}>Add New Card</Button>
+    </>
+  ) : (
+    <>
+      <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
+        {/* eslint-disable-next-line react/no-unescaped-entities */}
+        Friend's Pack
+      </Typography>
+      <Button variant={'primary'}>Learn to Pack</Button>
+    </>
   )
 }
