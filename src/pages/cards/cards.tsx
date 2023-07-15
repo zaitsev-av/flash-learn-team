@@ -4,6 +4,7 @@ import { clsx } from 'clsx'
 
 import s from './cards.module.scss'
 
+import { ArrowLeftIcon } from '@/assets'
 import {
   Button,
   DeckEditMenu,
@@ -14,6 +15,7 @@ import {
   TextField,
   Typography,
 } from '@/components'
+import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { TableActions } from '@/components/ui/table-action-buttons'
 import { columns } from '@/pages/cards/table-columns.ts'
 import { testData } from '@/pages/cards/test-data.ts'
@@ -26,11 +28,19 @@ type CardsPropsType = {
 export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   const [sort, setSort] = useState<Sort>(null)
   const [page, setPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<string>('5')
-
+  const [pageSize, setPageSize] = useState<string>('10')
+  //раскомментировать когда подключим роуты
+  // const navigate = useNavigate()
+  //userId - только для тестирования функционала
+  const back = () => {
+    // eslint-disable-next-line no-console
+    console.log('back')
+    // navigate(-1)
+  }
   const classNames = {
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
+    back: clsx(s.back),
   }
 
   // eslint-disable-next-line no-console
@@ -38,6 +48,9 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
 
   return (
     <div style={{ width: '100%' }}>
+      <Typography variant={'body2'} className={classNames.back} onClick={back}>
+        <ArrowLeftIcon /> Back to Packs List
+      </Typography>
       <div className={classNames.header}>{renderDeckHeading(userId)}</div>
       <div style={{ width: '170px', height: '107px' }}>
         {img && <img src={img} alt="" style={{ width: '170px', height: '107px' }} />}
@@ -82,6 +95,7 @@ const CardTable: FC<CardTablePropsType> = props => {
     </Table.Root>
   )
 }
+
 const TableRows = (el: any, userId: string) => {
   return (
     <Table.Row key={el.question}>
@@ -112,7 +126,10 @@ const renderDeckHeading = (userId: string) => {
           onDelete={() => console.log('onDelete called')}
         />
       </Typography>
-      <Button variant={'primary'}>Add New Card</Button>
+      <AddNewCard
+        trigger={<Button variant={'primary'}>Add New Card</Button>}
+        onSubmit={data => console.log(data)}
+      />
     </>
   ) : (
     <>
@@ -120,7 +137,9 @@ const renderDeckHeading = (userId: string) => {
         {/* eslint-disable-next-line react/no-unescaped-entities */}
         Friend's Pack
       </Typography>
-      <Button variant={'primary'}>Learn to Pack</Button>
+      <Button variant={'primary'} as={'a'} href={'#'}>
+        Learn to Pack
+      </Button>
     </>
   )
 }
