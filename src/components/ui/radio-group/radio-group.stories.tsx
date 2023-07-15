@@ -3,10 +3,9 @@ import { useState } from 'react'
 import type { Meta } from '@storybook/react'
 import { v4 } from 'uuid'
 
-import { RadioGroup } from '@/components'
-import { ItemType } from '@/components/ui/radio-group/radio-group.tsx'
+import { RadioGroupItemType, RadioGroup } from '@/components'
 
-const items: ItemType[] = [
+const items: RadioGroupItemType[] = [
   { id: v4(), label: 'label1', value: 'value1' },
   { id: v4(), label: 'label2', value: 'value2' },
   { id: v4(), label: 'label3', value: 'value3' },
@@ -16,6 +15,20 @@ const items: ItemType[] = [
 const meta = {
   title: 'Components/Radio Group',
   component: RadioGroup,
+  decorators: [
+    Story => (
+      <div
+        style={{
+          margin: '3em',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof RadioGroup>
 

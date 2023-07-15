@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 26.25rem;
+  padding: 2.063rem 2.25rem 3rem;
+
+  .question {
+    margin-top: 2.813rem;
+  }
+
+  .attempts {
+    color: var(--color-dark-100) !important;
+  }
+
+  .answer {
+    margin-top: 2.563rem;
+  }
+
+  .feedback {
+    margin-top: 0.75rem;
+    margin-bottom: 0.813rem;
+  }
+
+  .next_question {
+    margin-top: 1.813rem;
+  }
+
+  .radioGroup {
+    gap: 0.75rem;
+  }
+}

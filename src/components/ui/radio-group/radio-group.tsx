@@ -7,14 +7,14 @@ import s from './radio-group.module.scss'
 
 import { RadioGroupItem } from '@/components/ui/radio-group/radio-group-item.tsx'
 
-export type ItemType = {
+export type RadioGroupItemType = {
   label: string
   id: string
   value: string
 }
 
 type RadioGroupPropsType = {
-  items: ItemType[]
+  items: RadioGroupItemType[]
   className?: string
   onChange: (value: string) => void
   value: string

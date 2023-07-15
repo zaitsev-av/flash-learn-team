@@ -7,10 +7,10 @@ import { Avatar, DropdownMenu, Typography } from '@/components'
 import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 
 type AvtarDropdownPropsType = {
-  userName: string
-  userEmail: string
+  userName?: string
+  userEmail?: string
   src: string
-  onSignOut: () => void
+  onSignOut?: () => void
 }
 
 export const AvtarDropdown: FC<AvtarDropdownPropsType> = props => {
