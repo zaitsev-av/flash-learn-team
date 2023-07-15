@@ -3,11 +3,11 @@
   flex-direction: column;
   justify-content: center;
 
-  width: 420px;
-  padding: 33px 36px 48px;
+  width: 26.25rem;
+  padding: 2.063rem 2.25rem 3rem;
 
   .question {
-    margin-top: 45px;
+    margin-top: 2.813rem;
   }
 
   .attempts {
@@ -15,18 +15,19 @@
   }
 
   .answer {
-    margin-top: 41px;
+    margin-top: 2.563rem;
   }
 
   .feedback {
-    margin-top: 12px;
-    margin-bottom: 13px;
+    margin-top: 0.75rem;
+    margin-bottom: 0.813rem;
   }
 
   .next_question {
-    margin-top: 29px;
+    margin-top: 1.813rem;
   }
+
   .radioGroup {
-    gap: 12px;
+    gap: 0.75rem;
   }
 }
