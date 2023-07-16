@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import s from './layout.module.scss'
 
 import { Logo } from '@/assets'
-import { Button, Header } from '@/components'
+import { AvtarDropdown, Header } from '@/components'
 import { Cards } from '@/pages/cards/cards.tsx'
 
 export const Layout: FC = () => {
@@ -17,7 +17,7 @@ export const Layout: FC = () => {
     <>
       <Header>
         <Logo />
-        <Button variant={'primary'}>Sign In</Button>
+        <AvtarDropdown userName={'blabla'} userEmail={'asdadfasdf@dvsag'} onSignOut={() => {}} />
       </Header>
       <div className={classNames.wrapper}>
         <Cards userId={'1'} />

@@ -1,10 +1,14 @@
 .back {
   cursor: pointer;
 
+  position: relative;
+
   display: flex;
   gap: 6px;
   align-items: center;
 
+  width: fit-content;
+  margin-top: 24px;
   margin-bottom: 33px;
 }
 

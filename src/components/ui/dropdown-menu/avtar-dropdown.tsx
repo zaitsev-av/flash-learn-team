@@ -9,7 +9,7 @@ import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 type AvtarDropdownPropsType = {
   userName: string
   userEmail: string
-  src: string
+  src?: string
   onSignOut: () => void
 }
 
@@ -17,26 +17,29 @@ export const AvtarDropdown: FC<AvtarDropdownPropsType> = props => {
   const { src, userName, userEmail, onSignOut } = props
 
   return (
-    <DropdownMenu trigger={<button className={s.icon_button}>{<Avatar src={src} />}</button>}>
-      <MenuItem>
-        <>
-          <Avatar src={src} menuItem={s.menu_item} />
-          <div style={{ flexDirection: 'column' }}>
-            <Typography variant={'caption'}>
-              <div>{userName}</div>
-              <div>{userEmail}</div>
-            </Typography>
-          </div>
-        </>
-      </MenuItem>
-      <MenuItem as={'a'} href={'#'}>
-        <ProfileIcon />
-        <Typography variant={'caption'}>My Profile</Typography>
-      </MenuItem>
-      <MenuItem separator={false} onSelect={onSignOut}>
-        <LogoutIcon />
-        <Typography variant={'caption'}>Sign Out</Typography>
-      </MenuItem>
-    </DropdownMenu>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <label>{userName}</label>
+      <DropdownMenu trigger={<button className={s.icon_button}>{<Avatar src={src} />}</button>}>
+        <MenuItem>
+          <>
+            <Avatar src={src} menuItem={s.menu_item} label={userName} />
+            <div style={{ flexDirection: 'column' }}>
+              <Typography variant={'caption'}>
+                <div>{userName}</div>
+                <div>{userEmail}</div>
+              </Typography>
+            </div>
+          </>
+        </MenuItem>
+        <MenuItem as={'a'} href={'#'}>
+          <ProfileIcon />
+          <Typography variant={'caption'}>My Profile</Typography>
+        </MenuItem>
+        <MenuItem separator={false} onSelect={onSignOut}>
+          <LogoutIcon />
+          <Typography variant={'caption'}>Sign Out</Typography>
+        </MenuItem>
+      </DropdownMenu>
+    </div>
   )
 }

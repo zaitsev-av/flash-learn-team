@@ -48,13 +48,17 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Typography variant={'body2'} className={classNames.back} onClick={back}>
-        <ArrowLeftIcon /> Back to Packs List
-      </Typography>
+      <Button variant={'link'} onClick={back}>
+        <Typography variant={'body2'} className={classNames.back}>
+          <ArrowLeftIcon /> Back to Packs List
+        </Typography>
+      </Button>
       <div className={classNames.header}>{renderDeckHeading(userId)}</div>
-      <div style={{ width: '170px', height: '107px' }}>
-        {img && <img src={img} alt="" style={{ width: '170px', height: '107px' }} />}
-      </div>
+      {img && (
+        <div style={{ width: '170px', height: '107px' }}>
+          <img src={img} alt="" style={{ width: '170px', height: '107px' }} />
+        </div>
+      )}
       <TextField inputType={'search'} className={classNames.textField} />
       <CardTable
         rowData={testData}
@@ -125,7 +129,6 @@ const renderDeckHeading = (userId: string) => {
           onDelete={() => console.log('onDelete called')}
         />
       </Typography>
-      {/** думаю стоит переделать все модалки через чилдрены так объективно лучше*/}
       <AddNewCard onSubmit={data => console.log(data)}>
         <Button variant={'primary'}>Add New Card</Button>
       </AddNewCard>
