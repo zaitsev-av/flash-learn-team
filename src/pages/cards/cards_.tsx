@@ -47,12 +47,19 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
     back: clsx(s.back),
+    container: clsx(s.container, 'container'),
   }
 
   // eslint-disable-next-line no-console
   console.log(sort)
 
   return (
+    /**
+     * я бы верстал следующим образом: flex и direcion column в s.container а в глобальных стилях есть
+     * 'container' он задает ширину видимой области и тебе не нужно думать о том
+     * как задать ширину контента флексы сами растянут контент на 100% от 'container'
+     *тогда флекс элементы: [ссылка 'назад'], [заголовок в котором слева <div>Имя, меню, картинка<div> справа кнопка], [таблица], [пагинация]
+     * */
     <div style={{ width: '100%' }}>
       {/** думаю что это должна быть ссылка*/}
       <Typography
