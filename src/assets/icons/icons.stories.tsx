@@ -13,6 +13,7 @@ import {
   LearnPackIcon,
   Logo,
   LogoutIcon,
+  Page404,
   PencilIcon,
   ProfileIcon,
   SearchIcon,
@@ -163,5 +164,11 @@ export const Star_Outline_Icon: Story = {
 export const ArrowLeft_Icon: Story = {
   render: () => {
     return <ArrowLeftIcon />
+  },
+}
+
+export const Page404_Icon: Story = {
+  render: () => {
+    return <Page404 />
   },
 }

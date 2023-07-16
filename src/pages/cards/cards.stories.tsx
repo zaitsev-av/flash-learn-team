@@ -7,7 +7,14 @@ const meta = {
   component: Cards,
   decorators: [
     Story => (
-      <div style={{ margin: '3em', display: 'flex', justifyContent: 'center' }}>
+      <div
+        style={{
+          margin: '3em',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
         <Story />
       </div>
     ),
