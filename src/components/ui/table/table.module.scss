@@ -12,11 +12,7 @@
 .headCell {
   cursor: pointer;
   user-select: none;
-
-  gap: 0.625rem;
-
   padding: 0.375rem 1.5rem;
-
   background: var(--color-dark-500);
 
   &.noSort {
@@ -35,7 +31,7 @@
   display: flex;
   gap: 0.25rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .sortAscIcon {

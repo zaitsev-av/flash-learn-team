@@ -29,7 +29,6 @@ export const EditPackModal: FC<EditPackModalProps> = ({
     values: { isPrivate, newNamePack: packName },
   })
   const onSubmitForm = handleSubmit(data => {
-    debugger
     onSubmit({ newNamePack: data.newNamePack, isPrivate: data.isPrivate })
     setIsOpen(false)
   })

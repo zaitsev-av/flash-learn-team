@@ -23,7 +23,8 @@
       color: var(--color-light-100);
 
       background: none;
-      border: 2px solid var(--color-dark-100);
+      border: 1px solid var(--color-dark-300);
+      border-radius: 0.13rem;
     }
 
     .root {
