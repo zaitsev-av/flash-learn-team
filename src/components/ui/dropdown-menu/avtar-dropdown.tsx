@@ -18,11 +18,16 @@ export const AvtarDropdown: FC<AvtarDropdownPropsType> = props => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <label>{userName}</label>
-      <DropdownMenu trigger={<button className={s.icon_button}>{<Avatar src={src} />}</button>}>
+      <DropdownMenu
+        trigger={
+          <button className={s.icon_button}>
+            {<Avatar src={src} userName={userName} showLabel />}
+          </button>
+        }
+      >
         <MenuItem>
           <>
-            <Avatar src={src} menuItem={s.menu_item} label={userName} />
+            <Avatar src={src} menuItem={s.menu_item} userName={userName} />
             <div style={{ flexDirection: 'column' }}>
               <Typography variant={'caption'}>
                 <div>{userName}</div>

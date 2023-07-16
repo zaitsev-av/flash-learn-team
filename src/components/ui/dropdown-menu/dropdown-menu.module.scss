@@ -50,9 +50,13 @@ button {
 }
 
 .icon_button {
+  cursor: pointer;
+  user-select: none;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   border-radius: 100%;
 }
 

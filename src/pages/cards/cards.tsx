@@ -45,11 +45,8 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
     back: clsx(s.back),
   }
 
-  // eslint-disable-next-line no-console
-  console.log(sort)
-
   return (
-    <div style={{ width: '100%' }}>
+    <>
       <Button variant={'link'} onClick={navigateBack}>
         <Typography variant={'body2'} className={classNames.back}>
           <ArrowLeftIcon /> Back to Packs List
@@ -82,7 +79,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />
-    </div>
+    </>
   )
 }
 
@@ -125,7 +122,7 @@ const TableRows = (el: any, userId: string) => {
 }
 
 const renderDeckHeading = (userId: string, packName: string) => {
-  const isMyPack = userId === '2'
+  const isMyPack = userId === '1'
   const headingText = isMyPack ? 'My pack' : packName
   const editMenu = isMyPack && (
     <DeckEditMenu

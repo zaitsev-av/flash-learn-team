@@ -4,6 +4,8 @@
   padding: 1.1rem;
 
   .label_wrapper {
+    cursor: pointer;
+
     display: flex;
     flex-wrap: wrap;
     gap: 0.3rem;
@@ -22,7 +24,7 @@
 
     vertical-align: middle;
 
-    border-radius: 50%;
+    border-radius: 99999px;
 
     &:focus-visible {
       outline: none;
@@ -30,8 +32,7 @@
     }
 
     .avatar_image {
-      object-fit: cover;
-      border-radius: inherit;
+      object-fit: contain;
     }
 
     .avatarFallback {
@@ -42,7 +43,7 @@
       font-weight: var(--font-weight-bold);
       color: var(--color-dark-900);
 
-      background-color: white;
+      background-color: #9dafb6;
     }
   }
 }

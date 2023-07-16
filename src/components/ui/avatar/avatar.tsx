@@ -8,19 +8,21 @@ import s from './avatar.module.scss'
 
 export type UserAvatarPropsType = {
   className?: string
+  userName?: string
   menuItem?: string
-  label?: string
+  showLabel?: boolean
   size?: CSSProperties['width']
   src?: ComponentProps<'img'>['src']
 }
 export const Avatar: FC<UserAvatarPropsType> = ({
-  label,
+  userName,
   className,
   menuItem,
+  showLabel = false,
   src,
   size = '2.25rem',
 }) => {
-  const fallbackText = label?.slice(0, 2).toUpperCase()
+  const fallbackText = userName?.slice(0, 2).toUpperCase()
   const avatarSize = { width: size, height: size }
   const classNames = {
     wrapper: clsx(s.wrapper, menuItem),
@@ -32,7 +34,7 @@ export const Avatar: FC<UserAvatarPropsType> = ({
 
   return (
     <div className={classNames.wrapper}>
-      {label && <Label.Root className={classNames.label}>{label}</Label.Root>}
+      {showLabel && userName && <Label.Root className={classNames.label}>{userName}</Label.Root>}
       <AvatarRDX.Root className={classNames.root} tabIndex={0}>
         <AvatarRDX.Image
           className={classNames.avatar}
@@ -40,7 +42,7 @@ export const Avatar: FC<UserAvatarPropsType> = ({
           alt="User avatar"
           style={avatarSize}
         />
-        <AvatarRDX.Fallback style={avatarSize} className={classNames.fallback} delayMs={600}>
+        <AvatarRDX.Fallback style={avatarSize} className={classNames.fallback}>
           {fallbackText}
         </AvatarRDX.Fallback>
       </AvatarRDX.Root>

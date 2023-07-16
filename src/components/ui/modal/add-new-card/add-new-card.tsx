@@ -97,8 +97,8 @@ const ImagePreviewUploader = () => {
 
   return (
     <>
-      <Label>
-        <Typography variant={'body1'}>Question:</Typography>
+      <Label style={{ marginTop: '3px' }}>
+        <Typography variant={'subtitle2'}>Question:</Typography>
       </Label>
       {questionImg && (
         <img src={questionImg} alt="question image" style={{ width: '100%', height: '120px' }} />
@@ -114,12 +114,17 @@ const ImagePreviewUploader = () => {
         <Typography variant={'subtitle2'}>Change Cover</Typography>
       </Button>
       <Label>
-        <Typography variant={'body1'}>Answer:</Typography>
+        <Typography variant={'subtitle2'}>Answer:</Typography>
       </Label>
       {answerImg && (
         <img src={answerImg} alt="answer image" style={{ width: '100%', height: '120px' }} />
       )}
-      <Button variant={'secondary'} fullWidth onClick={openAnswerInput}>
+      <Button
+        variant={'secondary'}
+        fullWidth
+        onClick={openAnswerInput}
+        style={{ marginBottom: '3px' }}
+      >
         <input
           hidden
           accept="image/png, image/jpeg"
