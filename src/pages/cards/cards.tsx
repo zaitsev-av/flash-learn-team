@@ -29,7 +29,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   const [sort, setSort] = useState<Sort>(null)
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('10')
-  //раскомментировать когда подключим роуты
+  //todo раскомментировать когда подключим роуты
   // const navigate = useNavigate()
   //userId - только для тестирования функционала
   const back = () => {
@@ -37,6 +37,8 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
     console.log('back')
     // navigate(-1)
   }
+  //todo заменить переменную packName на имя колоды
+  const packName = "Friend's pack"
   const classNames = {
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
@@ -53,13 +55,17 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
           <ArrowLeftIcon /> Back to Packs List
         </Typography>
       </Button>
-      <div className={classNames.header}>{renderDeckHeading(userId)}</div>
+
+      <div className={classNames.header}>{renderDeckHeading(userId, packName)}</div>
+
       {img && (
         <div style={{ width: '170px', height: '107px' }}>
           <img src={img} alt="" style={{ width: '170px', height: '107px' }} />
         </div>
       )}
+
       <TextField inputType={'search'} className={classNames.textField} />
+
       <CardTable
         rowData={testData}
         sort={sort}
@@ -67,6 +73,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
         userId={userId}
         pageSize={pageSize}
       />
+
       <Pagination
         currentPage={page}
         totalCount={14}
@@ -90,15 +97,17 @@ const CardTable: FC<CardTablePropsType> = props => {
   const { rowData, sort, setSort, userId, pageSize } = props
   const classNames = {
     head: clsx(s.tableHead),
+    tableRot: clsx(s.tableRoot),
   }
 
   return (
-    <Table.Root style={{ width: '100%', marginBottom: '25px' }}>
+    <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
       <Table.Body>{rowData.slice(0, +pageSize).map((el: any) => TableRows(el, userId))}</Table.Body>
     </Table.Root>
   )
 }
+//todo типизация
 const TableRows = (el: any, userId: string) => {
   return (
     <Table.Row key={el.question}>
@@ -115,33 +124,34 @@ const TableRows = (el: any, userId: string) => {
   )
 }
 
-const renderDeckHeading = (userId: string) => {
-  const me = {
-    id: '1',
-  }
+const renderDeckHeading = (userId: string, packName: string) => {
+  const isMyPack = userId === '2'
+  const headingText = isMyPack ? 'My pack' : packName
+  const editMenu = isMyPack && (
+    <DeckEditMenu
+      onEdit={() => console.log('onEdit called')}
+      onDelete={() => console.log('onDelete called')}
+    />
+  )
+  const addNewCardSection = isMyPack && (
+    <AddNewCard onSubmit={data => console.log(data)}>
+      <Button variant={'primary'}>Add New Card</Button>
+    </AddNewCard>
+  )
+  const learnToPackButton = !isMyPack && (
+    <Button variant={'primary'} as={'a'} href={'#'}>
+      Learn to Pack
+    </Button>
+  )
 
-  return userId === me.id ? (
+  return (
     <>
       <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
-        My pack
-        <DeckEditMenu
-          onEdit={() => console.log('onEdit called')}
-          onDelete={() => console.log('onDelete called')}
-        />
+        {headingText}
+        {editMenu}
       </Typography>
-      <AddNewCard onSubmit={data => console.log(data)}>
-        <Button variant={'primary'}>Add New Card</Button>
-      </AddNewCard>
-    </>
-  ) : (
-    <>
-      <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
-        {/* eslint-disable-next-line react/no-unescaped-entities */}
-        Friend's Pack
-      </Typography>
-      <Button variant={'primary'} as={'a'} href={'#'}>
-        Learn to Pack
-      </Button>
+      {addNewCardSection}
+      {learnToPackButton}
     </>
   )
 }
