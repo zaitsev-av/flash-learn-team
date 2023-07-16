@@ -32,7 +32,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   //todo раскомментировать когда подключим роуты
   // const navigate = useNavigate()
   //userId - только для тестирования функционала
-  const back = () => {
+  const navigateBack = () => {
     // eslint-disable-next-line no-console
     console.log('back')
     // navigate(-1)
@@ -50,7 +50,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Button variant={'link'} onClick={back}>
+      <Button variant={'link'} onClick={navigateBack}>
         <Typography variant={'body2'} className={classNames.back}>
           <ArrowLeftIcon /> Back to Packs List
         </Typography>

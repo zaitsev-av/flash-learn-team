@@ -16,7 +16,7 @@ const meta = {
     ),
   ],
   args: {
-    trigger: <Button variant={'primary'}>Add New Pack</Button>,
+    children: <Button variant={'primary'}>Add New Pack</Button>,
   },
 } satisfies Meta<typeof AddNewCard>
 
@@ -26,12 +26,13 @@ export const Default: Story = {
   render: args => {
     return (
       <AddNewCard
-        trigger={args.trigger}
         onSubmit={data => {
           // eslint-disable-next-line no-console
           console.log(data)
         }}
-      />
+      >
+        {args.children}
+      </AddNewCard>
     )
   },
 }
