@@ -23,14 +23,20 @@ import { testData } from '@/pages/cards/test-data.ts'
 type CardsPropsType = {
   userId: string
   img?: string
+  /**
+   * я думаю сюда должна приходить packId как минимум как максимум - нужно подумать
+   * img не будем пробрасывать - эти данные получим по packId как нибудь :)
+   */
 }
 
 export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   const [sort, setSort] = useState<Sort>(null)
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('10')
-  //раскомментировать когда подключим роуты
-  // const navigate = useNavigate()
+  /**
+   * TODO раскомментировать когда подключим роуты
+   * const navigate = useNavigate()
+   */
   //userId - только для тестирования функционала
   const back = () => {
     // eslint-disable-next-line no-console
@@ -48,7 +54,14 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Typography variant={'body2'} className={classNames.back} onClick={back}>
+      {/** думаю что это должна быть ссылка*/}
+      <Typography
+        as={'a'}
+        href={'https//:google.com'}
+        variant={'body2'}
+        className={classNames.back}
+        onClick={back}
+      >
         <ArrowLeftIcon /> Back to Packs List
       </Typography>
       <div className={classNames.header}>{renderDeckHeading(userId)}</div>
@@ -95,6 +108,11 @@ const CardTable: FC<CardTablePropsType> = props => {
     </Table.Root>
   )
 }
+/**
+ я бы не делал компонентой, а просто переменной как мы обычно делаем тогда <Table.Body>{rows}</Table.Body> более читабельно
+ возможно стоит подумать над тем чтобы запихнуть строки как в хедере внутрь таблицы,
+ а туда передавать только массив строк
+ */
 const TableRows = (el: any, userId: string) => {
   return (
     <Table.Row key={el.question}>
@@ -105,40 +123,50 @@ const TableRows = (el: any, userId: string) => {
         <Grade onClick={id => console.log(id)} grade={5} />
       </Table.DataCell>
       <Table.DataCell>
+        {/**надо чтото делать с TableActions а то я их как будто для паков только сделал, может отдельно тогда делать еще для карт */}
         <TableActions item={{ id: el.id, title: el.question }} editable={userId === '1'} />
       </Table.DataCell>
     </Table.Row>
   )
 }
-
+/**
+ * тоже что и с TableRows. Я бы еще условие не на все писал, а на конкретные части
+ * и выносил их в переменные, мне кажется так читается лучше и гибкость кода чтоли повышается
+ * если вдруг нужно будет отрисовать по условию другому например. Хотя может тогда выносить
+ * в отдельные файлы хз пойду на сапорт спрошу
+ */
 const renderDeckHeading = (userId: string) => {
   const me = {
     id: '1',
   }
+  const isMy = userId === me.id
+  /** наверное вместо Friends нужно чтобы было имя того чей пак типа */
+  const title = isMy ? 'My pack' : 'Friends Pack'
 
-  return userId === me.id ? (
-    <>
-      <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
-        My pack
-        <DeckEditMenu
-          onEdit={() => console.log('onEdit called')}
-          onDelete={() => console.log('onDelete called')}
-        />
-      </Typography>
-      {/** думаю стоит переделать все модалки через чилдрены так объективно лучше*/}
-      <AddNewCard onSubmit={data => console.log(data)}>
-        <Button variant={'primary'}>Add New Card</Button>
-      </AddNewCard>
-    </>
+  const menu = isMy && (
+    <DeckEditMenu
+      onEdit={() => console.log('onEdit called')}
+      onDelete={() => console.log('onDelete called')}
+    />
+  )
+
+  const buttonVariant = isMy ? (
+    <AddNewCard onSubmit={data => console.log(data)}>
+      <Button variant={'primary'}>Add New Card</Button>
+    </AddNewCard>
   ) : (
+    <Button variant={'primary'} as={'a'} href={'#'}>
+      Learn to Pack
+    </Button>
+  )
+
+  return (
     <>
-      <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
-        {/* eslint-disable-next-line react/no-unescaped-entities */}
-        Friend's Pack
-      </Typography>
-      <Button variant={'primary'} as={'a'} href={'#'}>
-        Learn to Pack
-      </Button>
+      <div className={s.deckMenuSection}>
+        <Typography variant={'large'}>{title}</Typography>
+        {menu}
+      </div>
+      {buttonVariant}
     </>
   )
 }

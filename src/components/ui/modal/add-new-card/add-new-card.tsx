@@ -10,14 +10,14 @@ import { Button, ControlledTextField, Select, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal'
 
 type AddNewPackModalPropsType = {
-  trigger: ReactNode
+  children: ReactNode
   onSubmit: (data: Form) => void
 }
 type Form = z.infer<typeof addNewCard>
 
 export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const { trigger, onSubmit } = props
+  const { children, onSubmit } = props
   const { handleSubmit, control } = useForm<Form>({
     resolver: zodResolver(addNewCard),
     mode: 'onSubmit',
@@ -29,7 +29,7 @@ export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
   })
 
   return (
-    <Modal.Root title={'Add New Card'} trigger={trigger} onOpenChange={setIsOpen} isOpen={isOpen}>
+    <Modal.Root title={'Add New Card'} trigger={children} onOpenChange={setIsOpen} isOpen={isOpen}>
       <form onSubmit={onSubmitForm}>
         <Modal.Body>
           <Select
