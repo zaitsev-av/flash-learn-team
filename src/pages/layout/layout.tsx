@@ -14,12 +14,14 @@ export const Layout: FC = () => {
   }
 
   return (
-    <div className={classNames.wrapper}>
+    <>
       <Header>
         <Logo />
         <AvtarDropdown userName={'blabla'} userEmail={'asdadfasdf@dvsag'} onSignOut={() => {}} />
       </Header>
-      <Cards userId={'1'} />
-    </div>
+      <div className={classNames.wrapper}>
+        <Cards userId={'1'} />
+      </div>
+    </>
   )
 }
