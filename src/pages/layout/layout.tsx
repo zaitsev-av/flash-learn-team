@@ -6,7 +6,7 @@ import s from './layout.module.scss'
 
 import { Logo } from '@/assets'
 import { AvtarDropdown, Header } from '@/components'
-import { Cards } from '@/pages/cards/cards.tsx'
+import { Cards } from '@/pages/cards'
 
 export const Layout: FC = () => {
   const classNames = {
