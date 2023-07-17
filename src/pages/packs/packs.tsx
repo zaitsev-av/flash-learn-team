@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import s from './packs.module.scss'
 
