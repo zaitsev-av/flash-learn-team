@@ -4,11 +4,13 @@ import { clsx } from 'clsx'
 
 import s from './cards.module.scss'
 
-import { ArrowLeftIcon } from '@/assets'
+import { ArrowLeftIcon, DeleteIcon, EditIcon } from '@/assets'
 import {
   Button,
   DeckEditMenu,
+  DeleteDialog,
   Grade,
+  ItemType,
   Pagination,
   Sort,
   Table,
@@ -16,7 +18,7 @@ import {
   Typography,
 } from '@/components'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
-import { TableActions } from '@/components/ui/table-action-buttons'
+import { EditPackModal } from '@/components/ui/modal/edit-pack-modal/edit-pack-modal.tsx'
 import { columns } from '@/pages/cards/table-columns.ts'
 import { testData } from '@/pages/cards/test-data.ts'
 
@@ -150,5 +152,43 @@ const renderDeckHeading = (userId: string, packName: string) => {
       {addNewCardSection}
       {learnToPackButton}
     </>
+  )
+}
+
+type TableActionsProps = {
+  editable?: boolean
+  item: ItemType
+}
+export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
+  return (
+    <div className={s.container}>
+      {editable && (
+        <>
+          <EditPackModal
+            trigger={
+              <button>
+                <EditIcon />
+              </button>
+            }
+            isPrivate={!!''}
+            packName={'asfadf'}
+            onSubmit={() => {}}
+          />
+          <DeleteDialog
+            trigger={
+              <button>
+                <DeleteIcon />
+              </button>
+            }
+            buttonTitle={'Delete Pack'}
+            item={item}
+            onClick={id => {
+              console.log(id)
+            }}
+            title={'Delete Pack'}
+          />
+        </>
+      )}
+    </div>
   )
 }
