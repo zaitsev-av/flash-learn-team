@@ -11,7 +11,7 @@ import { Button, ControlledTextField, Select, Typography } from '@/components'
 import { useImageUploader } from '@/components/ui/avatar/useImageUploader.ts'
 import { Modal } from '@/components/ui/modal'
 
-type AddNewPackModalPropsType = {
+type EditCardModalPropsType = {
   children: ReactNode
   question: string
   answer: string
@@ -19,7 +19,7 @@ type AddNewPackModalPropsType = {
 }
 type Form = z.infer<typeof editCard>
 
-export const EditCard: FC<AddNewPackModalPropsType> = props => {
+export const EditCard: FC<EditCardModalPropsType> = props => {
   const { children, onSubmit, question, answer } = props
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [type, setType] = useState<string>('Text')

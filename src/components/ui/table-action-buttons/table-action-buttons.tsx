@@ -32,18 +32,17 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
             onSubmit={() => {}}
           />
           <DeleteDialog
-            trigger={
-              <button>
-                <DeleteIcon />
-              </button>
-            }
             buttonTitle={'Delete Pack'}
             item={item}
             onClick={id => {
               console.log(id)
             }}
             title={'Delete Pack'}
-          />
+          >
+            <button>
+              <DeleteIcon />
+            </button>
+          </DeleteDialog>
         </>
       )}
     </div>

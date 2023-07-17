@@ -18,12 +18,12 @@ type DeleteDialogProps = {
   title: string
   item: ItemType
   buttonTitle: string
-  trigger: ReactNode
+  children: ReactNode
   onClick: (id: string) => void
 }
 export const DeleteDialog: FC<DeleteDialogProps> = ({
   onClick,
-  trigger,
+  children,
   title,
   item,
   buttonTitle,
@@ -39,7 +39,7 @@ export const DeleteDialog: FC<DeleteDialogProps> = ({
 
   return (
     <div>
-      <Modal.Root onOpenChange={setOpen} trigger={trigger} isOpen={open} title={title}>
+      <Modal.Root onOpenChange={setOpen} trigger={children} isOpen={open} title={title}>
         <Modal.Body>{bodyMessage}</Modal.Body>
         <Modal.Footer>
           <Button variant={'primary'} onClick={clickHandler}>

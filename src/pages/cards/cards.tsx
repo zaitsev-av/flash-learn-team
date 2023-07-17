@@ -18,7 +18,7 @@ import {
   Typography,
 } from '@/components'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
-import { EditPackModal } from '@/components/ui/modal/edit-pack-modal/edit-pack-modal.tsx'
+import { EditCard } from '@/components/ui/modal/edit-card'
 import { columns } from '@/pages/cards/table-columns.ts'
 import { testData } from '@/pages/cards/test-data.ts'
 
@@ -116,8 +116,13 @@ const TableRows = (el: any, userId: string) => {
       <Table.DataCell>
         <Grade onClick={id => console.log(id)} grade={5} />
       </Table.DataCell>
-      <Table.DataCell>
-        <TableActions item={{ id: el.id, title: el.question }} editable={userId === '1'} />
+      <Table.DataCell style={{ padding: '6px 24px' }}>
+        <TableActions
+          question={el.question}
+          answer={el.answer}
+          item={{ id: el.id, title: el.question }}
+          editable={userId === '1'}
+        />
       </Table.DataCell>
     </Table.Row>
   )
@@ -157,36 +162,34 @@ const renderDeckHeading = (userId: string, packName: string) => {
 
 type TableActionsProps = {
   editable?: boolean
+  question: string
+  answer: string
   item: ItemType
 }
-export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
+const TableActions: FC<TableActionsProps> = props => {
+  const { item, editable = true, question, answer } = props
+
   return (
-    <div className={s.container}>
+    <div style={{ display: 'flex', gap: '10px' }}>
       {editable && (
         <>
-          <EditPackModal
-            trigger={
-              <button>
-                <EditIcon />
-              </button>
-            }
-            isPrivate={!!''}
-            packName={'asfadf'}
-            onSubmit={() => {}}
-          />
+          <EditCard question={question} answer={answer} onSubmit={data => console.log(data)}>
+            <button>
+              <EditIcon />
+            </button>
+          </EditCard>
           <DeleteDialog
-            trigger={
-              <button>
-                <DeleteIcon />
-              </button>
-            }
-            buttonTitle={'Delete Pack'}
+            buttonTitle={'Delete Card'}
             item={item}
             onClick={id => {
               console.log(id)
             }}
-            title={'Delete Pack'}
-          />
+            title={'Delete Card'}
+          >
+            <button>
+              <DeleteIcon />
+            </button>
+          </DeleteDialog>
         </>
       )}
     </div>

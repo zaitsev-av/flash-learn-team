@@ -21,7 +21,7 @@ export const Default: Story = {
     title: 'Delete Pack',
     buttonTitle: 'Delete Pack',
     item: { title: 'SomePackName', id: 'pack_ID_ajkskg' },
-    trigger: <DeleteIcon />,
+    children: <DeleteIcon />,
     onClick: id => {
       console.log(id)
     },
