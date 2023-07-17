@@ -7,11 +7,15 @@ import s from './layout.module.scss'
 import { Logo } from '@/assets'
 import { AvtarDropdown, Header } from '@/components'
 import { Cards } from '@/pages/cards'
+import { useAuthMeQuery } from '@/services/auth/auth.api.ts'
 
 export const Layout: FC = () => {
   const classNames = {
     wrapper: clsx(s.wrapper, 'container'),
   }
+  const { data } = useAuthMeQuery('')
+
+  console.log(data)
 
   return (
     <>

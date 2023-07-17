@@ -9,18 +9,16 @@ import { AddNewPackModal, Button, Header, Pagination, Sort, Table, Typography } 
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { columns, data as mockData } from '@/components/ui/table/table.stories.tsx'
 import { TableActions } from '@/components/ui/table-action-buttons'
-import { useMeQuery } from '@/services/auth/auth.api.ts'
 
 type PacksProps = {}
 export const Packs: FC<PacksProps> = () => {
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('7')
   const [sort, setSort] = useState<Sort>(null)
-  const { data, error, isLoading } = useMeQuery({})
 
-  console.log('data', data)
-  console.log('error', error)
-  console.log('isLoading', isLoading)
+  // console.log('data', data)
+  // console.log('error', error)
+  // console.log('isLoading', isLoading)
 
   const cNames = {
     container: clsx(s.container, 'container'),
