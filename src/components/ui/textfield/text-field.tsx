@@ -10,7 +10,7 @@ import { Typography } from '@/components'
 
 export type InputProps = {
   containerProps?: ComponentProps<'div'>
-  title: string
+  title?: string
   inputType: 'text' | 'password' | 'search'
   error?: string
   className?: string

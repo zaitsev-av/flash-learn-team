@@ -1,10 +1,8 @@
 .wrapper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 
-  min-height: 60px;
-  margin: 0 auto;
+  height: 60px;
 
   background-color: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-500);
@@ -14,8 +12,9 @@
     align-items: center;
     justify-content: space-between;
 
-    width: 100%;
+    width: 1000px;
     margin-right: auto;
     margin-left: auto;
+    padding: 0 36px;
   }
 }

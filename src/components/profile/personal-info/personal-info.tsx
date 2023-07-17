@@ -4,7 +4,7 @@ import s from './personal-info.module.scss'
 
 import { LogoutIcon, PencilIcon } from '@/assets'
 import { Avatar, Button, Typography } from '@/components'
-import { useAvatarUploader } from '@/components/ui/avatar/useAvatarUploader.ts'
+import { useImageUploader } from '@/components/ui/avatar/useImageUploader.ts'
 import { Card } from '@/components/ui/card'
 import { EditableText, useEditableText } from '@/components/ui/editeble-text'
 
@@ -17,7 +17,7 @@ export type PersonalInfoPropsType = {
 export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
   const { userName, userEmail, onLogout } = props
   const { activateEditMode, setEditMode, editMode } = useEditableText('')
-  const { file, handleFileChange, openFileInput, fileInputRef } = useAvatarUploader(
+  const { file, handleFileChange, openFileInput, fileInputRef } = useImageUploader(
     'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
   )
 

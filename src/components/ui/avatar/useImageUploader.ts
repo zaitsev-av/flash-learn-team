@@ -1,6 +1,11 @@
 import { ChangeEvent, useRef, useState } from 'react'
 
-export const useAvatarUploader = (value: string) => {
+/**
+ * The useImageUploader hook provides functionality for uploading images.
+ * @param {string} value - The initial file value.
+ * @returns {object} - An object with data and functions for working with image upload.
+ */
+export const useImageUploader = (value: string) => {
   const [file, setFile] = useState<string>(value)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -10,6 +15,11 @@ export const useAvatarUploader = (value: string) => {
   const openFileInput = () => {
     fileInputRef.current && fileInputRef.current.click()
   }
+
+  /**
+   * Handles the change of the selected file.
+   * @param {ChangeEvent<HTMLInputElement>} e - The file input change event.
+   */
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const photo = e.target.files?.[0]
 
