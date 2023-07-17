@@ -1,9 +1,5 @@
-import { Packs } from '@/components'
+import { SignUp } from '@/pages/sign-up/sign-up.tsx'
 
 export const App = () => {
-  return (
-    <>
-      <Packs />
-    </>
-  )
+  return <SignUp />
 }
