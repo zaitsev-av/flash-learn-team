@@ -28,4 +28,4 @@ export const authAPI = createApi({
   },
 })
 
-export const { useAuthMeQuery } = authAPI
+export const { useAuthMeQuery, useSignUpMutation } = authAPI
