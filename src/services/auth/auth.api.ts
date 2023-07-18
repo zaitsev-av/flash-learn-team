@@ -7,11 +7,20 @@ export const authAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL, credentials: 'include' }),
   endpoints: build => {
     return {
-      authMe: build.query<any, any>({
+      authMe: build.query<any, void>({
         query: () => {
           return {
             method: 'GET',
-            url: 'auth/me',
+            url: `auth/me`,
+          }
+        },
+      }),
+      signUp: build.mutation({
+        query: body => {
+          return {
+            method: 'POST',
+            url: 'auth/sign-up',
+            body,
           }
         },
       }),

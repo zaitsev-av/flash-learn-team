@@ -7,7 +7,7 @@ const preview: Preview = {
   parameters: {
     darkMode: {
       dark: { ...themes.dark, appBg: '#171717' },
-      light: { ...themes.normal, appBg: '#808080' },
+      light: { ...themes.normal, appBg: '#fffdfd' },
     },
     docs: {
       theme: themes.dark,

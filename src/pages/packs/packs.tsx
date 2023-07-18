@@ -4,9 +4,9 @@ import { clsx } from 'clsx'
 
 import s from './packs.module.scss'
 
-import { Logo } from '@/assets'
-import { AddNewPackModal, Button, Header, Pagination, Sort, Table, Typography } from '@/components'
+import { AddNewPackModal, Button, Pagination, Sort, Table, Typography } from '@/components'
 import { FilterPanel } from '@/components/ui/filter-panel'
+import { Page } from '@/components/ui/page'
 import { columns, data as mockData } from '@/components/ui/table/table.stories.tsx'
 import { TableActions } from '@/components/ui/table-action-buttons'
 
@@ -38,11 +38,7 @@ export const Packs: FC<PacksProps> = () => {
   ))
 
   return (
-    <>
-      <Header>
-        <Logo />
-        <Button>Sign In</Button>
-      </Header>
+    <Page>
       <div className={cNames.container}>
         <div className={cNames.title}>
           <Typography variant={'large'}>Pack list</Typography>
@@ -70,6 +66,6 @@ export const Packs: FC<PacksProps> = () => {
           onPageSizeChange={setPageSize}
         />
       </div>
-    </>
+    </Page>
   )
 }
