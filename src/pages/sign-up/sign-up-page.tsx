@@ -13,7 +13,7 @@ export const SignUpPage = () => {
       const res = await signUp(data).unwrap()
 
       console.log(res)
-      navigate('/sign-up')
+      navigate('/sign-in')
     } catch (error) {
       // console.log(error)
     }
