@@ -16,7 +16,7 @@ export const Default: Story = {
   args: {
     packName: 'EditedPackName',
     isPrivate: true,
-    trigger: <EditIcon />,
+    children: <EditIcon />,
     onSubmit: data => {
       // eslint-disable-next-line no-console
       console.log(data)
