@@ -12,7 +12,6 @@ const routes = createBrowserRouter([
     element: <PrivateRoute />,
     children: [
       {
-        path: '/',
         element: <Layout />,
         children: [
           {
@@ -35,9 +34,4 @@ const routes = createBrowserRouter([
 
 export const App = () => {
   return <RouterProvider router={routes} />
-  // return (
-  //   <>
-  //     <Layout />
-  //   </>
-  // )
 }

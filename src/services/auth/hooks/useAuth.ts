@@ -17,6 +17,8 @@ export const useAuth = () => {
   useEffect(() => {
     if (isAuth) {
       navigate('/sign-in')
+    } else {
+      navigate('/')
     }
   }, [isAuth])
 }
