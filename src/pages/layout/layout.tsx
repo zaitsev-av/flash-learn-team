@@ -19,7 +19,7 @@ export const Layout: FC = () => {
 
   console.log(data)
   console.log(error)
-  if (isError && location.pathname !== '/login') navigate('/login')
+  if (isError && location.pathname !== '/sign-in') navigate('/sign-in')
 
   return (
     <>

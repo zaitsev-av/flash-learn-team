@@ -15,7 +15,7 @@ const routes = createBrowserRouter([
         element: <Packs />,
       },
       {
-        path: 'login',
+        path: 'sign-in',
         element: <LoginPage />,
       },
       {

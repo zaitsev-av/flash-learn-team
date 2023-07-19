@@ -4,18 +4,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import s from './registration-form.module.scss'
-import { registrationSchema } from './schema.ts'
+import { signUpSchema } from './schema.ts'
+import s from './sign-up-form.module.scss'
 
 import { Button, Card, ControlledTextField, Typography } from '@/components'
 
-type Form = z.infer<typeof registrationSchema>
+type Form = z.infer<typeof signUpSchema>
 type PropsType = {
   onSubmit: (data: Omit<Form, 'confirmPassword'>) => void
 }
-export const RegistrationForm: FC<PropsType> = ({ onSubmit }) => {
+export const SignUpForm: FC<PropsType> = ({ onSubmit }) => {
   const { control, handleSubmit, reset } = useForm<Form>({
-    resolver: zodResolver(registrationSchema),
+    resolver: zodResolver(signUpSchema),
     mode: 'onSubmit',
     defaultValues: {
       email: '',

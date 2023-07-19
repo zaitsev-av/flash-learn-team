@@ -1,19 +1,19 @@
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import { RegistrationForm } from '@/components/auth'
+import { SignUpForm } from '@/components/auth'
 import { Page } from '@/components/ui/page'
 import { useSignUpMutation } from '@/services/auth/auth.api.ts'
 import { ArgsSignUpType } from '@/services/auth/auth.api.types.ts'
 
 export const SignUpPage = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const [signUp] = useSignUpMutation()
   const onSubmitForm = async (data: ArgsSignUpType) => {
     try {
       const res = await signUp(data).unwrap()
 
       console.log(res)
-      // navigate('')
+      navigate('/sign-up')
     } catch (error) {
       // console.log(error)
     }
@@ -21,7 +21,7 @@ export const SignUpPage = () => {
 
   return (
     <Page>
-      <RegistrationForm onSubmit={onSubmitForm} />
+      <SignUpForm onSubmit={onSubmitForm} />
     </Page>
   )
 }
