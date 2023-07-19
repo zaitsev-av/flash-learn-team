@@ -9,7 +9,7 @@ import { editPackSchema } from './edit-pack-modal-schema.ts'
 import { Button, ControlledCheckbox, ControlledTextField, Modal } from '@/components'
 
 type EditPackModalProps = {
-  trigger: ReactNode
+  children: ReactNode
   isPrivate: boolean
   packName: string
   onSubmit: (data: Form) => void
@@ -20,7 +20,7 @@ export const EditPackModal: FC<EditPackModalProps> = ({
   onSubmit,
   packName,
   isPrivate,
-  trigger,
+  children,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const { handleSubmit, control } = useForm<Form>({
@@ -34,7 +34,7 @@ export const EditPackModal: FC<EditPackModalProps> = ({
   })
 
   return (
-    <Modal.Root isOpen={isOpen} onOpenChange={setIsOpen} trigger={trigger} title={'Edit Pack'}>
+    <Modal.Root isOpen={isOpen} onOpenChange={setIsOpen} trigger={children} title={'Edit Pack'}>
       <form onSubmit={onSubmitForm}>
         <Modal.Body>
           <ControlledTextField

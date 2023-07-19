@@ -13,3 +13,8 @@ export type AuthMeResponseType = {
   created: string
   updated: string
 }
+
+export type LoginArgs = {
+  email: string
+  password: string
+}

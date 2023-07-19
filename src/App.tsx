@@ -9,7 +9,7 @@ import { SignUpPage } from '@/pages/sign-up/sign-up-page.tsx'
 const routes = createBrowserRouter([
   {
     path: '/',
-    element: <PrivateRoute />, // без children
+    element: <PrivateRoute />,
     children: [
       {
         path: '/',

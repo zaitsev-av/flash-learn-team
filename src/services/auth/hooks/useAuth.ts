@@ -10,12 +10,13 @@ export const useAuth = () => {
   const navigate = useNavigate()
   const isAuth = isError && location.pathname !== '/sign-in'
 
+  console.log(isAuth)
   console.log(data)
   console.log(error)
 
   useEffect(() => {
-    if (!isAuth) {
-      navigate('/login')
+    if (isAuth) {
+      navigate('/sign-in')
     }
   }, [isAuth])
 }

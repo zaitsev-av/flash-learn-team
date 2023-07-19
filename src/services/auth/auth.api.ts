@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { AuthMeResponseType } from '@/services/auth/auth.api.types.ts'
+import { AuthMeResponseType, LoginArgs } from '@/services/auth/auth.api.types.ts'
 import { baseURL } from '@/services/common/common.api.ts'
 
 export const authAPI = createApi({
@@ -25,12 +25,12 @@ export const authAPI = createApi({
           }
         },
       }),
-      login: build.mutation({
-        query: arg => {
+      login: build.mutation<LoginArgs, any>({
+        query: ({ email, password }) => {
           return {
             method: 'POST',
             url: 'auth/login',
-            arg,
+            body: { email, password },
           }
         },
       }),
