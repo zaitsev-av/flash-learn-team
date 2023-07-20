@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { LoginForm } from '@/components/auth'
 import { Page } from '@/components/ui/page'
@@ -12,7 +13,10 @@ export const LoginPage: FC = () => {
   const handleLogin = (args: any) => {
     return login(args)
       .unwrap()
-      .then(() => navigate('/'))
+      .then(() => {
+        toast.success('Вы успешно авторизовались!')
+        navigate('/')
+      })
       .catch(err => console.log(err))
   }
 
