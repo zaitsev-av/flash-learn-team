@@ -15,12 +15,7 @@ export const Layout: FC = () => {
   }
   const { data } = useAuthMeQuery()
 
-  // const navigate = useNavigate()
-  // const location = useLocation()
-  //
   console.log(data)
-  // console.log(error)
-  // if (isError && location.pathname !== '/sign-in') navigate('/sign-in')
 
   return (
     <>
