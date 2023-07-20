@@ -6,15 +6,12 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import s from './layout.module.scss'
 
 import { Logo } from '@/assets'
-import { AvtarDropdown, Header } from '@/components'
+import { AvtarDropdown, Button, Header } from '@/components'
 import { useAuthMeQuery, useLogoutMutation } from '@/services/auth'
 
 export const Layout: FC = () => {
-  const classNames = {
-    wrapper: clsx(s.wrapper, 'container'),
-  }
-  const { data } = useAuthMeQuery()
   const [logout] = useLogoutMutation()
+  const { data, isError } = useAuthMeQuery()
   const navigate = useNavigate()
   const handleLogout = async () => {
     const res = await logout()
@@ -27,20 +24,24 @@ export const Layout: FC = () => {
     }
   }
 
-  console.log(data)
-  // console.log(error)
-  // if (isError && location.pathname !== '/sign-in') navigate('/sign-in')
+  const classNames = {
+    wrapper: clsx(s.wrapper, 'container'),
+  }
 
   return (
     <>
       <Header>
         <Logo />
-        <AvtarDropdown
-          userName={data?.name ?? ''}
-          userEmail={data?.email ?? ''}
-          src={data?.avatar ?? undefined}
-          onSignOut={handleLogout}
-        />
+        {isError ? (
+          <Button variant={'primary'}>Sign in</Button>
+        ) : (
+          <AvtarDropdown
+            userName={data?.name ?? ''}
+            userEmail={data?.email ?? ''}
+            src={data?.avatar ?? undefined}
+            onSignOut={handleLogout}
+          />
+        )}
       </Header>
       <div className={classNames.wrapper}>
         <Outlet />
