@@ -5,11 +5,6 @@ import { authAPI } from '@/services/auth/auth.api.ts'
 
 export const store = configureStore({
   reducer: {
-    // app: appReducer,
-    // auth: authReducer,
-    // packs: packsReducer,
-    // counter: counterReducer,
-    // [cardsApi.reducerPath]: cardsApi.reducer,
     [authAPI.reducerPath]: authAPI.reducer,
   },
   // Добавляем middleware для использования дополнительных функций rtk-query, таких как кэширование, инвалидация и pooling.

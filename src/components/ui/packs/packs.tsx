@@ -6,7 +6,6 @@ import s from './packs.module.scss'
 
 import { AddNewPackModal, Button, Pagination, Sort, Table, Typography } from '@/components'
 import { FilterPanel } from '@/components/ui/filter-panel'
-import { Page } from '@/components/ui/page'
 import { columns, data as mockData } from '@/components/ui/table/table.stories.tsx'
 import { TableActions } from '@/components/ui/table-action-buttons'
 
@@ -25,8 +24,8 @@ export const Packs: FC<PacksProps> = () => {
     title: clsx(s.pageTitle),
   }
 
-  const tableRows = mockData.slice(0, +pageSize).map(row => (
-    <Table.Row key={row.title}>
+  const tableRows = mockData.slice(0, +pageSize).map((row, i) => (
+    <Table.Row key={i}>
       <Table.DataCell>{row.title}</Table.DataCell>
       <Table.DataCell>{row.cardsCount}</Table.DataCell>
       <Table.DataCell>{row.updated}</Table.DataCell>
@@ -38,7 +37,7 @@ export const Packs: FC<PacksProps> = () => {
   ))
 
   return (
-    <Page>
+    <>
       <div className={cNames.container}>
         <div className={cNames.title}>
           <Typography variant={'large'}>Pack list</Typography>
@@ -66,6 +65,6 @@ export const Packs: FC<PacksProps> = () => {
           onPageSizeChange={setPageSize}
         />
       </div>
-    </Page>
+    </>
   )
 }

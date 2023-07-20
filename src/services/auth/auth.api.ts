@@ -25,7 +25,7 @@ export const authAPI = createApi({
           }
         },
       }),
-      login: build.mutation<LoginArgs, any>({
+      login: build.mutation<{ accessToken: string }, LoginArgs>({
         query: ({ email, password }) => {
           return {
             method: 'POST',

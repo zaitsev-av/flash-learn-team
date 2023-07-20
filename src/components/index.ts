@@ -1,2 +1,2 @@
 export * from './ui'
-export * from '../pages/packs'
+export * from './ui/packs'

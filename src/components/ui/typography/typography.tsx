@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 
 import s from './typography.module.scss'
 
-type TypographyProps<T> = {
+type TypographyProps<T extends ElementType> = {
   as?: T
   variant?:
     | 'large'
@@ -25,8 +25,8 @@ type TypographyProps<T> = {
   className?: string
   color?: 'primary' | 'secondary' | 'error' | 'inherit' | 'disabled'
 }
-export const Typography = <T extends ElementType = 'p'>(
-  props: TypographyProps<T> & ComponentPropsWithoutRef<T>
+export const Typography = <T extends ElementType = 'span'>(
+  props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>
 ) => {
   const {
     variant = 'div',

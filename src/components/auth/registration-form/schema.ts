@@ -7,7 +7,8 @@ export const signUpSchema = z
       .string()
       .trim()
       .nonempty('Enter password')
-      .min(8, 'Password must be at least 8 characters'),
+      .min(6, 'Password must be at least 6 characters')
+      .max(20, 'The password must be no more than 6 characters long'),
     confirmPassword: z
       .string()
       .trim()
