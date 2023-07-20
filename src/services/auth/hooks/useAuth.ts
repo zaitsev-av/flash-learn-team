@@ -8,13 +8,13 @@ export const useAuth = () => {
   const { isError } = useAuthMeQuery()
   const location = useLocation()
   const navigate = useNavigate()
-  const isAuth = isError && location.pathname !== '/sign-in'
+  const isUnAuth = isError && location.pathname !== '/sign-in'
 
   useEffect(() => {
-    if (isAuth) {
+    if (isUnAuth) {
       navigate('/sign-in')
     } else {
       navigate('/')
     }
-  }, [isAuth])
+  }, [isUnAuth])
 }
