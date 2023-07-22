@@ -1,18 +1,18 @@
-import { ComponentPropsWithoutRef, ElementType, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementType, ForwardedRef, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './button.module.scss'
 
-type ButtonProps<T> = {
+type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   variant?: 'primary' | 'secondary' | 'outlined' | 'link'
   fullWidth?: boolean
-} & ComponentPropsWithoutRef<'button'>
+} & ComponentPropsWithoutRef<T>
 
 const Button = <T extends ElementType = 'button'>(
-  props: ButtonProps<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>,
-  ref: React.ForwardedRef<any>
+  props: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>,
+  ref: ForwardedRef<any>
 ) => {
   const {
     variant = 'primary',
