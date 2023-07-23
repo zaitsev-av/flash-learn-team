@@ -9,7 +9,7 @@ export const authApi = createApi({
   tagTypes: ['Me'],
   endpoints: build => {
     return {
-      authMe: build.query<AuthMeResponseType, void>({
+      authMe: build.query<AuthMeResponseType | null, void>({
         query: () => {
           return {
             method: 'GET',
@@ -42,6 +42,25 @@ export const authApi = createApi({
           return {
             method: 'POST',
             url: 'v1/auth/logout',
+          }
+        },
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          const patchResult = dispatch(
+            authApi.util.updateQueryData('authMe', undefined, () => null)
+          )
+
+          try {
+            await queryFulfilled
+          } catch {
+            patchResult.undo()
+          }
+        },
+      }),
+      refreshToken: build.mutation<void, void>({
+        query: () => {
+          return {
+            method: 'POST',
+            url: 'v1/auth/refresh-token',
           }
         },
       }),

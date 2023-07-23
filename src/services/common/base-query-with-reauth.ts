@@ -44,15 +44,20 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         )
 
         // Если токен обновлен
-        if (refreshResult.data) {
-          // Ставим новый токен в стор
-          // api.dispatch(tokenReceived(refreshResult.data))
-
+        if (refreshResult.meta?.response?.status === 201) {
+          // Ставим новый токен
           // Повторяем запрос
           result = await baseQuery(args, api, extraOptions)
         } else {
           // Выходим из аккаунта
-          // api.dispatch(loggedOut())
+          await baseQuery(
+            {
+              url: 'v1/auth/logout',
+              method: 'POST',
+            },
+            api,
+            extraOptions
+          )
         }
       } finally {
         // Разлочиваем мьютекс
