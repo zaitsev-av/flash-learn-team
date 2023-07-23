@@ -4,7 +4,7 @@ export type ArgsSignUpType = {
   email: string
 }
 
-export type AuthMeResponseType = {
+export type UserDataType = {
   avatar: string
   id: string
   email: string
@@ -18,3 +18,5 @@ export type LoginArgs = {
   email: string
   password: string
 }
+
+export type UpdateUserDataType = Pick<UserDataType, 'avatar' | 'name' | 'email'>

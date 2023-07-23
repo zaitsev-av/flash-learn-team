@@ -1,19 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
-import { authAPI } from '@/services/auth/auth.api.ts'
+import { authApi } from '@/services/auth/auth-api.ts'
 
 export const store = configureStore({
   reducer: {
-    // app: appReducer,
-    // auth: authReducer,
-    // packs: packsReducer,
-    // counter: counterReducer,
-    // [cardsApi.reducerPath]: cardsApi.reducer,
-    [authAPI.reducerPath]: authAPI.reducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
   // Добавляем middleware для использования дополнительных функций rtk-query, таких как кэширование, инвалидация и pooling.
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authAPI.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware),
 })
 
 /**

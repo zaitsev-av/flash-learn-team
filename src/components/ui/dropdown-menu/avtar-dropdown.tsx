@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import s from './dropdown-menu.module.scss'
 
 import { LogoutIcon, ProfileIcon } from '@/assets'
@@ -36,7 +38,7 @@ export const AvtarDropdown: FC<AvtarDropdownPropsType> = props => {
             </div>
           </>
         </MenuItem>
-        <MenuItem as={'a'} href={'#'}>
+        <MenuItem as={Link} to={'/profile'}>
           <ProfileIcon />
           <Typography variant={'caption'}>My Profile</Typography>
         </MenuItem>

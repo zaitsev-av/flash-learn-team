@@ -1,2 +1,2 @@
-export * from './auth.api.types.ts'
-export * from './auth.api.ts'
+export * from './auth-types.ts'
+export * from './auth-api.ts'

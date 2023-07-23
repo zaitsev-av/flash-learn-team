@@ -49,22 +49,24 @@ const Head: FC<HeadProps> = ({ columns, sort, onSort, className, ...rest }) => {
 
   return (
     <thead className={className} {...rest}>
-      {columns.map(col => {
-        const handler = () => {
-          handlerSort(col.key, col.sortable)
-        }
+      <tr>
+        {columns.map(col => {
+          const handler = () => {
+            handlerSort(col.key, col.sortable)
+          }
 
-        return (
-          <Table.HeadCell
-            sort={sort}
-            title={col.title}
-            onClick={handler}
-            key={col.key}
-            columnKey={col.key}
-            sortable={col.sortable}
-          />
-        )
-      })}
+          return (
+            <Table.HeadCell
+              sort={sort}
+              title={col.title}
+              onClick={handler}
+              key={col.key}
+              columnKey={col.key}
+              sortable={col.sortable}
+            />
+          )
+        })}
+      </tr>
     </thead>
   )
 }
