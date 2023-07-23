@@ -1,11 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { AuthMeResponseType, LoginArgs } from '@/services/auth/auth.api.types.ts'
-import { baseURL } from '@/services/common/common.api.ts'
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: baseURL, credentials: 'include' }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_API_URL, credentials: 'include' }),
   endpoints: build => {
     return {
       authMe: build.query<AuthMeResponseType, void>({
