@@ -12,21 +12,26 @@ export type PersonalInfoPropsType = {
   userName: string
   userEmail: string
   onLogout: () => void
+  avatar: string
+  onSave: (name: string, avatar: string) => void
 }
 
 export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
-  const { userName, userEmail, onLogout } = props
-  const { activateEditMode, setEditMode, editMode } = useEditableText('')
-  const { file, handleFileChange, openFileInput, fileInputRef } = useImageUploader(
-    'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
-  )
+  const { userName, userEmail, avatar, onLogout, onSave } = props
+  const { activateEditMode, setEditMode, editMode, value: editableText } = useEditableText(userName)
+  const { file, handleFileChange, openFileInput, fileInputRef } = useImageUploader(avatar)
+  const onButtonSaveHandler = () => {
+    console.log(editableText)
+    onSave(editableText ?? userName, '')
+    setEditMode(false)
+  }
 
   return (
     <Card className={`${s.card} ${editMode && s.editMode}`}>
-      <Typography variant="large" as={'h1'} className={s.title}>
+      <Typography variant="large" as="h1" className={s.title}>
         Personal Information
       </Typography>
-      <Avatar src={file} size={'6rem'} />
+      <Avatar src={file} size="6rem" />
       {!editMode ? (
         <>
           <div className={s.edit_avtar}>
@@ -39,7 +44,7 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
             <PencilIcon onClick={openFileInput} style={{ cursor: 'pointer' }} />
           </div>
           <div className={s.userName_container}>
-            <Typography as={'h1'} variant={'h1'}>
+            <Typography as="h1" variant="h1">
               {userName}
             </Typography>
             <PencilIcon onClick={activateEditMode} style={{ cursor: 'pointer' }} />
@@ -54,7 +59,7 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
           </Button>
         </>
       ) : (
-        <EditableText callback={setEditMode} text={userName} />
+        <EditableText onButtonSave={onButtonSaveHandler} text={editableText} />
       )}
     </Card>
   )

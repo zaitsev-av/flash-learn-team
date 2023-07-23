@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { AuthMeResponseType, LoginArgs } from '@/services/auth/auth-types.ts'
+import { UserDataType, LoginArgs, UpdateUserDataType } from '@/services/auth/auth-types.ts'
 import { baseQueryWithReauth } from '@/services/common/base-query-with-reauth.ts'
 
 export const authApi = createApi({
@@ -9,7 +9,7 @@ export const authApi = createApi({
   tagTypes: ['Me'],
   endpoints: build => {
     return {
-      authMe: build.query<AuthMeResponseType | null, void>({
+      authMe: build.query<UserDataType | null, void>({
         query: () => {
           return {
             method: 'GET',
@@ -27,7 +27,7 @@ export const authApi = createApi({
           }
         },
       }),
-      login: build.mutation<{ accessToken: string }, LoginArgs>({
+      login: build.mutation<void, LoginArgs>({
         query: body => {
           return {
             method: 'POST',
@@ -64,8 +64,23 @@ export const authApi = createApi({
           }
         },
       }),
+      updateUser: build.mutation<UserDataType, UpdateUserDataType>({
+        query: body => {
+          return {
+            method: 'PATCH',
+            url: 'v1/auth/me',
+            body,
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useAuthMeQuery, useSignUpMutation, useLoginMutation, useLogoutMutation } = authApi
+export const {
+  useAuthMeQuery,
+  useSignUpMutation,
+  useLoginMutation,
+  useLogoutMutation,
+  useUpdateUserMutation,
+} = authApi

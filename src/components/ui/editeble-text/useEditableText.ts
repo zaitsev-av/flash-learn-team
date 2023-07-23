@@ -1,13 +1,14 @@
 import { ChangeEvent, useState } from 'react'
 
-export const useEditableText = (text: '' | undefined | string) => {
-  const [value, setValue] = useState<string | undefined>(text)
+export const useEditableText = (text: string) => {
+  const [value, setValue] = useState<string>(text)
   const [error, setError] = useState<string | undefined>('')
   const [editMode, setEditMode] = useState<boolean>(false)
   const activateEditMode = () => {
     setEditMode(true)
   }
 
+  console.log(value)
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
   }
