@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { SignUpForm } from '@/components/auth'
 import { Page } from '@/components/ui/page'
-import { useSignUpMutation } from '@/services/auth/auth.api.ts'
-import { ArgsSignUpType } from '@/services/auth/auth.api.types.ts'
+import { useSignUpMutation } from '@/services/auth/auth-api.ts'
+import { ArgsSignUpType } from '@/services/auth/auth-types.ts'
 
 export const SignUpPage = () => {
   const navigate = useNavigate()

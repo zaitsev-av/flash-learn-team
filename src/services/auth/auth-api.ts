@@ -1,43 +1,47 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { AuthMeResponseType, LoginArgs } from '@/services/auth/auth.api.types.ts'
+import { AuthMeResponseType, LoginArgs } from '@/services/auth/auth-types.ts'
+import { baseQueryWithReauth } from '@/services/common/base-query-with-reauth.ts'
 
-export const authAPI = createApi({
+export const authApi = createApi({
   reducerPath: 'authAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_API_URL, credentials: 'include' }),
+  baseQuery: baseQueryWithReauth,
+  tagTypes: ['Me'],
   endpoints: build => {
     return {
       authMe: build.query<AuthMeResponseType, void>({
         query: () => {
           return {
             method: 'GET',
-            url: `auth/me`,
+            url: `v1/auth/me`,
           }
         },
+        providesTags: ['Me'],
       }),
       signUp: build.mutation({
         query: body => {
           return {
             method: 'POST',
-            url: 'auth/sign-up',
+            url: 'v1/auth/sign-up',
             body,
           }
         },
       }),
       login: build.mutation<{ accessToken: string }, LoginArgs>({
-        query: ({ email, password }) => {
+        query: body => {
           return {
             method: 'POST',
-            url: 'auth/login',
-            body: { email, password },
+            url: 'v1/auth/login',
+            body,
           }
         },
+        invalidatesTags: ['Me'],
       }),
       logout: build.mutation<void, void>({
         query: () => {
           return {
             method: 'POST',
-            url: 'auth/logout',
+            url: 'v1/auth/logout',
           }
         },
       }),
@@ -45,4 +49,4 @@ export const authAPI = createApi({
   },
 })
 
-export const { useAuthMeQuery, useSignUpMutation, useLoginMutation, useLogoutMutation } = authAPI
+export const { useAuthMeQuery, useSignUpMutation, useLoginMutation, useLogoutMutation } = authApi
