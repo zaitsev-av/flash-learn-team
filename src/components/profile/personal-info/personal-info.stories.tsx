@@ -10,6 +10,8 @@ const meta = {
     userEmail: 'bababa@gmail.com',
     userName: 'User',
     onLogout: () => console.log('logout'),
+    avatar: '',
+    onSave: (name, avatar) => console.log('onSave', name, avatar),
   },
 } satisfies Meta<typeof PersonalInfo>
 
