@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 
 import s from './tabs.module.scss'
 
-import { Typography } from '@/components/ui/typography'
+import { Typography } from '@/components'
 
 type TabType = {
   value: string
