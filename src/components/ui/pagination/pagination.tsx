@@ -6,8 +6,9 @@ import s from './pagination.module.scss'
 import { usePagination } from './usePagination'
 
 import { ChevronLeft, ChevronRight } from '@/assets/icons'
-import { Select, Typography } from '@/components'
+import { Select } from '@/components'
 import { ROWS_PER_PAGE } from '@/components/ui/pagination/constants.ts'
+import { Typography } from '@/components/ui/typography'
 
 export type PaginationPropsType = {
   currentPage: number
