@@ -5,13 +5,12 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 import s from './layout.module.scss'
 
-import { Logo } from '@/assets'
-import { AvtarDropdown, Button, Header } from '@/components'
+import { Header } from '@/components'
 import { useAuthMeQuery, useLogoutMutation } from '@/services/auth'
 
 export const Layout: FC = () => {
   const [logout] = useLogoutMutation()
-  const { data, isError } = useAuthMeQuery()
+  const { data } = useAuthMeQuery()
   const navigate = useNavigate()
   const handleLogout = async () => {
     const res = await logout()
@@ -30,19 +29,7 @@ export const Layout: FC = () => {
 
   return (
     <>
-      <Header>
-        <Logo />
-        {isError ? (
-          <Button variant={'primary'}>Sign in</Button>
-        ) : (
-          <AvtarDropdown
-            userName={data?.name ?? ''}
-            userEmail={data?.email ?? ''}
-            src={data?.avatar ?? undefined}
-            onSignOut={handleLogout}
-          />
-        )}
-      </Header>
+      <Header data={data} handleLogout={handleLogout} />
       <div className={classNames.wrapper}>
         <Outlet />
       </div>
