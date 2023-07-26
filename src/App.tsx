@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify'
 
 import { PrivateRoute } from '@/components/private-route'
 import 'react-toastify/dist/ReactToastify.css'
-import { Layout, LoginPage, Packs, SignUpPage } from '@/pages'
+import { Cards, Layout, LoginPage, PacksPage, PersonalInfoPage, SignUpPage } from '@/pages'
 
 const routes = createBrowserRouter([
   {
