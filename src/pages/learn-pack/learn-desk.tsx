@@ -5,7 +5,8 @@ import { v4 } from 'uuid'
 
 import s from './learn-desk.module.scss'
 
-import { Button, Card, RadioGroup, Typography } from '@/components'
+import { Button, Card, RadioGroup } from '@/components'
+import { Typography } from '@/components/ui/typography'
 
 type LearnPackPropsType = {
   packName: string

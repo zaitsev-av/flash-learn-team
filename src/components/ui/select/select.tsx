@@ -6,8 +6,8 @@ import { clsx } from 'clsx'
 
 import s from './select.module.scss'
 
+import { Typography } from '@/components'
 import { SelectItem } from '@/components/ui/select/select-item.tsx'
-import { Typography } from '@/components/ui/typography'
 
 export type SelectPropsType = {
   items: string[]
