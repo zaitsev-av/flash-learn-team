@@ -2,6 +2,7 @@ import { FC } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import { signUpSchema } from './schema.ts'
@@ -61,7 +62,7 @@ export const SignUpForm: FC<PropsType> = ({ onSubmit }) => {
       </form>
       <div className={s.footer}>
         <Typography variant={'body2'}>Already have an account?</Typography>
-        <Typography as={'a'} href={'/sign-in'} variant={'link1'} className={s.footerLink}>
+        <Typography as={Link} to={'/sign-in'} variant={'link1'} className={s.footerLink}>
           Sign In
         </Typography>
       </div>

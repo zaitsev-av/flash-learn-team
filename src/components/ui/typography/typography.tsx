@@ -25,22 +25,46 @@ type TypographyProps<T extends ElementType> = {
   className?: string
   color?: 'primary' | 'secondary' | 'error' | 'inherit' | 'disabled'
 }
-export const Typography = <T extends ElementType = 'span'>(
+export const Typography = <T extends ElementType>(
   props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>
 ) => {
   const {
-    variant = 'div',
+    variant = 'body1',
     as: Component = 'span',
     color = 'inherit',
     unselectable,
     className,
     ...rest
   } = props
-  const cName = clsx(
+  const classNames = clsx(
     `${className} ${s[variant]} ${s[color]}`,
     unselectable === 'on' && s.unselectable
   )
 
   //TODO посмотреть стили
-  return <Component className={cName} {...rest} />
+  return <Component className={classNames} {...rest} />
 }
+// <>
+//
+// export const Typography = forwardRef<HTMLElement, TypographyProps<any>>({
+//   as,
+//   variant = 'body1',
+//   color = 'inherit',
+//   className,
+//   children,
+//   ...rest
+// }: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
+//   /*  const {
+//     variant = 'div',
+//     as: Component = 'span',
+//     color = 'inherit',
+//     unselectable,
+//     className,
+//     ...rest
+//   } = props*/
+//   const cName = clsx(`${className} ${s[variant]} ${s[color]}`)
+//   const Component = as || 'span'
+//
+//   //TODO посмотреть стили
+//   return <Component className={cName} {...rest} />
+// }

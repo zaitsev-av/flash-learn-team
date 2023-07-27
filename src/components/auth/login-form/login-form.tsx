@@ -69,7 +69,7 @@ export const LoginForm: FC<LoginFormPropsType> = ({ onSubmit }) => {
           className={s.checkbox}
         />
 
-        <Typography variant="body2" as={'a'} href={'/forgot_password'} className={s.forgotPassword}>
+        <Typography variant="body2" as={Link} to={'/forgot_password'} className={s.forgotPassword}>
           Forgot password?
         </Typography>
 
