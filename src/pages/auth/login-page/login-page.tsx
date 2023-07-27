@@ -10,14 +10,15 @@ import { useLoginMutation } from '@/services/auth'
 export const LoginPage: FC = () => {
   const [login] = useLoginMutation()
   const navigate = useNavigate()
-  const handleLogin = (args: any) => {
-    return login(args)
-      .unwrap()
-      .then(() => {
-        toast.success('Вы успешно авторизовались!')
-        navigate('/')
-      })
-      .catch(err => console.log(err))
+  const handleLogin = async (args: any) => {
+    try {
+      await login(args).unwrap()
+      toast.success('Вы успешно авторизовались!')
+      console.log('navigate')
+      navigate('/')
+    } catch (err) {
+      return console.log(err)
+    }
   }
 
   return (

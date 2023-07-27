@@ -64,7 +64,7 @@ export const ForgotPassword: FC<ForgotPasswordPropsType> = ({ onSubmit }) => {
           Did you remember your password?
         </Typography>
 
-        <Typography as={'a'} href={'/login'} className={s.link}>
+        <Typography as={'a'} href={'/sign-in'} className={s.link}>
           Try logging in
         </Typography>
       </div>

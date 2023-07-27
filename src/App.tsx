@@ -3,7 +3,16 @@ import { ToastContainer } from 'react-toastify'
 
 import { PrivateRoute } from '@/components/private-route'
 import 'react-toastify/dist/ReactToastify.css'
-import { Cards, Layout, LoginPage, PacksPage, PersonalInfoPage, SignUpPage } from '@/pages'
+import {
+  Cards,
+  CheckEmailPage,
+  ForgotPasswordPage,
+  Layout,
+  LoginPage,
+  PacksPage,
+  PersonalInfoPage,
+  SignUpPage,
+} from '@/pages'
 
 const routes = createBrowserRouter([
   {
@@ -14,7 +23,7 @@ const routes = createBrowserRouter([
         element: <PrivateRoute />,
         children: [
           {
-            index: true,
+            path: '/',
             element: <PacksPage />,
           },
           {
@@ -27,15 +36,23 @@ const routes = createBrowserRouter([
           },
         ],
       },
+      {
+        path: '/sign-in',
+        element: <LoginPage />,
+      },
+      {
+        path: '/sign-up',
+        element: <SignUpPage />,
+      },
+      {
+        path: '/forgot-password',
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: '/check-email',
+        element: <CheckEmailPage />,
+      },
     ],
-  },
-  {
-    path: '/sign-in',
-    element: <LoginPage />,
-  },
-  {
-    path: '/sign-up',
-    element: <SignUpPage />,
   },
 ])
 

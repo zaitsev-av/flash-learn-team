@@ -1,6 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { UserDataType, LoginArgs, UpdateUserDataType } from '@/services/auth/auth-types.ts'
+import {
+  UserDataType,
+  LoginArgs,
+  UpdateUserDataType,
+  RecoveryPassword,
+} from '@/services/auth/auth-types.ts'
 import { baseQueryWithReauth } from '@/services/common/base-query-with-reauth.ts'
 
 export const authApi = createApi({
@@ -18,11 +23,11 @@ export const authApi = createApi({
         },
         providesTags: ['Me'],
       }),
-      signUp: build.mutation({
+      updateUser: build.mutation<UserDataType, UpdateUserDataType>({
         query: body => {
           return {
-            method: 'POST',
-            url: 'v1/auth/sign-up',
+            method: 'PATCH',
+            url: 'v1/auth/me',
             body,
           }
         },
@@ -56,6 +61,15 @@ export const authApi = createApi({
           }
         },
       }),
+      signUp: build.mutation({
+        query: body => {
+          return {
+            method: 'POST',
+            url: 'v1/auth/sign-up',
+            body,
+          }
+        },
+      }),
       refreshToken: build.mutation<void, void>({
         query: () => {
           return {
@@ -64,12 +78,12 @@ export const authApi = createApi({
           }
         },
       }),
-      updateUser: build.mutation<UserDataType, UpdateUserDataType>({
-        query: body => {
+      recoverPassword: build.mutation<void, RecoveryPassword>({
+        query: ({ email, html, subject }) => {
           return {
-            method: 'PATCH',
-            url: 'v1/auth/me',
-            body,
+            method: 'POST',
+            url: 'v1/auth/recover-password',
+            body: { email, html, subject },
           }
         },
       }),
@@ -83,4 +97,5 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useUpdateUserMutation,
+  useRecoverPasswordMutation,
 } = authApi
