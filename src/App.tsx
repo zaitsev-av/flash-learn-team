@@ -14,7 +14,7 @@ const routes = createBrowserRouter([
         element: <PrivateRoute />,
         children: [
           {
-            index: true,
+            path: '/',
             element: <PacksPage />,
           },
           {
@@ -27,15 +27,15 @@ const routes = createBrowserRouter([
           },
         ],
       },
+      {
+        path: '/sign-in',
+        element: <LoginPage />,
+      },
+      {
+        path: '/sign-up',
+        element: <SignUpPage />,
+      },
     ],
-  },
-  {
-    path: '/sign-in',
-    element: <LoginPage />,
-  },
-  {
-    path: '/sign-up',
-    element: <SignUpPage />,
   },
 ])
 

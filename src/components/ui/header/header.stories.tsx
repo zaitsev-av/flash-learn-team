@@ -1,11 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from '../button'
-
 import { Header } from './header.tsx'
-
-import { Logo } from '@/assets'
-import { Avatar, AvtarDropdown } from '@/components'
 
 const meta = {
   title: 'Components/Header',
@@ -17,44 +12,19 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Header_App: Story = {
-  args: {
-    children: (
-      <>
-        <Logo />
-        <Button variant={'primary'}>Sign In</Button>
-      </>
-    ),
-  },
+  args: {},
 }
 
 export const Header_App_User_Avatar: Story = {
   args: {
-    children: (
-      <>
-        <Logo />
-        <Avatar
-          userName={'User name'}
-          src={
-            'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
-          }
-        />
-      </>
-    ),
+    logout: () => console.log('called'),
+    data: { name: '', email: '' },
   },
 }
 
 export const Header_App_User_Avatar_Dropdown_menu: Story = {
   args: {
-    children: (
-      <>
-        <Logo />
-        <AvtarDropdown
-          onSignOut={() => {}}
-          src={''}
-          userEmail={'test@email.com'}
-          userName={'userName'}
-        />
-      </>
-    ),
+    logout: () => console.log('called'),
+    data: { name: '', email: '' },
   },
 }

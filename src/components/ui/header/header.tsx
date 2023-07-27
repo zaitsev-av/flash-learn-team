@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 
 import { clsx } from 'clsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import s from './header.module.scss'
 
@@ -14,19 +14,18 @@ export type HeaderPropsType = {
     email: string
     avatar?: string
   } | null
-  children?: ReactNode
-  handleLogout: () => void
+  logout: () => void
 }
-export const Header: FC<HeaderPropsType> = ({ children, handleLogout, data }) => {
+export const Header: FC<HeaderPropsType> = ({ logout, data }) => {
   const classNames = {
     container: clsx(s.container, 'container'),
   }
+  const navigate = useNavigate()
   const isAuth = !!data
 
   return (
     <header className={s.wrapper}>
       <div className={classNames.container}>
-        {children}
         <Link to={'/'}>
           <Logo />
         </Link>
@@ -35,10 +34,14 @@ export const Header: FC<HeaderPropsType> = ({ children, handleLogout, data }) =>
             userName={data?.name ?? ''}
             userEmail={data?.email ?? ''}
             src={data?.avatar ?? undefined}
-            onSignOut={handleLogout}
+            onSignOut={logout}
           />
         )}
-        {!isAuth && <Button variant={'primary'}>Sign in</Button>}
+        {!isAuth && (
+          <Button variant={'primary'} onClick={() => navigate('/sign-in')}>
+            Sign in
+          </Button>
+        )}
       </div>
     </header>
   )
