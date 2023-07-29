@@ -29,6 +29,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
           { tabName: 'All cards', value: '456' },
         ]}
         label={'Show packs cards'}
+        defaultValue={'all'}
         onValueChange={() => {}}
       />
       <Slider
