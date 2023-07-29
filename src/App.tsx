@@ -23,7 +23,7 @@ const routes = createBrowserRouter([
         element: <PrivateRoute />,
         children: [
           {
-            path: '/',
+            index: true,
             element: <PacksPage />,
           },
           {

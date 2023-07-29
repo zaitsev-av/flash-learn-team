@@ -1,17 +1,16 @@
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
 import { InitialLoader } from '@/components/ui/loaders/initial-loader/initial-loader.tsx'
 import { useAuthMeQuery } from '@/services/auth'
-import { useAuth } from '@/services/auth/hooks/useAuth.ts'
 
 export const PrivateRoute = () => {
-  const { isLoading } = useAuthMeQuery()
+  const { data, isLoading } = useAuthMeQuery()
 
-  useAuth()
+  /* useAuth()*/
 
   if (isLoading) {
     return <InitialLoader />
   }
 
-  return <Outlet />
+  return data ? <Outlet /> : <Navigate to="/sign-in" />
 }
