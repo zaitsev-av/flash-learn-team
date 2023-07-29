@@ -1,20 +1,15 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
-
 import {
-  UserDataType,
   LoginArgs,
-  UpdateUserDataType,
   RecoveryPassword,
+  UpdateUserDataType,
+  UserDataType,
 } from '@/services/auth/auth-types.ts'
-import { baseQueryWithReauth } from '@/services/common/base-query-with-reauth.ts'
+import { flashLearnApi } from '@/services/flash-learn-api.ts'
 
-export const authApi = createApi({
-  reducerPath: 'authAPI',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['Me'],
-  endpoints: build => {
+export const authApi = flashLearnApi.injectEndpoints({
+  endpoints: builder => {
     return {
-      authMe: build.query<UserDataType | null, void>({
+      authMe: builder.query<UserDataType | null, void>({
         query: () => {
           return {
             method: 'GET',
@@ -23,7 +18,7 @@ export const authApi = createApi({
         },
         providesTags: ['Me'],
       }),
-      updateUser: build.mutation<UserDataType, UpdateUserDataType>({
+      updateUser: builder.mutation<UserDataType, UpdateUserDataType>({
         query: body => {
           return {
             method: 'PATCH',
@@ -32,7 +27,7 @@ export const authApi = createApi({
           }
         },
       }),
-      login: build.mutation<void, LoginArgs>({
+      login: builder.mutation<void, LoginArgs>({
         query: body => {
           return {
             method: 'POST',
@@ -42,7 +37,7 @@ export const authApi = createApi({
         },
         invalidatesTags: ['Me'],
       }),
-      logout: build.mutation<void, void>({
+      logout: builder.mutation<void, void>({
         query: () => {
           return {
             method: 'POST',
@@ -61,7 +56,7 @@ export const authApi = createApi({
           }
         },
       }),
-      signUp: build.mutation({
+      signUp: builder.mutation({
         query: body => {
           return {
             method: 'POST',
@@ -70,7 +65,7 @@ export const authApi = createApi({
           }
         },
       }),
-      refreshToken: build.mutation<void, void>({
+      refreshToken: builder.mutation<void, void>({
         query: () => {
           return {
             method: 'POST',
@@ -78,7 +73,7 @@ export const authApi = createApi({
           }
         },
       }),
-      recoverPassword: build.mutation<void, RecoveryPassword>({
+      recoverPassword: builder.mutation<void, RecoveryPassword>({
         query: ({ email, html, subject }) => {
           return {
             method: 'POST',
