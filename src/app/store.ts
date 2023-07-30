@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
-import { authApi } from '@/services/auth/auth-api.ts'
+import { flashLearnApi } from '@/services'
 
 export const store = configureStore({
   reducer: {
-    [authApi.reducerPath]: authApi.reducer,
+    [flashLearnApi.reducerPath]: flashLearnApi.reducer,
   },
   // Добавляем middleware для использования дополнительных функций rtk-query, таких как кэширование, инвалидация и pooling.
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(flashLearnApi.middleware),
 })
 
 /**

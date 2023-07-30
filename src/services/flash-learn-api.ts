@@ -6,5 +6,5 @@ export const flashLearnApi = createApi({
   reducerPath: 'flashLearnApi',
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ['Me'],
+  tagTypes: ['Me', 'Decks'],
 })

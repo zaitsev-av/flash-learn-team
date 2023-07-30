@@ -1,20 +1,22 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './packs.module.scss'
 
-import { AddNewPackModal, Button, Pagination, Sort, Table, Typography } from '@/components'
+import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { columns } from '@/components/ui/table/table.stories.tsx'
 import { TableActions } from '@/components/ui/table-action-buttons'
-import { useGetDecksQuery } from '@/services'
+import { useDecks } from '@/services/decks/hooks/useDecks.ts'
 
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
-  const [page, setPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<string>('7')
+  /*  const [page, setPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<string>('10')
   const [sort, setSort] = useState<Sort>(null)
+  const sortValue =
+    sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
   const { data } = useGetDecksQuery({
     authorId: '',
     currentPage: page,
@@ -22,8 +24,9 @@ export const Decks: FC<PacksProps> = () => {
     name: '',
     maxCardsCount: '',
     minCardsCount: '',
-    orderBy: '',
-  })
+    orderBy: sortValue,
+  })*/
+  const { data, sort, page, pageSize, setPage, setSort, setPageSize } = useDecks()
 
   console.log(data)
   // console.log('data', data)

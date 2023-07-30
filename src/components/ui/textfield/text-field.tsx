@@ -1,4 +1,4 @@
-import { ComponentProps, forwardRef, useState } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -14,7 +14,7 @@ export type InputProps = {
   inputType: 'text' | 'password' | 'search'
   error?: string
   className?: string
-} & Omit<React.ComponentPropsWithoutRef<'input'>, 'type'>
+} & Omit<ComponentPropsWithoutRef<'input'>, 'type'>
 
 export const TextField = forwardRef<HTMLInputElement, InputProps>(
   ({ className, title, inputType, disabled, error, containerProps, ...rest }, ref) => {

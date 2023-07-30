@@ -12,6 +12,7 @@ export const decksApi = flashLearnApi.injectEndpoints({
             params,
           }
         },
+        providesTags: ['Decks'],
       }),
     }
   },
