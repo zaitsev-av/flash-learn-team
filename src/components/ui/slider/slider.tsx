@@ -51,7 +51,7 @@ export const Slider: FC<SliderPropsType> = props => {
         <SliderRDX.Root
           value={value}
           className={classNames.root}
-          defaultValue={[minValue, maxValue]}
+          defaultValue={value}
           min={min}
           max={max}
           step={step}

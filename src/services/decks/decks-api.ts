@@ -12,9 +12,19 @@ export const decksApi = flashLearnApi.injectEndpoints({
             params,
           }
         },
-        providesTags: ['Decks'],
       }),
     }
   },
 })
 export const { useGetDecksQuery } = decksApi
+
+/*
+export type GetDecksType = {
+  minCardsCount: string
+  maxCardsCount: string
+  name: string
+  authorId: string
+  orderBy: string
+  currentPage: number
+  itemsPerPage: number
+}*/

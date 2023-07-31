@@ -9,6 +9,10 @@ const meta = {
   args: {
     userEmail: 'bababa@gmail.com',
     userName: 'User',
+    sliderValues: [0, 100],
+    searchValue: '',
+    setSliderValues: value => console.log(value),
+    setSearchValue: value => console.log(value),
   },
 } satisfies Meta<typeof FilterPanel>
 

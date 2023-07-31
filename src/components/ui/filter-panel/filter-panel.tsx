@@ -8,27 +8,33 @@ import DeleteIcon from '@/assets/icons/DeleteIcon.tsx'
 import { Button, TextField, Typography } from '@/components'
 import { Slider } from '@/components/ui/slider'
 import { Tabs } from '@/components/ui/tabs'
-import { useDecks } from '@/services/decks/hooks/useDecks.ts'
+
 type FilterPanelPropsType = {
   className?: string
   userEmail?: string
   userName?: string
+  searchValue: string
+  setSearchValue: (value: string) => void
+  sliderValues: [number, number]
+  setSliderValues: (values: [number, number]) => void
 }
 
 export const FilterPanel: FC<FilterPanelPropsType> = props => {
-  const { className } = props
+  const { className, setSearchValue, searchValue, sliderValues, setSliderValues } = props
 
-  const { sliderValues, setSliderValues, setSearch, search } = useDecks()
+  // const { sliderValues, setSliderValues, setSearch, search } = useDecks()
 
   const classNames = {
     root: clsx(s.wrapper, className),
   }
 
+  console.log(sliderValues + ' filterPanel')
+
   return (
     <div className={classNames.root}>
       <TextField
-        value={search}
-        onChange={e => setSearch(e.currentTarget.value)}
+        value={searchValue}
+        onChange={e => setSearchValue(e.currentTarget.value)}
         title={''}
         inputType={'search'}
         className={s.text_field}
@@ -43,13 +49,14 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
         onValueChange={() => {}}
       />
       <Slider
-        minValue={sliderValues[0]}
+        max={11} //todo fix number
+        minValue={0}
         maxValue={sliderValues[1]}
-        onValueCommit={setSliderValues}
+        onValueCommit={() => {}}
         onChange={setSliderValues}
         label={'Number of cards'}
-        className={s.slider}
         value={sliderValues}
+        className={s.slider}
       />
       <Button variant={'secondary'} className={s.btn}>
         <DeleteIcon />
