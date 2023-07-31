@@ -6,10 +6,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import {
   Cards,
   CheckEmailPage,
+  DecksPage,
   ForgotPasswordPage,
   Layout,
   LoginPage,
-  PacksPage,
   PersonalInfoPage,
   SignUpPage,
 } from '@/pages'
@@ -24,7 +24,7 @@ const routes = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PacksPage />,
+            element: <DecksPage />,
           },
           {
             path: '/cards',

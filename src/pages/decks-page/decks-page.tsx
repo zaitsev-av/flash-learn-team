@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import { Packs } from '@/components'
+import { Decks } from '@/components'
 import { Page } from '@/components/ui/page'
 
-export const PacksPage: FC = () => {
+export const DecksPage: FC = () => {
   return (
     <Page>
-      <Packs />
+      <Decks />
     </Page>
   )
 }

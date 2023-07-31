@@ -1,6 +1,6 @@
 export * from './layout'
 export * from './cards'
-export * from './packs-page'
+export * from './decks-page'
 export * from './learn-pack'
 export * from './page-not-found'
 export * from './personal-info-page'

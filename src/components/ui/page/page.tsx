@@ -6,7 +6,7 @@ type Props = PropsWithChildren<{
 }>
 export const Page: FC<Props> = ({ children, mt = '2rem' }) => {
   return (
-    <div className={s.wrapper} style={{ marginTop: mt }}>
+    <div className={s.wrapper} style={{ marginTop: mt, marginBottom: mt }}>
       {children}
     </div>
   )

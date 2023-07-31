@@ -3,8 +3,8 @@ import { FC, ReactNode, useState } from 'react'
 import { Button, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal'
 
-export type ItemType = PackItemType | CardItemType
-type PackItemType = {
+export type ItemType = DecksItemType | CardItemType
+type DecksItemType = {
   id: string
   title: string
 }

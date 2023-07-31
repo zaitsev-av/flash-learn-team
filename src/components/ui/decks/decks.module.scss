@@ -1,0 +1,31 @@
+.pageTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  margin-top: 2rem;
+}
+
+.wrapper {
+  display: inline-flex;
+  align-items: flex-end;
+  width: 100%;
+
+  .text_field {
+    margin-right: 1.5rem;
+  }
+
+  .slider {
+    margin-left: 4.563rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    margin-left: 25px;
+  }
+}
