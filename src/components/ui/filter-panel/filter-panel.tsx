@@ -52,6 +52,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
         value={searchValue}
         onChange={e => setSearchValue(e.currentTarget.value)}
         title={''}
+        placeholder={'search'}
         inputType={'search'}
         className={s.text_field}
       />
@@ -60,7 +61,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
           { tabName: 'Me decks', value: isMe ?? '' },
           { tabName: 'All decks', value: '' },
         ]}
-        label={'Show packs decks'}
+        label={'Show decks cards'}
         value={myDecks}
         onValueChange={setMyDecks}
       />

@@ -52,7 +52,7 @@ export const Decks: FC<PacksProps> = () => {
     <>
       <div className={classNames.container}>
         <div className={classNames.title}>
-          <Typography variant={'large'}>Pack list</Typography>
+          <Typography variant={'large'}>Decks list</Typography>
           <AddNewPackModal
             trigger={<Button>Add New Deck</Button>}
             onSubmit={data => {
