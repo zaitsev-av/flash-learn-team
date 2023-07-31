@@ -8,6 +8,7 @@ import DeleteIcon from '@/assets/icons/DeleteIcon.tsx'
 import { Button, TextField, Typography } from '@/components'
 import { Slider } from '@/components/ui/slider'
 import { Tabs } from '@/components/ui/tabs'
+import { useAuthMeQuery } from '@/services'
 
 type FilterPanelPropsType = {
   className?: string
@@ -19,6 +20,7 @@ type FilterPanelPropsType = {
   sliderValues: [number, number]
   setSliderValues: (values: [number, number]) => void
   onValueCommit: (values: [number, number]) => void
+  setMyDecks: (value: string) => void
 }
 
 export const FilterPanel: FC<FilterPanelPropsType> = props => {
@@ -30,6 +32,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
     maxSliderValue,
     setSliderValues,
     onValueCommit,
+    setMyDecks,
   } = props
 
   // const { sliderValues, setSliderValues, setSearch, search } = useDecks()
@@ -37,6 +40,9 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
   const classNames = {
     root: clsx(s.wrapper, className),
   }
+
+  const { data: authData } = useAuthMeQuery()
+  const isMe = authData?.id
 
   console.log(sliderValues + ' filterPanel')
 
@@ -51,12 +57,12 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
       />
       <Tabs
         tabs={[
-          { tabName: 'Me cards', value: '123' },
-          { tabName: 'All cards', value: '456' },
+          { tabName: 'Me decks', value: isMe ?? '' },
+          { tabName: 'All decks', value: 'all' },
         ]}
-        label={'Show packs cards'}
-        defaultValue={'456'}
-        onValueChange={() => {}}
+        label={'Show packs decks'}
+        defaultValue={'all'}
+        onValueChange={setMyDecks}
       />
       <Slider
         max={maxSliderValue}

@@ -44,13 +44,13 @@ export const Decks: FC<PacksProps> = () => {
   const [pageSize, setPageSize] = useState<string>('10')
   const [sort, setSort] = useState<Sort>(null)
   const [search, setSearch] = useState<string>('')
+  const [myDecks, setMyDecks] = useState<string>('')
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
   const [value, setSliderValueCommit] = useState<[number, number]>([0, 100])
-
   const sortValue =
     sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
   const { data } = useGetDecksQuery({
-    authorId: '',
+    authorId: myDecks,
     currentPage: page,
     itemsPerPage: +pageSize,
     name: search,
@@ -64,8 +64,6 @@ export const Decks: FC<PacksProps> = () => {
     setSliderValueCommit([0, data?.maxCardsCount ?? 100])
   }, [data?.maxCardsCount])
 
-  console.log(data)
-  console.log(sliderValues)
   // console.log('data', data)
   // console.log('error', error)
   // console.log('isLoading', isLoading)
@@ -96,6 +94,7 @@ export const Decks: FC<PacksProps> = () => {
           <AddNewPackModal
             trigger={<Button>Add New Pack</Button>}
             onSubmit={data => {
+              // eslint-disable-next-line no-console
               console.log(data)
             }}
           />
@@ -107,6 +106,7 @@ export const Decks: FC<PacksProps> = () => {
           setSliderValues={setSliderValues}
           onValueCommit={setSliderValueCommit}
           maxSliderValue={data?.maxCardsCount ?? 100}
+          setMyDecks={setMyDecks}
         />
         {/*        <div className={classNames.root}>
           <TextField
