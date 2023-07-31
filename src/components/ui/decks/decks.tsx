@@ -45,6 +45,7 @@ export const Decks: FC<PacksProps> = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [search, setSearch] = useState<string>('')
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
+  const [value, setSliderValueCommit] = useState<[number, number]>([0, 100])
 
   const sortValue =
     sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
@@ -53,13 +54,14 @@ export const Decks: FC<PacksProps> = () => {
     currentPage: page,
     itemsPerPage: +pageSize,
     name: search,
-    minCardsCount: sliderValues[0].toString(),
-    maxCardsCount: sliderValues[1].toString(),
+    minCardsCount: value[0].toString(),
+    maxCardsCount: value[1].toString(),
     orderBy: sortValue,
   })
 
   useEffect(() => {
     setSliderValues([0, data?.maxCardsCount ?? 100])
+    setSliderValueCommit([0, data?.maxCardsCount ?? 100])
   }, [data?.maxCardsCount])
 
   console.log(data)
@@ -103,6 +105,8 @@ export const Decks: FC<PacksProps> = () => {
           setSearchValue={setSearch}
           sliderValues={sliderValues}
           setSliderValues={setSliderValues}
+          onValueCommit={setSliderValueCommit}
+          maxSliderValue={data?.maxCardsCount ?? 100}
         />
         {/*        <div className={classNames.root}>
           <TextField

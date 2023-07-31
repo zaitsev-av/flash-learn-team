@@ -13,14 +13,24 @@ type FilterPanelPropsType = {
   className?: string
   userEmail?: string
   userName?: string
+  maxSliderValue: number
   searchValue: string
   setSearchValue: (value: string) => void
   sliderValues: [number, number]
   setSliderValues: (values: [number, number]) => void
+  onValueCommit: (values: [number, number]) => void
 }
 
 export const FilterPanel: FC<FilterPanelPropsType> = props => {
-  const { className, setSearchValue, searchValue, sliderValues, setSliderValues } = props
+  const {
+    className,
+    setSearchValue,
+    searchValue,
+    sliderValues,
+    maxSliderValue,
+    setSliderValues,
+    onValueCommit,
+  } = props
 
   // const { sliderValues, setSliderValues, setSearch, search } = useDecks()
 
@@ -49,10 +59,10 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
         onValueChange={() => {}}
       />
       <Slider
-        max={11} //todo fix number
+        max={maxSliderValue}
         minValue={0}
         maxValue={sliderValues[1]}
-        onValueCommit={() => {}}
+        onValueCommit={onValueCommit}
         onChange={setSliderValues}
         label={'Number of cards'}
         value={sliderValues}

@@ -8,7 +8,7 @@ import s from './slider.module.scss'
 import { Typography } from '@/components'
 
 export type SliderPropsType = {
-  value: [number, number]
+  value?: [number, number]
   minValue: number
   maxValue: number
   step?: number
@@ -49,7 +49,7 @@ export const Slider: FC<SliderPropsType> = props => {
       <div className={classNames.wrapper}>
         <div className={classNames.values}>{minValue}</div>
         <SliderRDX.Root
-          value={value}
+          // value={value}
           className={classNames.root}
           defaultValue={value}
           min={min}
