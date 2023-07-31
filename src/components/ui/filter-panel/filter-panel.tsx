@@ -16,11 +16,13 @@ type FilterPanelPropsType = {
   userName?: string
   maxSliderValue: number
   searchValue: string
+  myDecks: string
   setSearchValue: (value: string) => void
   sliderValues: [number, number]
   setSliderValues: (values: [number, number]) => void
   onValueCommit: (values: [number, number]) => void
   setMyDecks: (value: string) => void
+  resetFilters: () => void
 }
 
 export const FilterPanel: FC<FilterPanelPropsType> = props => {
@@ -33,9 +35,9 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
     setSliderValues,
     onValueCommit,
     setMyDecks,
+    resetFilters,
+    myDecks,
   } = props
-
-  // const { sliderValues, setSliderValues, setSearch, search } = useDecks()
 
   const classNames = {
     root: clsx(s.wrapper, className),
@@ -43,8 +45,6 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
 
   const { data: authData } = useAuthMeQuery()
   const isMe = authData?.id
-
-  console.log(sliderValues + ' filterPanel')
 
   return (
     <div className={classNames.root}>
@@ -58,15 +58,15 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
       <Tabs
         tabs={[
           { tabName: 'Me decks', value: isMe ?? '' },
-          { tabName: 'All decks', value: 'all' },
+          { tabName: 'All decks', value: '' },
         ]}
         label={'Show packs decks'}
-        defaultValue={'all'}
+        value={myDecks}
         onValueChange={setMyDecks}
       />
       <Slider
         max={maxSliderValue}
-        minValue={0}
+        minValue={sliderValues[0]}
         maxValue={sliderValues[1]}
         onValueCommit={onValueCommit}
         onChange={setSliderValues}
@@ -74,7 +74,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
         value={sliderValues}
         className={s.slider}
       />
-      <Button variant={'secondary'} className={s.btn}>
+      <Button variant={'secondary'} className={s.btn} onClick={resetFilters}>
         <DeleteIcon />
         <Typography variant={'subtitle2'}>Clear Filter</Typography>
       </Button>

@@ -49,7 +49,7 @@ export const Slider: FC<SliderPropsType> = props => {
       <div className={classNames.wrapper}>
         <div className={classNames.values}>{minValue}</div>
         <SliderRDX.Root
-          // value={value}
+          value={value}
           className={classNames.root}
           defaultValue={value}
           min={min}
