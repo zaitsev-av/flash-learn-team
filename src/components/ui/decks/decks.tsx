@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { clsx } from 'clsx'
+import { useNavigate } from 'react-router-dom'
 
 import s from './decks.module.scss'
 
@@ -29,16 +30,19 @@ export const Decks: FC<PacksProps> = () => {
     setSearchQuery,
     setMyDecks,
   } = useDecks()
+  const navigate = useNavigate()
 
   const classNames = {
-    container: clsx(s.container, 'container'),
+    container: clsx(s.container),
     title: clsx(s.pageTitle),
     root: clsx(s.wrapper),
   }
 
   const tableRows = data?.items.slice(0, +pageSize).map(el => (
     <Table.Row key={el.id}>
-      <Table.DataCell>{el.name}</Table.DataCell>
+      <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)} style={{ cursor: 'pointer' }}>
+        {el.name}
+      </Table.DataCell>
       <Table.DataCell>{el.cardsCount}</Table.DataCell>
       <Table.DataCell>{el.updated}</Table.DataCell>
       <Table.DataCell>{el.author.name}</Table.DataCell>

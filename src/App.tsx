@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import { PrivateRoute } from '@/components/private-route'
 import 'react-toastify/dist/ReactToastify.css'
 import {
-  Cards,
+  CardsPage,
   CheckEmailPage,
   DecksPage,
   ForgotPasswordPage,
@@ -27,8 +27,8 @@ const routes = createBrowserRouter([
             element: <DecksPage />,
           },
           {
-            path: '/cards',
-            element: <Cards userId={''} />,
+            path: '/cards/:id',
+            element: <CardsPage />,
           },
           {
             path: '/profile',
