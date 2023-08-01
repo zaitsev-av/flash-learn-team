@@ -41,11 +41,11 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   //todo заменить переменную packName на имя колоды
   const packName = "Friend's pack"
   const classNames = {
+    container: clsx(s.container),
+    btn: clsx(s.btn),
+    back: clsx(s.back),
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
-    back: clsx(s.back),
-    btn: clsx(s.btn),
-    container: clsx(s.container),
   }
 
   return (

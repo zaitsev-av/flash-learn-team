@@ -33,7 +33,7 @@ export const Decks: FC<PacksProps> = () => {
   const navigate = useNavigate()
 
   const classNames = {
-    container: clsx(s.container, 'container'),
+    container: clsx(s.container),
     title: clsx(s.pageTitle),
     root: clsx(s.wrapper),
   }
