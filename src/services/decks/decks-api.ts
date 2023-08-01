@@ -1,4 +1,4 @@
-import { DecksResponseType, GetDecksType } from '@/services/decks/decks-api-types.ts'
+import { DecksResponseType, GetDecksType, ItemsType } from '@/services/decks/decks-api-types.ts'
 import { flashLearnApi } from '@/services/flash-learn-api.ts'
 
 export const decksApi = flashLearnApi.injectEndpoints({
@@ -13,18 +13,18 @@ export const decksApi = flashLearnApi.injectEndpoints({
           }
         },
       }),
+      createDeck: builder.mutation<ItemsType, { cover?: string; name: string; isPrivate: boolean }>(
+        {
+          query: body => {
+            return {
+              method: 'POST',
+              url: `v1/decks`,
+              body,
+            }
+          },
+        }
+      ),
     }
   },
 })
-export const { useGetDecksQuery } = decksApi
-
-/*
-export type GetDecksType = {
-  minCardsCount: string
-  maxCardsCount: string
-  name: string
-  authorId: string
-  orderBy: string
-  currentPage: number
-  itemsPerPage: number
-}*/
+export const { useGetDecksQuery, useCreateDeckMutation } = decksApi
