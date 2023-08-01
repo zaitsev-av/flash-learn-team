@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
+import { useNavigate } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -17,10 +18,10 @@ import {
   TextField,
   Typography,
 } from '@/components'
+import { columns } from '@/components/ui/cards/table-columns.ts'
+import { testData } from '@/components/ui/cards/test-data.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
-import { columns } from '@/pages/cards/table-columns.ts'
-import { testData } from '@/pages/cards/test-data.ts'
 
 type CardsPropsType = {
   userId: string
@@ -32,12 +33,10 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('10')
   //todo раскомментировать когда подключим роуты
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   //userId - только для тестирования функционала
   const navigateBack = () => {
-    // eslint-disable-next-line no-console
-    console.log('back')
-    // navigate(-1)
+    navigate(-1)
   }
   //todo заменить переменную packName на имя колоды
   const packName = "Friend's pack"
@@ -45,10 +44,12 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
     back: clsx(s.back),
+    btn: clsx(s.btn),
+    container: clsx(s.container),
   }
 
   return (
-    <>
+    <div className={classNames.container}>
       <Button variant={'link'} onClick={navigateBack}>
         <Typography variant={'body2'} className={classNames.back}>
           <ArrowLeftIcon /> Back to Packs List
@@ -81,7 +82,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />
-    </>
+    </div>
   )
 }
 

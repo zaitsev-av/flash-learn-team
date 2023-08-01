@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react'
 
-import { Cards } from '@/pages/cards/cards.tsx'
+import { Cards } from '@/components/ui/cards/cards.tsx'
 
 const meta = {
   title: 'Pages/Cards',
