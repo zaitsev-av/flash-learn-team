@@ -3,15 +3,10 @@ import { FC, ReactNode, useState } from 'react'
 import { Button, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal'
 
-export type ItemType = DecksItemType | CardItemType
-type DecksItemType = {
+export type ItemType = {
   id: string
   title: string
-}
-//TODO change this mock types to types from backend
-type CardItemType = {
-  id: string
-  title: string
+  isPrivate?: boolean
 }
 
 type DeleteDialogProps = {

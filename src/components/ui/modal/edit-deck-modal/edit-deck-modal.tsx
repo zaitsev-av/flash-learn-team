@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { editPackSchema } from './edit-pack-modal-schema.ts'
+import { editPackSchema } from './edit-deck-modal-schema.ts'
 
 import { Button, ControlledCheckbox, ControlledTextField, Modal } from '@/components'
 
@@ -16,7 +16,7 @@ type EditPackModalProps = {
 }
 
 type Form = z.infer<typeof editPackSchema>
-export const EditPackModal: FC<EditPackModalProps> = ({
+export const EditDeckModal: FC<EditPackModalProps> = ({
   onSubmit,
   packName,
   isPrivate,
@@ -34,16 +34,16 @@ export const EditPackModal: FC<EditPackModalProps> = ({
   })
 
   return (
-    <Modal.Root isOpen={isOpen} onOpenChange={setIsOpen} trigger={children} title={'Edit Pack'}>
+    <Modal.Root isOpen={isOpen} onOpenChange={setIsOpen} trigger={children} title={'Edit Deck'}>
       <form onSubmit={onSubmitForm}>
         <Modal.Body>
           <ControlledTextField
-            title={'Name Pack'}
+            title={'Name Deck'}
             inputType={'text'}
             control={control}
             name={'newNamePack'}
           />
-          <ControlledCheckbox control={control} left label={'Private Pack'} name={'isPrivate'} />
+          <ControlledCheckbox control={control} left label={'Private Deck'} name={'isPrivate'} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant={'primary'} type={'submit'}>

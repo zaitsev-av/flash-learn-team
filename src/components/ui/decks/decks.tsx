@@ -50,7 +50,10 @@ export const Decks: FC<PacksProps> = () => {
       <Table.DataCell>{el.updated}</Table.DataCell>
       <Table.DataCell>{el.author.name}</Table.DataCell>
       <Table.DataCell>
-        <TableActions editable={el.userId === isMe} item={{ id: el.id, title: el.name }} />
+        <TableActions
+          editable={el.userId === isMe}
+          item={{ id: el.id, title: el.name, isPrivate: el.isPrivate }}
+        />
       </Table.DataCell>
     </Table.Row>
   ))

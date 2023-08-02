@@ -8,7 +8,6 @@ import DeleteIcon from '@/assets/icons/DeleteIcon.tsx'
 import { Button, TextField, Typography } from '@/components'
 import { Slider } from '@/components/ui/slider'
 import { Tabs } from '@/components/ui/tabs'
-/*import { useAuthMeQuery } from '@/services'*/
 
 type FilterPanelPropsType = {
   className?: string
@@ -44,9 +43,6 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
   const classNames = {
     root: clsx(s.wrapper, className),
   }
-
-  /*  const { data: authData } = useAuthMeQuery()
-  const isMe = authData?.id*/
 
   return (
     <div className={classNames.root}>
