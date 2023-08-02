@@ -11,6 +11,7 @@ const meta = {
     userName: 'User',
     sliderValues: [0, 100],
     searchValue: '',
+    isMe: '',
     // eslint-disable-next-line no-console
     setSliderValues: value => console.log(value),
     // eslint-disable-next-line no-console

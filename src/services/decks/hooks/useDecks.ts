@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { Sort } from '@/components'
-import { useGetDecksQuery } from '@/services'
+import { useAuthMeQuery, useGetDecksQuery } from '@/services'
 
 export const useDecks = () => {
   const [page, setPage] = useState<number>(1)
@@ -11,6 +11,8 @@ export const useDecks = () => {
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
   const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
   const [myDecks, setMyDecks] = useState<string>('')
+  const { data: authData } = useAuthMeQuery()
+  const isMe = authData?.id
 
   const sortValue =
     sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
@@ -41,6 +43,7 @@ export const useDecks = () => {
   }, [data?.maxCardsCount])
 
   return {
+    isMe,
     data,
     sort,
     page,

@@ -31,6 +31,10 @@ const routes = createBrowserRouter([
             element: <CardsPage />,
           },
           {
+            path: '/learn',
+            element: <div>Learn page</div>,
+          },
+          {
             path: '/profile',
             element: <PersonalInfoPage />,
           },

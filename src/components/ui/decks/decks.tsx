@@ -15,6 +15,7 @@ import { useDecks } from '@/services/decks/hooks/useDecks.ts'
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
   const {
+    isMe,
     data,
     sort,
     page,
@@ -49,7 +50,7 @@ export const Decks: FC<PacksProps> = () => {
       <Table.DataCell>{el.updated}</Table.DataCell>
       <Table.DataCell>{el.author.name}</Table.DataCell>
       <Table.DataCell>
-        <TableActions editable={false} item={{ id: el.id, title: el.name }} />
+        <TableActions editable={el.userId === isMe} item={{ id: el.id, title: el.name }} />
       </Table.DataCell>
     </Table.Row>
   ))
@@ -77,6 +78,7 @@ export const Decks: FC<PacksProps> = () => {
           maxSliderValue={data?.maxCardsCount ?? 100}
           setMyDecks={setMyDecks}
           resetFilters={resetFilters}
+          isMe={isMe ?? ''}
           myDecks={myDecks}
         />
 

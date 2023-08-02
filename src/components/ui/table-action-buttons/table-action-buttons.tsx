@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import s from './table-action-buttons.module.scss'
 
 import { EditIcon, PlayIcon, DeleteIcon } from '@/assets'
@@ -11,16 +13,14 @@ type TableActionsProps = {
   item: ItemType
 }
 export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
+  const navigate = useNavigate()
+
   return (
     <div className={s.container}>
-      <AddNewPackModal
-        trigger={
-          <button>
-            <PlayIcon />
-          </button>
-        }
-        onSubmit={() => {}}
-      />
+      <button onClick={() => navigate('/learn')}>
+        <PlayIcon />
+      </button>
+
       {editable && (
         <>
           <AddNewPackModal
@@ -32,12 +32,12 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
             onSubmit={() => {}}
           />
           <DeleteDialog
-            buttonTitle={'Delete Pack'}
+            buttonTitle={'Delete Deck'}
             item={item}
             onClick={id => {
               console.log(id)
             }}
-            title={'Delete Pack'}
+            title={'Delete Deck'}
           >
             <button>
               <DeleteIcon />
