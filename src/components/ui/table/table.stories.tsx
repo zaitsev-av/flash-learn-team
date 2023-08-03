@@ -7,6 +7,7 @@ import s from './table.module.scss'
 
 import { Checkbox, Grade, Sort, Table } from '@/components'
 import { TableActions } from '@/components/ui/table-action-buttons'
+import { columns } from '@/helpers'
 
 export const data = [
   {
@@ -171,33 +172,6 @@ export const data = [
   },
 ]
 
-export const columns = [
-  {
-    key: 'name',
-    title: 'Name',
-    sortable: true,
-  },
-  {
-    key: 'cardsCount',
-    title: 'Cards',
-    sortable: true,
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-    sortable: true,
-  },
-  {
-    key: 'created',
-    title: 'Created by',
-    sortable: true,
-  },
-  {
-    key: 'actions',
-    title: '',
-    sortable: false,
-  },
-]
 const meta = {
   title: 'Components/Table',
   component: Table.Root,
