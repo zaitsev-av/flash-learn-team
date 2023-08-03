@@ -39,3 +39,10 @@ export type DecksResponseType = {
   pagination: PaginationType
   maxCardsCount: number
 }
+
+export type UpdateDeckResponseType = {
+  id: string
+  name: string
+  cover?: string
+  isPrivate: boolean
+}

@@ -1,4 +1,9 @@
-import { DecksResponseType, GetDecksType, ItemsType } from '@/services/decks/decks-api-types.ts'
+import {
+  DecksResponseType,
+  GetDecksType,
+  ItemsType,
+  UpdateDeckResponseType,
+} from '@/services/decks/decks-api-types.ts'
 import { flashLearnApi } from '@/services/flash-learn-api.ts'
 
 export const decksApi = flashLearnApi.injectEndpoints({
@@ -23,12 +28,10 @@ export const decksApi = flashLearnApi.injectEndpoints({
               body,
             }
           },
+          invalidatesTags: ['Decks'],
         }
       ),
-      updateDeck: builder.mutation<
-        ItemsType,
-        { id: string; name: string; cover?: string; isPrivate: boolean }
-      >({
+      updateDeck: builder.mutation<ItemsType, UpdateDeckResponseType>({
         query: ({ id, name, cover, isPrivate }) => {
           return {
             method: 'PATCH',
@@ -38,7 +41,21 @@ export const decksApi = flashLearnApi.injectEndpoints({
         },
         invalidatesTags: ['Decks'],
       }),
+      deleteDeck: builder.mutation<Omit<ItemsType, 'author'>, string>({
+        query: id => {
+          return {
+            method: 'DELETE',
+            url: `v1/decks/${id}`,
+          }
+        },
+        invalidatesTags: ['Decks'],
+      }),
     }
   },
 })
-export const { useGetDecksQuery, useCreateDeckMutation, useUpdateDeckMutation } = decksApi
+export const {
+  useGetDecksQuery,
+  useCreateDeckMutation,
+  useUpdateDeckMutation,
+  useDeleteDeckMutation,
+} = decksApi

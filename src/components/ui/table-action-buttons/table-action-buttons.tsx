@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import s from './table-action-buttons.module.scss'
 
 import { EditIcon, PlayIcon, DeleteIcon } from '@/assets'
 import { EditDeckModal, DeleteDialog, ItemType } from '@/components'
-import { useUpdateDeckMutation } from '@/services'
+import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/services'
 
 type TableActionsProps = {
   editable?: boolean
@@ -15,10 +16,26 @@ type TableActionsProps = {
 export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
   const navigate = useNavigate()
   const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
+
+  const handleDeleteDeck = (id: string) => {
+    deleteDeck(id)
+      .unwrap()
+      .then(res => {
+        toast.success(`You have successfully removed the deck: ${res.name} 👍`)
+      })
+      .catch(error => {
+        if (error.status === 404) {
+          toast.error(`Sorry, something went wrong 🙈`)
+        } else {
+          console.warn(error)
+        }
+      })
+  }
 
   return (
     <div className={s.container}>
-      <button onClick={() => navigate('/learn')}>
+      <button onClick={() => navigate('/learn')} style={{ cursor: 'pointer' }}>
         <PlayIcon />
       </button>
 
@@ -35,19 +52,17 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
             packName={item.title}
             isPrivate={item.isPrivate ?? false}
           >
-            <button>
+            <button style={{ cursor: 'pointer' }}>
               <EditIcon />
             </button>
           </EditDeckModal>
           <DeleteDialog
             buttonTitle={'Delete Deck'}
             item={item}
-            onClick={id => {
-              console.log(id)
-            }}
+            onClick={id => handleDeleteDeck(id)}
             title={'Delete Deck'}
           >
-            <button>
+            <button style={{ cursor: 'pointer' }}>
               <DeleteIcon />
             </button>
           </DeleteDialog>
