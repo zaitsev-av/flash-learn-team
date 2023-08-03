@@ -1,1 +1,1 @@
-export * from './columns-deck-table.ts'
+export { columns } from './columns-deck-table.ts'
