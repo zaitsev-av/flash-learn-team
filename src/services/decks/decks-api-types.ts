@@ -1,3 +1,5 @@
+import { UserDataType } from '@/services'
+
 export type GetDecksType = {
   minCardsCount: string
   maxCardsCount: string
@@ -8,13 +10,10 @@ export type GetDecksType = {
   itemsPerPage: number
 }
 
-export type AuthorType = {
-  id: string
-  name: string
-}
+export type DeckAuthorType = Pick<UserDataType, 'id' | 'name'>
 
 export type ItemsType = {
-  author: AuthorType
+  author: DeckAuthorType
   id: string
   userId: string
   name: string
