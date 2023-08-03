@@ -12,6 +12,7 @@ export const decksApi = flashLearnApi.injectEndpoints({
             params,
           }
         },
+        providesTags: ['Decks'],
       }),
       createDeck: builder.mutation<ItemsType, { cover?: string; name: string; isPrivate: boolean }>(
         {
@@ -24,7 +25,20 @@ export const decksApi = flashLearnApi.injectEndpoints({
           },
         }
       ),
+      updateDeck: builder.mutation<
+        ItemsType,
+        { id: string; name: string; cover?: string; isPrivate: boolean }
+      >({
+        query: ({ id, name, cover, isPrivate }) => {
+          return {
+            method: 'PATCH',
+            url: `v1/decks/${id}`,
+            body: { name, cover, isPrivate },
+          }
+        },
+        invalidatesTags: ['Decks'],
+      }),
     }
   },
 })
-export const { useGetDecksQuery, useCreateDeckMutation } = decksApi
+export const { useGetDecksQuery, useCreateDeckMutation, useUpdateDeckMutation } = decksApi

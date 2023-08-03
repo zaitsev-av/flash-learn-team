@@ -6,6 +6,7 @@ import s from './table-action-buttons.module.scss'
 
 import { EditIcon, PlayIcon, DeleteIcon } from '@/assets'
 import { EditDeckModal, DeleteDialog, ItemType } from '@/components'
+import { useUpdateDeckMutation } from '@/services'
 
 type TableActionsProps = {
   editable?: boolean
@@ -13,6 +14,7 @@ type TableActionsProps = {
 }
 export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
   const navigate = useNavigate()
+  const [updateDeck] = useUpdateDeckMutation()
 
   return (
     <div className={s.container}>
@@ -23,7 +25,13 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
       {editable && (
         <>
           <EditDeckModal
-            onSubmit={() => {}}
+            onSubmit={data =>
+              updateDeck({
+                id: item.id,
+                name: data.newNamePack,
+                isPrivate: data.isPrivate ?? false,
+              })
+            }
             packName={item.title}
             isPrivate={item.isPrivate ?? false}
           >
