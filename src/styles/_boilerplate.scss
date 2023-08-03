@@ -35,3 +35,7 @@ body {
 
   background-color: var(--color-dark-900);
 }
+
+::selection {
+  background-color: var(--color-highlighter-100);
+}
