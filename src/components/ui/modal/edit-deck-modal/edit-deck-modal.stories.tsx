@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react'
 
 import { EditIcon } from '@/assets'
-import { EditPackModal } from '@/components/ui/modal/edit-pack-modal/edit-pack-modal.tsx'
+import { EditDeckModal } from '@/components'
 
 const meta = {
   title: 'Modals/Edit Pack Modal',
-  component: EditPackModal,
+  component: EditDeckModal,
   tags: ['autodocs'],
-} satisfies Meta<typeof EditPackModal>
+} satisfies Meta<typeof EditDeckModal>
 
 export default meta
 type Story = StoryObj<typeof meta>

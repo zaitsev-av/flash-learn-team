@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { useDebounce } from '@/app/hooks/useDebounce.ts'
 import { Sort } from '@/components'
-import { useGetDecksQuery } from '@/services'
+import { useAuthMeQuery, useGetDecksQuery } from '@/services'
 
 export const useDecks = () => {
   const [page, setPage] = useState<number>(1)
@@ -11,6 +12,10 @@ export const useDecks = () => {
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
   const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
   const [myDecks, setMyDecks] = useState<string>('')
+  const { data: authData } = useAuthMeQuery()
+  const isMe = authData?.id
+
+  const debouncedSearchQuery = useDebounce(searchQuery, 500)
 
   const sortValue =
     sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
@@ -18,7 +23,7 @@ export const useDecks = () => {
     authorId: myDecks,
     currentPage: page,
     itemsPerPage: +pageSize,
-    name: searchQuery,
+    name: debouncedSearchQuery,
     minCardsCount: filterRange[0].toString(),
     maxCardsCount: filterRange[1].toString(),
     orderBy: sortValue,
@@ -41,6 +46,7 @@ export const useDecks = () => {
   }, [data?.maxCardsCount])
 
   return {
+    isMe,
     data,
     sort,
     page,

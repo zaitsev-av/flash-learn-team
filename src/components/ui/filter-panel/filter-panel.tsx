@@ -8,7 +8,6 @@ import DeleteIcon from '@/assets/icons/DeleteIcon.tsx'
 import { Button, TextField, Typography } from '@/components'
 import { Slider } from '@/components/ui/slider'
 import { Tabs } from '@/components/ui/tabs'
-import { useAuthMeQuery } from '@/services'
 
 type FilterPanelPropsType = {
   className?: string
@@ -23,6 +22,7 @@ type FilterPanelPropsType = {
   onValueCommit: (values: [number, number]) => void
   setMyDecks: (value: string) => void
   resetFilters: () => void
+  isMe: string
 }
 
 export const FilterPanel: FC<FilterPanelPropsType> = props => {
@@ -37,14 +37,12 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
     setMyDecks,
     resetFilters,
     myDecks,
+    isMe,
   } = props
 
   const classNames = {
     root: clsx(s.wrapper, className),
   }
-
-  const { data: authData } = useAuthMeQuery()
-  const isMe = authData?.id
 
   return (
     <div className={classNames.root}>
@@ -58,7 +56,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
       />
       <Tabs
         tabs={[
-          { tabName: 'Me decks', value: isMe ?? '' },
+          { tabName: 'Me decks', value: isMe },
           { tabName: 'All decks', value: '' },
         ]}
         label={'Show decks cards'}

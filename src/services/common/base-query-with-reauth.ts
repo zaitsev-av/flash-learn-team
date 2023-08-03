@@ -42,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         )
 
         // Если токен обновлен
-        if (refreshResult.meta?.response?.status === 201) {
+        if (refreshResult.meta?.response?.status === 204) {
           // Ставим новый токен
           // Повторяем запрос
           result = await baseQuery(args, api, extraOptions)

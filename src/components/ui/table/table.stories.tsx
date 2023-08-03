@@ -188,7 +188,7 @@ export const columns = [
     sortable: true,
   },
   {
-    key: 'createdBy',
+    key: 'created',
     title: 'Created by',
     sortable: true,
   },

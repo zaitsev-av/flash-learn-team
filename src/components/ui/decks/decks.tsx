@@ -9,11 +9,13 @@ import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/compon
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { columns } from '@/components/ui/table/table.stories.tsx'
 import { TableActions } from '@/components/ui/table-action-buttons'
+import { useCreateDeckMutation } from '@/services'
 import { useDecks } from '@/services/decks/hooks/useDecks.ts'
 
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
   const {
+    isMe,
     data,
     sort,
     page,
@@ -31,6 +33,7 @@ export const Decks: FC<PacksProps> = () => {
     setMyDecks,
   } = useDecks()
   const navigate = useNavigate()
+  const [createDeck] = useCreateDeckMutation()
 
   const classNames = {
     container: clsx(s.container),
@@ -47,7 +50,10 @@ export const Decks: FC<PacksProps> = () => {
       <Table.DataCell>{el.updated}</Table.DataCell>
       <Table.DataCell>{el.author.name}</Table.DataCell>
       <Table.DataCell>
-        <TableActions editable={false} item={{ id: el.id, title: el.name }} />
+        <TableActions
+          editable={el.userId === isMe}
+          item={{ id: el.id, title: el.name, isPrivate: el.isPrivate }}
+        />
       </Table.DataCell>
     </Table.Row>
   ))
@@ -61,6 +67,7 @@ export const Decks: FC<PacksProps> = () => {
             trigger={<Button>Add New Deck</Button>}
             onSubmit={data => {
               // eslint-disable-next-line no-console
+              createDeck({ name: data.namePack, isPrivate: data.private ?? false })
               console.log(data)
             }}
           />
@@ -74,6 +81,7 @@ export const Decks: FC<PacksProps> = () => {
           maxSliderValue={data?.maxCardsCount ?? 100}
           setMyDecks={setMyDecks}
           resetFilters={resetFilters}
+          isMe={isMe ?? ''}
           myDecks={myDecks}
         />
 
