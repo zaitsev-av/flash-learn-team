@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { useDebounce } from '@/app/hooks/useDebounce.ts'
 import { Sort } from '@/components'
 import { useAuthMeQuery, useGetDecksQuery } from '@/services'
 
@@ -14,13 +15,15 @@ export const useDecks = () => {
   const { data: authData } = useAuthMeQuery()
   const isMe = authData?.id
 
+  const debouncedSearchQuery = useDebounce(searchQuery, 500)
+
   const sortValue =
     sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
   const { data } = useGetDecksQuery({
     authorId: myDecks,
     currentPage: page,
     itemsPerPage: +pageSize,
-    name: searchQuery,
+    name: debouncedSearchQuery,
     minCardsCount: filterRange[0].toString(),
     maxCardsCount: filterRange[1].toString(),
     orderBy: sortValue,
