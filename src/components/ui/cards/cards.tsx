@@ -32,7 +32,6 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   const [sort, setSort] = useState<Sort>(null)
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('10')
-  //todo раскомментировать когда подключим роуты
   const navigate = useNavigate()
   //userId - только для тестирования функционала
   const navigateBack = () => {
@@ -52,7 +51,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
     <div className={classNames.container}>
       <Button variant={'link'} onClick={navigateBack}>
         <Typography variant={'body2'} className={classNames.back}>
-          <ArrowLeftIcon /> Back to Packs List
+          <ArrowLeftIcon /> Back to Decks List
         </Typography>
       </Button>
 
