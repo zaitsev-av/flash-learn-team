@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -22,6 +22,7 @@ import { columns } from '@/components/ui/cards/table-columns.ts'
 import { testData } from '@/components/ui/cards/test-data.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
+import { useGetCardsQuery } from '@/services'
 
 type CardsPropsType = {
   userId: string
@@ -33,12 +34,22 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('10')
   const navigate = useNavigate()
+  const { id } = useParams()
   //userId - только для тестирования функционала
   const navigateBack = () => {
     navigate(-1)
   }
+
+  const {} = useGetCardsQuery({
+    id: id ?? '',
+    answer: '',
+    question: '',
+    itemsPerPage: +pageSize,
+    currentPage: page,
+    orderBy: '',
+  })
   //todo заменить переменную packName на имя колоды
-  const packName = "Friend's pack"
+  const deckName = "Friend's pack"
   const classNames = {
     container: clsx(s.container),
     btn: clsx(s.btn),
@@ -55,7 +66,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
         </Typography>
       </Button>
 
-      <div className={classNames.header}>{renderDeckHeading(userId, packName)}</div>
+      <div className={classNames.header}>{renderDeckHeading(userId, deckName)}</div>
 
       {img && (
         <div style={{ width: '170px', height: '107px' }}>

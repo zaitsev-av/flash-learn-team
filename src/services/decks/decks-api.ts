@@ -1,5 +1,6 @@
 import {
   DecksResponseType,
+  GetCardsWithPagination,
   GetDecksType,
   ItemsType,
   UpdateDeckResponseType,
@@ -18,6 +19,14 @@ export const decksApi = flashLearnApi.injectEndpoints({
           }
         },
         providesTags: ['Decks'],
+      }),
+      getCards: builder.query<Omit<DecksResponseType, 'maxCardsCount'>, GetCardsWithPagination>({
+        query: id => {
+          return {
+            method: 'GET',
+            url: `v1/decks/${id}/cards`,
+          }
+        },
       }),
       createDeck: builder.mutation<ItemsType, { cover?: string; name: string; isPrivate: boolean }>(
         {
@@ -58,4 +67,5 @@ export const {
   useCreateDeckMutation,
   useUpdateDeckMutation,
   useDeleteDeckMutation,
+  useGetCardsQuery,
 } = decksApi

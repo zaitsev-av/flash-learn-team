@@ -45,3 +45,10 @@ export type UpdateDeckResponseType = {
   cover?: string
   isPrivate: boolean
 }
+
+export type GetCardsWithPagination = {
+  id: string
+  answer: string
+  question?: string
+  orderBy: string
+} & Pick<PaginationType, 'currentPage' | 'itemsPerPage'>
