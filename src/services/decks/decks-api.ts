@@ -30,6 +30,14 @@ export const decksApi = flashLearnApi.injectEndpoints({
           }
         },
       }),
+      getDeck: builder.query<ItemsType, string>({
+        query: id => {
+          return {
+            method: 'GET',
+            url: `v1/decks/${id}`,
+          }
+        },
+      }),
       createDeck: builder.mutation<ItemsType, { cover?: string; name: string; isPrivate: boolean }>(
         {
           query: body => {
@@ -65,6 +73,7 @@ export const decksApi = flashLearnApi.injectEndpoints({
   },
 })
 export const {
+  useGetDeckQuery,
   useGetDecksQuery,
   useGetCardsQuery,
   useCreateDeckMutation,

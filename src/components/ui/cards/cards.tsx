@@ -26,12 +26,21 @@ import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {
   userId: string
-  img?: string
 }
 
-export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
-  const { cardsData, sort, setSort, deckName, pageSize, setPageSize, setPage, page, navigateBack } =
-    useCards()
+export const Cards: FC<CardsPropsType> = ({ userId }) => {
+  const {
+    cardsData,
+    sort,
+    setSort,
+    deckName,
+    pageSize,
+    setPageSize,
+    setPage,
+    page,
+    navigateBack,
+    deckImg,
+  } = useCards()
   const classNames = {
     container: clsx(s.container),
     btn: clsx(s.btn),
@@ -50,9 +59,9 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
 
       <div className={classNames.header}>{renderDeckHeading(userId, deckName)}</div>
 
-      {img && (
+      {deckImg && (
         <div style={{ width: '170px', height: '107px' }}>
-          <img src={img} alt="" style={{ width: '170px', height: '107px' }} />
+          <img src={deckImg} alt="" style={{ width: '170px', height: '107px' }} />
         </div>
       )}
 

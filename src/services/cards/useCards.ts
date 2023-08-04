@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Sort } from '@/components'
-import { useGetCardsQuery } from '@/services'
+import { useGetCardsQuery, useGetDeckQuery } from '@/services'
 
 export const useCards = () => {
   const [sort, setSort] = useState<Sort>(null)
@@ -16,6 +16,7 @@ export const useCards = () => {
     navigate(-1)
   }
   const deckId = id || ''
+  const { data: deckData } = useGetDeckQuery(deckId)
 
   const { data: cardsData } = useGetCardsQuery({
     id: deckId,
@@ -26,11 +27,12 @@ export const useCards = () => {
     orderBy: '',
   })
 
-  //todo заменить переменную packName на имя колоды
-  const deckName = "Friend's pack"
+  const deckName = deckData?.name ?? 'Friends Deck'
+  const deckImg = deckData?.cover ?? ''
 
   return {
     cardsData,
+    deckImg,
     sort,
     page,
     deckId,
