@@ -66,8 +66,8 @@ export const decksApi = flashLearnApi.injectEndpoints({
 })
 export const {
   useGetDecksQuery,
+  useGetCardsQuery,
   useCreateDeckMutation,
   useUpdateDeckMutation,
   useDeleteDeckMutation,
-  useGetCardsQuery,
 } = decksApi

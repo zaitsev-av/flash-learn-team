@@ -45,6 +45,7 @@ export const Decks: FC<PacksProps> = () => {
     <Table.Row key={el.id}>
       <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)} style={{ cursor: 'pointer' }}>
         {el.name}
+        {el.cover === null ? '' : <img src={el.cover} alt="" width="70px" height="50px" />}
       </Table.DataCell>
       <Table.DataCell>{el.cardsCount}</Table.DataCell>
       <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>

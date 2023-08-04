@@ -20,6 +20,7 @@ import {
 import { columns } from '@/components/ui/cards/table-columns.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
+import { transformDate } from '@/helpers'
 import { CardsItem, CardsResponseType } from '@/services/cards/cards-types.ts'
 import { useCards } from '@/services/cards/useCards.ts'
 
@@ -105,7 +106,7 @@ const TableRows = (el: CardsItem, userId: string) => {
     <Table.Row key={el.question}>
       <Table.DataCell>{el.question}</Table.DataCell>
       <Table.DataCell>{el.answer}</Table.DataCell>
-      <Table.DataCell>{el.updated}</Table.DataCell>
+      <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
       <Table.DataCell>
         <Grade onClick={id => console.log(id)} grade={5} />
       </Table.DataCell>
