@@ -1,5 +1,7 @@
+import { CardsResponseType } from '@/services/cards/cards-types.ts'
 import {
   DecksResponseType,
+  GetCardsRequestType,
   GetDecksType,
   ItemsType,
   UpdateDeckResponseType,
@@ -18,6 +20,23 @@ export const decksApi = flashLearnApi.injectEndpoints({
           }
         },
         providesTags: ['Decks'],
+      }),
+      getCards: builder.query<CardsResponseType, GetCardsRequestType>({
+        query: ({ id, itemsPerPage, currentPage, orderBy, answer, question }) => {
+          return {
+            method: 'GET',
+            url: `v1/decks/${id}/cards`,
+            params: { orderBy, answer, question, itemsPerPage, currentPage },
+          }
+        },
+      }),
+      getDeck: builder.query<ItemsType, string>({
+        query: id => {
+          return {
+            method: 'GET',
+            url: `v1/decks/${id}`,
+          }
+        },
       }),
       createDeck: builder.mutation<ItemsType, { cover?: string; name: string; isPrivate: boolean }>(
         {
@@ -54,7 +73,9 @@ export const decksApi = flashLearnApi.injectEndpoints({
   },
 })
 export const {
+  useGetDeckQuery,
   useGetDecksQuery,
+  useGetCardsQuery,
   useCreateDeckMutation,
   useUpdateDeckMutation,
   useDeleteDeckMutation,

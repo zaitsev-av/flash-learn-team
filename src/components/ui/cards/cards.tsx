@@ -1,7 +1,6 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { clsx } from 'clsx'
-import { useNavigate } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -19,55 +18,58 @@ import {
   Typography,
 } from '@/components'
 import { columns } from '@/components/ui/cards/table-columns.ts'
-import { testData } from '@/components/ui/cards/test-data.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
+import { transformDate } from '@/helpers'
+import { CardsItem, CardsResponseType } from '@/services/cards/cards-types.ts'
+import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {
   userId: string
-  img?: string
 }
 
-export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
-  const [sort, setSort] = useState<Sort>(null)
-  const [page, setPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<string>('10')
-  //todo раскомментировать когда подключим роуты
-  const navigate = useNavigate()
-  //userId - только для тестирования функционала
-  const navigateBack = () => {
-    navigate(-1)
-  }
-  //todo заменить переменную packName на имя колоды
-  const packName = "Friend's pack"
+export const Cards: FC<CardsPropsType> = ({ userId }) => {
+  const {
+    cardsData,
+    sort,
+    setSort,
+    deckName,
+    pageSize,
+    setPageSize,
+    setPage,
+    page,
+    navigateBack,
+    deckImg,
+  } = useCards()
   const classNames = {
     container: clsx(s.container),
     btn: clsx(s.btn),
     back: clsx(s.back),
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
+    backArrow: clsx(s.content),
   }
 
   return (
     <div className={classNames.container}>
-      <Button variant={'link'} onClick={navigateBack}>
-        <Typography variant={'body2'} className={classNames.back}>
-          <ArrowLeftIcon /> Back to Packs List
+      <Button variant={'link'} onClick={navigateBack} className={classNames.back}>
+        <Typography variant={'body2'} className={classNames.backArrow}>
+          <ArrowLeftIcon /> Back to Decks List
         </Typography>
       </Button>
 
-      <div className={classNames.header}>{renderDeckHeading(userId, packName)}</div>
+      <div className={classNames.header}>{renderDeckHeading(userId, deckName)}</div>
 
-      {img && (
+      {deckImg && (
         <div style={{ width: '170px', height: '107px' }}>
-          <img src={img} alt="" style={{ width: '170px', height: '107px' }} />
+          <img src={deckImg} alt="" style={{ width: '170px', height: '107px' }} />
         </div>
       )}
 
       <TextField inputType={'search'} className={classNames.textField} />
 
       <CardTable
-        rowData={testData}
+        rowData={cardsData}
         sort={sort}
         setSort={setSort}
         userId={userId}
@@ -87,7 +89,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
 }
 
 type CardTablePropsType = {
-  rowData: any
+  rowData: CardsResponseType | undefined
   userId: string
   pageSize: string
   sort: Sort
@@ -103,17 +105,18 @@ const CardTable: FC<CardTablePropsType> = props => {
   return (
     <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
-      <Table.Body>{rowData.slice(0, +pageSize).map((el: any) => TableRows(el, userId))}</Table.Body>
+      <Table.Body>
+        {rowData?.items.slice(0, +pageSize).map((el: CardsItem) => TableRows(el, userId))}
+      </Table.Body>
     </Table.Root>
   )
 }
-//todo типизация
-const TableRows = (el: any, userId: string) => {
+const TableRows = (el: CardsItem, userId: string) => {
   return (
-    <Table.Row key={el.question}>
+    <Table.Row key={el.id}>
       <Table.DataCell>{el.question}</Table.DataCell>
       <Table.DataCell>{el.answer}</Table.DataCell>
-      <Table.DataCell>{el.updated}</Table.DataCell>
+      <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
       <Table.DataCell>
         <Grade onClick={id => console.log(id)} grade={5} />
       </Table.DataCell>

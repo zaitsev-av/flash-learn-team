@@ -7,8 +7,8 @@ import s from './decks.module.scss'
 
 import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
 import { FilterPanel } from '@/components/ui/filter-panel'
-import { columns } from '@/components/ui/table/table.stories.tsx'
 import { TableActions } from '@/components/ui/table-action-buttons'
+import { columns, transformDate } from '@/helpers'
 import { useCreateDeckMutation } from '@/services'
 import { useDecks } from '@/services/decks/hooks/useDecks.ts'
 
@@ -45,9 +45,10 @@ export const Decks: FC<PacksProps> = () => {
     <Table.Row key={el.id}>
       <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)} style={{ cursor: 'pointer' }}>
         {el.name}
+        {el.cover === null ? '' : <img src={el.cover} alt="" width="70px" height="50px" />}
       </Table.DataCell>
       <Table.DataCell>{el.cardsCount}</Table.DataCell>
-      <Table.DataCell>{el.updated}</Table.DataCell>
+      <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
       <Table.DataCell>{el.author.name}</Table.DataCell>
       <Table.DataCell>
         <TableActions
@@ -66,9 +67,7 @@ export const Decks: FC<PacksProps> = () => {
           <AddNewPackModal
             trigger={<Button>Add New Deck</Button>}
             onSubmit={data => {
-              // eslint-disable-next-line no-console
               createDeck({ name: data.namePack, isPrivate: data.private ?? false })
-              console.log(data)
             }}
           />
         </div>

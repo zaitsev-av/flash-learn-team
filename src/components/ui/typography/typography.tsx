@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementType, forwardRef, ReactNode, Ref } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -25,7 +25,30 @@ type TypographyProps<T extends ElementType> = {
   className?: string
   color?: 'primary' | 'secondary' | 'error' | 'inherit' | 'disabled'
 }
-export const Typography = <T extends ElementType>(
+
+export const Typography = forwardRef(
+  <T extends ElementType>(
+    props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>,
+    _ref: Ref<T>
+  ) => {
+    const {
+      variant = 'body1',
+      as: Component = 'span',
+      color = 'inherit',
+      unselectable,
+      className,
+      ...rest
+    } = props
+    const classNames = clsx(
+      `${className} ${s[variant]} ${s[color]}`,
+      unselectable === 'on' && s.unselectable
+    )
+
+    //TODO посмотреть стили
+    return <Component className={classNames} {...rest} />
+  }
+)
+/*export const Typography = <T extends ElementType>(
   props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>
 ) => {
   const {
@@ -43,28 +66,4 @@ export const Typography = <T extends ElementType>(
 
   //TODO посмотреть стили
   return <Component className={classNames} {...rest} />
-}
-// <>
-//
-// export const Typography = forwardRef<HTMLElement, TypographyProps<any>>({
-//   as,
-//   variant = 'body1',
-//   color = 'inherit',
-//   className,
-//   children,
-//   ...rest
-// }: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
-//   /*  const {
-//     variant = 'div',
-//     as: Component = 'span',
-//     color = 'inherit',
-//     unselectable,
-//     className,
-//     ...rest
-//   } = props*/
-//   const cName = clsx(`${className} ${s[variant]} ${s[color]}`)
-//   const Component = as || 'span'
-//
-//   //TODO посмотреть стили
-//   return <Component className={cName} {...rest} />
-// }
+}*/
