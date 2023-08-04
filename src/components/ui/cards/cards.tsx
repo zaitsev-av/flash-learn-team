@@ -47,12 +47,13 @@ export const Cards: FC<CardsPropsType> = ({ userId }) => {
     back: clsx(s.back),
     header: clsx(s.headerPage),
     textField: clsx(s.textField),
+    backArrow: clsx(s.content),
   }
 
   return (
     <div className={classNames.container}>
-      <Button variant={'link'} onClick={navigateBack}>
-        <Typography variant={'body2'} className={classNames.back}>
+      <Button variant={'link'} onClick={navigateBack} className={classNames.back}>
+        <Typography variant={'body2'} className={classNames.backArrow}>
           <ArrowLeftIcon /> Back to Decks List
         </Typography>
       </Button>
@@ -105,14 +106,14 @@ const CardTable: FC<CardTablePropsType> = props => {
     <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
       <Table.Body>
-        {rowData?.items.slice(0, +pageSize).map((el: any) => TableRows(el, userId))}
+        {rowData?.items.slice(0, +pageSize).map((el: CardsItem) => TableRows(el, userId))}
       </Table.Body>
     </Table.Root>
   )
 }
 const TableRows = (el: CardsItem, userId: string) => {
   return (
-    <Table.Row key={el.question}>
+    <Table.Row key={el.id}>
       <Table.DataCell>{el.question}</Table.DataCell>
       <Table.DataCell>{el.answer}</Table.DataCell>
       <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
