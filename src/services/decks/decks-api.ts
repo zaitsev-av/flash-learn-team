@@ -1,6 +1,7 @@
+import { CardsResponseType } from '@/services/cards/cards-types.ts'
 import {
   DecksResponseType,
-  GetCardsWithPagination,
+  GetCardsRequestType,
   GetDecksType,
   ItemsType,
   UpdateDeckResponseType,
@@ -20,11 +21,12 @@ export const decksApi = flashLearnApi.injectEndpoints({
         },
         providesTags: ['Decks'],
       }),
-      getCards: builder.query<Omit<DecksResponseType, 'maxCardsCount'>, GetCardsWithPagination>({
-        query: id => {
+      getCards: builder.query<CardsResponseType, GetCardsRequestType>({
+        query: ({ id, itemsPerPage, currentPage, orderBy, answer, question }) => {
           return {
             method: 'GET',
             url: `v1/decks/${id}/cards`,
+            params: { orderBy, answer, question, itemsPerPage, currentPage },
           }
         },
       }),

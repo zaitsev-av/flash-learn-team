@@ -1,7 +1,6 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { clsx } from 'clsx'
-import { useNavigate, useParams } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -19,10 +18,10 @@ import {
   Typography,
 } from '@/components'
 import { columns } from '@/components/ui/cards/table-columns.ts'
-import { testData } from '@/components/ui/cards/test-data.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
-import { useGetCardsQuery } from '@/services'
+import { CardsItem, CardsResponseType } from '@/services/cards/cards-types.ts'
+import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {
   userId: string
@@ -30,26 +29,8 @@ type CardsPropsType = {
 }
 
 export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
-  const [sort, setSort] = useState<Sort>(null)
-  const [page, setPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<string>('10')
-  const navigate = useNavigate()
-  const { id } = useParams()
-  //userId - только для тестирования функционала
-  const navigateBack = () => {
-    navigate(-1)
-  }
-
-  const {} = useGetCardsQuery({
-    id: id ?? '',
-    answer: '',
-    question: '',
-    itemsPerPage: +pageSize,
-    currentPage: page,
-    orderBy: '',
-  })
-  //todo заменить переменную packName на имя колоды
-  const deckName = "Friend's pack"
+  const { cardsData, sort, setSort, deckName, pageSize, setPageSize, setPage, page, navigateBack } =
+    useCards()
   const classNames = {
     container: clsx(s.container),
     btn: clsx(s.btn),
@@ -77,7 +58,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
       <TextField inputType={'search'} className={classNames.textField} />
 
       <CardTable
-        rowData={testData}
+        rowData={cardsData}
         sort={sort}
         setSort={setSort}
         userId={userId}
@@ -97,7 +78,7 @@ export const Cards: FC<CardsPropsType> = ({ userId, img }) => {
 }
 
 type CardTablePropsType = {
-  rowData: any
+  rowData: CardsResponseType | undefined
   userId: string
   pageSize: string
   sort: Sort
@@ -113,12 +94,13 @@ const CardTable: FC<CardTablePropsType> = props => {
   return (
     <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
-      <Table.Body>{rowData.slice(0, +pageSize).map((el: any) => TableRows(el, userId))}</Table.Body>
+      <Table.Body>
+        {rowData?.items.slice(0, +pageSize).map((el: any) => TableRows(el, userId))}
+      </Table.Body>
     </Table.Root>
   )
 }
-//todo типизация
-const TableRows = (el: any, userId: string) => {
+const TableRows = (el: CardsItem, userId: string) => {
   return (
     <Table.Row key={el.question}>
       <Table.DataCell>{el.question}</Table.DataCell>

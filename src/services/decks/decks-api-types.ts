@@ -46,7 +46,7 @@ export type UpdateDeckResponseType = {
   isPrivate: boolean
 }
 
-export type GetCardsWithPagination = {
+export type GetCardsRequestType = {
   id: string
   answer: string
   question?: string
