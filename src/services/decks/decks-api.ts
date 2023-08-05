@@ -1,11 +1,13 @@
 import { CardsResponseType } from '@/services/cards/cards-types.ts'
 import {
+  CreateCardRequestType,
+  CreateCardResponseType,
   DecksResponseType,
   GetCardsRequestType,
   GetDecksType,
   ItemsType,
   UpdateDeckResponseType,
-} from '@/services/decks/decks-api-types.ts'
+} from '@/services/decks/decks-types.ts'
 import { flashLearnApi } from '@/services/flash-learn-api.ts'
 
 export const decksApi = flashLearnApi.injectEndpoints({
@@ -69,10 +71,21 @@ export const decksApi = flashLearnApi.injectEndpoints({
         },
         invalidatesTags: ['Decks'],
       }),
+      createCard: builder.mutation<CreateCardResponseType, CreateCardRequestType>({
+        query: ({ id, ...rest }) => {
+          return {
+            method: 'POST',
+            url: `v1/decks/${id}/cards`,
+            body: { rest },
+          }
+        },
+        invalidatesTags: ['Decks'],
+      }),
     }
   },
 })
 export const {
+  useCreateCardMutation,
   useGetDeckQuery,
   useGetDecksQuery,
   useGetCardsQuery,
