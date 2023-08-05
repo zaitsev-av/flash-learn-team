@@ -3,7 +3,12 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Sort } from '@/components'
-import { useGetCardsQuery, useGetDeckQuery } from '@/services'
+import {
+  useAuthMeQuery,
+  useCreateCardMutation,
+  useGetCardsQuery,
+  useGetDeckQuery,
+} from '@/services'
 
 export const useCards = () => {
   const [sort, setSort] = useState<Sort>(null)
@@ -11,12 +16,14 @@ export const useCards = () => {
   const [pageSize, setPageSize] = useState<string>('10')
   const navigate = useNavigate()
   const { id } = useParams()
-  //userId - только для тестирования функционала
+
   const navigateBack = () => {
     navigate(-1)
   }
   const deckId = id || ''
   const { data: deckData } = useGetDeckQuery(deckId)
+  const { data: userData } = useAuthMeQuery()
+  const [createCard] = useCreateCardMutation()
 
   const { data: cardsData } = useGetCardsQuery({
     id: deckId,
@@ -27,10 +34,18 @@ export const useCards = () => {
     orderBy: '',
   })
 
+  const handleCreateCard = (question: string, answer: string) => {
+    createCard({ id: deckId, question, answer })
+  }
+
   const deckName = deckData?.name ?? 'Friends Deck'
   const deckImg = deckData?.cover ?? ''
+  const myId = userData?.id ?? ''
+  const authorDeckId = deckData?.userId ?? ''
+  const isMyDeck = myId === authorDeckId
 
   return {
+    isMyDeck,
     cardsData,
     deckImg,
     sort,
@@ -42,5 +57,6 @@ export const useCards = () => {
     setSort,
     setPage,
     setPageSize,
+    handleCreateCard,
   }
 }

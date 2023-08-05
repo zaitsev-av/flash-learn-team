@@ -59,7 +59,7 @@ export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
         <Modal.Body>
           <Select
             items={['Text', 'Picture']}
-            label={'Choose a question format Picture'}
+            label={'Choose a question format'}
             value={type}
             placeholder={type}
             onChange={value => setType(value)}

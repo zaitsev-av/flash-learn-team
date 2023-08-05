@@ -5,7 +5,7 @@ import { Cards, Page } from '@/components'
 export const CardsPage: FC = () => {
   return (
     <Page>
-      <Cards userId={''} />
+      <Cards />
     </Page>
   )
 }

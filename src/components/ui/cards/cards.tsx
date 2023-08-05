@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { clsx } from 'clsx'
+import { Link } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -24,12 +25,11 @@ import { transformDate } from '@/helpers'
 import { CardsItem, CardsResponseType } from '@/services/cards/cards-types.ts'
 import { useCards } from '@/services/cards/useCards.ts'
 
-type CardsPropsType = {
-  userId: string
-}
+type CardsPropsType = {}
 
-export const Cards: FC<CardsPropsType> = ({ userId }) => {
+export const Cards: FC<CardsPropsType> = () => {
   const {
+    isMyDeck,
     cardsData,
     sort,
     setSort,
@@ -58,7 +58,15 @@ export const Cards: FC<CardsPropsType> = ({ userId }) => {
         </Typography>
       </Button>
 
-      <div className={classNames.header}>{renderDeckHeading(userId, deckName)}</div>
+      <div className={classNames.header}>
+        <RenderDeckHeading
+          isMyDeck={isMyDeck}
+          deckName={deckName}
+          handleCreateCard={() => {}}
+          onDelete={() => {}}
+          onEdit={() => {}}
+        />
+      </div>
 
       {deckImg && (
         <div style={{ width: '170px', height: '107px' }}>
@@ -72,7 +80,7 @@ export const Cards: FC<CardsPropsType> = ({ userId }) => {
         rowData={cardsData}
         sort={sort}
         setSort={setSort}
-        userId={userId}
+        isMyDeck={isMyDeck}
         pageSize={pageSize}
       />
 
@@ -90,13 +98,13 @@ export const Cards: FC<CardsPropsType> = ({ userId }) => {
 
 type CardTablePropsType = {
   rowData: CardsResponseType | undefined
-  userId: string
+  isMyDeck: boolean
   pageSize: string
   sort: Sort
   setSort: (sort: Sort) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
-  const { rowData, sort, setSort, userId, pageSize } = props
+  const { rowData, sort, setSort, isMyDeck, pageSize } = props
   const classNames = {
     head: clsx(s.tableHead),
     tableRot: clsx(s.tableRoot),
@@ -106,12 +114,12 @@ const CardTable: FC<CardTablePropsType> = props => {
     <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
       <Table.Body>
-        {rowData?.items.slice(0, +pageSize).map((el: CardsItem) => TableRows(el, userId))}
+        {rowData?.items.slice(0, +pageSize).map((el: CardsItem) => TableRows(el, isMyDeck))}
       </Table.Body>
     </Table.Root>
   )
 }
-const TableRows = (el: CardsItem, userId: string) => {
+const TableRows = (el: CardsItem, isMyDeck: boolean) => {
   return (
     <Table.Row key={el.id}>
       <Table.DataCell>{el.question}</Table.DataCell>
@@ -125,29 +133,31 @@ const TableRows = (el: CardsItem, userId: string) => {
           question={el.question}
           answer={el.answer}
           item={{ id: el.id, title: el.question }}
-          editable={userId === '1'}
+          editable={isMyDeck}
         />
       </Table.DataCell>
     </Table.Row>
   )
 }
 
-const renderDeckHeading = (userId: string, packName: string) => {
-  const isMyPack = userId === '1'
-  const headingText = isMyPack ? 'My pack' : packName
-  const editMenu = isMyPack && (
-    <DeckEditMenu
-      onEdit={() => console.log('onEdit called')}
-      onDelete={() => console.log('onDelete called')}
-    />
-  )
-  const addNewCardSection = isMyPack && (
-    <AddNewCard onSubmit={data => console.log(data)}>
+type RenderDeckHeadingType = {
+  isMyDeck: boolean
+  deckName: string
+  handleCreateCard: (question: string, answer: string) => void
+  onEdit: () => void
+  onDelete: () => void
+}
+
+const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
+  const { deckName, isMyDeck, handleCreateCard, onDelete, onEdit } = props
+  const editMenu = isMyDeck && <DeckEditMenu onEdit={() => onEdit} onDelete={() => onDelete} />
+  const addNewCardSection = isMyDeck && (
+    <AddNewCard onSubmit={({ question, answer }) => handleCreateCard(question, answer)}>
       <Button variant={'primary'}>Add New Card</Button>
     </AddNewCard>
   )
-  const learnToPackButton = !isMyPack && (
-    <Button variant={'primary'} as={'a'} href={'#'}>
+  const learnToPackButton = !isMyDeck && (
+    <Button variant={'primary'} as={Link} to="/learn">
       Learn to Pack
     </Button>
   )
@@ -155,7 +165,7 @@ const renderDeckHeading = (userId: string, packName: string) => {
   return (
     <>
       <Typography variant={'large'} style={{ display: 'flex', gap: '16px' }}>
-        {headingText}
+        {deckName}
         {editMenu}
       </Typography>
       {addNewCardSection}
