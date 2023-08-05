@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 import { clsx } from 'clsx'
+import { Link } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
@@ -39,6 +40,7 @@ export const Cards: FC<CardsPropsType> = () => {
     page,
     navigateBack,
     deckImg,
+    handleCreateCard,
   } = useCards()
   const classNames = {
     container: clsx(s.container),
@@ -57,7 +59,9 @@ export const Cards: FC<CardsPropsType> = () => {
         </Typography>
       </Button>
 
-      <div className={classNames.header}>{renderDeckHeading(isMyDeck, deckName)}</div>
+      <div className={classNames.header}>
+        {renderDeckHeading(isMyDeck, deckName, handleCreateCard)}
+      </div>
 
       {deckImg && (
         <div style={{ width: '170px', height: '107px' }}>
@@ -131,8 +135,12 @@ const TableRows = (el: CardsItem, isMyDeck: boolean) => {
   )
 }
 
-const renderDeckHeading = (isMyDeck: boolean, packName: string) => {
-  const headingText = isMyDeck ? 'My Deck' : packName
+const renderDeckHeading = (
+  isMyDeck: boolean,
+  deckName: string,
+  handleCreateCard: (question: string, answer: string) => void
+) => {
+  const headingText = isMyDeck ? 'My Deck' : deckName
   const editMenu = isMyDeck && (
     <DeckEditMenu
       onEdit={() => console.log('onEdit called')}
@@ -140,12 +148,12 @@ const renderDeckHeading = (isMyDeck: boolean, packName: string) => {
     />
   )
   const addNewCardSection = isMyDeck && (
-    <AddNewCard onSubmit={data => console.log(data)}>
+    <AddNewCard onSubmit={data => handleCreateCard(data.question, data.answer)}>
       <Button variant={'primary'}>Add New Card</Button>
     </AddNewCard>
   )
   const learnToPackButton = !isMyDeck && (
-    <Button variant={'primary'} as={'a'} href={'#'}>
+    <Button variant={'primary'} as={Link} to="/learn">
       Learn to Pack
     </Button>
   )

@@ -31,6 +31,7 @@ export const decksApi = flashLearnApi.injectEndpoints({
             params: { orderBy, answer, question, itemsPerPage, currentPage },
           }
         },
+        providesTags: ['Cards'],
       }),
       getDeck: builder.query<ItemsType, string>({
         query: id => {
@@ -76,19 +77,19 @@ export const decksApi = flashLearnApi.injectEndpoints({
           return {
             method: 'POST',
             url: `v1/decks/${id}/cards`,
-            body: { rest },
+            body: { ...rest },
           }
         },
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Cards'],
       }),
     }
   },
 })
 export const {
-  useCreateCardMutation,
   useGetDeckQuery,
   useGetDecksQuery,
   useGetCardsQuery,
+  useCreateCardMutation,
   useCreateDeckMutation,
   useUpdateDeckMutation,
   useDeleteDeckMutation,
