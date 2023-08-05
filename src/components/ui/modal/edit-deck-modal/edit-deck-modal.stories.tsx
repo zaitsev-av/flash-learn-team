@@ -14,7 +14,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    packName: 'EditedPackName',
+    deckName: 'EditedPackName',
     isPrivate: true,
     children: <EditIcon />,
     onSubmit: data => {
