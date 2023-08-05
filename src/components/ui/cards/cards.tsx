@@ -24,12 +24,11 @@ import { transformDate } from '@/helpers'
 import { CardsItem, CardsResponseType } from '@/services/cards/cards-types.ts'
 import { useCards } from '@/services/cards/useCards.ts'
 
-type CardsPropsType = {
-  userId: string
-}
+type CardsPropsType = {}
 
-export const Cards: FC<CardsPropsType> = ({ userId }) => {
+export const Cards: FC<CardsPropsType> = () => {
   const {
+    isMyDeck,
     cardsData,
     sort,
     setSort,
@@ -58,7 +57,7 @@ export const Cards: FC<CardsPropsType> = ({ userId }) => {
         </Typography>
       </Button>
 
-      <div className={classNames.header}>{renderDeckHeading(userId, deckName)}</div>
+      <div className={classNames.header}>{renderDeckHeading(isMyDeck, deckName)}</div>
 
       {deckImg && (
         <div style={{ width: '170px', height: '107px' }}>
@@ -72,7 +71,7 @@ export const Cards: FC<CardsPropsType> = ({ userId }) => {
         rowData={cardsData}
         sort={sort}
         setSort={setSort}
-        userId={userId}
+        isMyDeck={isMyDeck}
         pageSize={pageSize}
       />
 
@@ -90,13 +89,13 @@ export const Cards: FC<CardsPropsType> = ({ userId }) => {
 
 type CardTablePropsType = {
   rowData: CardsResponseType | undefined
-  userId: string
+  isMyDeck: boolean
   pageSize: string
   sort: Sort
   setSort: (sort: Sort) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
-  const { rowData, sort, setSort, userId, pageSize } = props
+  const { rowData, sort, setSort, isMyDeck, pageSize } = props
   const classNames = {
     head: clsx(s.tableHead),
     tableRot: clsx(s.tableRoot),
@@ -106,12 +105,12 @@ const CardTable: FC<CardTablePropsType> = props => {
     <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
       <Table.Body>
-        {rowData?.items.slice(0, +pageSize).map((el: CardsItem) => TableRows(el, userId))}
+        {rowData?.items.slice(0, +pageSize).map((el: CardsItem) => TableRows(el, isMyDeck))}
       </Table.Body>
     </Table.Root>
   )
 }
-const TableRows = (el: CardsItem, userId: string) => {
+const TableRows = (el: CardsItem, isMyDeck: boolean) => {
   return (
     <Table.Row key={el.id}>
       <Table.DataCell>{el.question}</Table.DataCell>
@@ -125,28 +124,27 @@ const TableRows = (el: CardsItem, userId: string) => {
           question={el.question}
           answer={el.answer}
           item={{ id: el.id, title: el.question }}
-          editable={userId === '1'}
+          editable={isMyDeck}
         />
       </Table.DataCell>
     </Table.Row>
   )
 }
 
-const renderDeckHeading = (userId: string, packName: string) => {
-  const isMyPack = userId === '1'
-  const headingText = isMyPack ? 'My pack' : packName
-  const editMenu = isMyPack && (
+const renderDeckHeading = (isMyDeck: boolean, packName: string) => {
+  const headingText = isMyDeck ? 'My Deck' : packName
+  const editMenu = isMyDeck && (
     <DeckEditMenu
       onEdit={() => console.log('onEdit called')}
       onDelete={() => console.log('onDelete called')}
     />
   )
-  const addNewCardSection = isMyPack && (
+  const addNewCardSection = isMyDeck && (
     <AddNewCard onSubmit={data => console.log(data)}>
       <Button variant={'primary'}>Add New Card</Button>
     </AddNewCard>
   )
-  const learnToPackButton = !isMyPack && (
+  const learnToPackButton = !isMyDeck && (
     <Button variant={'primary'} as={'a'} href={'#'}>
       Learn to Pack
     </Button>

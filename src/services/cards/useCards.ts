@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Sort } from '@/components'
-import { useGetCardsQuery, useGetDeckQuery } from '@/services'
+import { useAuthMeQuery, useGetCardsQuery, useGetDeckQuery } from '@/services'
 
 export const useCards = () => {
   const [sort, setSort] = useState<Sort>(null)
@@ -17,6 +17,7 @@ export const useCards = () => {
   }
   const deckId = id || ''
   const { data: deckData } = useGetDeckQuery(deckId)
+  const { data: userData } = useAuthMeQuery()
 
   const { data: cardsData } = useGetCardsQuery({
     id: deckId,
@@ -29,8 +30,12 @@ export const useCards = () => {
 
   const deckName = deckData?.name ?? 'Friends Deck'
   const deckImg = deckData?.cover ?? ''
+  const myId = userData?.id ?? ''
+  const authorDeckId = deckData?.userId ?? ''
+  const isMyDeck = myId === authorDeckId
 
   return {
+    isMyDeck,
     cardsData,
     deckImg,
     sort,

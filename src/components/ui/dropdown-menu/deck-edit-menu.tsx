@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { DeleteIcon, LearnPackIcon, PencilIcon } from '@/assets'
 import OpenPackMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
 import { DropdownMenu, EditDeckModal, Typography } from '@/components'
@@ -16,7 +18,7 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
 
   return (
     <DropdownMenu trigger={<button className={s.icon_button}>{<OpenPackMenuIcon />}</button>}>
-      <MenuItem as={'a'} href={'#'}>
+      <MenuItem as={Link} to="/learn">
         <LearnPackIcon />
         <Typography variant={'caption'}>Learn</Typography>
       </MenuItem>
