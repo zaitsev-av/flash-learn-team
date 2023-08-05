@@ -1,13 +1,12 @@
 import { FC } from 'react'
 
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 
 import s from './table-action-buttons.module.scss'
 
-import { EditIcon, PlayIcon, DeleteIcon } from '@/assets'
-import { EditDeckModal, DeleteDialog, ItemType } from '@/components'
-import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/services'
+import { DeleteIcon, EditIcon, PlayIcon } from '@/assets'
+import { DeleteDialog, EditDeckModal, ItemType } from '@/components'
+import { useDecks } from '@/services/decks/hooks/useDecks.ts'
 
 type TableActionsProps = {
   editable?: boolean
@@ -15,7 +14,8 @@ type TableActionsProps = {
 }
 export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
   const navigate = useNavigate()
-  const [updateDeck] = useUpdateDeckMutation()
+  const { handleDeleteDeck, updateDeck } = useDecks()
+  /*  const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
   const handleDeleteDeck = (id: string) => {
@@ -31,7 +31,7 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
           console.warn(error)
         }
       })
-  }
+  }*/
 
   return (
     <div className={s.container}>
@@ -49,7 +49,7 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
                 isPrivate: data.isPrivate ?? false,
               })
             }
-            packName={item.title}
+            deckName={item.title}
             isPrivate={item.isPrivate ?? false}
           >
             <button style={{ cursor: 'pointer' }}>

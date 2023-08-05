@@ -11,14 +11,14 @@ import { Button, ControlledCheckbox, ControlledTextField, Modal } from '@/compon
 type EditPackModalProps = {
   children: ReactNode
   isPrivate: boolean
-  packName: string
+  deckName: string
   onSubmit: (data: Form) => void
 }
 
 type Form = z.infer<typeof editPackSchema>
 export const EditDeckModal: FC<EditPackModalProps> = ({
   onSubmit,
-  packName,
+  deckName,
   isPrivate,
   children,
 }) => {
@@ -26,7 +26,7 @@ export const EditDeckModal: FC<EditPackModalProps> = ({
   const { handleSubmit, control } = useForm<Form>({
     resolver: zodResolver(editPackSchema),
     mode: 'onSubmit',
-    values: { isPrivate, newNamePack: packName },
+    values: { isPrivate, newNamePack: deckName },
   })
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ newNamePack: data.newNamePack, isPrivate: data.isPrivate })

@@ -1,4 +1,4 @@
-export * from './registration-form'
+export * from './sign-up-form'
 export * from './login-form'
 export * from './check-email'
 export * from './forgot-password'
