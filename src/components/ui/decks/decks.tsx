@@ -26,7 +26,7 @@ export const Decks: FC<PacksProps> = () => {
     setSort,
     setPageSize,
     sliderValues,
-    resetFilters,
+    handleResetFilters,
     setFilterRange,
     setSliderValues,
     setSearchQuery,
@@ -45,7 +45,6 @@ export const Decks: FC<PacksProps> = () => {
     <Table.Row key={el.id}>
       <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)} style={{ cursor: 'pointer' }}>
         {el.name}
-        {el.cover === null ? '' : <img src={el.cover} alt="" width="70px" height="50px" />}
       </Table.DataCell>
       <Table.DataCell>{el.cardsCount}</Table.DataCell>
       <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
@@ -67,6 +66,7 @@ export const Decks: FC<PacksProps> = () => {
           <AddNewPackModal
             trigger={<Button>Add New Deck</Button>}
             onSubmit={data => {
+              // eslint-disable-next-line no-console
               createDeck({ name: data.namePack, isPrivate: data.private ?? false })
             }}
           />
@@ -79,7 +79,7 @@ export const Decks: FC<PacksProps> = () => {
           onValueCommit={setFilterRange}
           maxSliderValue={data?.maxCardsCount ?? 100}
           setMyDecks={setMyDecks}
-          resetFilters={resetFilters}
+          resetFilters={handleResetFilters}
           isMe={isMe ?? ''}
           myDecks={myDecks}
         />

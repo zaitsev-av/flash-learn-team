@@ -40,6 +40,7 @@ export const decksApi = flashLearnApi.injectEndpoints({
             url: `v1/decks/${id}`,
           }
         },
+        providesTags: ['Decks'],
       }),
       createDeck: builder.mutation<ItemsType, { cover?: string; name: string; isPrivate: boolean }>(
         {

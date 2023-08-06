@@ -56,7 +56,7 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
       />
       <Tabs
         tabs={[
-          { tabName: 'Me decks', value: isMe },
+          { tabName: 'My decks', value: isMe },
           { tabName: 'All decks', value: '' },
         ]}
         label={'Show decks cards'}
