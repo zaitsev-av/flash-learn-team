@@ -2,32 +2,37 @@ import { useEffect, useState } from 'react'
 
 import { toast } from 'react-toastify'
 
-import { useDebounce } from '@/app/hooks/useDebounce.ts'
-import { Sort } from '@/components'
 import {
   useAuthMeQuery,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services'
+import { useFiltration } from '@/services/decks/hooks/useFiltration.ts'
 
 export const useDecks = () => {
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('10')
-  const [sort, setSort] = useState<Sort>(null)
-  const [searchQuery, setSearchQuery] = useState<string>('')
-  const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
-  const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
-  const [myDecks, setMyDecks] = useState<string>('')
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const { data: authData } = useAuthMeQuery()
-
   const isMe = authData?.id
 
-  const debouncedSearchQuery = useDebounce(searchQuery, 500)
-  const sortValue =
-    sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
+  const {
+    sort,
+    setSort,
+    setSearchQuery,
+    setMyDecks,
+    searchQuery,
+    sliderValues,
+    resetFilters,
+    myDecks,
+    debouncedSearchQuery,
+    filterRange,
+    sortValue,
+    setSliderValues,
+    setFilterRange,
+  } = useFiltration()
 
   const { data } = useGetDecksQuery({
     authorId: myDecks,
@@ -38,13 +43,9 @@ export const useDecks = () => {
     maxCardsCount: filterRange[1].toString(),
     orderBy: sortValue,
   })
-  const resetFilters = () => {
-    setSearchQuery('')
-    setMyDecks('')
-    if (data) {
-      setSliderValues([0, data.maxCardsCount])
-      setFilterRange([0, data.maxCardsCount])
-    }
+
+  const handleResetFilters = () => {
+    if (data) resetFilters(data)
   }
 
   const handleDeleteDeck = (id: string) => {
@@ -84,7 +85,7 @@ export const useDecks = () => {
     setMyDecks,
     setPageSize,
     sliderValues,
-    resetFilters,
+    handleResetFilters,
     setSliderValues,
     setFilterRange,
     handleDeleteDeck,

@@ -15,23 +15,6 @@ type TableActionsProps = {
 export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
   const navigate = useNavigate()
   const { handleDeleteDeck, updateDeck } = useDecks()
-  /*  const [updateDeck] = useUpdateDeckMutation()
-  const [deleteDeck] = useDeleteDeckMutation()
-
-  const handleDeleteDeck = (id: string) => {
-    deleteDeck(id)
-      .unwrap()
-      .then(res => {
-        toast.success(`You have successfully removed the deck: ${res.name} 👍`)
-      })
-      .catch(error => {
-        if (error.status === 404) {
-          toast.error(`Sorry, something went wrong 🙈`)
-        } else {
-          console.warn(error)
-        }
-      })
-  }*/
 
   return (
     <div className={s.container}>

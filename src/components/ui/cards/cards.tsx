@@ -40,6 +40,10 @@ export const Cards: FC<CardsPropsType> = () => {
     page,
     navigateBack,
     deckImg,
+    deckId,
+    handleUpdateDeck,
+    handleDeleteDeck,
+    handleCreateCard,
   } = useCards()
   const classNames = {
     container: clsx(s.container),
@@ -62,9 +66,10 @@ export const Cards: FC<CardsPropsType> = () => {
         <RenderDeckHeading
           isMyDeck={isMyDeck}
           deckName={deckName}
-          handleCreateCard={() => {}}
-          onDelete={() => {}}
-          onEdit={() => {}}
+          deckId={deckId}
+          handleCreateCard={handleCreateCard}
+          onDelete={handleDeleteDeck}
+          onEdit={handleUpdateDeck}
         />
       </div>
 
@@ -144,13 +149,18 @@ type RenderDeckHeadingType = {
   isMyDeck: boolean
   deckName: string
   handleCreateCard: (question: string, answer: string) => void
-  onEdit: () => void
-  onDelete: () => void
+  onEdit: (name: string, isPrivate: boolean) => void
+  onDelete: (id: string) => void
+  deckId: string
 }
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
-  const { deckName, isMyDeck, handleCreateCard, onDelete, onEdit } = props
-  const editMenu = isMyDeck && <DeckEditMenu onEdit={() => onEdit} onDelete={() => onDelete} />
+  const { deckName, isMyDeck, handleCreateCard, onDelete, onEdit, deckId } = props
+
+  const editMenu = isMyDeck && (
+    <DeckEditMenu onEdit={onEdit} onDelete={onDelete} deckId={deckId} deckName={deckName} />
+  )
+
   const addNewCardSection = isMyDeck && (
     <AddNewCard onSubmit={({ question, answer }) => handleCreateCard(question, answer)}>
       <Button variant={'primary'}>Add New Card</Button>
@@ -193,12 +203,12 @@ const TableActions: FC<TableActionsProps> = props => {
             </button>
           </EditCard>
           <DeleteDialog
-            buttonTitle={'Delete Card'}
+            buttonTitle={'Delete Deck'}
             item={item}
             onClick={id => {
               console.log(id)
             }}
-            title={'Delete Card'}
+            title={'Delete Deck'}
           >
             <button>
               <DeleteIcon />
