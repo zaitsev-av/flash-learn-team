@@ -4,18 +4,21 @@ import { Link } from 'react-router-dom'
 
 import { DeleteIcon, LearnPackIcon, PencilIcon } from '@/assets'
 import OpenDeckMenuIcon from '@/assets/icons/OpenPackMenuIcon.tsx'
-import { DropdownMenu, EditDeckModal, Typography } from '@/components'
+import { DeleteDialog, DropdownMenu, EditDeckModal, Typography } from '@/components'
 import s from '@/components/ui/dropdown-menu/dropdown-menu.module.scss'
 import { MenuItem } from '@/components/ui/dropdown-menu/menu-item/menu-item.tsx'
 
 type DeckEditMenuPropsType = {
   deckName: string
+  deckId: string
   onEdit: (name: string, isPrivate: boolean) => void
-  onDelete: () => void
+  onDelete: (id: string) => void
 }
 
 export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
-  const { onDelete, onEdit, deckName } = props
+  const { onDelete, onEdit, deckName, deckId } = props
+
+  console.log(deckId)
 
   return (
     <DropdownMenu trigger={<button className={s.icon_button}>{<OpenDeckMenuIcon />}</button>}>
@@ -33,10 +36,17 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
           <Typography variant={'caption'}>Edit</Typography>
         </MenuItem>
       </EditDeckModal>
-      <MenuItem separator={false} onSelect={onDelete}>
-        <DeleteIcon />
-        <Typography variant={'caption'}>Delete</Typography>
-      </MenuItem>
+      <DeleteDialog
+        title={'Delete Deck'}
+        item={{ id: deckId, title: deckName }}
+        buttonTitle={'Delete Deck'}
+        onClick={onDelete}
+      >
+        <MenuItem separator={false}>
+          <DeleteIcon />
+          <Typography variant={'caption'}>Delete</Typography>
+        </MenuItem>
+      </DeleteDialog>
     </DropdownMenu>
   )
 }

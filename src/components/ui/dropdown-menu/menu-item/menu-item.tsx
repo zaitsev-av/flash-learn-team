@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementType, forwardRef, ReactNode } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
@@ -10,30 +10,27 @@ type MenuItemPropsType<T extends ElementType = 'div'> = {
   separator?: boolean
   onSelect?: () => void
 } & ComponentPropsWithoutRef<T>
-export const MenuItem = <T extends ElementType = 'div'>({
-  as,
-  children,
-  separator = true,
-  onSelect,
-  ...rest
-}: MenuItemPropsType<T>) => {
-  const onSelectHandler = (e: Event) => {
-    onSelect && onSelect()
-    e.preventDefault()
-  }
-  const TagName = as || 'div'
-  const classNames = {
-    menuItem: s.menuItem,
-    item: s.item,
-    separator: s.separator,
-  }
+export const MenuItem = forwardRef(
+  <T extends ElementType = 'div'>(props: MenuItemPropsType<T>, ref: any) => {
+    const { as, children, separator = true, onSelect, ...rest } = props
+    const onSelectHandler = (e: Event) => {
+      onSelect && onSelect()
+      e.preventDefault()
+    }
+    const TagName = as || 'div'
+    const classNames = {
+      menuItem: s.menuItem,
+      item: s.item,
+      separator: s.separator,
+    }
 
-  return (
-    <DropdownMenu.Item onSelect={onSelectHandler} className={classNames.menuItem}>
-      <TagName className={classNames.item} {...rest}>
-        {children}
-      </TagName>
-      {separator && <DropdownMenu.Separator className={classNames.separator} />}
-    </DropdownMenu.Item>
-  )
-}
+    return (
+      <DropdownMenu.Item onSelect={onSelectHandler} className={classNames.menuItem}>
+        <TagName className={classNames.item} ref={ref} {...rest}>
+          {children}
+        </TagName>
+        {separator && <DropdownMenu.Separator className={classNames.separator} />}
+      </DropdownMenu.Item>
+    )
+  }
+)

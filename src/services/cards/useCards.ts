@@ -6,6 +6,7 @@ import { Sort } from '@/components'
 import {
   useAuthMeQuery,
   useCreateCardMutation,
+  useDeleteDeckMutation,
   useGetCardsQuery,
   useGetDeckQuery,
   useUpdateDeckMutation,
@@ -26,6 +27,7 @@ export const useCards = () => {
   const { data: userData } = useAuthMeQuery()
   const [createCard] = useCreateCardMutation()
   const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
 
   const { data: cardsData } = useGetCardsQuery({
     id: deckId,
@@ -42,6 +44,12 @@ export const useCards = () => {
 
   const handleUpdateDeck = (name: string, isPrivate: boolean) => {
     updateDeck({ id: deckId, name, isPrivate })
+  }
+
+  const handleDeleteDeck = (id: string) => {
+    console.log('called')
+    deleteDeck(id)
+    navigate('/')
   }
 
   const deckName = deckData?.name ?? 'Friends Deck'
@@ -65,5 +73,6 @@ export const useCards = () => {
     setPageSize,
     handleCreateCard,
     handleUpdateDeck,
+    handleDeleteDeck,
   }
 }
