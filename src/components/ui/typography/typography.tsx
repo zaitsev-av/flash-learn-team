@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, forwardRef, ReactNode, Ref } from 'react'
+import { ComponentPropsWithoutRef, ElementType, forwardRef, ReactNode } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -29,7 +29,7 @@ type TypographyProps<T extends ElementType> = {
 export const Typography = forwardRef(
   <T extends ElementType>(
     props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>,
-    _ref: Ref<T>
+    ref: any
   ) => {
     const {
       variant = 'body1',
@@ -45,7 +45,7 @@ export const Typography = forwardRef(
     )
 
     //TODO посмотреть стили
-    return <Component className={classNames} {...rest} />
+    return <Component className={classNames} ref={ref} {...rest} />
   }
 )
 /*export const Typography = <T extends ElementType>(

@@ -40,6 +40,7 @@ export const Cards: FC<CardsPropsType> = () => {
     page,
     navigateBack,
     deckImg,
+    handleUpdateDeck,
   } = useCards()
   const classNames = {
     container: clsx(s.container),
@@ -64,7 +65,7 @@ export const Cards: FC<CardsPropsType> = () => {
           deckName={deckName}
           handleCreateCard={() => {}}
           onDelete={() => {}}
-          onEdit={() => {}}
+          onEdit={handleUpdateDeck}
         />
       </div>
 
@@ -144,13 +145,17 @@ type RenderDeckHeadingType = {
   isMyDeck: boolean
   deckName: string
   handleCreateCard: (question: string, answer: string) => void
-  onEdit: () => void
+  onEdit: (name: string, isPrivate: boolean) => void
   onDelete: () => void
 }
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
   const { deckName, isMyDeck, handleCreateCard, onDelete, onEdit } = props
-  const editMenu = isMyDeck && <DeckEditMenu onEdit={() => onEdit} onDelete={() => onDelete} />
+
+  const editMenu = isMyDeck && (
+    <DeckEditMenu onEdit={onEdit} onDelete={() => onDelete} deckName={deckName} />
+  )
+
   const addNewCardSection = isMyDeck && (
     <AddNewCard onSubmit={({ question, answer }) => handleCreateCard(question, answer)}>
       <Button variant={'primary'}>Add New Card</Button>

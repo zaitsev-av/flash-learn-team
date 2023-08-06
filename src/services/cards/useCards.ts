@@ -8,6 +8,7 @@ import {
   useCreateCardMutation,
   useGetCardsQuery,
   useGetDeckQuery,
+  useUpdateDeckMutation,
 } from '@/services'
 
 export const useCards = () => {
@@ -24,6 +25,7 @@ export const useCards = () => {
   const { data: deckData } = useGetDeckQuery(deckId)
   const { data: userData } = useAuthMeQuery()
   const [createCard] = useCreateCardMutation()
+  const [updateDeck] = useUpdateDeckMutation()
 
   const { data: cardsData } = useGetCardsQuery({
     id: deckId,
@@ -36,6 +38,10 @@ export const useCards = () => {
 
   const handleCreateCard = (question: string, answer: string) => {
     createCard({ id: deckId, question, answer })
+  }
+
+  const handleUpdateDeck = (name: string, isPrivate: boolean) => {
+    updateDeck({ id: deckId, name, isPrivate })
   }
 
   const deckName = deckData?.name ?? 'Friends Deck'
@@ -58,5 +64,6 @@ export const useCards = () => {
     setPage,
     setPageSize,
     handleCreateCard,
+    handleUpdateDeck,
   }
 }

@@ -35,6 +35,7 @@ export const Deck_menu = {
   render: () => {
     return (
       <DeckEditMenu
+        deckName={'deck'}
         onEdit={() => console.log('onEdit called')}
         onDelete={() => console.log('onDelete called')}
       />
