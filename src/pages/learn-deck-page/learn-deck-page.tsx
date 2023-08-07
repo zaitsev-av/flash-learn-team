@@ -14,8 +14,10 @@ export const LearnDeckPage: FC = () => {
   const { data: deckData } = useGetDeckQuery(id ?? '')
 
   const handleUpdateCardGrade = () => {
-    updateCardGrade({ id: id ?? '', cardId: cardData?.id ?? '', grade: +value })
-    setValue('')
+    if (id && cardData) {
+      updateCardGrade({ id, cardId: cardData.id, grade: +value })
+      setValue('')
+    }
   }
 
   return (
