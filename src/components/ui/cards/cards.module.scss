@@ -1,3 +1,4 @@
+@import "src/styles/mixins";
 .container {
   display: flex;
   flex-direction: column;
@@ -44,6 +45,17 @@
   .tableRoot {
     width: 100%;
     margin-bottom: 25px;
+  }
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+  @include _animation;
+    color: var(--color-warning-100);
   }
 }
 

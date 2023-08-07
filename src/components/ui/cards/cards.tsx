@@ -24,6 +24,7 @@ import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
 import { transformDate } from '@/helpers'
 import { CardsItem, CardsResponseType } from '@/services'
+import { useUpdateCardMutation } from '@/services/cards/cards-api.ts'
 import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {}
@@ -194,13 +195,21 @@ type TableActionsProps = {
 }
 const TableActions: FC<TableActionsProps> = props => {
   const { item, editable = true, question, answer } = props
+  const [updateCard] = useUpdateCardMutation()
+  const classNames = {
+    btn: clsx(s.btn),
+  }
 
   return (
     <div style={{ display: 'flex', gap: '10px' }}>
       {editable && (
         <>
-          <EditCard question={question} answer={answer} onSubmit={data => console.log(data)}>
-            <button>
+          <EditCard
+            question={question}
+            answer={answer}
+            onSubmit={({ question, answer }) => updateCard({ id: item.id, question, answer })}
+          >
+            <button className={classNames.btn}>
               <EditIcon />
             </button>
           </EditCard>
@@ -212,7 +221,7 @@ const TableActions: FC<TableActionsProps> = props => {
             }}
             title={'Delete Deck'}
           >
-            <button>
+            <button className={classNames.btn}>
               <DeleteIcon />
             </button>
           </DeleteDialog>

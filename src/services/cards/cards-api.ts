@@ -1,9 +1,9 @@
-import { flashLearnApi } from '@/services'
+import { CardResponseType, flashLearnApi } from '@/services'
 
 export const cardsApi = flashLearnApi.injectEndpoints({
   endpoints: builder => {
     return {
-      getCards: builder.query<any, string>({
+      getCard: builder.query<CardResponseType, string>({
         query: id => {
           return {
             method: 'GET',
@@ -11,8 +11,28 @@ export const cardsApi = flashLearnApi.injectEndpoints({
           }
         },
       }),
+      updateCard: builder.mutation<CardResponseType, UpdateCardRequestType>({
+        query: ({ id, ...rest }) => {
+          return {
+            method: 'PATCH',
+            url: `v1/cards/${id}`,
+            body: { ...rest },
+          }
+        },
+        invalidatesTags: ['Cards'],
+      }),
     }
   },
 })
 
-export const { useLazyGetCardsQuery } = cardsApi
+export const { useGetCardQuery, useUpdateCardMutation } = cardsApi
+
+type UpdateCardRequestType = {
+  id: string
+  question?: string
+  questionImg?: string
+  questionVideo?: string
+  answer?: string
+  answerImg?: string
+  answerVideo?: string
+}

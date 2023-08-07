@@ -25,3 +25,8 @@
     color: var(--color-danger-300);
   }
 }
+
+@mixin _animation {
+  transition: transform 0.3s;
+  transform: scale(1.2);
+}
