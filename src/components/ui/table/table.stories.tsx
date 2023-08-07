@@ -245,13 +245,7 @@ export const Data_Cell_With_Grade: Story = {
   args: {
     children: (
       <Table.DataCell className={s.row}>
-        <Grade
-          grade={3}
-          onClick={() => {
-            // eslint-disable-next-line no-console
-            console.log()
-          }}
-        />
+        <Grade grade={3} />
       </Table.DataCell>
     ),
   },

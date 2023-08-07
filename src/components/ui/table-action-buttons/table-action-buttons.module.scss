@@ -10,7 +10,9 @@
     justify-content: center;
 
     &:hover {
-      color: var(--color-dark-300);
+      color: var(--color-warning-100);
+      transition: transform 0.3s;
+      transform: scale(1.2);
     }
   }
 }

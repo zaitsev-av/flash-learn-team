@@ -21,7 +21,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
-    packName: 'Pack Name',
+    deckName: 'Deck Name',
     question: 'How "This" works in JavaScript?',
     attempts: 10,
     answer: 'This is how "This" works in JavaScript',
@@ -29,12 +29,12 @@ export const Default: Story = {
     onChange: () => {},
     value: '',
   },
-  render: ({ answer, attempts, question, loadNextQuestion, packName }) => {
+  render: ({ answer, attempts, question, loadNextQuestion, deckName }) => {
     const [value, setValue] = useState('value1')
 
     return (
       <LearnDesk
-        packName={packName}
+        deckName={deckName}
         question={question}
         attempts={attempts}
         answer={answer}

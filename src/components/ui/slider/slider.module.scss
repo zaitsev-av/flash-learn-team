@@ -49,6 +49,7 @@
         background-color: var(--color-accent-900);
         border-radius: 999rem;
 
+
         .range {
           position: absolute;
           height: 100%;
@@ -69,6 +70,11 @@
         border-radius: 999rem;
         box-shadow: 0 0 0 0.25rem var(--color-accent-500);
         transition: left 0.3s ease-in-out;
+
+        &:hover {
+          transition: transform 0.3s;
+          transform: scale(1.2);
+        }
       }
     }
   }

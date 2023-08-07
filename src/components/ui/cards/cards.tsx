@@ -11,6 +11,7 @@ import {
   DeckEditMenu,
   DeleteDialog,
   Grade,
+  GradeType,
   ItemType,
   Pagination,
   Sort,
@@ -22,7 +23,7 @@ import { columns } from '@/components/ui/cards/table-columns.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
 import { transformDate } from '@/helpers'
-import { CardsItem, CardsResponseType } from '@/services/cards/cards-types.ts'
+import { CardsItem, CardsResponseType } from '@/services'
 import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {}
@@ -45,6 +46,7 @@ export const Cards: FC<CardsPropsType> = () => {
     handleDeleteDeck,
     handleCreateCard,
   } = useCards()
+
   const classNames = {
     container: clsx(s.container),
     btn: clsx(s.btn),
@@ -119,7 +121,7 @@ const CardTable: FC<CardTablePropsType> = props => {
     <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
       <Table.Body>
-        {rowData?.items.slice(0, +pageSize).map((el: CardsItem) => TableRows(el, isMyDeck))}
+        {rowData?.items.slice(0, +pageSize).map(el => TableRows(el, isMyDeck))}
       </Table.Body>
     </Table.Root>
   )
@@ -131,7 +133,7 @@ const TableRows = (el: CardsItem, isMyDeck: boolean) => {
       <Table.DataCell>{el.answer}</Table.DataCell>
       <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
       <Table.DataCell>
-        <Grade onClick={id => console.log(id)} grade={5} />
+        <Grade grade={el.grade as GradeType} />
       </Table.DataCell>
       <Table.DataCell style={{ padding: '6px 24px' }}>
         <TableActions

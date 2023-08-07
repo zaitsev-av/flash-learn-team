@@ -1,11 +1,12 @@
-import { CardsResponseType } from '@/services/cards/cards-types.ts'
 import {
-  CreateCardRequestType,
   CardResponseType,
+  CardsResponseType,
+  CreateCardRequestType,
   DecksResponseType,
   GetCardsRequestType,
   GetDecksType,
   ItemsType,
+  UpdateCardGradeType,
   UpdateDeckResponseType,
 } from '@/services/decks/decks-types.ts'
 import { flashLearnApi } from '@/services/flash-learn-api.ts'
@@ -105,6 +106,17 @@ export const decksApi = flashLearnApi.injectEndpoints({
             url: `v1/decks/${id}/learn`,
           }
         },
+        providesTags: ['Learn'],
+      }),
+      updateCardGrade: builder.mutation<void, UpdateCardGradeType>({
+        query: ({ id, ...rest }) => {
+          return {
+            method: 'POST',
+            url: `v1/decks/${id}/learn`,
+            body: { ...rest },
+          }
+        },
+        invalidatesTags: ['Learn'],
       }),
     }
   },
@@ -118,4 +130,5 @@ export const {
   useCreateDeckMutation,
   useUpdateDeckMutation,
   useDeleteDeckMutation,
+  useUpdateCardGradeMutation,
 } = decksApi

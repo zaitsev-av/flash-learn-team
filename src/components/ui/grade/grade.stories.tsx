@@ -1,8 +1,6 @@
-import { useState } from 'react'
-
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Grade, GradeType } from '@/components/ui/grade/grade.tsx'
+import { Grade } from '@/components/ui/grade/grade.tsx'
 
 const meta = {
   title: 'Components/Grade',
@@ -25,9 +23,7 @@ export const Default: Story = {
   args: { grade: 3 },
 }
 const ControlledGrade = () => {
-  const [rating, setRating] = useState<GradeType>(0)
-
-  return <Grade grade={rating} onClick={setRating} />
+  return <Grade grade={0} />
 }
 
 export const GradeWithControl: Story = {

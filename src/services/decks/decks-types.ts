@@ -20,7 +20,7 @@ export type ItemsType = {
   isPrivate: boolean
   shots: number
   cover: string
-  rating: number
+  grade: number
   created: string
   updated: string
   cardsCount: number
@@ -46,13 +46,6 @@ export type UpdateDeckResponseType = {
   isPrivate: boolean
 }
 
-export type GetCardsRequestType = {
-  id: string
-  answer: string
-  question?: string
-  orderBy: string
-} & Pick<PaginationType, 'currentPage' | 'itemsPerPage'>
-
 export type CardResponseType = {
   id: string
   deckId: string
@@ -64,13 +57,33 @@ export type CardResponseType = {
   questionImg: string
   questionVideo: string
   answerVideo: string
-  rating: number
+  grade: number
   created: string
   updated: string
 }
+
+export type CardsItem = Omit<CardResponseType, 'userId'>
+
+export type CardsResponseType = {
+  items: CardsItem[]
+  pagination: PaginationType
+}
+
+export type GetCardsRequestType = {
+  id: string
+  answer: string
+  question?: string
+  orderBy: string
+} & Pick<PaginationType, 'currentPage' | 'itemsPerPage'>
 
 export type CreateCardRequestType = {
   id: string
   question: string
   answer: string
+}
+
+export type UpdateCardGradeType = {
+  id: string
+  cardId: string
+  grade: number
 }
