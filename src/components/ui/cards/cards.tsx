@@ -23,8 +23,7 @@ import { columns } from '@/components/ui/cards/table-columns.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
 import { transformDate } from '@/helpers'
-import { CardResponseType } from '@/services'
-import { CardsResponseType } from '@/services/cards/cards-types.ts'
+import { CardsItem, CardsResponseType } from '@/services'
 import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {}
@@ -121,19 +120,21 @@ const CardTable: FC<CardTablePropsType> = props => {
     <Table.Root className={s.tableRoot}>
       <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
       <Table.Body>
-        {rowData?.items.slice(0, +pageSize).map((el: CardResponseType) => TableRows(el, isMyDeck))}
+        {rowData?.items.slice(0, +pageSize).map(el => TableRows(el, isMyDeck))}
       </Table.Body>
     </Table.Root>
   )
 }
-const TableRows = (el: CardResponseType, isMyDeck: boolean) => {
+const TableRows = (el: CardsItem, isMyDeck: boolean) => {
+  console.log(el)
+
   return (
     <Table.Row key={el.id}>
       <Table.DataCell>{el.question}</Table.DataCell>
       <Table.DataCell>{el.answer}</Table.DataCell>
       <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
       <Table.DataCell>
-        <Grade grade={el.rating as GradeType} />
+        <Grade grade={el.grade as GradeType} />
       </Table.DataCell>
       <Table.DataCell style={{ padding: '6px 24px' }}>
         <TableActions

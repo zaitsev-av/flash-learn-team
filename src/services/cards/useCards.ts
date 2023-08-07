@@ -47,7 +47,6 @@ export const useCards = () => {
   }
 
   const handleDeleteDeck = (id: string) => {
-    console.log('called')
     deleteDeck(id)
     navigate('/')
   }

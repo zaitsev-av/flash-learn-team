@@ -1,6 +1,6 @@
-import { CardsResponseType } from '@/services/cards/cards-types.ts'
 import {
   CardResponseType,
+  CardsResponseType,
   CreateCardRequestType,
   DecksResponseType,
   GetCardsRequestType,

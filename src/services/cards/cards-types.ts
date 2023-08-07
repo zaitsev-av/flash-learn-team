@@ -1,9 +1,6 @@
-import { PaginationType } from '@/services'
-
-export type CardsItem = {
+/*export type CardsItem = {
   id: string
   deckId: string
-  userId: string
   question: string
   answer: string
   shots: number
@@ -11,7 +8,7 @@ export type CardsItem = {
   questionImg: string
   questionVideo: string
   answerVideo: string
-  rating: number
+  grade: number
   created: string
   updated: string
 }
@@ -19,4 +16,4 @@ export type CardsItem = {
 export type CardsResponseType = {
   items: CardsItem[]
   pagination: PaginationType
-}
+}*/
