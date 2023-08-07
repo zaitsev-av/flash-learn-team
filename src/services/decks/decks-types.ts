@@ -74,3 +74,9 @@ export type CreateCardRequestType = {
   question: string
   answer: string
 }
+
+export type UpdateCardGradeType = {
+  id: string
+  cardId: string
+  grade: number
+}

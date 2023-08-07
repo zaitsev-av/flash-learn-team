@@ -4,13 +4,17 @@ import { useParams } from 'react-router-dom'
 
 import { Page } from '@/components'
 import { LearnDesk } from '@/components/ui/learn-deck'
-import { useLearnDeckQuery } from '@/services'
+import { useLearnDeckQuery, useUpdateCardGradeMutation } from '@/services'
 
 export const LearnDeckPage: FC = () => {
   const { id } = useParams()
   const { data } = useLearnDeckQuery(id ?? '')
+  const [updateCardGrade] = useUpdateCardGradeMutation()
 
   console.log(data)
+  const handleUpdateCardGrade = (value: string) => {
+    updateCardGrade({ id: id ?? '', cardId: data?.id ?? '', grade: +value })
+  }
 
   return (
     <Page>
@@ -20,7 +24,7 @@ export const LearnDeckPage: FC = () => {
         attempts={''}
         answer={data?.answer ?? ''}
         loadNextQuestion={() => {}}
-        onChange={() => {}}
+        onChange={handleUpdateCardGrade}
         value={''}
       />
     </Page>
