@@ -53,7 +53,7 @@ export type GetCardsRequestType = {
   orderBy: string
 } & Pick<PaginationType, 'currentPage' | 'itemsPerPage'>
 
-export type CreateCardResponseType = {
+export type CardResponseType = {
   id: string
   deckId: string
   userId: string
