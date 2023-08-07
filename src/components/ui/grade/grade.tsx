@@ -7,6 +7,7 @@ import s from './grade.module.scss'
 import { StarIcon, StarOutlineIcon } from '@/assets'
 
 export type GradeType = 0 | 1 | 2 | 3 | 4 | 5
+
 type GradeProps = {
   grade: GradeType
 }
@@ -15,7 +16,7 @@ export const Grade: FC<GradeProps> = ({ grade }) => {
     const isFilled = i < grade
     const starType = isFilled ? <StarIcon /> : <StarOutlineIcon />
 
-    return <StarItem key={i} id={i + 1} starType={starType} />
+    return <StarItem key={i} id={i + 1} starType={starType} className={s.stars} />
   })
 
   return <div className={s.stars}>{stars}</div>

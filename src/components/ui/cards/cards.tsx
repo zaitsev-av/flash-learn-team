@@ -46,6 +46,7 @@ export const Cards: FC<CardsPropsType> = () => {
     handleDeleteDeck,
     handleCreateCard,
   } = useCards()
+
   const classNames = {
     container: clsx(s.container),
     btn: clsx(s.btn),
@@ -126,8 +127,6 @@ const CardTable: FC<CardTablePropsType> = props => {
   )
 }
 const TableRows = (el: CardsItem, isMyDeck: boolean) => {
-  console.log(el)
-
   return (
     <Table.Row key={el.id}>
       <Table.DataCell>{el.question}</Table.DataCell>
