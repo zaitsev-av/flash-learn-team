@@ -1,32 +1,36 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 
 import { Page } from '@/components'
 import { LearnDesk } from '@/components/ui/learn-deck'
-import { useLearnDeckQuery, useUpdateCardGradeMutation } from '@/services'
+import { useGetDeckQuery, useLearnDeckQuery, useUpdateCardGradeMutation } from '@/services'
 
 export const LearnDeckPage: FC = () => {
-  const { id } = useParams()
-  const { data } = useLearnDeckQuery(id ?? '')
+  const [value, setValue] = useState<string>('')
+  const { id } = useParams<{ id: string }>()
+  const { data: cardData } = useLearnDeckQuery(id ?? '')
   const [updateCardGrade] = useUpdateCardGradeMutation()
+  const { data: deckData } = useGetDeckQuery(id ?? '')
 
-  console.log(data)
-  const handleUpdateCardGrade = (value: string) => {
-    updateCardGrade({ id: id ?? '', cardId: data?.id ?? '', grade: +value })
+  const handleUpdateCardGrade = () => {
+    updateCardGrade({ id: id ?? '', cardId: cardData?.id ?? '', grade: +value })
+    setValue('')
   }
 
   return (
     <Page>
-      <LearnDesk
-        packName={''}
-        question={data?.question ?? ''}
-        attempts={''}
-        answer={data?.answer ?? ''}
-        loadNextQuestion={() => {}}
-        onChange={handleUpdateCardGrade}
-        value={''}
-      />
+      {cardData && deckData && (
+        <LearnDesk
+          deckName={deckData.name}
+          question={cardData.question}
+          attempts={cardData.shots}
+          answer={cardData.answer}
+          loadNextQuestion={handleUpdateCardGrade}
+          onChange={setValue}
+          value={value}
+        />
+      )}
     </Page>
   )
 }

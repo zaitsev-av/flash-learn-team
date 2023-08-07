@@ -34,7 +34,7 @@ export const Default: Story = {
 
     return (
       <LearnDesk
-        packName={packName}
+        deckName={packName}
         question={question}
         attempts={attempts}
         answer={answer}

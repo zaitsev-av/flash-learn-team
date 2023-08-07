@@ -16,8 +16,8 @@ export type RadioGroupItemType = {
 type RadioGroupPropsType = {
   items: RadioGroupItemType[]
   className?: string
-  onChange: (value: string) => void
-  value: string
+  onChange?: (value: string) => void
+  value?: string
 }
 
 export const RadioGroup: FC<RadioGroupPropsType> = props => {

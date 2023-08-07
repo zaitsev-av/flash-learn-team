@@ -18,11 +18,9 @@ type DeckEditMenuPropsType = {
 export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
   const { onDelete, onEdit, deckName, deckId } = props
 
-  console.log(deckId)
-
   return (
     <DropdownMenu trigger={<button className={s.icon_button}>{<OpenDeckMenuIcon />}</button>}>
-      <MenuItem as={Link} to="/learn">
+      <MenuItem as={Link} to={`/learn/${deckId}`}>
         <LearnPackIcon />
         <Typography variant={'caption'}>Learn</Typography>
       </MenuItem>

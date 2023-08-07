@@ -10,17 +10,18 @@ import { RadioGroupItemType } from '@/components/ui/radio-group'
 import { Typography } from '@/components/ui/typography'
 
 type LearnPackPropsType = {
-  packName: string
+  deckName: string
   question: string
   attempts: string | number
   answer: string
   loadNextQuestion: () => void
-  onChange: (value: string) => void
-  value: string
+  onChange?: (value: string) => void
+  value?: string
 }
 
 export const LearnDesk: FC<LearnPackPropsType> = props => {
-  const { packName, question, attempts, answer, loadNextQuestion, onChange, value } = props
+  const { deckName, question, attempts, answer, loadNextQuestion, onChange, value } = props
+
   const [showAnswer, setShowAnswer] = useState(false)
 
   const classNames = {
@@ -29,19 +30,26 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
     attempts: clsx(s.attempts),
     answer: clsx(s.answer),
   }
+  const handleNextQuestion = () => {
+    setShowAnswer(false)
+    loadNextQuestion()
+  }
 
   return (
     <Card className={classNames.container}>
       <Typography variant={'large'} style={{ textAlign: 'center' }}>
-        Learn {packName}
+        Learn {deckName}
       </Typography>
+
       <Typography variant={'body1'} className={classNames.question}>
         <Typography variant={'subtitle1'}>Question: </Typography>
         {question}
       </Typography>
+
       <Typography variant={'body2'} className={classNames.attempts}>
         Number of attempts to answer the question: {attempts}
       </Typography>
+
       {!showAnswer ? (
         <Button
           variant={'primary'}
@@ -54,7 +62,7 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
       ) : (
         <AnswerFeedback
           answer={answer}
-          loadNextQuestion={loadNextQuestion}
+          loadNextQuestion={handleNextQuestion}
           onChange={onChange}
           value={value}
         />
@@ -66,8 +74,8 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
 type AnswerFeedbackPropsType = {
   answer: string
   loadNextQuestion: () => void
-  onChange: (value: string) => void
-  value: string
+  onChange?: (value: string) => void
+  value?: string
 }
 
 const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
@@ -93,9 +101,11 @@ const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
         <Typography variant={'subtitle1'}>Answer: </Typography>
         {answer}
       </Typography>
+
       <Typography variant={'subtitle1'} className={classNames.feedback}>
         Rate yourself:
       </Typography>
+
       <RadioGroup
         items={items}
         className={classNames.radioGroup}
