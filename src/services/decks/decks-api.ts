@@ -1,7 +1,7 @@
 import { CardsResponseType } from '@/services/cards/cards-types.ts'
 import {
   CreateCardRequestType,
-  CreateCardResponseType,
+  CardResponseType,
   DecksResponseType,
   GetCardsRequestType,
   GetDecksType,
@@ -71,9 +71,24 @@ export const decksApi = flashLearnApi.injectEndpoints({
             url: `v1/decks/${id}`,
           }
         },
+        /* async onQueryStarted(id, { dispatch, queryFulfilled }) {
+          const patchResult = dispatch(
+            decksApi.util.updateQueryData('getDecks', { id }, draft => {
+              const index = draft.index.findIndex(card => card._id === cardId)
+
+              if (index !== -1) draft.cards.splice(index, 1)
+            })
+          )
+
+          try {
+            await queryFulfilled
+          } catch {
+            patchResult.undo()
+          }
+        },*/
         invalidatesTags: ['Decks'],
       }),
-      createCard: builder.mutation<CreateCardResponseType, CreateCardRequestType>({
+      createCard: builder.mutation<CardResponseType, CreateCardRequestType>({
         query: ({ id, ...rest }) => {
           return {
             method: 'POST',
@@ -83,6 +98,14 @@ export const decksApi = flashLearnApi.injectEndpoints({
         },
         invalidatesTags: ['Cards'],
       }),
+      learnDeck: builder.query<CardResponseType, string>({
+        query: id => {
+          return {
+            method: 'GET',
+            url: `v1/decks/${id}/learn`,
+          }
+        },
+      }),
     }
   },
 })
@@ -90,6 +113,7 @@ export const {
   useGetDeckQuery,
   useGetDecksQuery,
   useGetCardsQuery,
+  useLearnDeckQuery,
   useCreateCardMutation,
   useCreateDeckMutation,
   useUpdateDeckMutation,

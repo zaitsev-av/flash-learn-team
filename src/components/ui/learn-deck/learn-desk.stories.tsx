@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
-import { LearnDesk } from '@/pages/learn-pack/learn-desk.tsx'
+import { LearnDesk } from '@/components/ui/learn-deck/learn-desk.tsx'
 
 const meta = {
   title: 'Modals/Learn desk',

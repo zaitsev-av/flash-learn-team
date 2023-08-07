@@ -9,6 +9,7 @@ import {
   DecksPage,
   ForgotPasswordPage,
   Layout,
+  LearnDeckPage,
   LoginPage,
   PersonalInfoPage,
   SignUpPage,
@@ -31,8 +32,8 @@ const routes = createBrowserRouter([
             element: <CardsPage />,
           },
           {
-            path: '/learn',
-            element: <div>Learn page</div>,
+            path: '/learn/:id',
+            element: <LearnDeckPage />,
           },
           {
             path: '/profile',

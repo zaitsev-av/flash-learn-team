@@ -102,10 +102,10 @@ export const Cards: FC<CardsPropsType> = () => {
 }
 
 type CardTablePropsType = {
-  rowData: CardsResponseType | undefined
   isMyDeck: boolean
   pageSize: string
   sort: Sort
+  rowData: CardsResponseType | undefined
   setSort: (sort: Sort) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
@@ -146,12 +146,12 @@ const TableRows = (el: CardsItem, isMyDeck: boolean) => {
 }
 
 type RenderDeckHeadingType = {
-  isMyDeck: boolean
+  deckId: string
   deckName: string
-  handleCreateCard: (question: string, answer: string) => void
+  isMyDeck: boolean
   onEdit: (name: string, isPrivate: boolean) => void
   onDelete: (id: string) => void
-  deckId: string
+  handleCreateCard: (question: string, answer: string) => void
 }
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
@@ -167,7 +167,7 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
     </AddNewCard>
   )
   const learnToPackButton = !isMyDeck && (
-    <Button variant={'primary'} as={Link} to="/learn">
+    <Button variant={'primary'} as={Link} to={`/learn/${deckId}`}>
       Learn to Pack
     </Button>
   )
@@ -185,10 +185,10 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
 }
 
 type TableActionsProps = {
-  editable?: boolean
+  item: ItemType
   question: string
   answer: string
-  item: ItemType
+  editable?: boolean
 }
 const TableActions: FC<TableActionsProps> = props => {
   const { item, editable = true, question, answer } = props

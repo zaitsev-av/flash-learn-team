@@ -6,6 +6,7 @@ import { v4 } from 'uuid'
 import s from './learn-desk.module.scss'
 
 import { Button, Card, RadioGroup } from '@/components'
+import { RadioGroupItemType } from '@/components/ui/radio-group'
 import { Typography } from '@/components/ui/typography'
 
 type LearnPackPropsType = {
@@ -77,12 +78,13 @@ const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
     next: clsx(s.next_question),
     radioGroup: s.radioGroup,
   }
-  const items = [
-    { id: v4(), label: 'Did not know', value: 'value1' },
-    { id: v4(), label: 'Forgot', value: 'value2' },
-    { id: v4(), label: 'A lot of thought', value: 'value3' },
-    { id: v4(), label: 'Confused', value: 'value4' },
-    { id: v4(), label: 'Knew the answer', value: 'value5' },
+
+  const items: RadioGroupItemType[] = [
+    { id: v4(), label: 'Did not know', value: '5' },
+    { id: v4(), label: 'Forgot', value: '4' },
+    { id: v4(), label: 'A lot of thought', value: '3' },
+    { id: v4(), label: 'Confused', value: '2' },
+    { id: v4(), label: 'Knew the answer', value: '1' },
   ]
 
   return (

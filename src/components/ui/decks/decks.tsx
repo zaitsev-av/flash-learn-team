@@ -44,7 +44,10 @@ export const Decks: FC<PacksProps> = () => {
   const tableRows = data?.items.slice(0, +pageSize).map(el => (
     <Table.Row key={el.id}>
       <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)} style={{ cursor: 'pointer' }}>
-        {el.name}
+        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {el.name}
+          {el.cover === null ? '' : <img src={el.cover} alt="" width="70px" height="50px" />}
+        </span>
       </Table.DataCell>
       <Table.DataCell>{el.cardsCount}</Table.DataCell>
       <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
