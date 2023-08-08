@@ -19,7 +19,7 @@ export const Decks: FC<PacksProps> = () => {
     data,
     sort,
     page,
-    searchQuery,
+    searchQuery = '',
     pageSize,
     myDecks,
     setPage,

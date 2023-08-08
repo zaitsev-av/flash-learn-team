@@ -27,7 +27,7 @@ export const useDecks = () => {
     sliderValues,
     resetFilters,
     myDecks,
-    debouncedSearchQuery,
+    debouncedSearchQuery = '',
     filterRange,
     sortValue,
     setSliderValues,

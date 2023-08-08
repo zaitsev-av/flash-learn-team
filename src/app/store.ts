@@ -2,9 +2,11 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { flashLearnApi } from '@/services'
+import { decksReducer } from '@/services/decks/decks-slice.ts'
 
 export const store = configureStore({
   reducer: {
+    decks: decksReducer,
     [flashLearnApi.reducerPath]: flashLearnApi.reducer,
   },
   // Добавляем middleware для использования дополнительных функций rtk-query, таких как кэширование, инвалидация и pooling.
