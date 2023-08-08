@@ -21,11 +21,20 @@ export const cardsApi = flashLearnApi.injectEndpoints({
         },
         invalidatesTags: ['Cards'],
       }),
+      deleteCard: builder.mutation<void, string>({
+        query: id => {
+          return {
+            method: 'DElETE',
+            url: `v1/cards/${id}`,
+          }
+        },
+        invalidatesTags: ['Cards'],
+      }),
     }
   },
 })
 
-export const { useGetCardQuery, useUpdateCardMutation } = cardsApi
+export const { useGetCardQuery, useUpdateCardMutation, useDeleteCardMutation } = cardsApi
 
 type UpdateCardRequestType = {
   id: string

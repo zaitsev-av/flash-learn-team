@@ -24,7 +24,7 @@ import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
 import { transformDate } from '@/helpers'
 import { CardsItem, CardsResponseType } from '@/services'
-import { useUpdateCardMutation } from '@/services/cards/cards-api.ts'
+import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api.ts'
 import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {}
@@ -196,6 +196,7 @@ type TableActionsProps = {
 const TableActions: FC<TableActionsProps> = props => {
   const { item, editable = true, question, answer } = props
   const [updateCard] = useUpdateCardMutation()
+  const [deleteCard] = useDeleteCardMutation()
   const classNames = {
     btn: clsx(s.btn),
   }
@@ -214,12 +215,10 @@ const TableActions: FC<TableActionsProps> = props => {
             </button>
           </EditCard>
           <DeleteDialog
-            buttonTitle={'Delete Deck'}
+            buttonTitle={'Delete Card'}
             item={item}
-            onClick={id => {
-              console.log(id)
-            }}
-            title={'Delete Deck'}
+            onClick={id => deleteCard(id)}
+            title={'Delete Card'}
           >
             <button className={classNames.btn}>
               <DeleteIcon />
