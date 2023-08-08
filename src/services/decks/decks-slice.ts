@@ -29,10 +29,11 @@ const slice = createSlice({
   name: 'deck',
   initialState,
   reducers: {
-    setQueryParams: (state, action: PayloadAction<GetDecksType>) => {
-      state.queryParams = action.payload
+    setQueryParams: (state, action: PayloadAction<Partial<GetDecksType>>) => {
+      state.queryParams = { ...state.queryParams, ...action.payload }
     },
   },
 })
 
 export const decksReducer = slice.reducer
+export const decksActions = slice.actions
