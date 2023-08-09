@@ -112,7 +112,7 @@ type CardTablePropsType = {
   setSort: (sort: Sort) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
-  const { rowData, sort, setSort, isMyDeck, pageSize } = props
+  const { rowData, setSort, isMyDeck, pageSize } = props
   const classNames = {
     head: clsx(s.tableHead),
     tableRot: clsx(s.tableRoot),
@@ -120,7 +120,7 @@ const CardTable: FC<CardTablePropsType> = props => {
 
   return (
     <Table.Root className={s.tableRoot}>
-      <Table.Head columns={columns} sort={sort} onSort={setSort} className={classNames.head} />
+      <Table.Head columns={columns} onSort={setSort} className={classNames.head} />
       <Table.Body>
         {rowData?.items.slice(0, +pageSize).map(el => TableRows(el, isMyDeck))}
       </Table.Body>

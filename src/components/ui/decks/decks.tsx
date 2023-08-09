@@ -17,7 +17,6 @@ export const Decks: FC<PacksProps> = () => {
   const {
     isMe,
     data,
-    sort,
     page,
     searchQuery = '',
     pageSize,
@@ -88,7 +87,7 @@ export const Decks: FC<PacksProps> = () => {
         />
 
         <Table.Root>
-          <Table.Head sort={sort} onSort={setSort} columns={columns}></Table.Head>
+          <Table.Head onSort={setSort} columns={columns}></Table.Head>
           <Table.Body>{tableRows}</Table.Body>
         </Table.Root>
         <Pagination

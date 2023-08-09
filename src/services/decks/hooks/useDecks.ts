@@ -19,17 +19,16 @@ export const useDecks = () => {
   const isMe = authData?.id
 
   const {
-    sort,
+    sort = '',
     setSort,
     setSearchQuery,
     setMyDecks,
     searchQuery,
     sliderValues,
     resetFilters,
-    myDecks,
+    myDecks = '',
     debouncedSearchQuery = '',
     filterRange,
-    sortValue,
     setSliderValues,
     setFilterRange,
   } = useFiltration()
@@ -41,7 +40,7 @@ export const useDecks = () => {
     name: debouncedSearchQuery,
     minCardsCount: filterRange[0].toString(),
     maxCardsCount: filterRange[1].toString(),
-    orderBy: sortValue,
+    orderBy: sort,
   })
 
   const handleResetFilters = () => {
