@@ -190,7 +190,7 @@ const Container = () => {
 
   return (
     <>
-      <Table.Head columns={columns} sort={sort} onSort={setSort} />
+      <Table.Head columns={columns} sort={sort} handlerSort={() => {}} onSort={setSort} />
 
       <Table.Body>
         {data.map(row => {

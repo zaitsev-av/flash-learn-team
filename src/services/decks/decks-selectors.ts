@@ -7,7 +7,9 @@ export const selectGetCurrentPageQueryParams = (state: RootState) =>
   state.decks.queryParams.currentPage
 export const selectGetItemsPerPageQueryParams = (state: RootState) =>
   state.decks.queryParams.itemsPerPage
-export const selectGetMaxCardsCountQueryParams = (state: RootState) =>
-  state.decks.queryParams.maxCardsCount
+
+//todo удалить если ненужно будет
 export const selectGetMinCardsCountQueryParams = (state: RootState) =>
   state.decks.queryParams.minCardsCount
+export const selectGetMaxCardsCountQueryParams = (state: RootState) =>
+  state.decks.queryParams.maxCardsCount

@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { Sort } from '@/components'
 import {
   useAuthMeQuery,
   useCreateCardMutation,
@@ -13,7 +12,6 @@ import {
 } from '@/services'
 
 export const useCards = () => {
-  const [sort, setSort] = useState<Sort>(null)
   const [page, setPage] = useState<number>(1)
   const [pageSize, setPageSize] = useState<string>('10')
   const navigate = useNavigate()
@@ -61,13 +59,11 @@ export const useCards = () => {
     isMyDeck,
     cardsData,
     deckImg,
-    sort,
     page,
     deckId,
     pageSize,
     deckName,
     navigateBack,
-    setSort,
     setPage,
     setPageSize,
     handleCreateCard,

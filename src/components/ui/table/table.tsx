@@ -1,4 +1,4 @@
-import { ComponentProps, ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef, FC, useEffect } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -27,25 +27,17 @@ type Column = {
 type HeadProps = Omit<
   ComponentPropsWithoutRef<'thead'> & {
     columns: Column[]
-    sort?: Sort
-    onSort?: (sort: Sort) => void
+    sort: Sort
+    handlerSort: (key: string, sortable?: boolean) => void
+    onSort: (sort: Sort) => void
     className?: string
   },
   'children'
 >
-const Head: FC<HeadProps> = ({ columns, sort, onSort, className, ...rest }) => {
-  const handlerSort = (key: string, sortable?: boolean) => {
-    if (!onSort || !sortable) return
-
-    if (key !== sort?.columnKey) {
-      return onSort({ columnKey: key, direction: 'asc' })
-    }
-    if (sort.direction === 'asc') {
-      return onSort({ columnKey: key, direction: 'desc' })
-    }
-
-    onSort(null)
-  }
+const Head: FC<HeadProps> = ({ columns, onSort, sort, handlerSort, className, ...rest }) => {
+  useEffect(() => {
+    onSort(sort)
+  }, [onSort, sort])
 
   return (
     <thead className={className} {...rest}>
