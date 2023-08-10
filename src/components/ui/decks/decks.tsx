@@ -24,7 +24,6 @@ export const Decks: FC<PacksProps> = () => {
     myDecks,
     totalCount,
     setPage,
-    setSort,
     setPageSize,
     sliderValues,
     handleResetFilters,
@@ -33,7 +32,7 @@ export const Decks: FC<PacksProps> = () => {
     setSearchQuery,
     setMyDecks,
   } = useDecks()
-  const { sort, handlerSort } = useSort()
+  const { sort, handlerSort, setSort } = useSort()
   const navigate = useNavigate()
   const [createDeck] = useCreateDeckMutation()
 

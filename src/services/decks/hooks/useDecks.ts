@@ -18,8 +18,6 @@ import { useFiltration } from '@/services/decks/hooks/useFiltration.ts'
 
 export const useDecks = () => {
   const dispatch = useAppDispatch()
-  // const [page, setPage] = useState<number>(1)
-  // const [pageSize, setPageSize] = useState<string>('10')
   const [updateDeck] = useUpdateDeckMutation()
 
   const [deleteDeck] = useDeleteDeckMutation()
@@ -38,7 +36,6 @@ export const useDecks = () => {
 
   const {
     sort = '',
-    setSort,
     setSearchQuery,
     setMyDecks,
     searchQuery,
@@ -100,7 +97,6 @@ export const useDecks = () => {
     pageSize,
     totalCount,
     setPage,
-    setSort,
     setSearchQuery,
     setMyDecks,
     setPageSize,

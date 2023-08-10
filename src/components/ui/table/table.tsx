@@ -1,4 +1,4 @@
-import { ComponentProps, ComponentPropsWithoutRef, FC } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef, FC, useEffect } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -35,7 +35,9 @@ type HeadProps = Omit<
   'children'
 >
 const Head: FC<HeadProps> = ({ columns, onSort, sort, handlerSort, className, ...rest }) => {
-  onSort(sort)
+  useEffect(() => {
+    onSort(sort)
+  }, [onSort, sort])
 
   return (
     <thead className={className} {...rest}>

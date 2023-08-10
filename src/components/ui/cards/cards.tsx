@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import s from './cards.module.scss'
 
 import { ArrowLeftIcon, DeleteIcon, EditIcon } from '@/assets'
+import { useSort } from '@/common/hooks/useSort.ts'
 import {
   Button,
   DeckEditMenu,
@@ -33,8 +34,6 @@ export const Cards: FC<CardsPropsType> = () => {
   const {
     isMyDeck,
     cardsData,
-    sort,
-    setSort,
     deckName,
     pageSize,
     setPageSize,
@@ -47,6 +46,7 @@ export const Cards: FC<CardsPropsType> = () => {
     handleDeleteDeck,
     handleCreateCard,
   } = useCards()
+  const { handlerSort, sort, setSort } = useSort()
 
   const classNames = {
     container: clsx(s.container),
@@ -87,6 +87,7 @@ export const Cards: FC<CardsPropsType> = () => {
       <CardTable
         rowData={cardsData}
         sort={sort}
+        handlerSort={handlerSort}
         setSort={setSort}
         isMyDeck={isMyDeck}
         pageSize={pageSize}
@@ -110,9 +111,10 @@ type CardTablePropsType = {
   sort: Sort
   rowData: CardsResponseType | undefined
   setSort: (sort: Sort) => void
+  handlerSort: (key: string, sortable?: boolean) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
-  const { rowData, setSort, isMyDeck, pageSize } = props
+  const { rowData, setSort, isMyDeck, pageSize, sort, handlerSort } = props
   const classNames = {
     head: clsx(s.tableHead),
     tableRot: clsx(s.tableRoot),
@@ -120,7 +122,13 @@ const CardTable: FC<CardTablePropsType> = props => {
 
   return (
     <Table.Root className={s.tableRoot}>
-      <Table.Head columns={columns} onSort={setSort} className={classNames.head} />
+      <Table.Head
+        columns={columns}
+        onSort={setSort}
+        sort={sort}
+        handlerSort={handlerSort}
+        className={classNames.head}
+      />
       <Table.Body>
         {rowData?.items.slice(0, +pageSize).map(el => TableRows(el, isMyDeck))}
       </Table.Body>

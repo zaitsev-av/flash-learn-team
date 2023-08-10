@@ -186,11 +186,11 @@ const meta = {
 } satisfies Meta<typeof Table.Root>
 
 const Container = () => {
-  const [_, setSort] = useState<Sort>(null)
+  const [sort, setSort] = useState<Sort>(null)
 
   return (
     <>
-      <Table.Head columns={columns} onSort={setSort} />
+      <Table.Head columns={columns} sort={sort} handlerSort={() => {}} onSort={setSort} />
 
       <Table.Body>
         {data.map(row => {
