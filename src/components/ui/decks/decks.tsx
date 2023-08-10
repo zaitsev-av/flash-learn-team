@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import s from './decks.module.scss'
 
+import { useSort } from '@/common/hooks/useSort.ts'
 import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { TableActions } from '@/components/ui/table-action-buttons'
@@ -21,6 +22,7 @@ export const Decks: FC<PacksProps> = () => {
     searchQuery = '',
     pageSize,
     myDecks,
+    totalCount,
     setPage,
     setSort,
     setPageSize,
@@ -31,6 +33,7 @@ export const Decks: FC<PacksProps> = () => {
     setSearchQuery,
     setMyDecks,
   } = useDecks()
+  const { sort, handlerSort } = useSort()
   const navigate = useNavigate()
   const [createDeck] = useCreateDeckMutation()
 
@@ -40,7 +43,7 @@ export const Decks: FC<PacksProps> = () => {
     root: clsx(s.wrapper),
   }
 
-  const tableRows = data?.items.slice(0, +pageSize).map(el => (
+  const tableRows = data?.items.slice(0, pageSize).map(el => (
     <Table.Row key={el.id}>
       <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)} style={{ cursor: 'pointer' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -68,7 +71,6 @@ export const Decks: FC<PacksProps> = () => {
           <AddNewPackModal
             trigger={<Button>Add New Deck</Button>}
             onSubmit={data => {
-              // eslint-disable-next-line no-console
               createDeck({ name: data.namePack, isPrivate: data.private ?? false })
             }}
           />
@@ -87,13 +89,18 @@ export const Decks: FC<PacksProps> = () => {
         />
 
         <Table.Root>
-          <Table.Head onSort={setSort} columns={columns}></Table.Head>
+          <Table.Head
+            onSort={setSort}
+            sort={sort}
+            handlerSort={handlerSort}
+            columns={columns}
+          ></Table.Head>
           <Table.Body>{tableRows}</Table.Body>
         </Table.Root>
         <Pagination
-          currentPage={page}
-          totalCount={400}
-          pageSize={+pageSize}
+          currentPage={page ?? 1}
+          totalCount={totalCount}
+          pageSize={pageSize ?? 10}
           siblingCount={3}
           onPageChange={setPage}
           onPageSizeChange={setPageSize}

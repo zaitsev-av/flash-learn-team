@@ -13,18 +13,16 @@ import { decksActions } from '@/services/decks/decks-slice.ts'
 
 export const useFiltration = () => {
   const dispatch = useAppDispatch()
-  // const [sort, setSort] = useState<Sort>(null)
+
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
   const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
 
   const searchQuery = useAppSelector(selectGetNameQueryParams)
   const myDecks = useAppSelector(selectGetAuthorIdQueryParams)
   const sort = useAppSelector(selectGetOrderByQueryParams)
+  /*  const minCardsCount = useAppSelector(selectGetMinCardsCountQueryParams)
+  const maxCardsCount = useAppSelector(selectGetOrderByQueryParams)*/
   const debouncedSearchQuery = useDebounce(searchQuery, 500)
-
-  console.log(sort)
-  // const sortValue =
-  //   sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
 
   const setSort = (sort: Sort) => {
     const sortValue =

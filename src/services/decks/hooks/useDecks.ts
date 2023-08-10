@@ -1,22 +1,40 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { toast } from 'react-toastify'
 
+import { useAppDispatch, useAppSelector } from '@/common'
 import {
   useAuthMeQuery,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services'
+import {
+  selectGetCurrentPageQueryParams,
+  selectGetItemsPerPageQueryParams,
+} from '@/services/decks/decks-selectors.ts'
+import { decksActions } from '@/services/decks/decks-slice.ts'
 import { useFiltration } from '@/services/decks/hooks/useFiltration.ts'
 
 export const useDecks = () => {
-  const [page, setPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<string>('10')
+  const dispatch = useAppDispatch()
+  // const [page, setPage] = useState<number>(1)
+  // const [pageSize, setPageSize] = useState<string>('10')
   const [updateDeck] = useUpdateDeckMutation()
+
   const [deleteDeck] = useDeleteDeckMutation()
   const { data: authData } = useAuthMeQuery()
   const isMe = authData?.id
+  const page = useAppSelector(selectGetCurrentPageQueryParams)
+  const pageSize = useAppSelector(selectGetItemsPerPageQueryParams)
+
+  const setPage = (value: number) => {
+    dispatch(decksActions.setQueryParams({ currentPage: value }))
+  }
+
+  const setPageSize = (pageSize: string) => {
+    dispatch(decksActions.setQueryParams({ itemsPerPage: +pageSize }))
+  }
 
   const {
     sort = '',
@@ -35,13 +53,15 @@ export const useDecks = () => {
 
   const { data } = useGetDecksQuery({
     authorId: myDecks,
-    currentPage: page,
-    itemsPerPage: +pageSize,
+    currentPage: page ?? 1,
+    itemsPerPage: pageSize ?? 10,
     name: debouncedSearchQuery,
     minCardsCount: filterRange[0].toString(),
     maxCardsCount: filterRange[1].toString(),
     orderBy: sort,
   })
+
+  const totalCount = data?.pagination.totalItems ?? 0
 
   const handleResetFilters = () => {
     if (data) resetFilters(data)
@@ -78,6 +98,7 @@ export const useDecks = () => {
     searchQuery,
     myDecks,
     pageSize,
+    totalCount,
     setPage,
     setSort,
     setSearchQuery,
