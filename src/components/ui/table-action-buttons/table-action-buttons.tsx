@@ -1,12 +1,13 @@
 import { FC } from 'react'
 
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import s from './table-action-buttons.module.scss'
 
 import { DeleteIcon, EditIcon, PlayIcon } from '@/assets'
 import { DeleteDialog, EditDeckModal, ItemType } from '@/components'
-import { useDecks } from '@/services/decks/hooks/useDecks.ts'
+import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/services'
 
 type TableActionsProps = {
   editable?: boolean
@@ -14,7 +15,23 @@ type TableActionsProps = {
 }
 export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
   const navigate = useNavigate()
-  const { handleDeleteDeck, updateDeck } = useDecks()
+  const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
+
+  const handleDeleteDeck = (id: string) => {
+    deleteDeck(id)
+      .unwrap()
+      .then(res => {
+        toast.success(`You have successfully removed the deck: ${res.name} 👍`)
+      })
+      .catch(error => {
+        if (error.status === 404) {
+          toast.error(`Sorry, something went wrong 🙈`)
+        } else {
+          console.warn(error)
+        }
+      })
+  }
 
   return (
     <div className={s.container}>

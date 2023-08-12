@@ -1,40 +1,91 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { useNavigate } from 'react-router-dom'
+// import { toast } from 'react-toastify'
 
 import s from './decks.module.scss'
 
+import { useAppDispatch, useAppSelector } from '@/common'
 import { useSort } from '@/common/hooks/useSort.ts'
 import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { TableActions } from '@/components/ui/table-action-buttons'
 import { columns, transformDate } from '@/helpers'
-import { useCreateDeckMutation } from '@/services'
-import { useDecks } from '@/services/decks/hooks/useDecks.ts'
+import { useDebounce } from '@/helpers/hooks/useDebounce.ts'
+import { useAuthMeQuery, useCreateDeckMutation, useGetDecksQuery } from '@/services'
+import {
+  selectGetAuthorId,
+  selectGetCurrentPage,
+  selectGetItemsPerPage,
+  selectGetName,
+  selectGetOrderBy,
+} from '@/services/decks/decks-selectors.ts'
+import { decksActions } from '@/services/decks/decks-slice.ts'
 
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
-  const {
-    isMe,
-    data,
-    page,
-    searchQuery = '',
-    pageSize,
-    myDecks,
-    totalCount,
-    setPage,
-    setPageSize,
-    sliderValues,
-    handleResetFilters,
-    setFilterRange,
-    setSliderValues,
-    setSearchQuery,
-    setMyDecks,
-  } = useDecks()
-  const { sort, handlerSort, setSort } = useSort()
+  const dispatch = useAppDispatch()
+  const { sort, handlerSort, setSortValue, setSort } = useSort()
   const navigate = useNavigate()
   const [createDeck] = useCreateDeckMutation()
+  const { data: authData } = useAuthMeQuery()
+
+  const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
+  const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
+  const isMe = authData?.id
+
+  const searchQuery = useAppSelector(selectGetName)
+  const myDecks = useAppSelector(selectGetAuthorId)
+  const orderBy = useAppSelector(selectGetOrderBy)
+  const page = useAppSelector(selectGetCurrentPage)
+  const pageSize = useAppSelector(selectGetItemsPerPage)
+  const debouncedSearchQuery = useDebounce(searchQuery, 500)
+
+  const setPage = (value: number) => {
+    dispatch(decksActions.setQueryParams({ currentPage: value }))
+  }
+
+  const setPageSize = (pageSize: string) => {
+    dispatch(decksActions.setQueryParams({ itemsPerPage: +pageSize }))
+  }
+  const setMyDecks = (id: string) => {
+    dispatch(decksActions.setQueryParams({ authorId: id }))
+  }
+
+  const setSearchQuery = (searchQuery: string) => {
+    dispatch(decksActions.setQueryParams({ name: searchQuery }))
+  }
+
+  const { data } = useGetDecksQuery({
+    authorId: myDecks ?? '',
+    currentPage: page ?? 1,
+    itemsPerPage: pageSize ?? 10,
+    name: debouncedSearchQuery ?? '',
+    minCardsCount: filterRange[0].toString(),
+    maxCardsCount: filterRange[1].toString(),
+    orderBy: orderBy ?? '',
+  })
+
+  const totalCount = data?.pagination.totalItems ?? 0
+
+  const resetFilters = () => {
+    setSearchQuery('')
+    setMyDecks('')
+    setSortValue(null, decksActions.setQueryParams)
+    setSort(null)
+    if (data) {
+      setSliderValues([0, data.maxCardsCount])
+      setFilterRange([0, data.maxCardsCount])
+    }
+  }
+
+  useEffect(() => {
+    if (data) {
+      setSliderValues([0, data.maxCardsCount])
+      setFilterRange([0, data.maxCardsCount])
+    }
+  }, [data?.maxCardsCount])
 
   const classNames = {
     container: clsx(s.container),
@@ -75,21 +126,21 @@ export const Decks: FC<PacksProps> = () => {
           />
         </div>
         <FilterPanel
-          searchValue={searchQuery}
+          searchValue={searchQuery ?? ''}
           setSearchValue={setSearchQuery}
           sliderValues={sliderValues}
           setSliderValues={setSliderValues}
           onValueCommit={setFilterRange}
           maxSliderValue={data?.maxCardsCount ?? 100}
           setMyDecks={setMyDecks}
-          resetFilters={handleResetFilters}
+          resetFilters={resetFilters}
           isMe={isMe ?? ''}
-          myDecks={myDecks}
+          myDecks={myDecks ?? ''}
         />
 
         <Table.Root>
           <Table.Head
-            onSort={setSort}
+            onSort={sort => setSortValue(sort, decksActions.setQueryParams)}
             sort={sort}
             handlerSort={handlerSort}
             columns={columns}
