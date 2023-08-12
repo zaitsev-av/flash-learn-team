@@ -8,51 +8,25 @@ import s from './decks.module.scss'
 
 import { useAppDispatch, useAppSelector } from '@/common'
 import { useSort } from '@/common/hooks/useSort.ts'
-import { AddNewPackModal, Button, Pagination, Sort, Table, Typography } from '@/components'
+import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { TableActions } from '@/components/ui/table-action-buttons'
 import { columns, transformDate } from '@/helpers'
 import { useDebounce } from '@/helpers/hooks/useDebounce.ts'
+import { useAuthMeQuery, useCreateDeckMutation, useGetDecksQuery } from '@/services'
 import {
-  DecksResponseType,
-  useAuthMeQuery,
-  useCreateDeckMutation,
-  // useDeleteDeckMutation,
-  useGetDecksQuery,
-  // useUpdateDeckMutation,
-} from '@/services'
-import {
-  selectGetAuthorIdQueryParams,
-  selectGetCurrentPageQueryParams,
-  selectGetItemsPerPageQueryParams,
-  selectGetNameQueryParams,
-  selectGetOrderByQueryParams,
+  selectGetAuthorId,
+  selectGetCurrentPage,
+  selectGetItemsPerPage,
+  selectGetName,
+  selectGetOrderBy,
 } from '@/services/decks/decks-selectors.ts'
 import { decksActions } from '@/services/decks/decks-slice.ts'
-// import { useFiltration } from '@/services/decks/hooks/useFiltration.ts'
-// import { useDecks } from '@/services/decks/hooks/useDecks.ts'
 
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
-  // const {
-  //   isMe,
-  //   data,
-  //   page,
-  //   searchQuery = '',
-  //   pageSize,
-  //   myDecks,
-  //   totalCount,
-  //   setPage,
-  //   setPageSize,
-  //   sliderValues,
-  //   handleResetFilters,
-  //   setFilterRange,
-  //   setSliderValues,
-  //   setSearchQuery,
-  //   setMyDecks,
-  // } = useDecks()
   const dispatch = useAppDispatch()
-  const { sort, handlerSort } = useSort()
+  const { sort, handlerSort, setSortValue, setSort } = useSort()
   const navigate = useNavigate()
   const [createDeck] = useCreateDeckMutation()
   const { data: authData } = useAuthMeQuery()
@@ -61,18 +35,26 @@ export const Decks: FC<PacksProps> = () => {
   const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
   const isMe = authData?.id
 
-  const searchQuery = useAppSelector(selectGetNameQueryParams)
-  const myDecks = useAppSelector(selectGetAuthorIdQueryParams)
-  const orderBy = useAppSelector(selectGetOrderByQueryParams)
-  const page = useAppSelector(selectGetCurrentPageQueryParams)
-  const pageSize = useAppSelector(selectGetItemsPerPageQueryParams)
+  const searchQuery = useAppSelector(selectGetName)
+  const myDecks = useAppSelector(selectGetAuthorId)
+  const orderBy = useAppSelector(selectGetOrderBy)
+  const page = useAppSelector(selectGetCurrentPage)
+  const pageSize = useAppSelector(selectGetItemsPerPage)
   const debouncedSearchQuery = useDebounce(searchQuery, 500)
+
   const setPage = (value: number) => {
     dispatch(decksActions.setQueryParams({ currentPage: value }))
   }
 
   const setPageSize = (pageSize: string) => {
     dispatch(decksActions.setQueryParams({ itemsPerPage: +pageSize }))
+  }
+  const setMyDecks = (id: string) => {
+    dispatch(decksActions.setQueryParams({ authorId: id }))
+  }
+
+  const setSearchQuery = (searchQuery: string) => {
+    dispatch(decksActions.setQueryParams({ name: searchQuery }))
   }
 
   const { data } = useGetDecksQuery({
@@ -87,31 +69,10 @@ export const Decks: FC<PacksProps> = () => {
 
   const totalCount = data?.pagination.totalItems ?? 0
 
-  const handleResetFilters = () => {
-    if (data) resetFilters(data)
-  }
-
-  /*  const minCardsCount = useAppSelector(selectGetMinCardsCountQueryParams)
-  const maxCardsCount = useAppSelector(selectGetOrderByQueryParams)*/
-
-  const setSort = (sort: Sort) => {
-    const sortValue =
-      sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
-
-    dispatch(decksActions.setQueryParams({ orderBy: sortValue }))
-  }
-
-  const setMyDecks = (id: string) => {
-    dispatch(decksActions.setQueryParams({ authorId: id }))
-  }
-
-  const setSearchQuery = (searchQuery: string) => {
-    dispatch(decksActions.setQueryParams({ name: searchQuery }))
-  }
-
-  const resetFilters = (data: DecksResponseType) => {
+  const resetFilters = () => {
     setSearchQuery('')
     setMyDecks('')
+    setSortValue(null, decksActions.setQueryParams)
     setSort(null)
     if (data) {
       setSliderValues([0, data.maxCardsCount])
@@ -172,14 +133,14 @@ export const Decks: FC<PacksProps> = () => {
           onValueCommit={setFilterRange}
           maxSliderValue={data?.maxCardsCount ?? 100}
           setMyDecks={setMyDecks}
-          resetFilters={handleResetFilters}
+          resetFilters={resetFilters}
           isMe={isMe ?? ''}
           myDecks={myDecks ?? ''}
         />
 
         <Table.Root>
           <Table.Head
-            onSort={setSort}
+            onSort={sort => setSortValue(sort, decksActions.setQueryParams)}
             sort={sort}
             handlerSort={handlerSort}
             columns={columns}
