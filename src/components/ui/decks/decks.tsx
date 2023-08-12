@@ -56,8 +56,6 @@ export const Decks: FC<PacksProps> = () => {
   const navigate = useNavigate()
   const [createDeck] = useCreateDeckMutation()
   const { data: authData } = useAuthMeQuery()
-  // const [updateDeck] = useUpdateDeckMutation()
-  // const [deleteDeck] = useDeleteDeckMutation()
 
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
   const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
@@ -92,21 +90,6 @@ export const Decks: FC<PacksProps> = () => {
   const handleResetFilters = () => {
     if (data) resetFilters(data)
   }
-
-  /*  const handleDeleteDeck = (id: string) => {
-    deleteDeck(id)
-      .unwrap()
-      .then(res => {
-        toast.success(`You have successfully removed the deck: ${res.name} 👍`)
-      })
-      .catch(error => {
-        if (error.status === 404) {
-          toast.error(`Sorry, something went wrong 🙈`)
-        } else {
-          console.warn(error)
-        }
-      })
-  }*/
 
   /*  const minCardsCount = useAppSelector(selectGetMinCardsCountQueryParams)
   const maxCardsCount = useAppSelector(selectGetOrderByQueryParams)*/
