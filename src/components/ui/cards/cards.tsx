@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import s from './cards.module.scss'
 
 import { ArrowLeftIcon, DeleteIcon, EditIcon } from '@/assets'
-import { useSort } from '@/common/hooks/useSort.ts'
+import { transformDate, useSort } from '@/common'
 import {
   Button,
   DeckEditMenu,
@@ -23,7 +23,6 @@ import {
 import { columns } from '@/components/ui/cards/table-columns.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
-import { transformDate } from '@/helpers'
 import { CardsItem, CardsResponseType } from '@/services'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api.ts'
 import { useCards } from '@/services/cards/useCards.ts'
