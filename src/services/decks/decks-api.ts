@@ -65,6 +65,31 @@ export const decksApi = flashLearnApi.injectEndpoints({
             body: { name, cover, isPrivate },
           }
         },
+        async onQueryStarted({ id, name: newName }, { dispatch, getState }) {
+          const state = getState() as RootState
+
+          const {
+            name,
+            orderBy,
+            currentPage,
+            itemsPerPage,
+            maxCardsCount,
+            minCardsCount,
+            authorId,
+          } = state.decks.queryParams
+
+          dispatch(
+            decksApi.util.updateQueryData(
+              'getDecks',
+              { name, orderBy, currentPage, itemsPerPage, maxCardsCount, minCardsCount, authorId },
+              draft => {
+                const index = draft.items.findIndex(deck => deck.id === id)
+
+                draft.items[index].name = newName
+              }
+            )
+          )
+        },
         invalidatesTags: ['Decks'],
       }),
       deleteDeck: builder.mutation<Omit<ItemsType, 'author'>, DeleteDeckArgs>({
