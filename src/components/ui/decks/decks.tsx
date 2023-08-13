@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { useNavigate } from 'react-router-dom'
-// import { toast } from 'react-toastify'
 
 import s from './decks.module.scss'
 
@@ -18,6 +17,8 @@ import {
   selectGetAuthorId,
   selectGetCurrentPage,
   selectGetItemsPerPage,
+  selectGetMaxCardsCountQueryParams,
+  selectGetMinCardsCountQueryParams,
   selectGetName,
   selectGetOrderBy,
 } from '@/services/decks/decks-selectors.ts'
@@ -32,7 +33,7 @@ export const Decks: FC<PacksProps> = () => {
   const { data: authData } = useAuthMeQuery()
 
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
-  const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
+  // const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
   const isMe = authData?.id
 
   const searchQuery = useAppSelector(selectGetName)
@@ -40,12 +41,17 @@ export const Decks: FC<PacksProps> = () => {
   const orderBy = useAppSelector(selectGetOrderBy)
   const page = useAppSelector(selectGetCurrentPage)
   const pageSize = useAppSelector(selectGetItemsPerPage)
+  const min = useAppSelector(selectGetMinCardsCountQueryParams)
+  const max = useAppSelector(selectGetMaxCardsCountQueryParams)
   const debouncedSearchQuery = useDebounce(searchQuery, 500)
+
+  const setFilterRange = (value: [number, number]) => {
+    dispatch(decksActions.setQueryParams({ minCardsCount: value[0], maxCardsCount: value[1] }))
+  }
 
   const setPage = (value: number) => {
     dispatch(decksActions.setQueryParams({ currentPage: value }))
   }
-
   const setPageSize = (pageSize: string) => {
     dispatch(decksActions.setQueryParams({ itemsPerPage: +pageSize }))
   }
@@ -62,8 +68,8 @@ export const Decks: FC<PacksProps> = () => {
     currentPage: page ?? 1,
     itemsPerPage: pageSize ?? 10,
     name: debouncedSearchQuery ?? '',
-    minCardsCount: filterRange[0].toString(),
-    maxCardsCount: filterRange[1].toString(),
+    minCardsCount: min,
+    maxCardsCount: max,
     orderBy: orderBy ?? '',
   })
 
@@ -72,7 +78,7 @@ export const Decks: FC<PacksProps> = () => {
   const resetFilters = () => {
     setSearchQuery('')
     setMyDecks('')
-    setSortValue(null, decksActions.setQueryParams)
+    setSortValue(null, () => dispatch(decksActions.setQueryParams({ orderBy: '' })))
     setSort(null)
     if (data) {
       setSliderValues([0, data.maxCardsCount])
@@ -140,7 +146,9 @@ export const Decks: FC<PacksProps> = () => {
 
         <Table.Root>
           <Table.Head
-            onSort={sort => setSortValue(sort, decksActions.setQueryParams)}
+            onSort={sort =>
+              setSortValue(sort, sort => dispatch(decksActions.setQueryParams({ orderBy: sort })))
+            }
             sort={sort}
             handlerSort={handlerSort}
             columns={columns}

@@ -1,13 +1,13 @@
 import { UserDataType } from '@/services'
 
 export type GetDecksType = {
-  minCardsCount: string
-  maxCardsCount: string
-  name: string
-  authorId: string
-  orderBy: string
-  currentPage: number
-  itemsPerPage: number
+  minCardsCount?: number
+  maxCardsCount?: number
+  name?: string
+  authorId?: string
+  orderBy?: string
+  currentPage?: number
+  itemsPerPage?: number
 }
 
 export type DeckAuthorType = Pick<UserDataType, 'id' | 'name'>
