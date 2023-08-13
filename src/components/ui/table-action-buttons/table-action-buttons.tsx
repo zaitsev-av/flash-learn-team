@@ -19,17 +19,13 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
   const [deleteDeck] = useDeleteDeckMutation()
 
   const handleDeleteDeck = (id: string) => {
-    deleteDeck(id)
+    deleteDeck({ id })
       .unwrap()
       .then(res => {
         toast.success(`You have successfully removed the deck: ${res.name} 👍`)
       })
       .catch(error => {
-        if (error.status === 404) {
-          toast.error(`Sorry, something went wrong 🙈`)
-        } else {
-          console.warn(error)
-        }
+        toast.error(`${error.message} 🙈`)
       })
   }
 

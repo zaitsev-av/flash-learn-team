@@ -1,8 +1,10 @@
+import { RootState } from '@/app/store.ts'
 import {
   CardResponseType,
   CardsResponseType,
   CreateCardRequestType,
   DecksResponseType,
+  DeleteDeckArgs,
   GetCardsRequestType,
   GetDecksType,
   ItemsType,
@@ -65,28 +67,39 @@ export const decksApi = flashLearnApi.injectEndpoints({
         },
         invalidatesTags: ['Decks'],
       }),
-      deleteDeck: builder.mutation<Omit<ItemsType, 'author'>, string>({
-        query: id => {
+      deleteDeck: builder.mutation<Omit<ItemsType, 'author'>, DeleteDeckArgs>({
+        query: ({ id }) => {
           return {
             method: 'DELETE',
             url: `v1/decks/${id}`,
           }
         },
-        /* async onQueryStarted(id, { dispatch, queryFulfilled }) {
-          const patchResult = dispatch(
-            decksApi.util.updateQueryData('getDecks', { id }, draft => {
-              const index = draft.index.findIndex(card => card._id === cardId)
+        async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
+          const state = getState() as RootState
 
-              if (index !== -1) draft.cards.splice(index, 1)
-            })
+          const { name, orderBy, currentPage, itemsPerPage } = state.decks.queryParams
+
+          const patchResult = dispatch(
+            decksApi.util.updateQueryData(
+              'getDecks',
+              { name, orderBy, currentPage, itemsPerPage },
+              draft => {
+                draft.items = draft.items.filter(deck => deck.id !== id)
+              }
+            )
           )
 
           try {
             await queryFulfilled
           } catch {
             patchResult.undo()
+            /**
+             * Alternatively, on failure you can invalidate the corresponding cache tags
+             * to trigger a re-fetch:
+             * dispatch(api.util.invalidateTags(['Post']))
+             */
           }
-        },*/
+        },
         invalidatesTags: ['Decks'],
       }),
       createCard: builder.mutation<CardResponseType, CreateCardRequestType>({

@@ -17,8 +17,8 @@ import {
   selectGetAuthorId,
   selectGetCurrentPage,
   selectGetItemsPerPage,
-  selectGetMaxCardsCountQueryParams,
-  selectGetMinCardsCountQueryParams,
+  selectGetMaxCardsCount,
+  selectGetMinCardsCount,
   selectGetName,
   selectGetOrderBy,
 } from '@/services/decks/decks-selectors.ts'
@@ -41,8 +41,8 @@ export const Decks: FC<PacksProps> = () => {
   const orderBy = useAppSelector(selectGetOrderBy)
   const page = useAppSelector(selectGetCurrentPage)
   const pageSize = useAppSelector(selectGetItemsPerPage)
-  const min = useAppSelector(selectGetMinCardsCountQueryParams)
-  const max = useAppSelector(selectGetMaxCardsCountQueryParams)
+  const min = useAppSelector(selectGetMinCardsCount)
+  const max = useAppSelector(selectGetMaxCardsCount)
   const debouncedSearchQuery = useDebounce(searchQuery, 500)
 
   const setFilterRange = (value: [number, number]) => {
