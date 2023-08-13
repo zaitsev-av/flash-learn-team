@@ -70,35 +70,34 @@ export const decksApi = flashLearnApi.injectEndpoints({
       deleteDeck: builder.mutation<Omit<ItemsType, 'author'>, DeleteDeckArgs>({
         query: ({ id }) => {
           return {
-            method: 'DELETE',
             url: `v1/decks/${id}`,
+            method: 'DELETE',
           }
         },
-        async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
+        async onQueryStarted({ id }, { dispatch, getState }) {
           const state = getState() as RootState
 
-          const { name, orderBy, currentPage, itemsPerPage } = state.decks.queryParams
+          const {
+            name,
+            orderBy,
+            currentPage,
+            itemsPerPage,
+            maxCardsCount,
+            minCardsCount,
+            authorId,
+          } = state.decks.queryParams
 
-          const patchResult = dispatch(
+          dispatch(
             decksApi.util.updateQueryData(
               'getDecks',
-              { name, orderBy, currentPage, itemsPerPage },
+              { name, orderBy, currentPage, itemsPerPage, maxCardsCount, minCardsCount, authorId },
               draft => {
-                draft.items = draft.items.filter(deck => deck.id !== id)
+                const index = draft.items.findIndex(deck => deck.id === id)
+
+                if (index !== -1) draft.items.splice(index, 1)
               }
             )
           )
-
-          try {
-            await queryFulfilled
-          } catch {
-            patchResult.undo()
-            /**
-             * Alternatively, on failure you can invalidate the corresponding cache tags
-             * to trigger a re-fetch:
-             * dispatch(api.util.invalidateTags(['Post']))
-             */
-          }
         },
         invalidatesTags: ['Decks'],
       }),
