@@ -87,3 +87,5 @@ export type UpdateCardGradeType = {
   cardId: string
   grade: number
 }
+
+export type DeleteDeckArgs = Pick<ItemsType, 'id'>

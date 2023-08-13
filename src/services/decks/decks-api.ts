@@ -1,8 +1,10 @@
+import { RootState } from '@/app/store.ts'
 import {
   CardResponseType,
   CardsResponseType,
   CreateCardRequestType,
   DecksResponseType,
+  DeleteDeckArgs,
   GetCardsRequestType,
   GetDecksType,
   ItemsType,
@@ -63,30 +65,65 @@ export const decksApi = flashLearnApi.injectEndpoints({
             body: { name, cover, isPrivate },
           }
         },
+        async onQueryStarted({ id, name: newName }, { dispatch, getState }) {
+          const state = getState() as RootState
+
+          const {
+            name,
+            orderBy,
+            currentPage,
+            itemsPerPage,
+            maxCardsCount,
+            minCardsCount,
+            authorId,
+          } = state.decks.queryParams
+
+          dispatch(
+            decksApi.util.updateQueryData(
+              'getDecks',
+              { name, orderBy, currentPage, itemsPerPage, maxCardsCount, minCardsCount, authorId },
+              draft => {
+                const index = draft.items.findIndex(deck => deck.id === id)
+
+                draft.items[index].name = newName
+              }
+            )
+          )
+        },
         invalidatesTags: ['Decks'],
       }),
-      deleteDeck: builder.mutation<Omit<ItemsType, 'author'>, string>({
-        query: id => {
+      deleteDeck: builder.mutation<Omit<ItemsType, 'author'>, DeleteDeckArgs>({
+        query: ({ id }) => {
           return {
-            method: 'DELETE',
             url: `v1/decks/${id}`,
+            method: 'DELETE',
           }
         },
-        /* async onQueryStarted(id, { dispatch, queryFulfilled }) {
-          const patchResult = dispatch(
-            decksApi.util.updateQueryData('getDecks', { id }, draft => {
-              const index = draft.index.findIndex(card => card._id === cardId)
+        async onQueryStarted({ id }, { dispatch, getState }) {
+          const state = getState() as RootState
 
-              if (index !== -1) draft.cards.splice(index, 1)
-            })
+          const {
+            name,
+            orderBy,
+            currentPage,
+            itemsPerPage,
+            maxCardsCount,
+            minCardsCount,
+            authorId,
+          } = state.decks.queryParams
+
+          dispatch(
+            decksApi.util.updateQueryData(
+              'getDecks',
+              { name, orderBy, currentPage, itemsPerPage, maxCardsCount, minCardsCount, authorId },
+              draft => {
+                const index = draft.items.findIndex(deck => deck.id === id)
+
+                if (index !== -1) draft.items.splice(index, 1)
+              }
+            )
           )
-
-          try {
-            await queryFulfilled
-          } catch {
-            patchResult.undo()
-          }
-        },*/
+        },
         invalidatesTags: ['Decks'],
       }),
       createCard: builder.mutation<CardResponseType, CreateCardRequestType>({

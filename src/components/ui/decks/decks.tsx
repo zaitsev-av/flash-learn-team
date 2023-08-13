@@ -5,20 +5,20 @@ import { useNavigate } from 'react-router-dom'
 
 import s from './decks.module.scss'
 
-import { useAppDispatch, useAppSelector } from '@/common'
+import { transformDate, useAppDispatch, useAppSelector } from '@/common'
+import { useDebounce } from '@/common/hooks/useDebounce.ts'
 import { useSort } from '@/common/hooks/useSort.ts'
 import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
+import { columns } from '@/components/ui/decks/columns-deck-table.ts'
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { TableActions } from '@/components/ui/table-action-buttons'
-import { columns, transformDate } from '@/helpers'
-import { useDebounce } from '@/helpers/hooks/useDebounce.ts'
 import { useAuthMeQuery, useCreateDeckMutation, useGetDecksQuery } from '@/services'
 import {
   selectGetAuthorId,
   selectGetCurrentPage,
   selectGetItemsPerPage,
-  selectGetMaxCardsCountQueryParams,
-  selectGetMinCardsCountQueryParams,
+  selectGetMaxCardsCount,
+  selectGetMinCardsCount,
   selectGetName,
   selectGetOrderBy,
 } from '@/services/decks/decks-selectors.ts'
@@ -33,7 +33,6 @@ export const Decks: FC<PacksProps> = () => {
   const { data: authData } = useAuthMeQuery()
 
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
-  // const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
   const isMe = authData?.id
 
   const searchQuery = useAppSelector(selectGetName)
@@ -41,8 +40,8 @@ export const Decks: FC<PacksProps> = () => {
   const orderBy = useAppSelector(selectGetOrderBy)
   const page = useAppSelector(selectGetCurrentPage)
   const pageSize = useAppSelector(selectGetItemsPerPage)
-  const min = useAppSelector(selectGetMinCardsCountQueryParams)
-  const max = useAppSelector(selectGetMaxCardsCountQueryParams)
+  const min = useAppSelector(selectGetMinCardsCount)
+  const max = useAppSelector(selectGetMaxCardsCount)
   const debouncedSearchQuery = useDebounce(searchQuery, 500)
 
   const setFilterRange = (value: [number, number]) => {

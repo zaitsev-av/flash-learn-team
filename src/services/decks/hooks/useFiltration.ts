@@ -1,4 +1,4 @@
-import { useState } from 'react'
+/*import { useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/common'
 import { Sort } from '@/components'
@@ -9,10 +9,10 @@ import {
   selectGetName,
   selectGetOrderBy,
 } from '@/services/decks/decks-selectors.ts'
-import { decksActions } from '@/services/decks/decks-slice.ts'
+import { decksActions } from '@/services/decks/decks-slice.ts'*/
 
 export const useFiltration = () => {
-  const dispatch = useAppDispatch()
+  /*  const dispatch = useAppDispatch()
 
   const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
   const [filterRange, setFilterRange] = useState<[number, number]>([0, 100])
@@ -20,8 +20,8 @@ export const useFiltration = () => {
   const searchQuery = useAppSelector(selectGetName)
   const myDecks = useAppSelector(selectGetAuthorId)
   const sort = useAppSelector(selectGetOrderBy)
-  /*  const minCardsCount = useAppSelector(selectGetMinCardsCountQueryParams)
-  const maxCardsCount = useAppSelector(selectGetOrderByQueryParams)*/
+  /!*  const minCardsCount = useAppSelector(selectGetMinCardsCountQueryParams)
+  const maxCardsCount = useAppSelector(selectGetOrderByQueryParams)*!/
   const debouncedSearchQuery = useDebounce(searchQuery, 500)
 
   const setSort = (sort: Sort) => {
@@ -62,5 +62,5 @@ export const useFiltration = () => {
     setMyDecks,
     debouncedSearchQuery,
     resetFilters,
-  }
+  }*/
 }
