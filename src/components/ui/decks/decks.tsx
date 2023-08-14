@@ -1,16 +1,14 @@
 import { FC, useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
-import { useNavigate } from 'react-router-dom'
 
 import s from './decks.module.scss'
 
-import { transformDate, useAppDispatch } from '@/common'
+import { useAppDispatch } from '@/common'
 import { useSort } from '@/common/hooks/useSort.ts'
-import { AddNewDeckModal, Button, Pagination, Table, Typography } from '@/components'
-import { columns } from '@/components/ui/decks/columns-deck-table.ts'
+import { AddNewDeckModal, Button, Pagination, Typography } from '@/components'
+import { DeckTable } from '@/components/ui/decks/table/deck-table.tsx'
 import { FilterPanel } from '@/components/ui/filter-panel'
-import { TableActions } from '@/components/ui/table-action-buttons'
 import { useCreateDeckMutation, useGetDecksQuery } from '@/services'
 import { decksActions } from '@/services/decks/decks-slice.ts'
 import { useDecksFilter } from '@/services/decks/hooks/useDecksFilter.ts'
@@ -18,7 +16,6 @@ import { useDecksFilter } from '@/services/decks/hooks/useDecksFilter.ts'
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
   const [isAddDeckModalOpen, setAddDeckModalOpen] = useState<boolean>(false)
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
   const { sort, handlerSort, setSortValue, setSort } = useSort()
@@ -40,7 +37,6 @@ export const Decks: FC<PacksProps> = () => {
     setSearchQuery,
     setSliderValues,
   } = useDecksFilter()
-  const navigate = useNavigate()
   const [createDeck] = useCreateDeckMutation()
 
   const { data } = useGetDecksQuery({
@@ -79,28 +75,6 @@ export const Decks: FC<PacksProps> = () => {
     root: clsx(s.wrapper),
   }
 
-  const tableRows = data?.items.slice(0, pageSize).map(el => (
-    <Table.Row key={el.id}>
-      <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)} style={{ cursor: 'pointer' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          {el.name}
-          {el.cover === null ? '' : <img src={el.cover} alt="" width="70px" height="50px" />}
-        </span>
-      </Table.DataCell>
-      <Table.DataCell>{el.cardsCount}</Table.DataCell>
-      <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
-      <Table.DataCell>{el.author.name}</Table.DataCell>
-      <Table.DataCell>
-        <TableActions
-          isDeleteModalOpen={isDeleteModalOpen}
-          setDeleteModalOpen={setDeleteModalOpen}
-          editable={el.userId === isMe}
-          item={{ id: el.id, title: el.name, isPrivate: el.isPrivate }}
-        />
-      </Table.DataCell>
-    </Table.Row>
-  ))
-
   return (
     <>
       <div className={classNames.container}>
@@ -128,17 +102,14 @@ export const Decks: FC<PacksProps> = () => {
           myDecks={myDecks ?? ''}
         />
 
-        <Table.Root>
-          <Table.Head
-            onSort={sort =>
-              setSortValue(sort, sort => dispatch(decksActions.setQueryParams({ orderBy: sort })))
-            }
-            sort={sort}
-            handlerSort={handlerSort}
-            columns={columns}
-          ></Table.Head>
-          <Table.Body>{tableRows}</Table.Body>
-        </Table.Root>
+        <DeckTable
+          isMe={isMe ?? ''}
+          data={data?.items ?? []}
+          sort={sort}
+          setSortValue={setSortValue}
+          pageSize={pageSize ?? 10}
+          handlerSort={handlerSort}
+        />
         <Pagination
           currentPage={page ?? 1}
           totalCount={totalCount}

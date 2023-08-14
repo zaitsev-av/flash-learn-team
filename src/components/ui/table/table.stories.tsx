@@ -5,7 +5,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import s from './table.module.scss'
 
 import { Checkbox, Grade, Sort, Table } from '@/components'
-import { columns } from '@/components/ui/decks/columns-deck-table.ts'
+import { columns } from '@/components/ui/decks/table/columns-deck-table.ts'
 import { data } from '@/components/ui/table/test-data.ts'
 import { TableActions } from '@/components/ui/table-action-buttons'
 
