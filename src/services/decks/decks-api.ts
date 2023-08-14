@@ -54,6 +54,44 @@ export const decksApi = flashLearnApi.injectEndpoints({
               body,
             }
           },
+          async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+            const state = getState() as RootState
+
+            const {
+              name,
+              orderBy,
+              currentPage,
+              itemsPerPage,
+              maxCardsCount,
+              minCardsCount,
+              authorId,
+            } = state.decks.queryParams
+
+            try {
+              const res = await queryFulfilled
+
+              dispatch(
+                decksApi.util.updateQueryData(
+                  'getDecks',
+                  {
+                    name,
+                    orderBy,
+                    currentPage,
+                    itemsPerPage,
+                    maxCardsCount,
+                    minCardsCount,
+                    authorId,
+                  },
+                  draft => {
+                    draft.items.pop()
+                    draft.items.unshift(res.data)
+                  }
+                )
+              )
+            } catch {
+              // patchResult.undo()
+            }
+          },
           invalidatesTags: ['Decks'],
         }
       ),

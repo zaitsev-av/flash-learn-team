@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { Link } from 'react-router-dom'
@@ -10,7 +10,7 @@ import { transformDate, useSort } from '@/common'
 import {
   Button,
   DeckEditMenu,
-  DeleteDialog,
+  DeleteModal,
   Grade,
   GradeType,
   ItemType,
@@ -165,10 +165,18 @@ type RenderDeckHeadingType = {
 }
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
   const { deckName, isMyDeck, handleCreateCard, onDelete, onEdit, deckId } = props
 
   const editMenu = isMyDeck && (
-    <DeckEditMenu onEdit={onEdit} onDelete={onDelete} deckId={deckId} deckName={deckName} />
+    <DeckEditMenu
+      deckId={deckId}
+      onEdit={onEdit}
+      onDelete={onDelete}
+      deckName={deckName}
+      isDeleteModalOpen={isDeleteModalOpen}
+      setDeleteModalOpen={setDeleteModalOpen}
+    />
   )
 
   const addNewCardSection = isMyDeck && (
@@ -201,9 +209,12 @@ type TableActionsProps = {
   editable?: boolean
 }
 const TableActions: FC<TableActionsProps> = props => {
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+
   const { item, editable = true, question, answer } = props
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
+
   const classNames = {
     btn: clsx(s.btn),
   }
@@ -221,7 +232,9 @@ const TableActions: FC<TableActionsProps> = props => {
               <EditIcon />
             </button>
           </EditCard>
-          <DeleteDialog
+          <DeleteModal
+            isOpen={isDeleteModalOpen}
+            setIsOpen={setDeleteModalOpen}
             buttonTitle={'Delete Card'}
             item={item}
             onClick={id => deleteCard(id)}
@@ -230,7 +243,7 @@ const TableActions: FC<TableActionsProps> = props => {
             <button className={classNames.btn}>
               <DeleteIcon />
             </button>
-          </DeleteDialog>
+          </DeleteModal>
         </>
       )}
     </div>

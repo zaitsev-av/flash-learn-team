@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { clsx } from 'clsx'
 import { useNavigate } from 'react-router-dom'
@@ -7,7 +7,7 @@ import s from './decks.module.scss'
 
 import { transformDate, useAppDispatch } from '@/common'
 import { useSort } from '@/common/hooks/useSort.ts'
-import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
+import { AddNewDeckModal, Button, Pagination, Table, Typography } from '@/components'
 import { columns } from '@/components/ui/decks/columns-deck-table.ts'
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { TableActions } from '@/components/ui/table-action-buttons'
@@ -17,6 +17,9 @@ import { useDecksFilter } from '@/services/decks/hooks/useDecksFilter.ts'
 
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
+  const [isAddDeckModalOpen, setAddDeckModalOpen] = useState<boolean>(false)
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+
   const dispatch = useAppDispatch()
   const { sort, handlerSort, setSortValue, setSort } = useSort()
   const {
@@ -89,6 +92,8 @@ export const Decks: FC<PacksProps> = () => {
       <Table.DataCell>{el.author.name}</Table.DataCell>
       <Table.DataCell>
         <TableActions
+          isDeleteModalOpen={isDeleteModalOpen}
+          setDeleteModalOpen={setDeleteModalOpen}
           editable={el.userId === isMe}
           item={{ id: el.id, title: el.name, isPrivate: el.isPrivate }}
         />
@@ -101,11 +106,13 @@ export const Decks: FC<PacksProps> = () => {
       <div className={classNames.container}>
         <div className={classNames.title}>
           <Typography variant={'large'}>Decks list</Typography>
-          <AddNewPackModal
+          <AddNewDeckModal
             trigger={<Button>Add New Deck</Button>}
             onSubmit={data => {
               createDeck({ name: data.namePack, isPrivate: data.private ?? false })
             }}
+            isOpen={isAddDeckModalOpen}
+            setIsOpen={setAddDeckModalOpen}
           />
         </div>
         <FilterPanel

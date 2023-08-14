@@ -6,14 +6,17 @@ import { toast } from 'react-toastify'
 import s from './table-action-buttons.module.scss'
 
 import { DeleteIcon, EditIcon, PlayIcon } from '@/assets'
-import { DeleteDialog, EditDeckModal, ItemType } from '@/components'
+import { DeleteModal, EditDeckModal, ItemType } from '@/components'
 import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/services'
 
 type TableActionsProps = {
   editable?: boolean
   item: ItemType
+  isDeleteModalOpen: boolean
+  setDeleteModalOpen: (isDeleteModalOpen: boolean) => void
 }
-export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) => {
+export const TableActions: FC<TableActionsProps> = props => {
+  const { item, editable = true, setDeleteModalOpen, isDeleteModalOpen } = props
   const navigate = useNavigate()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -52,16 +55,18 @@ export const TableActions: FC<TableActionsProps> = ({ item, editable = true }) =
               <EditIcon />
             </button>
           </EditDeckModal>
-          <DeleteDialog
-            buttonTitle={'Delete Deck'}
+          <DeleteModal
             item={item}
-            onClick={id => handleDeleteDeck(id)}
             title={'Delete Deck'}
+            onClick={id => handleDeleteDeck(id)}
+            buttonTitle={'Delete Deck'}
+            isOpen={isDeleteModalOpen}
+            setIsOpen={setDeleteModalOpen}
           >
             <button style={{ cursor: 'pointer' }}>
               <DeleteIcon />
             </button>
-          </DeleteDialog>
+          </DeleteModal>
         </>
       )}
     </div>
