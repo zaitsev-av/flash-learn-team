@@ -12,31 +12,24 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 type Form = z.infer<typeof forgotPasswordSchema>
+const defaultValues: Form = {
+  email: '',
+}
+
 type ForgotPasswordPropsType = {
   onSubmit: (data: Form) => void
 }
 export const ForgotPassword: FC<ForgotPasswordPropsType> = ({ onSubmit }) => {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm<Form>({
+  const { handleSubmit, control, reset } = useForm<Form>({
     resolver: zodResolver(forgotPasswordSchema),
     mode: 'onSubmit',
+    defaultValues,
   })
 
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ email: data.email })
-    // eslint-disable-next-line no-console
-    console.log('login-form', data.email)
-    reset({
-      email: '',
-    })
+    reset(defaultValues)
   })
-
-  // eslint-disable-next-line no-console
-  console.log(errors)
 
   return (
     <Card className={s.card}>

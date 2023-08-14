@@ -11,6 +11,13 @@ import s from './sign-up-form.module.scss'
 import { Button, Card, ControlledTextField, Typography } from '@/components'
 
 type Form = z.infer<typeof signUpSchema>
+
+const defaultValues: Form = {
+  email: '',
+  password: '',
+  confirmPassword: '',
+}
+
 type PropsType = {
   onSubmit: (data: Omit<Form, 'confirmPassword'>) => void
 }
@@ -18,15 +25,11 @@ export const SignUpForm: FC<PropsType> = ({ onSubmit }) => {
   const { control, handleSubmit, reset } = useForm<Form>({
     resolver: zodResolver(signUpSchema),
     mode: 'onSubmit',
-    defaultValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
+    defaultValues,
   })
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ email: data.email, password: data.password })
-    reset()
+    reset(defaultValues)
   })
 
   return (

@@ -16,17 +16,23 @@ type AddNewPackModalPropsType = {
   setIsOpen: (isOpen: boolean) => void
 }
 type Form = z.infer<typeof addNewDeckSchema>
+const defaultValues: Form = {
+  namePack: '',
+  private: false,
+}
 
 export const AddNewDeckModal: FC<AddNewPackModalPropsType> = props => {
   const { trigger, onSubmit, isOpen, setIsOpen } = props
-  const { handleSubmit, control } = useForm<Form>({
+  const { handleSubmit, control, reset } = useForm<Form>({
     resolver: zodResolver(addNewDeckSchema),
     mode: 'onSubmit',
+    defaultValues,
   })
 
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ namePack: data.namePack, private: data.private })
     setIsOpen(false)
+    reset(defaultValues)
   })
 
   return (

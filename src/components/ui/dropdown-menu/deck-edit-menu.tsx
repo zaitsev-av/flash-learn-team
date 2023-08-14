@@ -29,7 +29,7 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
       <EditDeckModal
         isPrivate={false}
         deckName={deckName}
-        onSubmit={({ newNamePack, isPrivate = false }) => onEdit(newNamePack, isPrivate)}
+        onSubmit={({ newNameDeck, isPrivate = false }) => onEdit(newNameDeck, isPrivate)}
       >
         <MenuItem>
           <PencilIcon />

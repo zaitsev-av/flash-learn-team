@@ -44,7 +44,7 @@ export const TableActions: FC<TableActionsProps> = props => {
             onSubmit={data =>
               updateDeck({
                 id: item.id,
-                name: data.newNamePack,
+                name: data.newNameDeck,
                 isPrivate: data.isPrivate ?? false,
               })
             }

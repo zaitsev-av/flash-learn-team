@@ -15,9 +15,8 @@ export const LoginPage: FC = () => {
     try {
       await login(args).unwrap()
       toast.success('Вы успешно авторизовались!')
-      console.log('navigate')
     } catch (err) {
-      return console.log(err)
+      console.log(err)
     }
   }
 

@@ -14,14 +14,20 @@ type PropsType = {
   onSubmit: (data: Form) => void
 }
 type Form = z.infer<typeof createNewPasswordSchema>
+
+const defaultValues: Form = {
+  newPassword: '',
+}
+
 export const CreateNewPassword: FC<PropsType> = ({ onSubmit }) => {
   const { control, handleSubmit, reset } = useForm<Form>({
     resolver: zodResolver(createNewPasswordSchema),
     mode: 'onSubmit',
+    defaultValues,
   })
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ newPassword: data.newPassword })
-    reset({ newPassword: '' })
+    reset(defaultValues)
   })
 
   return (
