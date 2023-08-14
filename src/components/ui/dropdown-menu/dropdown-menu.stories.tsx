@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Meta } from '@storybook/react'
 
 import { AvtarDropdown, DeckEditMenu, DropdownMenu } from '@/components'
@@ -33,8 +35,12 @@ export const Avatar_dropdown_menu = {
 
 export const Deck_menu = {
   render: () => {
+    const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+
     return (
       <DeckEditMenu
+        isDeleteModalOpen={isDeleteModalOpen}
+        setDeleteModalOpen={setDeleteModalOpen}
         deckId={''}
         deckName={'deck'}
         onEdit={() => console.log('onEdit called')}

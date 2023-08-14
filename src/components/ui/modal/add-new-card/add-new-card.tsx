@@ -16,19 +16,25 @@ type AddNewPackModalPropsType = {
   onSubmit: (data: Form) => void
 }
 type Form = z.infer<typeof addNewCard>
+const defaultValues: Form = {
+  question: '',
+  answer: '',
+}
 
 export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [type, setType] = useState<string>('Text')
   const { children, onSubmit } = props
-  const { handleSubmit, control } = useForm<Form>({
+  const { handleSubmit, control, reset } = useForm<Form>({
     resolver: zodResolver(addNewCard),
     mode: 'onSubmit',
+    defaultValues,
   })
 
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ question: data.question, answer: data.answer })
     setIsOpen(false)
+    reset(defaultValues)
   })
 
   const questionType =

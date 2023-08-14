@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const addNewPackSchema = z.object({
+export const addNewDeckSchema = z.object({
   namePack: z
     .string()
     .trim()

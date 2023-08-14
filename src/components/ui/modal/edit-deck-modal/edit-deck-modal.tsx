@@ -26,10 +26,10 @@ export const EditDeckModal: FC<EditPackModalProps> = ({
   const { handleSubmit, control } = useForm<Form>({
     resolver: zodResolver(editPackSchema),
     mode: 'onSubmit',
-    values: { isPrivate, newNamePack: deckName },
+    values: { isPrivate, newNameDeck: deckName },
   })
   const onSubmitForm = handleSubmit(data => {
-    onSubmit({ newNamePack: data.newNamePack, isPrivate: data.isPrivate })
+    onSubmit({ newNameDeck: data.newNameDeck, isPrivate: data.isPrivate })
     setIsOpen(false)
   })
 
@@ -41,7 +41,7 @@ export const EditDeckModal: FC<EditPackModalProps> = ({
             title={'Name Deck'}
             inputType={'text'}
             control={control}
-            name={'newNamePack'}
+            name={'newNameDeck'}
           />
           <ControlledCheckbox control={control} left label={'Private Deck'} name={'isPrivate'} />
         </Modal.Body>

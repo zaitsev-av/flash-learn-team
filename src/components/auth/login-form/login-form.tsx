@@ -16,29 +16,23 @@ type Form = z.infer<typeof loginFormSchema>
 type LoginFormPropsType = {
   onSubmit: (data: Form) => void
 }
+const defaultValues: Form = {
+  email: '',
+  password: '',
+  rememberMe: false,
+}
+
 export const LoginForm: FC<LoginFormPropsType> = ({ onSubmit }) => {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm<Form>({
+  const { handleSubmit, control, reset } = useForm<Form>({
     resolver: zodResolver(loginFormSchema),
     mode: 'onSubmit',
+    defaultValues,
   })
 
-  // eslint-disable-next-line no-console
   const onSubmitForm = handleSubmit(data => {
     onSubmit({ email: data.email, password: data.password, rememberMe: data.rememberMe })
-    reset({
-      email: '',
-      password: '',
-      rememberMe: false,
-    })
+    reset(defaultValues)
   })
-
-  // eslint-disable-next-line no-console
-  console.log(errors)
 
   return (
     <Card className={s.card}>
