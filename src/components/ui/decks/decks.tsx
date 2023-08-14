@@ -1,75 +1,53 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 
 import { clsx } from 'clsx'
 import { useNavigate } from 'react-router-dom'
 
 import s from './decks.module.scss'
 
-import { transformDate, useAppDispatch, useAppSelector } from '@/common'
-import { useDebounce } from '@/common/hooks/useDebounce.ts'
+import { transformDate, useAppDispatch } from '@/common'
 import { useSort } from '@/common/hooks/useSort.ts'
 import { AddNewPackModal, Button, Pagination, Table, Typography } from '@/components'
 import { columns } from '@/components/ui/decks/columns-deck-table.ts'
 import { FilterPanel } from '@/components/ui/filter-panel'
 import { TableActions } from '@/components/ui/table-action-buttons'
-import { useAuthMeQuery, useCreateDeckMutation, useGetDecksQuery } from '@/services'
-import {
-  selectGetAuthorId,
-  selectGetCurrentPage,
-  selectGetItemsPerPage,
-  selectGetMaxCardsCount,
-  selectGetMinCardsCount,
-  selectGetName,
-  selectGetOrderBy,
-} from '@/services/decks/decks-selectors.ts'
+import { useCreateDeckMutation, useGetDecksQuery } from '@/services'
 import { decksActions } from '@/services/decks/decks-slice.ts'
+import { useDecksFilter } from '@/services/decks/hooks/useDecksFilter.ts'
 
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
   const dispatch = useAppDispatch()
   const { sort, handlerSort, setSortValue, setSort } = useSort()
+  const {
+    min,
+    max,
+    isMe,
+    page,
+    myDecks,
+    orderBy,
+    pageSize,
+    searchQuery,
+    sliderValues,
+    debouncedSearchQuery,
+    setPage,
+    setMyDecks,
+    setPageSize,
+    setSliderRange,
+    setSearchQuery,
+    setSliderValues,
+  } = useDecksFilter()
   const navigate = useNavigate()
   const [createDeck] = useCreateDeckMutation()
-  const { data: authData } = useAuthMeQuery()
-
-  const [sliderValues, setSliderValues] = useState<[number, number]>([0, 100])
-  const isMe = authData?.id
-
-  const searchQuery = useAppSelector(selectGetName)
-  const myDecks = useAppSelector(selectGetAuthorId)
-  const orderBy = useAppSelector(selectGetOrderBy)
-  const page = useAppSelector(selectGetCurrentPage)
-  const pageSize = useAppSelector(selectGetItemsPerPage)
-  const min = useAppSelector(selectGetMinCardsCount)
-  const max = useAppSelector(selectGetMaxCardsCount)
-  const debouncedSearchQuery = useDebounce(searchQuery, 500)
-
-  const setFilterRange = (value: [number, number]) => {
-    dispatch(decksActions.setQueryParams({ minCardsCount: value[0], maxCardsCount: value[1] }))
-  }
-
-  const setPage = (value: number) => {
-    dispatch(decksActions.setQueryParams({ currentPage: value }))
-  }
-  const setPageSize = (pageSize: string) => {
-    dispatch(decksActions.setQueryParams({ itemsPerPage: +pageSize }))
-  }
-  const setMyDecks = (id: string) => {
-    dispatch(decksActions.setQueryParams({ authorId: id }))
-  }
-
-  const setSearchQuery = (searchQuery: string) => {
-    dispatch(decksActions.setQueryParams({ name: searchQuery }))
-  }
 
   const { data } = useGetDecksQuery({
-    authorId: myDecks ?? '',
-    currentPage: page ?? 1,
-    itemsPerPage: pageSize ?? 10,
-    name: debouncedSearchQuery ?? '',
+    authorId: myDecks,
+    currentPage: page,
+    itemsPerPage: pageSize,
+    name: debouncedSearchQuery,
     minCardsCount: min,
     maxCardsCount: max,
-    orderBy: orderBy ?? '',
+    orderBy: orderBy,
   })
 
   const totalCount = data?.pagination.totalItems ?? 0
@@ -81,14 +59,14 @@ export const Decks: FC<PacksProps> = () => {
     setSort(null)
     if (data) {
       setSliderValues([0, data.maxCardsCount])
-      setFilterRange([0, data.maxCardsCount])
+      setSliderRange([0, data.maxCardsCount])
     }
   }
 
   useEffect(() => {
     if (data) {
       setSliderValues([0, data.maxCardsCount])
-      setFilterRange([0, data.maxCardsCount])
+      setSliderRange([0, data.maxCardsCount])
     }
   }, [data?.maxCardsCount])
 
@@ -135,7 +113,7 @@ export const Decks: FC<PacksProps> = () => {
           setSearchValue={setSearchQuery}
           sliderValues={sliderValues}
           setSliderValues={setSliderValues}
-          onValueCommit={setFilterRange}
+          onValueCommit={setSliderRange}
           maxSliderValue={data?.maxCardsCount ?? 100}
           setMyDecks={setMyDecks}
           resetFilters={resetFilters}
