@@ -14,11 +14,22 @@ type DeckEditMenuPropsType = {
   onEdit: (name: string, isPrivate: boolean) => void
   onDelete: (id: string) => void
   isDeleteModalOpen: boolean
+  isEditDeckModalOpen: boolean
   setDeleteModalOpen: (isDeleteModalOpen: boolean) => void
+  setEditDeckModalOpen: (isEditDeckModalOpen: boolean) => void
 }
 
 export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
-  const { onDelete, onEdit, deckName, deckId, setDeleteModalOpen, isDeleteModalOpen } = props
+  const {
+    onDelete,
+    onEdit,
+    deckName,
+    deckId,
+    setDeleteModalOpen,
+    isDeleteModalOpen,
+    setEditDeckModalOpen,
+    isEditDeckModalOpen,
+  } = props
 
   return (
     <DropdownMenu trigger={<button className={s.icon_button}>{<OpenDeckMenuIcon />}</button>}>
@@ -27,6 +38,8 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
         <Typography variant={'caption'}>Learn</Typography>
       </MenuItem>
       <EditDeckModal
+        setIsOpen={setEditDeckModalOpen}
+        isOpen={isEditDeckModalOpen}
         isPrivate={false}
         deckName={deckName}
         onSubmit={({ newNameDeck, isPrivate = false }) => onEdit(newNameDeck, isPrivate)}

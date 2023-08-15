@@ -166,10 +166,14 @@ type RenderDeckHeadingType = {
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+  const [isAddCardModalOpen, setAddCardModalOpen] = useState<boolean>(false)
+  const [isEditDeckModalOpen, setEditDeckModalOpen] = useState<boolean>(false)
   const { deckName, isMyDeck, handleCreateCard, onDelete, onEdit, deckId } = props
 
   const editMenu = isMyDeck && (
     <DeckEditMenu
+      isEditDeckModalOpen={isEditDeckModalOpen}
+      setEditDeckModalOpen={setEditDeckModalOpen}
       deckId={deckId}
       onEdit={onEdit}
       onDelete={onDelete}
@@ -180,7 +184,11 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
   )
 
   const addNewCardSection = isMyDeck && (
-    <AddNewCard onSubmit={({ question, answer }) => handleCreateCard(question, answer)}>
+    <AddNewCard
+      onSubmit={({ question, answer }) => handleCreateCard(question, answer)}
+      setIsOpen={setAddCardModalOpen}
+      isOpen={isAddCardModalOpen}
+    >
       <Button variant={'primary'}>Add New Card</Button>
     </AddNewCard>
   )
@@ -210,6 +218,7 @@ type TableActionsProps = {
 }
 const TableActions: FC<TableActionsProps> = props => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+  const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
 
   const { item, editable = true, question, answer } = props
   const [updateCard] = useUpdateCardMutation()
@@ -227,6 +236,8 @@ const TableActions: FC<TableActionsProps> = props => {
             question={question}
             answer={answer}
             onSubmit={({ question, answer }) => updateCard({ id: item.id, question, answer })}
+            isOpen={isEditCardModalOpen}
+            setIsOpen={setEditCardModalOpen}
           >
             <button className={classNames.btn}>
               <EditIcon />

@@ -16,12 +16,14 @@ type EditCardModalPropsType = {
   question: string
   answer: string
   onSubmit: (data: Form) => void
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
 }
 type Form = z.infer<typeof editCard>
 
 export const EditCard: FC<EditCardModalPropsType> = props => {
-  const { children, onSubmit, question, answer } = props
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { children, onSubmit, question, answer, isOpen, setIsOpen } = props
+
   const [type, setType] = useState<string>('Text')
   const { handleSubmit, control } = useForm<Form>({
     resolver: zodResolver(editCard),

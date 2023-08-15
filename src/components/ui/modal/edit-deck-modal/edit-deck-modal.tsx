@@ -13,16 +13,19 @@ type EditPackModalProps = {
   isPrivate: boolean
   deckName: string
   onSubmit: (data: Form) => void
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
 }
 
 type Form = z.infer<typeof editPackSchema>
 export const EditDeckModal: FC<EditPackModalProps> = ({
+  isOpen,
   onSubmit,
   deckName,
-  isPrivate,
   children,
+  isPrivate,
+  setIsOpen,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
   const { handleSubmit, control } = useForm<Form>({
     resolver: zodResolver(editPackSchema),
     mode: 'onSubmit',

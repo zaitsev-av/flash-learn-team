@@ -14,6 +14,8 @@ import { Modal } from '@/components/ui/modal'
 type AddNewPackModalPropsType = {
   children: ReactNode
   onSubmit: (data: Form) => void
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
 }
 type Form = z.infer<typeof addNewCard>
 const defaultValues: Form = {
@@ -22,9 +24,8 @@ const defaultValues: Form = {
 }
 
 export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { children, onSubmit, setIsOpen, isOpen } = props
   const [type, setType] = useState<string>('Text')
-  const { children, onSubmit } = props
   const { handleSubmit, control, reset } = useForm<Form>({
     resolver: zodResolver(addNewCard),
     mode: 'onSubmit',

@@ -25,6 +25,7 @@ const meta = {
 const Container = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+  const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
 
   return (
     <>
@@ -44,6 +45,8 @@ const Container = () => {
                   editable={row.editable}
                   isDeleteModalOpen={isDeleteModalOpen}
                   setDeleteModalOpen={setDeleteModalOpen}
+                  isEditCardModalOpen={isEditCardModalOpen}
+                  setEditCardModalOpen={setEditCardModalOpen}
                 />
               </Table.DataCell>
             </Table.Row>
@@ -98,7 +101,13 @@ export const Data_Cell_With_Actions: Story = {
   args: {
     children: (
       <Table.DataCell className={s.row}>
-        <TableActions item={data[0]} isDeleteModalOpen={false} setDeleteModalOpen={() => {}} />
+        <TableActions
+          item={data[0]}
+          isDeleteModalOpen={false}
+          setDeleteModalOpen={() => {}}
+          isEditCardModalOpen={false}
+          setEditCardModalOpen={() => {}}
+        />
       </Table.DataCell>
     ),
   },

@@ -36,9 +36,12 @@ export const Avatar_dropdown_menu = {
 export const Deck_menu = {
   render: () => {
     const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+    const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
 
     return (
       <DeckEditMenu
+        isEditDeckModalOpen={isEditCardModalOpen}
+        setEditDeckModalOpen={setEditCardModalOpen}
         isDeleteModalOpen={isDeleteModalOpen}
         setDeleteModalOpen={setDeleteModalOpen}
         deckId={''}

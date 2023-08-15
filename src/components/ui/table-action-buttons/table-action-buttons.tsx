@@ -14,9 +14,18 @@ type TableActionsProps = {
   item: ItemType
   isDeleteModalOpen: boolean
   setDeleteModalOpen: (isDeleteModalOpen: boolean) => void
+  isEditCardModalOpen: boolean
+  setEditCardModalOpen: (isEditCardModalOpen: boolean) => void
 }
 export const TableActions: FC<TableActionsProps> = props => {
-  const { item, editable = true, setDeleteModalOpen, isDeleteModalOpen } = props
+  const {
+    item,
+    editable = true,
+    setDeleteModalOpen,
+    isDeleteModalOpen,
+    setEditCardModalOpen,
+    isEditCardModalOpen,
+  } = props
   const navigate = useNavigate()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -50,6 +59,8 @@ export const TableActions: FC<TableActionsProps> = props => {
             }
             deckName={item.title}
             isPrivate={item.isPrivate ?? false}
+            setIsOpen={setEditCardModalOpen}
+            isOpen={isEditCardModalOpen}
           >
             <button style={{ cursor: 'pointer' }}>
               <EditIcon />

@@ -16,7 +16,9 @@ const meta = {
   tags: ['autodocs'],
   args: {
     isDeleteModalOpen: false,
-    setDeleteModalOpen: isDeleteModalOpen => console.log(isDeleteModalOpen),
+    isEditCardModalOpen: false,
+    setDeleteModalOpen: isDeleteModalOpen => !isDeleteModalOpen,
+    setEditCardModalOpen: isEditCardModalOpen => !isEditCardModalOpen,
   },
   argTypes: {},
 } satisfies Meta<typeof TableActions>
