@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { Page } from '@/components'
 import { LearnDesk } from '@/components/ui/learn-deck'
+import { EmptyDeck } from '@/components/ui/loaders/empty-deck/empty-deck.tsx'
 import { useGetDeckQuery, useLearnDeckQuery, useUpdateCardGradeMutation } from '@/services'
 
 export const LearnDeckPage: FC = () => {
@@ -19,6 +20,15 @@ export const LearnDeckPage: FC = () => {
       setValue('')
     }
   }
+
+  if (cardData === undefined)
+    return (
+      <Page>
+        <EmptyDeck />
+      </Page>
+    )
+
+  console.log(cardData)
 
   return (
     <Page>

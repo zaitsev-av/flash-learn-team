@@ -43,7 +43,7 @@ export const TableActions: FC<TableActionsProps> = props => {
 
   return (
     <div className={s.container}>
-      <button onClick={() => navigate('/learn')} style={{ cursor: 'pointer' }}>
+      <button onClick={() => navigate(`/learn/${item.id}`)} style={{ cursor: 'pointer' }}>
         <PlayIcon />
       </button>
 
