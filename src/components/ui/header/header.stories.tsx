@@ -1,10 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 import { Header } from './header.tsx'
 
 const meta = {
   title: 'Components/Header',
   component: Header,
+  render: () => <Header logout={() => {}} />,
+  decorators: [withRouter],
   tags: ['autodocs'],
 } satisfies Meta<typeof Header>
 

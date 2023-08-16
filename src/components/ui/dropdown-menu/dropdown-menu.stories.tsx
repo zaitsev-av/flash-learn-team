@@ -18,7 +18,7 @@ const meta = {
 } satisfies Meta<typeof DropdownMenu>
 
 export default meta
-const src = 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
+const src = 'https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_640.png'
 
 export const Avatar_dropdown_menu = {
   render: () => {
