@@ -19,6 +19,8 @@ const meta = {
     children: <Button variant={'primary'}>Edit card</Button>,
     answer: 'How "This" works in JavaScript?',
     question: 'This is how "This" works in JavaScript',
+    isOpen: false,
+    setIsOpen: isOpen => !isOpen,
   },
   parameters: {
     controls: {
@@ -39,6 +41,8 @@ export const Default: Story = {
         }}
         answer={args.answer}
         question={args.question}
+        isOpen={false}
+        setIsOpen={() => {}}
       >
         {args.children}
       </EditCard>

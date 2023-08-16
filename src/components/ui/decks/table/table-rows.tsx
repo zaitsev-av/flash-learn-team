@@ -16,6 +16,7 @@ type TableRowsPropsType = {
 export const TableRows: FC<TableRowsPropsType> = props => {
   const { data, pageSize, isMe } = props
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+  const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
@@ -34,6 +35,8 @@ export const TableRows: FC<TableRowsPropsType> = props => {
           <Table.DataCell>{el.author.name}</Table.DataCell>
           <Table.DataCell>
             <TableActions
+              isEditCardModalOpen={isEditCardModalOpen}
+              setEditCardModalOpen={setEditCardModalOpen}
               isDeleteModalOpen={isDeleteModalOpen}
               setDeleteModalOpen={setDeleteModalOpen}
               editable={el.userId === isMe}

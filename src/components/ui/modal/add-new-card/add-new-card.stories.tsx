@@ -17,6 +17,8 @@ const meta = {
   ],
   args: {
     children: <Button variant={'primary'}>Add New Pack</Button>,
+    isOpen: false,
+    setIsOpen: isOpen => !isOpen,
   },
 } satisfies Meta<typeof AddNewCard>
 
@@ -30,6 +32,8 @@ export const Default: Story = {
           // eslint-disable-next-line no-console
           console.log(data)
         }}
+        isOpen={false}
+        setIsOpen={() => {}}
       >
         {args.children}
       </AddNewCard>

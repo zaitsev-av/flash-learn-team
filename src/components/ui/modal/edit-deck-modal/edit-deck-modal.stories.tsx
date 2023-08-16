@@ -14,12 +14,14 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    deckName: 'EditedPackName',
+    deckName: 'EditedDeckName',
     isPrivate: true,
     children: <EditIcon />,
     onSubmit: data => {
       // eslint-disable-next-line no-console
       console.log(data)
     },
+    isOpen: false,
+    setIsOpen: () => {},
   },
 }

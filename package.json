@@ -68,7 +68,9 @@
     "prop-types": "15.8.1",
     "sass": "^1.63.6",
     "storybook": "7.1.0",
+    "storybook-addon-react-router-v6": "^2.0.4",
     "storybook-dark-mode": "^3.0.0",
+    "storybook-react-context": "^0.6.0",
     "stylelint": "^15.10.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.3"
