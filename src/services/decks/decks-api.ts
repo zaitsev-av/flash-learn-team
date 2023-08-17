@@ -26,7 +26,7 @@ export const decksApi = flashLearnApi.injectEndpoints({
         },
         providesTags: ['Decks'],
       }),
-      getCards: builder.query<CardsResponseType, GetCardsRequestType>({
+      getCards: builder.query<CardsResponseType, Partial<GetCardsRequestType>>({
         query: ({ id, itemsPerPage, currentPage, orderBy, answer, question }) => {
           return {
             method: 'GET',

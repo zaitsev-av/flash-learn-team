@@ -1,12 +1,12 @@
 import { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
 import { ArrowLeftIcon, DeleteIcon, EditIcon } from '@/assets'
-import { transformDate, useSort } from '@/common'
+import { transformDate, useAppDispatch, useSort } from '@/common'
 import {
   Button,
   DeckEditMenu,
@@ -23,29 +23,47 @@ import {
 import { columns } from '@/components/ui/cards/table-columns.ts'
 import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
-import { CardsItem, CardsResponseType } from '@/services'
+import { CardsItem, CardsResponseType, useGetCardsQuery } from '@/services'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api.ts'
+import { cardsAction } from '@/services/cards/cards-slice.ts'
 import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {}
 
 export const Cards: FC<CardsPropsType> = () => {
+  const { handlerSort, sort, setSortValue } = useSort()
+  const navigate = useNavigate()
+
   const {
+    page,
+    answer,
+    deckId,
+    orderBy,
+    deckImg,
     isMyDeck,
-    cardsData,
     deckName,
     pageSize,
-    setPageSize,
+    question,
+    totalCount,
     setPage,
-    page,
-    navigateBack,
-    deckImg,
-    deckId,
+    setPageSize,
     handleUpdateDeck,
     handleDeleteDeck,
     handleCreateCard,
   } = useCards()
-  const { handlerSort, sort, setSort } = useSort()
+
+  const navigateBack = () => {
+    navigate(-1)
+  }
+
+  const { data: cardsData } = useGetCardsQuery({
+    id: deckId,
+    answer: answer,
+    question: question,
+    itemsPerPage: pageSize,
+    currentPage: page,
+    orderBy,
+  })
 
   const classNames = {
     container: clsx(s.container),
@@ -68,7 +86,7 @@ export const Cards: FC<CardsPropsType> = () => {
         <RenderDeckHeading
           isMyDeck={isMyDeck}
           deckName={deckName}
-          deckId={deckId}
+          deckId={deckId ?? ''}
           handleCreateCard={handleCreateCard}
           onDelete={handleDeleteDeck}
           onEdit={handleUpdateDeck}
@@ -87,15 +105,15 @@ export const Cards: FC<CardsPropsType> = () => {
         rowData={cardsData}
         sort={sort}
         handlerSort={handlerSort}
-        setSort={setSort}
         isMyDeck={isMyDeck}
-        pageSize={pageSize}
+        pageSize={pageSize ?? 10}
+        setSortValue={setSortValue}
       />
 
       <Pagination
-        currentPage={page}
-        totalCount={14}
-        pageSize={+pageSize}
+        currentPage={page ?? 1}
+        totalCount={totalCount}
+        pageSize={pageSize ?? 10}
         siblingCount={3}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
@@ -106,14 +124,15 @@ export const Cards: FC<CardsPropsType> = () => {
 
 type CardTablePropsType = {
   isMyDeck: boolean
-  pageSize: string
+  pageSize: number
   sort: Sort
   rowData: CardsResponseType | undefined
-  setSort: (sort: Sort) => void
+  setSortValue: (sort: Sort, handler: (sort: string) => void) => void
   handlerSort: (key: string, sortable?: boolean) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
-  const { rowData, setSort, isMyDeck, pageSize, sort, handlerSort } = props
+  const dispatch = useAppDispatch()
+  const { rowData, isMyDeck, pageSize, sort, handlerSort, setSortValue } = props
   const classNames = {
     head: clsx(s.tableHead),
     tableRot: clsx(s.tableRoot),
@@ -123,13 +142,15 @@ const CardTable: FC<CardTablePropsType> = props => {
     <Table.Root className={s.tableRoot}>
       <Table.Head
         columns={columns}
-        onSort={setSort}
+        onSort={sort =>
+          setSortValue(sort, sort => dispatch(cardsAction.setQueryParams({ orderBy: sort })))
+        }
         sort={sort}
         handlerSort={handlerSort}
         className={classNames.head}
       />
       <Table.Body>
-        {rowData?.items.slice(0, +pageSize).map(el => TableRows(el, isMyDeck))}
+        {rowData?.items.slice(0, pageSize).map(el => TableRows(el, isMyDeck))}
       </Table.Body>
     </Table.Root>
   )

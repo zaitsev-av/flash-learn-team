@@ -29,3 +29,11 @@
     margin-left: 25px;
   }
 }
+.getCards {
+  &:hover {
+    color: var(--color-warning-100);
+    cursor: pointer;
+    transition: transform 0.3s;
+    transform: scale(1.03);
+  }
+}

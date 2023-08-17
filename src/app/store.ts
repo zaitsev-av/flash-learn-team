@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { flashLearnApi } from '@/services'
+import { cardsReducer } from '@/services/cards/cards-slice.ts'
 import { decksReducer } from '@/services/decks/decks-slice.ts'
 
 export const store = configureStore({
   reducer: {
+    cards: cardsReducer,
     decks: decksReducer,
     [flashLearnApi.reducerPath]: flashLearnApi.reducer,
   },
