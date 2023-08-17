@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { GetCardsRequestType, GetDecksType } from '@/services'
+import { GetCardsRequestType } from '@/services'
 
 type InitialStateType = {
   queryParams: Partial<GetCardsRequestType>
@@ -21,10 +21,11 @@ const slice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    setQueryParams: (state, action: PayloadAction<GetDecksType>) => {
+    setQueryParams: (state, action: PayloadAction<Partial<GetCardsRequestType>>) => {
       state.queryParams = { ...state.queryParams, ...action.payload }
     },
   },
 })
 
 export const cardsReducer = slice.reducer
+export const cardsAction = slice.actions
