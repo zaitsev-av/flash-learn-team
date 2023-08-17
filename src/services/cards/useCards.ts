@@ -24,6 +24,7 @@ import {
   selectGetCurrentPage,
   selectGetId,
   selectGetItemsPerPage,
+  selectGetOrderBy,
   selectGetQuestion,
 } from '@/services/cards/cards-selectors.ts'
 import { cardsAction } from '@/services/cards/cards-slice.ts'
@@ -35,6 +36,7 @@ export const useCards = () => {
   const answer = useAppSelector(selectGetAnswer)
   const pageSize = useAppSelector(selectGetItemsPerPage)
   const page = useAppSelector(selectGetCurrentPage)
+  const orderBy = useAppSelector(selectGetOrderBy)
 
   const navigate = useNavigate()
   const { id } = useParams()
@@ -88,10 +90,11 @@ export const useCards = () => {
   }, [id])
 
   return {
+    page,
     deckId,
     answer,
+    orderBy,
     question,
-    page,
     pageSize,
     totalCount,
     setDeckId,

@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import s from './cards.module.scss'
 
 import { ArrowLeftIcon, DeleteIcon, EditIcon } from '@/assets'
-import { transformDate, useSort } from '@/common'
+import { transformDate, useAppDispatch, useSort } from '@/common'
 import {
   Button,
   DeckEditMenu,
@@ -25,18 +25,20 @@ import { AddNewCard } from '@/components/ui/modal/add-new-card'
 import { EditCard } from '@/components/ui/modal/edit-card'
 import { CardsItem, CardsResponseType, useGetCardsQuery } from '@/services'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api.ts'
+import { cardsAction } from '@/services/cards/cards-slice.ts'
 import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {}
 
 export const Cards: FC<CardsPropsType> = () => {
-  const { handlerSort, sort, setSort } = useSort()
+  const { handlerSort, sort, setSortValue } = useSort()
   const navigate = useNavigate()
 
   const {
     page,
     answer,
     deckId,
+    orderBy,
     deckImg,
     isMyDeck,
     deckName,
@@ -60,7 +62,7 @@ export const Cards: FC<CardsPropsType> = () => {
     question: question,
     itemsPerPage: pageSize,
     currentPage: page,
-    orderBy: '',
+    orderBy,
   })
 
   const classNames = {
@@ -103,9 +105,9 @@ export const Cards: FC<CardsPropsType> = () => {
         rowData={cardsData}
         sort={sort}
         handlerSort={handlerSort}
-        setSort={setSort}
         isMyDeck={isMyDeck}
         pageSize={pageSize ?? 10}
+        setSortValue={setSortValue}
       />
 
       <Pagination
@@ -125,11 +127,12 @@ type CardTablePropsType = {
   pageSize: number
   sort: Sort
   rowData: CardsResponseType | undefined
-  setSort: (sort: Sort) => void
+  setSortValue: (sort: Sort, handler: (sort: string) => void) => void
   handlerSort: (key: string, sortable?: boolean) => void
 }
 const CardTable: FC<CardTablePropsType> = props => {
-  const { rowData, setSort, isMyDeck, pageSize, sort, handlerSort } = props
+  const dispatch = useAppDispatch()
+  const { rowData, isMyDeck, pageSize, sort, handlerSort, setSortValue } = props
   const classNames = {
     head: clsx(s.tableHead),
     tableRot: clsx(s.tableRoot),
@@ -139,7 +142,9 @@ const CardTable: FC<CardTablePropsType> = props => {
     <Table.Root className={s.tableRoot}>
       <Table.Head
         columns={columns}
-        onSort={setSort}
+        onSort={sort =>
+          setSortValue(sort, sort => dispatch(cardsAction.setQueryParams({ orderBy: sort })))
+        }
         sort={sort}
         handlerSort={handlerSort}
         className={classNames.head}
