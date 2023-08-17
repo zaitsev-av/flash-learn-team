@@ -1,3 +1,4 @@
+@import "src/styles/mixins";
 button {
   all: unset;
 }
@@ -58,6 +59,9 @@ button {
   justify-content: center;
 
   border-radius: 100%;
+  &:hover {
+    @include _animation;
+  }
 }
 
 @keyframes slide-up-and-fade {
