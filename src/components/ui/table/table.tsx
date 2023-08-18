@@ -82,6 +82,7 @@ type HeadCellProps = {
   onClick?: (sortDirection: string) => void
   sortable?: boolean
 } & ComponentProps<'th'>
+
 const HeadCell: FC<HeadCellProps> = ({
   sortable,
   onClick,
@@ -95,8 +96,11 @@ const HeadCell: FC<HeadCellProps> = ({
     th: clsx(s.headCell, !sortable && s.noSort, className),
     title: clsx(s.title),
     icon: clsx(s.sortDscIcon, sort?.direction === 'asc' && s.sortAscIcon),
+    text: clsx(s.tableHead),
   }
+
   const showSortIcon = sort?.columnKey === columnKey && sort?.direction
+
   const handleClick = () => {
     if (onClick && columnKey) {
       onClick(columnKey)
@@ -106,7 +110,9 @@ const HeadCell: FC<HeadCellProps> = ({
   return (
     <th className={style.th} {...rest} onClick={handleClick}>
       <div className={style.title}>
-        <Typography variant={'subtitle2'}>{title}</Typography>
+        <Typography variant={'subtitle2'} className={style.text}>
+          {title}
+        </Typography>
         <div className={style.icon}>{showSortIcon && <ChevronDown />}</div>
       </div>
     </th>
