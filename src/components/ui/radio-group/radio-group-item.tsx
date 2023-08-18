@@ -12,11 +12,11 @@ export type RadioGroupItemPropsType = {
 
 export const RadioGroupItem: FC<RadioGroupItemPropsType> = ({ label, id, value }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
       <RadioGroup.Item className={s.item} value={value} id={id}>
         <RadioGroup.Indicator className={s.indicator} />
       </RadioGroup.Item>
-      <label className={s.label} htmlFor="r1">
+      <label className={s.label} htmlFor={id}>
         {label}
       </label>
     </div>
