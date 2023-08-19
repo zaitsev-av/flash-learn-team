@@ -182,7 +182,12 @@ type RenderDeckHeadingType = {
   isMyDeck: boolean
   onEdit: (name: string, isPrivate: boolean) => void
   onDelete: (id: string) => void
-  handleCreateCard: (question: string, answer: string) => void
+  handleCreateCard: (
+    question: string,
+    answer: string,
+    questionImg?: string,
+    answerImg?: string
+  ) => void
 }
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
@@ -206,7 +211,9 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
 
   const addNewCardSection = isMyDeck && (
     <AddNewCard
-      onSubmit={({ question, answer }) => handleCreateCard(question, answer)}
+      onSubmit={({ question, answer, questionImg, answerImg }) =>
+        handleCreateCard(question, answer, questionImg, answerImg)
+      }
       setIsOpen={setAddCardModalOpen}
       isOpen={isAddCardModalOpen}
     >

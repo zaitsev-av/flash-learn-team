@@ -65,8 +65,13 @@ export const useCards = () => {
     dispatch(cardsAction.setQueryParams({ currentPage: value }))
   }
 
-  const handleCreateCard = (question: string, answer: string) => {
-    createCard({ id: deckId ?? '', question, answer })
+  const handleCreateCard = (
+    question: string,
+    answer: string,
+    questionImg?: string,
+    answerImg?: string
+  ) => {
+    createCard({ id: deckId ?? '', question, answer, questionImg, answerImg })
   }
 
   const handleUpdateDeck = (name: string, isPrivate: boolean) => {

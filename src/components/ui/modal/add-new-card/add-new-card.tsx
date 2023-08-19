@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode, useRef, useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Label } from '@radix-ui/react-label'
@@ -8,12 +8,11 @@ import { z } from 'zod'
 import { addNewCard } from './add-new-card.ts'
 
 import { Button, ControlledTextField, Select, Typography } from '@/components'
-import { useImageUploader } from '@/components/ui/avatar/useImageUploader.ts'
 import { Modal } from '@/components/ui/modal'
 
-type AddNewPackModalPropsType = {
+type AddNewCardModalPropsType = {
   children: ReactNode
-  onSubmit: (data: Form) => void
+  onSubmit: (data: any) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }
@@ -25,21 +24,44 @@ const defaultValues: Form = {
   answerImg: '',
 }
 
-export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
+export const AddNewCard: FC<AddNewCardModalPropsType> = props => {
   const { children, onSubmit, setIsOpen, isOpen } = props
   const [type, setType] = useState<string>('Text')
+  const questionInputRef = useRef<HTMLInputElement | null>(null)
+  const answerInputRef = useRef<HTMLInputElement | null>(null)
 
-  const { handleSubmit, control, reset } = useForm<Form>({
+  const { handleSubmit, control, reset, register } = useForm<Form>({
     resolver: zodResolver(addNewCard),
     mode: 'onSubmit',
     defaultValues,
   })
 
   const onSubmitForm = handleSubmit(data => {
-    onSubmit({ question: data.question, answer: data.answer })
+    const formData = new FormData()
+
+    formData.append('answer', data.answer)
+    formData.append('question', data.question)
+    data.answerImg[0] && formData.append('answerImg', data.answerImg[0])
+    data.answerImg[0] && formData.append('questionImg', data.answerImg[0])
+    onSubmit({
+      formData,
+      /* question: data.question,
+      answer: data.answer,
+      questionImg: data.questionImg[0],
+      answerImg: data.answerImg[0],*/
+    })
     setIsOpen(false)
     reset(defaultValues)
+    console.log(data)
   })
+
+  const openQuestionInput = () => {
+    questionInputRef.current && questionInputRef.current.click()
+  }
+
+  const openAnswerInput = () => {
+    answerInputRef.current && answerInputRef.current.click()
+  }
 
   const questionType =
     type === 'Text' ? (
@@ -60,7 +82,51 @@ export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
         />
       </>
     ) : (
-      <ImagePreviewUploader />
+      <>
+        <Label style={{ marginTop: '3px' }}>
+          <Typography variant={'subtitle2'}>Question:</Typography>
+        </Label>
+        {/*{questionImg && (
+          <img src={questionImg} alt="question image" style={{ width: '100%', height: '120px' }} />
+        )}*/}
+        <label htmlFor="change-cover-question">
+          <Button variant={'secondary'} fullWidth onClick={openQuestionInput}>
+            <Typography variant={'subtitle2'}>Change Cover</Typography>
+          </Button>
+          <input
+            hidden
+            id="change-cover-question"
+            accept="image/png, image/jpeg"
+            type="file"
+            {...register('questionImg')}
+            style={{ display: 'none' }}
+          />
+        </label>
+        <Label>
+          <Typography variant={'subtitle2'}>Answer:</Typography>
+        </Label>
+        {/*       {answerImg && (
+          <img src={answerImg} alt="answer image" style={{ width: '100%', height: '120px' }} />
+        )}*/}
+        <label htmlFor="change-cover-answer">
+          <Button
+            variant={'secondary'}
+            fullWidth
+            style={{ marginBottom: '3px' }}
+            onClick={openAnswerInput}
+          >
+            <Typography variant={'subtitle2'}>Change Cover</Typography>
+          </Button>
+          <input
+            hidden
+            id="change-cover-answer"
+            accept="image/png, image/jpeg"
+            type="file"
+            {...register('answerImg')}
+            style={{ display: 'none' }}
+          />
+        </label>
+      </>
     )
 
   return (
@@ -89,8 +155,12 @@ export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
     </Modal.Root>
   )
 }
-
-const ImagePreviewUploader = () => {
+/*type ImagePreviewUploaderProps = {
+  control: Control<Form, any>
+}*/
+/*
+const ImagePreviewUploader: FC<ImagePreviewUploaderProps> = props => {
+  const { control } = props
   const {
     fileInputRef: questionInputRef,
     file: questionImg,
@@ -104,6 +174,9 @@ const ImagePreviewUploader = () => {
     openFileInput: openAnswerInput,
     handleFileChange: onChangeAnswerImg,
   } = useImageUploader('')
+
+  console.log(answerImg, 'answer')
+  console.log(questionImg, 'question')
 
   return (
     <>
@@ -120,6 +193,8 @@ const ImagePreviewUploader = () => {
           type="file"
           ref={questionInputRef}
           onChange={onChangeQuestionImg}
+          name={'questionImg'}
+          {...control}
         />
         <Typography variant={'subtitle2'}>Change Cover</Typography>
       </Button>
@@ -141,9 +216,12 @@ const ImagePreviewUploader = () => {
           type="file"
           ref={answerInputRef}
           onChange={onChangeAnswerImg}
+          name={'answerImg'}
+          {...control}
         />
         <Typography variant={'subtitle2'}>Change Cover</Typography>
       </Button>
     </>
   )
 }
+*/
