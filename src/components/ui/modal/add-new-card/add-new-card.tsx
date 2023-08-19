@@ -21,11 +21,14 @@ type Form = z.infer<typeof addNewCard>
 const defaultValues: Form = {
   question: '',
   answer: '',
+  questionImg: '',
+  answerImg: '',
 }
 
 export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
   const { children, onSubmit, setIsOpen, isOpen } = props
   const [type, setType] = useState<string>('Text')
+
   const { handleSubmit, control, reset } = useForm<Form>({
     resolver: zodResolver(addNewCard),
     mode: 'onSubmit',
