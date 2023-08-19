@@ -215,7 +215,7 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
   )
   const learnToPackButton = !isMyDeck && (
     <Button variant={'primary'} as={Link} to={`/learn/${deckId}`}>
-      Learn to Pack
+      Learn the deck
     </Button>
   )
 

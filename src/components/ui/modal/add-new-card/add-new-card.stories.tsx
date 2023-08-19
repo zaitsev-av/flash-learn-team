@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Meta, StoryObj } from '@storybook/react'
 
 import { AddNewCard } from './add-new-card.tsx'
@@ -16,7 +18,7 @@ const meta = {
     ),
   ],
   args: {
-    children: <Button variant={'primary'}>Add New Pack</Button>,
+    children: <Button variant={'primary'}>Add New Card</Button>,
     isOpen: false,
     setIsOpen: isOpen => !isOpen,
   },
@@ -26,14 +28,16 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: args => {
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
     return (
       <AddNewCard
         onSubmit={data => {
           // eslint-disable-next-line no-console
           console.log(data)
         }}
-        isOpen={false}
-        setIsOpen={() => {}}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
       >
         {args.children}
       </AddNewCard>
