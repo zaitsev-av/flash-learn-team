@@ -1,79 +1,100 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Label } from '@radix-ui/react-label'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { addNewCard } from './add-new-card.ts'
 
-import { Button, ControlledTextField, Select, Typography } from '@/components'
-import { useImageUploader } from '@/components/ui/avatar/useImageUploader.ts'
+import { Button, ControlledTextField, Typography } from '@/components'
+import { ControlledInputFile } from '@/components/ui/controlled/controlled-input-file.tsx'
 import { Modal } from '@/components/ui/modal'
 
-type AddNewPackModalPropsType = {
+type AddNewCardModalPropsType = {
   children: ReactNode
-  onSubmit: (data: Form) => void
+  onSubmit: (data: FormData) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }
-type Form = z.infer<typeof addNewCard>
-const defaultValues: Form = {
+export type AddCardsForm = z.infer<typeof addNewCard>
+const defaultValues: AddCardsForm = {
   question: '',
   answer: '',
+  questionImg: '',
+  answerImg: '',
 }
 
-export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
+export const AddNewCard: FC<AddNewCardModalPropsType> = props => {
   const { children, onSubmit, setIsOpen, isOpen } = props
-  const [type, setType] = useState<string>('Text')
-  const { handleSubmit, control, reset } = useForm<Form>({
+
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<AddCardsForm>({
     resolver: zodResolver(addNewCard),
     mode: 'onSubmit',
     defaultValues,
   })
 
+  console.log(errors)
   const onSubmitForm = handleSubmit(data => {
-    onSubmit({ question: data.question, answer: data.answer })
+    const formData = new FormData()
+
+    formData.append('answer', data.answer)
+    formData.append('question', data.question)
+    data.answerImg && formData.append('answerImg', data.answerImg)
+    data.answerImg && formData.append('questionImg', data.answerImg)
+
+    onSubmit(formData)
     setIsOpen(false)
     reset(defaultValues)
   })
 
-  const questionType =
-    type === 'Text' ? (
-      <>
-        <ControlledTextField
-          style={{ marginBottom: '1.5rem' }}
-          name={'question'}
-          control={control}
-          title={'Question'}
-          inputType={'text'}
-        />
-        <ControlledTextField
-          style={{ marginBottom: '1.5rem' }}
-          name={'answer'}
-          control={control}
-          title={'Answer'}
-          inputType={'text'}
-        />
-      </>
-    ) : (
-      <ImagePreviewUploader />
-    )
+  const questionType = (
+    <>
+      <ControlledTextField
+        style={{ marginBottom: '0.5rem' }}
+        name={'question'}
+        control={control}
+        title={'Question'}
+        inputType={'text'}
+      />
+      <ControlledInputFile name={'questionImg'} control={control}>
+        {onClick => (
+          <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
+            <Typography variant={'subtitle2'}>Change Cover</Typography>
+          </Button>
+        )}
+      </ControlledInputFile>
+      <ControlledTextField
+        style={{ marginBottom: '0.5rem' }}
+        name={'answer'}
+        control={control}
+        title={'Answer'}
+        inputType={'text'}
+      />
+      <ControlledInputFile name={'answerImg'} control={control}>
+        {onClick => (
+          <Button
+            variant={'secondary'}
+            fullWidth
+            style={{ marginBottom: '3px' }}
+            onClick={onClick}
+            type={'button'}
+          >
+            <Typography variant={'subtitle2'}>Change Cover</Typography>
+          </Button>
+        )}
+      </ControlledInputFile>
+    </>
+  )
 
   return (
     <Modal.Root title={'Add New Card'} trigger={children} onOpenChange={setIsOpen} isOpen={isOpen}>
       <form onSubmit={onSubmitForm}>
-        <Modal.Body>
-          <Select
-            items={['Text', 'Picture']}
-            label={'Choose a question format'}
-            value={type}
-            placeholder={type}
-            onChange={value => setType(value)}
-            fullWidth
-          />
-          {questionType}
-        </Modal.Body>
+        <Modal.Body>{questionType}</Modal.Body>
         <Modal.Footer>
           <Button variant={'primary'} type={'submit'}>
             <Typography variant={'subtitle2'}>Add New Card</Typography>
@@ -84,63 +105,5 @@ export const AddNewCard: FC<AddNewPackModalPropsType> = props => {
         </Modal.Footer>
       </form>
     </Modal.Root>
-  )
-}
-
-const ImagePreviewUploader = () => {
-  const {
-    fileInputRef: questionInputRef,
-    file: questionImg,
-    openFileInput: openQuestionInput,
-    handleFileChange: onChangeQuestionImg,
-  } = useImageUploader('')
-
-  const {
-    fileInputRef: answerInputRef,
-    file: answerImg,
-    openFileInput: openAnswerInput,
-    handleFileChange: onChangeAnswerImg,
-  } = useImageUploader('')
-
-  return (
-    <>
-      <Label style={{ marginTop: '3px' }}>
-        <Typography variant={'subtitle2'}>Question:</Typography>
-      </Label>
-      {questionImg && (
-        <img src={questionImg} alt="question image" style={{ width: '100%', height: '120px' }} />
-      )}
-      <Button variant={'secondary'} fullWidth onClick={openQuestionInput}>
-        <input
-          hidden
-          accept="image/png, image/jpeg"
-          type="file"
-          ref={questionInputRef}
-          onChange={onChangeQuestionImg}
-        />
-        <Typography variant={'subtitle2'}>Change Cover</Typography>
-      </Button>
-      <Label>
-        <Typography variant={'subtitle2'}>Answer:</Typography>
-      </Label>
-      {answerImg && (
-        <img src={answerImg} alt="answer image" style={{ width: '100%', height: '120px' }} />
-      )}
-      <Button
-        variant={'secondary'}
-        fullWidth
-        onClick={openAnswerInput}
-        style={{ marginBottom: '3px' }}
-      >
-        <input
-          hidden
-          accept="image/png, image/jpeg"
-          type="file"
-          ref={answerInputRef}
-          onChange={onChangeAnswerImg}
-        />
-        <Typography variant={'subtitle2'}>Change Cover</Typography>
-      </Button>
-    </>
   )
 }

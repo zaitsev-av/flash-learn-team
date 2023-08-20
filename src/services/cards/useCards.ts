@@ -1,15 +1,6 @@
 import { useEffect } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
-/*
-import {
-  useAuthMeQuery,
-  useCreateCardMutation,
-  useDeleteDeckMutation,
-  useGetCardsQuery,
-  useGetDeckQuery,
-  useUpdateDeckMutation,
-} from '@/services'*/
 
 import { useAppDispatch, useAppSelector } from '@/common'
 import {
@@ -65,9 +56,15 @@ export const useCards = () => {
     dispatch(cardsAction.setQueryParams({ currentPage: value }))
   }
 
-  const handleCreateCard = (question: string, answer: string) => {
-    createCard({ id: deckId ?? '', question, answer })
-  }
+  const handleCreateCard = (data: FormData) =>
+    // question: string,
+    // answer: string,
+    // questionImg: string,
+    // answerImg: string
+    {
+      console.log(data)
+      createCard({ id: deckId ?? '', data })
+    }
 
   const handleUpdateDeck = (name: string, isPrivate: boolean) => {
     updateDeck({ id: deckId ?? '', name, isPrivate })

@@ -158,8 +158,26 @@ const CardTable: FC<CardTablePropsType> = props => {
 const TableRows = (el: CardsItem, isMyDeck: boolean) => {
   return (
     <Table.Row key={el.id}>
-      <Table.DataCell>{el.question}</Table.DataCell>
-      <Table.DataCell>{el.answer}</Table.DataCell>
+      <Table.DataCell>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={s.getCards}>
+          {el.question}
+          {el.questionImg === null ? (
+            ''
+          ) : (
+            <img src={el.questionImg} alt="" width="70px" height="50px" />
+          )}
+        </span>
+      </Table.DataCell>
+      <Table.DataCell>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={s.getCards}>
+          {el.answer}
+          {el.answerImg === null ? (
+            ''
+          ) : (
+            <img src={el.answerImg} alt="" width="70px" height="50px" />
+          )}
+        </span>
+      </Table.DataCell>
       <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
       <Table.DataCell>
         <Grade grade={el.grade as GradeType} />
@@ -182,7 +200,13 @@ type RenderDeckHeadingType = {
   isMyDeck: boolean
   onEdit: (name: string, isPrivate: boolean) => void
   onDelete: (id: string) => void
-  handleCreateCard: (question: string, answer: string) => void
+  handleCreateCard: (
+    data: FormData
+    // question: string,
+    // answer: string,
+    // questionImg: string,
+    // answerImg: string
+  ) => void
 }
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
@@ -206,7 +230,7 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
 
   const addNewCardSection = isMyDeck && (
     <AddNewCard
-      onSubmit={({ question, answer }) => handleCreateCard(question, answer)}
+      onSubmit={data => handleCreateCard(data)}
       setIsOpen={setAddCardModalOpen}
       isOpen={isAddCardModalOpen}
     >
@@ -215,7 +239,7 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
   )
   const learnToPackButton = !isMyDeck && (
     <Button variant={'primary'} as={Link} to={`/learn/${deckId}`}>
-      Learn to Pack
+      Learn the deck
     </Button>
   )
 

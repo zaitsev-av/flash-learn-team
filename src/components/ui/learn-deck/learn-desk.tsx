@@ -12,15 +12,27 @@ import { Typography } from '@/components/ui/typography'
 type LearnPackPropsType = {
   deckName: string
   question: string
+  questionImg: string
   attempts: string | number
   answer: string
+  answerImg: string
   loadNextQuestion: () => void
   onChange?: (value: string) => void
   value?: string
 }
 
 export const LearnDesk: FC<LearnPackPropsType> = props => {
-  const { deckName, question, attempts, answer, loadNextQuestion, onChange, value } = props
+  const {
+    deckName,
+    question,
+    attempts,
+    answer,
+    loadNextQuestion,
+    onChange,
+    value,
+    questionImg,
+    answerImg,
+  } = props
 
   const [showAnswer, setShowAnswer] = useState(false)
 
@@ -44,6 +56,7 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
       <Typography variant={'body1'} className={classNames.question}>
         <Typography variant={'subtitle1'}>Question: </Typography>
         {question}
+        {questionImg !== null && <img src={questionImg} alt="question" width={350} height={200} />}
       </Typography>
 
       <Typography variant={'body2'} className={classNames.attempts}>
@@ -61,6 +74,7 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
         </Button>
       ) : (
         <AnswerFeedback
+          answerImg={answerImg}
           answer={answer}
           loadNextQuestion={handleNextQuestion}
           onChange={onChange}
@@ -73,13 +87,14 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
 
 type AnswerFeedbackPropsType = {
   answer: string
+  answerImg: string
   loadNextQuestion: () => void
   onChange?: (value: string) => void
   value?: string
 }
 
 const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
-  const { answer, loadNextQuestion, onChange, value } = props
+  const { answer, loadNextQuestion, onChange, value, answerImg } = props
   const classNames = {
     answer: clsx(s.answer),
     feedback: clsx(s.feedback),
@@ -100,6 +115,7 @@ const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
       <Typography variant={'body1'} className={classNames.answer}>
         <Typography variant={'subtitle1'}>Answer: </Typography>
         {answer}
+        {answerImg !== null && <img src={answerImg} alt="question" width={350} height={200} />}
       </Typography>
 
       <Typography variant={'subtitle1'} className={classNames.feedback}>

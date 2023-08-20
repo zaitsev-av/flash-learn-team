@@ -60,9 +60,11 @@ button {
 
   border-radius: 100%;
   &:hover {
-    @include _animation;
+        transition: transform 0.3s;
+        transform: scale(1.03);
+    }
   }
-}
+
 
 @keyframes slide-up-and-fade {
   from {
