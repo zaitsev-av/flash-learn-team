@@ -19,7 +19,7 @@ export type LoginArgs = {
   password: string
 }
 
-export type UpdateUserDataType = Pick<UserDataType, 'avatar' | 'name' | 'email'>
+export type UpdateUserDataType = { data: FormData; email: string }
 
 export type RecoveryPassword = {
   html: string

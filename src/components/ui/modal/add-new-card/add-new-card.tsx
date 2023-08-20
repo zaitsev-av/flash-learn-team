@@ -27,18 +27,12 @@ const defaultValues: AddCardsForm = {
 export const AddNewCard: FC<AddNewCardModalPropsType> = props => {
   const { children, onSubmit, setIsOpen, isOpen } = props
 
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<AddCardsForm>({
+  const { handleSubmit, control, reset } = useForm<AddCardsForm>({
     resolver: zodResolver(addNewCard),
     mode: 'onSubmit',
     defaultValues,
   })
 
-  console.log(errors)
   const onSubmitForm = handleSubmit(data => {
     const formData = new FormData()
 
