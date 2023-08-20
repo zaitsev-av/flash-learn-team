@@ -1,5 +1,5 @@
 import { z } from 'zod'
-const maxSize = 200_000
+const maxSize = 2000000
 
 export const addNewCard = z.object({
   question: z

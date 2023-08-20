@@ -36,8 +36,10 @@ export const LearnDeckPage: FC = () => {
         <LearnDesk
           deckName={deckData.name}
           question={cardData.question}
+          questionImg={cardData.questionImg}
           attempts={cardData.shots}
           answer={cardData.answer}
+          answerImg={cardData.answerImg}
           loadNextQuestion={handleUpdateCardGrade}
           onChange={setValue}
           value={value}

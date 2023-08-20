@@ -23,13 +23,15 @@ export const Default: Story = {
   args: {
     deckName: 'Deck Name',
     question: 'How "This" works in JavaScript?',
+    questionImg: '',
     attempts: 10,
     answer: 'This is how "This" works in JavaScript',
+    answerImg: '',
     loadNextQuestion: () => {},
     onChange: () => {},
     value: '',
   },
-  render: ({ answer, attempts, question, loadNextQuestion, deckName }) => {
+  render: ({ answer, attempts, question, loadNextQuestion, deckName, questionImg, answerImg }) => {
     const [value, setValue] = useState('value1')
 
     return (
@@ -37,6 +39,8 @@ export const Default: Story = {
         deckName={deckName}
         question={question}
         attempts={attempts}
+        answerImg={answerImg}
+        questionImg={questionImg}
         answer={answer}
         loadNextQuestion={loadNextQuestion}
         onChange={setValue}
