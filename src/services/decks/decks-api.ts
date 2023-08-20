@@ -167,11 +167,11 @@ export const decksApi = flashLearnApi.injectEndpoints({
         invalidatesTags: ['Decks'],
       }),
       createCard: builder.mutation<CardResponseType, CreateCardRequestType>({
-        query: ({ id, ...rest }) => {
+        query: ({ id, data }) => {
           return {
             method: 'POST',
             url: `v1/decks/${id}/cards`,
-            body: { ...rest },
+            body: data,
           }
         },
         invalidatesTags: ['Cards'],

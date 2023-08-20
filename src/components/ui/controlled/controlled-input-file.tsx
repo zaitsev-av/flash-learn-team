@@ -1,37 +1,46 @@
-/*
-import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
+import { ChangeEvent } from 'react'
 
-import { Button, InputProps, Typography } from '@/components'
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
+
 import { useImageUploader } from '@/components/ui/avatar/useImageUploader.ts'
 
-type ControlledInputFilePropsType<T extends FieldValues> = Omit<
-  UseControllerProps<T>,
-  'rules' | 'defaultValues'
-> &
-  Omit<InputProps, 'onChange' | 'value'>
+type ControlledInputFilePropsType<T extends FieldValues> = {
+  children: (onClick: () => void) => JSX.Element
+  cover?: any
+} & Omit<UseControllerProps<T>, 'rules' | 'defaultValues' | 'onChange' | 'value' | 'type'>
 
 export const ControlledInputFile = <T extends FieldValues>({
   name,
   control,
+  children,
+  cover,
+  ...rest
 }: ControlledInputFilePropsType<T>) => {
   const {
-    field: { onChange, ref, value },
+    field: { onChange, ref, value, ...field },
   } = useController({ name, control })
-  // const { fileInputRef, openFileInput, file, handleFileChange } = useImageUploader('')
+  const { fileInputRef, openFileInput, handleFileChange } = useImageUploader('')
+
+  const onChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
+    handleFileChange(e)
+    if (e?.target?.files !== null) onChange(e.target.files[0] as any)
+  }
 
   return (
-    <Button variant={'secondary'} fullWidth onClick={openFileInput} style={{ marginBottom: '3px' }}>
+    <>
       <input
         hidden
-        accept="image/png, image/jpeg"
         type="file"
-        ref={ref}
-        onChange={e => onChange(e)}
-        name={'answerImg'}
-        {...control}
+        onChange={onChangeHandle}
+        ref={e => {
+          ref(e)
+          fileInputRef.current = e
+        }}
+        {...rest}
+        {...field}
       />
-      <Typography variant={'subtitle2'}>Change Cover</Typography>
-    </Button>
+
+      {children(openFileInput)}
+    </>
   )
 }
-*/

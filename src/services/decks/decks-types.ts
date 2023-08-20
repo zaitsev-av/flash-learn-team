@@ -78,10 +78,11 @@ export type GetCardsRequestType = {
 
 export type CreateCardRequestType = {
   id: string
-  question: string
-  answer: string
-  questionImg?: string
-  answerImg?: string
+  data: FormData
+  // question: string
+  // answer: string
+  // questionImg?: string
+  // answerImg?: string
 }
 
 export type UpdateCardGradeType = {
