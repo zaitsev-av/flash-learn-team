@@ -1,5 +1,7 @@
 import { Meta } from '@storybook/react'
+import { Provider } from 'react-redux'
 
+import { store } from '@/app/store.ts'
 import { Layout } from '@/pages/layout/layout.tsx'
 
 const meta = {
@@ -15,7 +17,9 @@ const meta = {
           justifyContent: 'center',
         }}
       >
-        <Story />
+        <Provider store={store}>
+          <Story />
+        </Provider>
       </div>
     ),
   ],

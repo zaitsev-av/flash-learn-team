@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react'
 import { Provider } from 'react-redux'
-import { withRouter } from 'storybook-addon-react-router-v6'
 
 import { store } from '@/app/store.ts'
 import { Cards } from '@/components/ui/cards/cards.tsx'
@@ -13,7 +12,6 @@ const meta = {
       <Cards />
     </Provider>
   ),
-  decorators: [withRouter],
   tags: ['autodocs'],
   args: {
     userId: '1',

@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Meta, StoryObj } from '@storybook/react'
 
 import { EditCard } from './edit-card.tsx'
@@ -33,6 +35,8 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: args => {
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
     return (
       <EditCard
         onSubmit={data => {
@@ -41,8 +45,8 @@ export const Default: Story = {
         }}
         answer={args.answer}
         question={args.question}
-        isOpen={false}
-        setIsOpen={() => {}}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
       >
         {args.children}
       </EditCard>

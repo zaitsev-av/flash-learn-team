@@ -64,6 +64,11 @@ export const Cards: FC<CardsPropsType> = () => {
     currentPage: page,
     orderBy,
   })
+  const deckImage = deckImg && (
+    <div style={{ width: '170px', height: '107px' }}>
+      <img src={deckImg} alt="" style={{ width: '170px', height: '107px' }} />
+    </div>
+  )
 
   const classNames = {
     container: clsx(s.container),
@@ -93,11 +98,7 @@ export const Cards: FC<CardsPropsType> = () => {
         />
       </div>
 
-      {deckImg && (
-        <div style={{ width: '170px', height: '107px' }}>
-          <img src={deckImg} alt="" style={{ width: '170px', height: '107px' }} />
-        </div>
-      )}
+      {deckImage}
 
       <TextField inputType={'search'} className={classNames.textField} />
 
@@ -200,13 +201,7 @@ type RenderDeckHeadingType = {
   isMyDeck: boolean
   onEdit: (name: string, isPrivate: boolean) => void
   onDelete: (id: string) => void
-  handleCreateCard: (
-    data: FormData
-    // question: string,
-    // answer: string,
-    // questionImg: string,
-    // answerImg: string
-  ) => void
+  handleCreateCard: (data: FormData) => void
 }
 
 const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
