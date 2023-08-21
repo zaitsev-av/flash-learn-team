@@ -1,9 +1,4 @@
-import {
-  LoginArgs,
-  RecoveryPassword,
-  UpdateUserDataType,
-  UserDataType,
-} from '@/services/auth/auth-types.ts'
+import { LoginArgs, RecoveryPassword, UserDataType } from '@/services/auth/auth-types.ts'
 import { flashLearnApi } from '@/services/flash-learn-api.ts'
 
 export const authApi = flashLearnApi.injectEndpoints({
@@ -18,7 +13,7 @@ export const authApi = flashLearnApi.injectEndpoints({
         },
         providesTags: ['Me'],
       }),
-      updateUser: builder.mutation<UserDataType, UpdateUserDataType>({
+      updateUser: builder.mutation<UserDataType, FormData>({
         query: body => {
           return {
             method: 'PATCH',

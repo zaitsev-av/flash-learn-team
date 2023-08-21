@@ -1,37 +1,29 @@
-import { FC } from 'react'
-
-import { Control } from 'react-hook-form'
+import { ChangeEvent, FC } from 'react'
 
 import s from './editable-text.module.scss'
 
-import { Button, ControlledTextField } from '@/components'
-import { PersonalInfoForm } from '@/components/profile'
+import { Button, TextField } from '@/components'
 
 export type EditableTextPropsType = {
   text: string
   onButtonSave: () => void
   setEditMode: (editMode: boolean) => void
-  control: Control<PersonalInfoForm, any>
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const EditableText: FC<EditableTextPropsType> = props => {
-  const { onButtonSave, setEditMode, control } = props
+  const { text, onButtonSave, setEditMode, onChange } = props
 
   const disableEditModeHandler = () => {
     // disableEditMode()
     setEditMode(false)
+    console.log('button')
     onButtonSave()
   }
 
   return (
     <>
-      <ControlledTextField
-        title={'Nickmame'}
-        inputType={'text'}
-        name={'name'}
-        control={control}
-        autoFocus
-      />
+      <TextField inputType={'text'} onChange={onChange} value={text} autoFocus />
       <Button
         onClick={disableEditModeHandler}
         fullWidth={true}

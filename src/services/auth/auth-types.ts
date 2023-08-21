@@ -19,8 +19,6 @@ export type LoginArgs = {
   password: string
 }
 
-export type UpdateUserDataType = { data: FormData; email: string }
-
 export type RecoveryPassword = {
   html: string
   email: string

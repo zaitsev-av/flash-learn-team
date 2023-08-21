@@ -8,8 +8,13 @@ export const PersonalInfoPage: FC = () => {
   const { data: userData } = useAuthMeQuery()
   const [logout] = useLogoutMutation()
   const [updateUser] = useUpdateUserMutation()
-  const onSaveHandler = (data: FormData) => {
-    updateUser({ data, email: userData?.email ?? '' })
+  const updateAvatar = (avatar: any) => {
+    const data = new FormData()
+
+    data.append(avatar, 'avatar')
+    data.append(userData?.email ?? '', 'email')
+    data.append(userData?.name ?? '', 'name')
+    updateUser(data)
   }
   //todo заменть все на formData
 
@@ -20,7 +25,7 @@ export const PersonalInfoPage: FC = () => {
         userEmail={userData?.email ?? ''}
         avatar={userData?.avatar ?? ''}
         onLogout={logout}
-        onSave={onSaveHandler}
+        updateAvatar={updateAvatar}
       />
     </Page>
   )

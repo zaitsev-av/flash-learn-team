@@ -11,7 +11,7 @@ const meta = {
     userName: 'User',
     onLogout: () => console.log('logout'),
     avatar: '',
-    onSave: data => console.log('onSave', data),
+    updateAvatar: avatar => console.log(avatar),
   },
 } satisfies Meta<typeof PersonalInfo>
 

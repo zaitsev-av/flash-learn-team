@@ -23,5 +23,5 @@ export const Default: Story = {
 }
 
 export const Disabled: Story = {
-  args: { disabled: true, title: 'test', inputType: 'text' },
+  args: { disabled: true, title: 'test', inputType: 'text', placeholder: 'search' },
 }

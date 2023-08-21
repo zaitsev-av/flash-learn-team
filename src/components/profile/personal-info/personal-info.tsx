@@ -18,17 +18,23 @@ export type PersonalInfoPropsType = {
   userEmail: string
   onLogout: () => void
   avatar: string
-  onSave: (data: FormData) => void
+  updateAvatar: (avatar: any) => void
 }
 export type PersonalInfoForm = z.infer<typeof personalInfo>
 const defaultValues: PersonalInfoForm = {
-  name: '',
+  // name: '',
   avatar: '',
 }
 
 export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
-  const { userName, userEmail, avatar, onLogout, onSave } = props
-  const { activateEditMode, setEditMode, editMode, value: editableText } = useEditableText(userName)
+  const { userName, userEmail, avatar, onLogout, updateAvatar } = props
+  const {
+    activateEditMode,
+    setEditMode,
+    editMode,
+    handleInputChange,
+    value: editableText,
+  } = useEditableText(userName)
   // const { file, handleFileChange, openFileInput, fileInputRef } = useImageUploader(avatar)
   // const onButtonSaveHandler = () => {
   //   console.log(editableText)
@@ -42,18 +48,15 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
     formState: { errors },
   } = useForm<PersonalInfoForm>({
     resolver: zodResolver(personalInfo),
-    mode: 'onSubmit',
+    mode: 'onChange',
     defaultValues,
   })
 
-  console.log(errors)
+  console.log(errors, 'errors')
+
   const onSubmitForm = handleSubmit(data => {
-    const formData = new FormData()
-
-    formData.append('name', data.avatar)
-    data.avatar && formData.append('avatar', data.avatar)
-
-    onSave(formData)
+    console.log(data)
+    updateAvatar(data)
     // setIsOpen(false)
     reset(defaultValues)
   })
@@ -66,7 +69,7 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
       <Avatar src={avatar} size="6rem" />
       {!editMode ? (
         <>
-          <form className={s.edit_avtar} onSubmit={onSubmitForm}>
+          <form className={s.edit_avtar} onChange={onSubmitForm}>
             <ControlledInputFile name={'avatar'} control={control}>
               {onClick => <PencilIcon onClick={onClick} style={{ cursor: 'pointer' }} />}
             </ControlledInputFile>
@@ -88,10 +91,10 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
         </>
       ) : (
         <EditableText
-          onButtonSave={() => {}}
+          onChange={handleInputChange}
+          onButtonSave={onSubmitForm}
           text={editableText}
           setEditMode={setEditMode}
-          control={control}
         />
       )}
     </Card>
