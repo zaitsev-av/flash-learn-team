@@ -19,6 +19,7 @@ export type PersonalInfoPropsType = {
   onLogout: () => void
   avatar: string
   updateAvatar: (avatar: any) => void
+  updateName: (name: string) => void
 }
 export type PersonalInfoForm = z.infer<typeof personalInfo>
 const defaultValues: PersonalInfoForm = {
@@ -27,7 +28,7 @@ const defaultValues: PersonalInfoForm = {
 }
 
 export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
-  const { userName, userEmail, avatar, onLogout, updateAvatar } = props
+  const { userName, userEmail, avatar, onLogout, updateAvatar, updateName } = props
   const {
     activateEditMode,
     setEditMode,
@@ -55,11 +56,14 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
   console.log(errors, 'errors')
 
   const onSubmitForm = handleSubmit(data => {
-    console.log(data)
-    updateAvatar(data)
+    console.log(data.avatar)
+    updateAvatar(data.avatar)
     // setIsOpen(false)
     reset(defaultValues)
   })
+  const updateNameHandler = () => {
+    updateName(editableText)
+  }
 
   return (
     <Card className={`${s.card} ${editMode && s.editMode}`}>
@@ -92,7 +96,7 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
       ) : (
         <EditableText
           onChange={handleInputChange}
-          onButtonSave={onSubmitForm}
+          onButtonSave={updateNameHandler}
           text={editableText}
           setEditMode={setEditMode}
         />

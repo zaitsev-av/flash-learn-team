@@ -21,6 +21,7 @@ export const authApi = flashLearnApi.injectEndpoints({
             body,
           }
         },
+        invalidatesTags: ['Me'],
       }),
       login: builder.mutation<void, LoginArgs>({
         query: body => {
