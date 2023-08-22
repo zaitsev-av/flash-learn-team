@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Meta, StoryObj } from '@storybook/react'
 
 import { EditCard } from './edit-card.tsx'
@@ -21,6 +23,8 @@ const meta = {
     question: 'This is how "This" works in JavaScript',
     isOpen: false,
     setIsOpen: isOpen => !isOpen,
+    questionImg: '',
+    answerImg: '',
   },
   parameters: {
     controls: {
@@ -33,16 +37,20 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: args => {
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
     return (
       <EditCard
         onSubmit={data => {
           // eslint-disable-next-line no-console
           console.log(data)
         }}
+        questionImg={''}
+        answerImg={''}
         answer={args.answer}
         question={args.question}
-        isOpen={false}
-        setIsOpen={() => {}}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
       >
         {args.children}
       </EditCard>

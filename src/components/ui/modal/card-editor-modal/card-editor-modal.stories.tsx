@@ -2,13 +2,13 @@ import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
 
-import { AddNewCard } from './add-new-card.tsx'
+import { CardEditorModal } from './card-editor-modal.tsx'
 
 import { Button } from '@/components'
 
 const meta = {
-  title: 'Modals/Add New Card Modal',
-  component: AddNewCard,
+  title: 'Modals/Card Editor Modal',
+  component: CardEditorModal,
   tags: ['autodocs'],
   decorators: [
     Story => (
@@ -21,8 +21,10 @@ const meta = {
     children: <Button variant={'primary'}>Add New Card</Button>,
     isOpen: false,
     setIsOpen: isOpen => !isOpen,
+    buttonName: 'Add New Card',
+    modalTitle: 'Add New Card',
   },
-} satisfies Meta<typeof AddNewCard>
+} satisfies Meta<typeof CardEditorModal>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -31,16 +33,18 @@ export const Default: Story = {
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     return (
-      <AddNewCard
+      <CardEditorModal
         onSubmit={data => {
           // eslint-disable-next-line no-console
           console.log(data)
         }}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        modalTitle={'Add New Card'}
+        buttonName={'Add New Card'}
       >
         {args.children}
-      </AddNewCard>
+      </CardEditorModal>
     )
   },
 }

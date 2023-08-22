@@ -14,13 +14,13 @@ export type InputProps = {
   inputType: 'text' | 'password' | 'search'
   error?: string
   className?: string
-} & Omit<ComponentPropsWithoutRef<'input'>, 'type'>
+} & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, InputProps>(
   ({ className, title, inputType, disabled, error, containerProps, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
     const color = disabled ? 'var(--color-dark-300)' : 'var(--color-light-100)'
-    const cNames = {
+    const classNames = {
       input: clsx(
         s.input,
         inputType === 'password' && s.password,
@@ -48,7 +48,7 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
     )
 
     const leftIcon = inputType === 'search' && (
-      <div className={cNames.search}>{<SearchIcon color={color} />}</div>
+      <div className={classNames.search}>{<SearchIcon color={color} />}</div>
     )
 
     const errorMessage = error && (
@@ -58,13 +58,18 @@ export const TextField = forwardRef<HTMLInputElement, InputProps>(
     )
 
     return (
-      <div className={cNames.root}>
-        <Typography className={cNames.label} variant="body2" color="secondary" unselectable="on">
+      <div className={classNames.root}>
+        <Typography
+          className={classNames.label}
+          variant="body2"
+          color="secondary"
+          unselectable="on"
+        >
           {title}
-          <div className={cNames.error}>{errorMessage}</div>
+          <div className={classNames.error}>{errorMessage}</div>
         </Typography>
-        <div className={cNames.container}>
-          <input ref={ref} disabled={disabled} className={cNames.input} type={type} {...rest} />
+        <div className={classNames.container}>
+          <input ref={ref} disabled={disabled} className={classNames.input} type={type} {...rest} />
           {rightIcons}
           {leftIcon}
         </div>

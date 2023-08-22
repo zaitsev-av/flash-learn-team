@@ -1,3 +1,14 @@
+@use 'src/styles/index';
+.back {
+  display: flex;
+  @include index.goBack;
+  position: relative;
+  right: 33%;
+  bottom: 160px;
+  user-select: none;
+
+}
+
 .card {
   position: relative;
 

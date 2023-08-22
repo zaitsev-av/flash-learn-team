@@ -17,7 +17,6 @@ export const useEditableText = (text: string) => {
 
     if (!value.trim()) return setError('Nickname in required')
 
-    // dispatch отправим в стейт
     setError('')
   }
 

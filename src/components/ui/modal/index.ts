@@ -1,5 +1,5 @@
 export * from './modal'
-export * from './edit-card'
+export * from './card-editor-modal'
 export * from './delete-modal'
 export * from './edit-deck-modal'
 export * from './add-new-deck-modal'
