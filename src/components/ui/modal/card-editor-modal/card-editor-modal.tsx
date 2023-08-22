@@ -4,19 +4,25 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { addNewCard } from './add-new-card.ts'
+import { cardEditorModal } from './card-editor-modal.ts'
 
 import { Button, ControlledTextField, Typography } from '@/components'
 import { ControlledInputFile } from '@/components/ui/controlled/controlled-input-file.tsx'
 import { Modal } from '@/components/ui/modal'
 
 type AddNewCardModalPropsType = {
+  modalTitle: string
+  buttonName: string
   children: ReactNode
+  question?: string
+  answer?: string
+  questionImg?: string
+  answerImg?: string
   onSubmit: (data: FormData) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }
-export type AddCardsForm = z.infer<typeof addNewCard>
+export type AddCardsForm = z.infer<typeof cardEditorModal>
 const defaultValues: AddCardsForm = {
   question: '',
   answer: '',
@@ -24,18 +30,42 @@ const defaultValues: AddCardsForm = {
   answerImg: '',
 }
 
-export const AddNewCard: FC<AddNewCardModalPropsType> = props => {
-  const { children, onSubmit, setIsOpen, isOpen } = props
-
-  const { handleSubmit, control, reset } = useForm<AddCardsForm>({
-    resolver: zodResolver(addNewCard),
+export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
+  const {
+    modalTitle,
+    buttonName,
+    children,
+    onSubmit,
+    setIsOpen,
+    isOpen,
+    answer,
+    answerImg,
+    questionImg,
+    question,
+  } = props
+  //todo не летят с запросом картинки хотя в data есть
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<AddCardsForm>({
+    resolver: zodResolver(cardEditorModal),
     mode: 'onSubmit',
-    defaultValues,
+    values: {
+      question: question ?? '',
+      answer: answer ?? '',
+      questionImg: questionImg,
+      answerImg: answerImg,
+    },
   })
+
+  console.log(errors)
 
   const onSubmitForm = handleSubmit(data => {
     const formData = new FormData()
 
+    console.log(data)
     formData.append('answer', data.answer)
     formData.append('question', data.question)
     data.answerImg && formData.append('answerImg', data.answerImg)
@@ -86,12 +116,12 @@ export const AddNewCard: FC<AddNewCardModalPropsType> = props => {
   )
 
   return (
-    <Modal.Root title={'Add New Card'} trigger={children} onOpenChange={setIsOpen} isOpen={isOpen}>
+    <Modal.Root title={modalTitle} trigger={children} onOpenChange={setIsOpen} isOpen={isOpen}>
       <form onSubmit={onSubmitForm}>
         <Modal.Body>{questionType}</Modal.Body>
         <Modal.Footer>
           <Button variant={'primary'} type={'submit'}>
-            <Typography variant={'subtitle2'}>Add New Card</Typography>
+            <Typography variant={'subtitle2'}>{buttonName}</Typography>
           </Button>
           <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
             <Typography variant={'subtitle2'}>Cancel</Typography>

@@ -15,6 +15,8 @@ type EditCardModalPropsType = {
   children: ReactNode
   question: string
   answer: string
+  questionImg: string
+  answerImg: string
   onSubmit: (data: Form) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
@@ -22,7 +24,7 @@ type EditCardModalPropsType = {
 type Form = z.infer<typeof editCard>
 
 export const EditCard: FC<EditCardModalPropsType> = props => {
-  const { children, onSubmit, question, answer, isOpen, setIsOpen } = props
+  const { children, onSubmit, question, answer, isOpen, setIsOpen, questionImg, answerImg } = props
 
   const [type, setType] = useState<string>('Text')
   const { handleSubmit, control } = useForm<Form>({
@@ -31,6 +33,8 @@ export const EditCard: FC<EditCardModalPropsType> = props => {
     values: {
       question: question,
       answer: answer,
+      questionImg: questionImg,
+      answerImg: answerImg,
     },
   })
 

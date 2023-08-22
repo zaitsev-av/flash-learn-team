@@ -23,6 +23,8 @@ const meta = {
     question: 'This is how "This" works in JavaScript',
     isOpen: false,
     setIsOpen: isOpen => !isOpen,
+    questionImg: '',
+    answerImg: '',
   },
   parameters: {
     controls: {
@@ -43,6 +45,8 @@ export const Default: Story = {
           // eslint-disable-next-line no-console
           console.log(data)
         }}
+        questionImg={''}
+        answerImg={''}
         answer={args.answer}
         question={args.question}
         isOpen={isOpen}

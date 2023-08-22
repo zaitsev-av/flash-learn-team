@@ -12,11 +12,11 @@ export const cardsApi = flashLearnApi.injectEndpoints({
         },
       }),
       updateCard: builder.mutation<CardResponseType, UpdateCardRequestType>({
-        query: ({ id, ...rest }) => {
+        query: ({ id, data }) => {
           return {
             method: 'PATCH',
             url: `v1/cards/${id}`,
-            body: { ...rest },
+            body: data,
           }
         },
         invalidatesTags: ['Cards'],
@@ -38,10 +38,5 @@ export const { useGetCardQuery, useUpdateCardMutation, useDeleteCardMutation } =
 
 type UpdateCardRequestType = {
   id: string
-  question?: string
-  questionImg?: string
-  questionVideo?: string
-  answer?: string
-  answerImg?: string
-  answerVideo?: string
+  data: FormData
 }

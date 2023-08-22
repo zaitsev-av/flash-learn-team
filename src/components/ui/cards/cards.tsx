@@ -9,6 +9,7 @@ import { ArrowLeftIcon, DeleteIcon, EditIcon } from '@/assets'
 import { transformDate, useAppDispatch, useSort } from '@/common'
 import {
   Button,
+  CardEditorModal,
   DeckEditMenu,
   DeleteModal,
   Grade,
@@ -21,8 +22,6 @@ import {
   Typography,
 } from '@/components'
 import { columns } from '@/components/ui/cards/table-columns.ts'
-import { AddNewCard } from '@/components/ui/modal/add-new-card'
-import { EditCard } from '@/components/ui/modal/edit-card'
 import { CardsItem, CardsResponseType, useGetCardsQuery } from '@/services'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api.ts'
 import { cardsAction } from '@/services/cards/cards-slice.ts'
@@ -185,8 +184,10 @@ const TableRows = (el: CardsItem, isMyDeck: boolean) => {
       </Table.DataCell>
       <Table.DataCell style={{ padding: '6px 24px' }}>
         <TableActions
-          question={el.question}
           answer={el.answer}
+          question={el.question}
+          answerImg={el.answerImg}
+          questionImg={el.questionImg}
           item={{ id: el.id, title: el.question }}
           editable={isMyDeck}
         />
@@ -224,13 +225,15 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
   )
 
   const addNewCardSection = isMyDeck && (
-    <AddNewCard
+    <CardEditorModal
+      buttonName={'Add New Card'}
+      modalTitle={'Add New Card'}
       onSubmit={data => handleCreateCard(data)}
       setIsOpen={setAddCardModalOpen}
       isOpen={isAddCardModalOpen}
     >
       <Button variant={'primary'}>Add New Card</Button>
-    </AddNewCard>
+    </CardEditorModal>
   )
   const learnToPackButton = !isMyDeck && (
     <Button variant={'primary'} as={Link} to={`/learn/${deckId}`}>
@@ -254,15 +257,21 @@ type TableActionsProps = {
   item: ItemType
   question: string
   answer: string
+  questionImg: string
+  answerImg: string
   editable?: boolean
 }
 const TableActions: FC<TableActionsProps> = props => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
   const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
 
-  const { item, editable = true, question, answer } = props
+  const { item, editable = true, question, answer, answerImg, questionImg } = props
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
+
+  const handlerUpdateCard = (data: FormData) => {
+    updateCard({ id: item.id, data })
+  }
 
   const classNames = {
     btn: clsx(s.btn),
@@ -272,17 +281,32 @@ const TableActions: FC<TableActionsProps> = props => {
     <div style={{ display: 'flex', gap: '10px' }}>
       {editable && (
         <>
-          <EditCard
-            question={question}
+          <CardEditorModal
             answer={answer}
-            onSubmit={({ question, answer }) => updateCard({ id: item.id, question, answer })}
+            question={question}
+            answerImg={answerImg}
+            questionImg={questionImg}
+            buttonName={'Edit Card'}
+            modalTitle={'Edit Card'}
+            onSubmit={data => handlerUpdateCard(data)}
             isOpen={isEditCardModalOpen}
             setIsOpen={setEditCardModalOpen}
           >
             <button className={classNames.btn}>
               <EditIcon />
             </button>
-          </EditCard>
+          </CardEditorModal>
+          {/*<EditCard*/}
+          {/*  question={question}*/}
+          {/*  answer={answer}*/}
+          {/*  onSubmit={({ question, answer }) => updateCard({ id: item.id, question, answer })}*/}
+          {/*  isOpen={isEditCardModalOpen}*/}
+          {/*  setIsOpen={setEditCardModalOpen}*/}
+          {/*>*/}
+          {/*  <button className={classNames.btn}>*/}
+          {/*    <EditIcon />*/}
+          {/*  </button>*/}
+          {/*</EditCard>*/}
           <DeleteModal
             isOpen={isDeleteModalOpen}
             setIsOpen={setDeleteModalOpen}
