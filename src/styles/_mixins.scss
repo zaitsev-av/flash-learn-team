@@ -30,3 +30,23 @@
   transition: transform 0.3s;
   transform: scale(1.2);
 }
+
+@mixin goBack {
+  cursor: pointer;
+
+  position: absolute;
+
+  width: fit-content;
+  margin-top: 24px;
+  margin-bottom: 33px;
+  .content {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    &:hover {
+      color: var(--color-warning-100);
+      transition: transform 0.3s;
+      transform: scale3d(1.1, 1.17, 1);
+    }
+  }
+}

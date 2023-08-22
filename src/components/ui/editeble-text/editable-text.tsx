@@ -15,7 +15,6 @@ export const EditableText: FC<EditableTextPropsType> = props => {
   const { text, onButtonSave, setEditMode, onChange } = props
 
   const disableEditModeHandler = () => {
-    // disableEditMode()
     setEditMode(false)
     console.log('button')
     onButtonSave()
