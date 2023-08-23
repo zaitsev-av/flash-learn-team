@@ -296,17 +296,6 @@ const TableActions: FC<TableActionsProps> = props => {
               <EditIcon />
             </button>
           </CardEditorModal>
-          {/*<EditCard*/}
-          {/*  question={question}*/}
-          {/*  answer={answer}*/}
-          {/*  onSubmit={({ question, answer }) => updateCard({ id: item.id, question, answer })}*/}
-          {/*  isOpen={isEditCardModalOpen}*/}
-          {/*  setIsOpen={setEditCardModalOpen}*/}
-          {/*>*/}
-          {/*  <button className={classNames.btn}>*/}
-          {/*    <EditIcon />*/}
-          {/*  </button>*/}
-          {/*</EditCard>*/}
           <DeleteModal
             isOpen={isDeleteModalOpen}
             setIsOpen={setDeleteModalOpen}

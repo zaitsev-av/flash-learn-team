@@ -43,13 +43,8 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     questionImg,
     question,
   } = props
-  //todo не летят с запросом картинки хотя в data есть
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<AddCardsForm>({
+
+  const { handleSubmit, control, reset } = useForm<AddCardsForm>({
     resolver: zodResolver(cardEditorModal),
     mode: 'onSubmit',
     values: {
@@ -60,16 +55,17 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     },
   })
 
-  console.log(errors)
-
   const onSubmitForm = handleSubmit(data => {
     const formData = new FormData()
 
-    console.log(data)
     formData.append('answer', data.answer)
     formData.append('question', data.question)
-    data.answerImg && formData.append('answerImg', data.answerImg)
-    data.answerImg && formData.append('questionImg', data.answerImg)
+    data.answerImg &&
+      typeof data.answerImg !== 'string' &&
+      formData.append('answerImg', data.answerImg)
+    data.questionImg &&
+      typeof data.questionImg !== 'string' &&
+      formData.append('questionImg', data.questionImg)
 
     onSubmit(formData)
     setIsOpen(false)
