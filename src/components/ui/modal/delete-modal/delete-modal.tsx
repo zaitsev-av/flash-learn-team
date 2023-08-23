@@ -11,10 +11,10 @@ export type ItemType = {
 
 type DeleteDialogProps = {
   title: string
-  item: ItemType
+  deckName: string
   buttonTitle: string
-  children: ReactNode
-  onClick: (id: string) => void
+  children?: ReactNode
+  onClick: () => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }
@@ -22,16 +22,16 @@ export const DeleteModal: FC<DeleteDialogProps> = ({
   onClick,
   children,
   title,
-  item,
+  deckName,
   buttonTitle,
   isOpen,
   setIsOpen,
 }) => {
   //TODO body message should warn about deleting all cards if item = Pack
-  const bodyMessage = `Do you really want to delete ${item.title}`
+  const bodyMessage = `Do you really want to delete ${deckName}`
 
   const clickHandler = () => {
-    onClick(item.id)
+    onClick()
     setIsOpen(false)
   }
 

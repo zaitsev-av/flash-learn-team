@@ -7,7 +7,7 @@ export const cardEditorModal = z.object({
     .trim()
     .nonempty('Please enter a question')
     .min(5, 'Question must be at least 3 characters')
-    .max(50, 'Question must be at more 50 characters'),
+    .max(100, 'Question must be at more 50 characters'),
   answer: z
     .string()
     .trim()

@@ -55,6 +55,7 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     },
   })
 
+  console.log(question, answer, answerImg, questionImg)
   const onSubmitForm = handleSubmit(data => {
     const formData = new FormData()
 
@@ -72,54 +73,62 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     reset(defaultValues)
   })
 
-  const questionType = (
-    <>
-      <ControlledTextField
-        style={{ marginBottom: '0.5rem' }}
-        name={'question'}
-        control={control}
-        title={'Question'}
-        inputType={'text'}
-      />
-      <ControlledInputFile name={'questionImg'} control={control}>
-        {onClick => (
-          <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
-            <Typography variant={'subtitle2'}>Change Cover</Typography>
-          </Button>
-        )}
-      </ControlledInputFile>
-      <ControlledTextField
-        style={{ marginBottom: '0.5rem' }}
-        name={'answer'}
-        control={control}
-        title={'Answer'}
-        inputType={'text'}
-      />
-      <ControlledInputFile name={'answerImg'} control={control}>
-        {onClick => (
-          <Button
-            variant={'secondary'}
-            fullWidth
-            style={{ marginBottom: '3px' }}
-            onClick={onClick}
-            type={'button'}
-          >
-            <Typography variant={'subtitle2'}>Change Cover</Typography>
-          </Button>
-        )}
-      </ControlledInputFile>
-    </>
-  )
+  const onOpenHandler = (isOpen: boolean) => {
+    setIsOpen(isOpen)
+    reset(defaultValues)
+  }
+
+  //todo при нажатии на эдит не приходят стартовые значения
 
   return (
-    <Modal.Root title={modalTitle} trigger={children} onOpenChange={setIsOpen} isOpen={isOpen}>
+    <Modal.Root
+      title={modalTitle}
+      trigger={children}
+      onOpenChange={isOpen => onOpenHandler(isOpen)}
+      isOpen={isOpen}
+    >
       <form onSubmit={onSubmitForm}>
-        <Modal.Body>{questionType}</Modal.Body>
+        <Modal.Body>
+          <ControlledTextField
+            style={{ marginBottom: '0.5rem' }}
+            name={'question'}
+            control={control}
+            title={'Question'}
+            inputType={'text'}
+          />
+          <ControlledInputFile name={'questionImg'} control={control}>
+            {onClick => (
+              <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
+                <Typography variant={'subtitle2'}>Change Cover</Typography>
+              </Button>
+            )}
+          </ControlledInputFile>
+          <ControlledTextField
+            style={{ marginBottom: '0.5rem' }}
+            name={'answer'}
+            control={control}
+            title={'Answer'}
+            inputType={'text'}
+          />
+          <ControlledInputFile name={'answerImg'} control={control}>
+            {onClick => (
+              <Button
+                variant={'secondary'}
+                fullWidth
+                style={{ marginBottom: '3px' }}
+                onClick={onClick}
+                type={'button'}
+              >
+                <Typography variant={'subtitle2'}>Change Cover</Typography>
+              </Button>
+            )}
+          </ControlledInputFile>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant={'primary'} type={'submit'}>
             <Typography variant={'subtitle2'}>{buttonName}</Typography>
           </Button>
-          <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
+          <Button variant={'secondary'} onClick={() => onOpenHandler(false)}>
             <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
         </Modal.Footer>

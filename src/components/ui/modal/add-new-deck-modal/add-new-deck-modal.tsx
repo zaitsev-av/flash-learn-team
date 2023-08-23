@@ -7,30 +7,43 @@ import { z } from 'zod'
 import { addNewDeckSchema } from './add-new-deck-schema.ts'
 
 import { Button, ControlledCheckbox, ControlledTextField, Typography } from '@/components'
+import { ControlledInputFile } from '@/components/ui/controlled/controlled-input-file.tsx'
 import { Modal } from '@/components/ui/modal'
 
 type AddNewPackModalPropsType = {
   trigger: ReactNode
-  onSubmit: (data: Form) => void
+  onSubmit: (data: FormData) => void
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }
 type Form = z.infer<typeof addNewDeckSchema>
 const defaultValues: Form = {
-  namePack: '',
-  private: false,
+  name: '',
+  cover: '',
+  isPrivate: false,
 }
 
 export const AddNewDeckModal: FC<AddNewPackModalPropsType> = props => {
   const { trigger, onSubmit, isOpen, setIsOpen } = props
-  const { handleSubmit, control, reset } = useForm<Form>({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<Form>({
     resolver: zodResolver(addNewDeckSchema),
     mode: 'onSubmit',
     defaultValues,
   })
 
+  console.log(errors)
   const onSubmitForm = handleSubmit(data => {
-    onSubmit({ namePack: data.namePack, private: data.private })
+    const formData = new FormData()
+
+    formData.append('name', data.name)
+    data.cover && formData.append('cover', data.cover)
+    formData.append('isPrivate', String(data.isPrivate))
+    onSubmit(formData)
     setIsOpen(false)
     reset(defaultValues)
   })
@@ -40,13 +53,20 @@ export const AddNewDeckModal: FC<AddNewPackModalPropsType> = props => {
       <form onSubmit={onSubmitForm}>
         <Modal.Body>
           <ControlledTextField
-            style={{ marginBottom: '1.5rem' }}
-            name={'namePack'}
+            style={{ marginBottom: '1rem' }}
+            name={'name'}
             control={control}
             title={'Name Deck'}
             inputType={'text'}
           />
-          <ControlledCheckbox control={control} name={'private'} label={'Private deck'} left />
+          <ControlledInputFile name={'cover'} control={control}>
+            {onClick => (
+              <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
+                <Typography variant={'subtitle2'}>Change Cover</Typography>
+              </Button>
+            )}
+          </ControlledInputFile>
+          <ControlledCheckbox control={control} name={'isPrivate'} label={'Private deck'} left />
         </Modal.Body>
         <Modal.Footer>
           <Button variant={'primary'} type={'submit'}>
