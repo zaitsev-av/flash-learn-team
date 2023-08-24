@@ -49,7 +49,6 @@ export const FilterPanel: FC<FilterPanelPropsType> = props => {
       <TextField
         value={searchValue}
         onChange={e => setSearchValue(e.currentTarget.value)}
-        title={''}
         placeholder={'search'}
         inputType={'search'}
         className={s.text_field}

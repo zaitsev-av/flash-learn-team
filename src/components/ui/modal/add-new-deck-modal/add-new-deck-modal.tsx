@@ -25,18 +25,12 @@ const defaultValues: Form = {
 
 export const AddNewDeckModal: FC<AddNewPackModalPropsType> = props => {
   const { trigger, onSubmit, isOpen, setIsOpen } = props
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<Form>({
+  const { handleSubmit, control, reset } = useForm<Form>({
     resolver: zodResolver(addNewDeckSchema),
     mode: 'onSubmit',
     defaultValues,
   })
 
-  console.log(errors)
   const onSubmitForm = handleSubmit(data => {
     const formData = new FormData()
 

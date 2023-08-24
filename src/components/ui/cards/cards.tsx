@@ -38,9 +38,11 @@ export const Cards: FC<CardsPropsType> = () => {
     totalCount,
     setPage,
     setPageSize,
+    setAnswer,
     handleUpdateDeck,
     handleDeleteDeck,
     handleCreateCard,
+    debounceAnswerValue,
   } = useCards()
 
   const navigateBack = () => {
@@ -49,7 +51,7 @@ export const Cards: FC<CardsPropsType> = () => {
 
   const { data: cardsData } = useGetCardsQuery({
     id: deckId,
-    answer: answer,
+    answer: debounceAnswerValue,
     question: question,
     itemsPerPage: pageSize,
     currentPage: page,
@@ -91,7 +93,13 @@ export const Cards: FC<CardsPropsType> = () => {
 
       {deckImage}
 
-      <TextField inputType={'search'} className={classNames.textField} />
+      <TextField
+        inputType={'search'}
+        placeholder={'search'}
+        value={answer}
+        onChange={e => setAnswer(e.currentTarget.value)}
+        className={classNames.textField}
+      />
 
       <CardTable
         rowData={cardsData}
@@ -170,64 +178,3 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
     </>
   )
 }
-
-/*type TableActionsProps = {
-  item: ItemType
-  question: string
-  answer: string
-  questionImg: string
-  answerImg: string
-  editable?: boolean
-}
-const TableActions: FC<TableActionsProps> = props => {
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-  const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
-
-  const { item, editable = true, question, answer, answerImg, questionImg } = props
-  const [updateCard] = useUpdateCardMutation()
-  const [deleteCard] = useDeleteCardMutation()
-
-  const handlerUpdateCard = (data: FormData) => {
-    updateCard({ id: item.id, data })
-  }
-
-  const classNames = {
-    btn: clsx(s.btn),
-  }
-
-  return (
-    <div style={{ display: 'flex', gap: '10px' }}>
-      {editable && (
-        <>
-          <CardEditorModal
-            answer={answer}
-            question={question}
-            answerImg={answerImg}
-            questionImg={questionImg}
-            buttonName={'Edit Card'}
-            modalTitle={'Edit Card'}
-            onSubmit={data => handlerUpdateCard(data)}
-            isOpen={isEditCardModalOpen}
-            setIsOpen={setEditCardModalOpen}
-          >
-            <button className={classNames.btn}>
-              <EditIcon />
-            </button>
-          </CardEditorModal>
-          <DeleteModal
-            isOpen={isDeleteModalOpen}
-            setIsOpen={setDeleteModalOpen}
-            buttonTitle={'Delete Card'}
-            item={item}
-            onClick={id => deleteCard(id)}
-            title={'Delete Card'}
-          >
-            <button className={classNames.btn}>
-              <DeleteIcon />
-            </button>
-          </DeleteModal>
-        </>
-      )}
-    </div>
-  )
-}*/
