@@ -6,8 +6,8 @@ import { toast } from 'react-toastify'
 import s from '../decks.module.scss'
 
 import { DeleteIcon, EditIcon, PlayIcon } from '@/assets'
-import { transformDate } from '@/common'
-import { DeleteModal, EditDeckModal, Table } from '@/components'
+import { transformDate, useImageOpen } from '@/common'
+import { DeleteModal, EditDeckModal, ImageModal, Table } from '@/components'
 import { ItemsType, useDeleteDeckMutation, useUpdateDeckMutation } from '@/services'
 
 type TableRowsPropsType = {
@@ -25,6 +25,8 @@ export const TableRows: FC<TableRowsPropsType> = props => {
   const [selectedDeck, setSelectedDeck] = useState<ItemsType>({} as ItemsType)
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
   const [isEditDeckModalOpen, setEditDeckModalOpen] = useState<boolean>(false)
+
+  const { openImageInModal, setImageModalOpen, image, isImageModalOpen } = useImageOpen()
 
   const handleDeleteDeck = () => {
     deleteDeck({ id: selectedDeck.id })
@@ -61,6 +63,12 @@ export const TableRows: FC<TableRowsPropsType> = props => {
         setIsOpen={setEditDeckModalOpen}
         isOpen={isEditDeckModalOpen}
       />
+      <ImageModal
+        src={image}
+        alt={'image'}
+        isOpen={isImageModalOpen}
+        setIsOpen={setImageModalOpen}
+      />
 
       {data.slice(0, pageSize).map(el => {
         const onClickDeleteHandler = () => {
@@ -75,13 +83,23 @@ export const TableRows: FC<TableRowsPropsType> = props => {
 
         return (
           <Table.Row key={el.id}>
-            <Table.DataCell onClick={() => navigate(`/cards/${el.id}`)}>
-              <span
-                style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
-                className={s.getCards}
-              >
-                {el.name}
-                {el.cover === null ? '' : <img src={el.cover} alt="" width="70px" height="50px" />}
+            <Table.DataCell>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span className={s.getCards} onClick={() => navigate(`/cards/${el.id}`)}>
+                  {el.name}
+                </span>
+                {el.cover === null ? (
+                  ''
+                ) : (
+                  <img
+                    src={el.cover}
+                    alt=""
+                    width="70px"
+                    height="50px"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => openImageInModal(el.cover)}
+                  />
+                )}
               </span>
             </Table.DataCell>
             <Table.DataCell>{el.cardsCount}</Table.DataCell>

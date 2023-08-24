@@ -37,6 +37,7 @@ export const CardsTableRows: FC<CardsTableRowsPropsType> = props => {
               width="70px"
               height="50px"
               onClick={() => openImageInModal(item.questionImg)}
+              style={{ cursor: 'pointer' }}
             />
           )}
         </span>
@@ -53,6 +54,7 @@ export const CardsTableRows: FC<CardsTableRowsPropsType> = props => {
               width="70px"
               height="50px"
               onClick={() => openImageInModal(item.answerImg)}
+              style={{ cursor: 'pointer' }}
             />
           )}
         </span>

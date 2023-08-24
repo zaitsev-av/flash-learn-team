@@ -2,11 +2,11 @@ import { FC, useState } from 'react'
 
 import { clsx } from 'clsx'
 
-import { useAppDispatch } from '@/common'
+import { useAppDispatch, useImageOpen } from '@/common'
 import { CardEditorModal, DeleteModal, ImageModal, Sort, Table } from '@/components'
 import { CardsTableRows } from '@/components/ui/cards/cards-table/cards-table-rows.tsx'
+import { columns } from '@/components/ui/cards/cards-table/table-columns.ts'
 import s from '@/components/ui/cards/cards.module.scss'
-import { columns } from '@/components/ui/cards/table-columns.ts'
 import { CardsItem, CardsResponseType } from '@/services'
 import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api.ts'
 import { cardsAction } from '@/services/cards/cards-slice.ts'
@@ -24,8 +24,8 @@ export const CardTable: FC<CardTablePropsType> = props => {
   const [selectedCard, setSelectedCard] = useState<CardsItem>({} as CardsItem)
   const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-  const [isImageModalOpen, setImageModalOpen] = useState<boolean>(false)
-  const [image, setImage] = useState<string>('')
+
+  const { openImageInModal, setImageModalOpen, image, isImageModalOpen } = useImageOpen()
 
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
@@ -37,10 +37,6 @@ export const CardTable: FC<CardTablePropsType> = props => {
   }
   const handlerDeleteCard = () => {
     deleteCard(selectedCard.id)
-  }
-  const openImageInModal = (src: string) => {
-    setImageModalOpen(true)
-    setImage(src)
   }
 
   const classNames = {

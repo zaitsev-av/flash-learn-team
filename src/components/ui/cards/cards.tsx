@@ -6,11 +6,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import s from './cards.module.scss'
 
 import { ArrowLeftIcon } from '@/assets'
-import { useSort } from '@/common'
+import { useImageOpen, useSort } from '@/common'
 import {
   Button,
   CardEditorModal,
   DeckEditMenu,
+  ImageModal,
   Pagination,
   TextField,
   Typography,
@@ -24,6 +25,7 @@ type CardsPropsType = {}
 export const Cards: FC<CardsPropsType> = () => {
   const { handlerSort, sort, setSortValue } = useSort()
   const navigate = useNavigate()
+  const { openImageInModal, setImageModalOpen, image, isImageModalOpen } = useImageOpen()
 
   const {
     page,
@@ -57,9 +59,10 @@ export const Cards: FC<CardsPropsType> = () => {
     currentPage: page,
     orderBy,
   })
+
   const deckImage = deckImg && (
-    <div style={{ width: '170px', height: '107px' }}>
-      <img src={deckImg} alt="" style={{ width: '170px', height: '107px' }} />
+    <div style={{ width: '170px', height: '107px' }} onClick={() => openImageInModal(deckImg)}>
+      <img src={deckImg} alt="" style={{ width: '170px', height: '107px', cursor: 'pointer' }} />
     </div>
   )
 
@@ -74,6 +77,12 @@ export const Cards: FC<CardsPropsType> = () => {
 
   return (
     <div className={classNames.container}>
+      <ImageModal
+        src={image}
+        alt={'image'}
+        isOpen={isImageModalOpen}
+        setIsOpen={setImageModalOpen}
+      />
       <Button variant={'link'} onClick={navigateBack} className={classNames.back}>
         <Typography variant={'body2'} className={classNames.backArrow}>
           <ArrowLeftIcon /> Back to Decks List
