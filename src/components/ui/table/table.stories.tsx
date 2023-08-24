@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import { Meta, StoryObj } from '@storybook/react'
+import { clsx } from 'clsx'
 
 import s from './table.module.scss'
 
+import { DeleteIcon, EditIcon } from '@/assets'
 import { Checkbox, Grade, Sort, Table } from '@/components'
 import { columns } from '@/components/ui/decks/table/columns-deck-table.ts'
 import { data } from '@/components/ui/table/test-data.ts'
-import { TableActions } from '@/components/ui/table-action-buttons'
 
 const meta = {
   title: 'Components/Table',
@@ -24,8 +25,11 @@ const meta = {
 
 const Container = () => {
   const [sort, setSort] = useState<Sort>(null)
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-  const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
+  const [__, setDeleteModalOpen] = useState<boolean>(false)
+  const [_, setEditCardModalOpen] = useState<boolean>(false)
+  const classNames = {
+    btn: clsx(s.btn),
+  }
 
   return (
     <>
@@ -40,14 +44,12 @@ const Container = () => {
               <Table.DataCell>{row.updated}</Table.DataCell>
               <Table.DataCell>{row.createdBy}</Table.DataCell>
               <Table.DataCell>
-                <TableActions
-                  item={row}
-                  editable={row.editable}
-                  isDeleteModalOpen={isDeleteModalOpen}
-                  setDeleteModalOpen={setDeleteModalOpen}
-                  isEditCardModalOpen={isEditCardModalOpen}
-                  setEditCardModalOpen={setEditCardModalOpen}
-                />
+                <button className={classNames.btn} onClick={() => setEditCardModalOpen(true)}>
+                  <EditIcon />
+                </button>
+                <button className={classNames.btn} onClick={() => setDeleteModalOpen(true)}>
+                  <DeleteIcon />
+                </button>
               </Table.DataCell>
             </Table.Row>
           )
@@ -96,18 +98,22 @@ export const Data_Cell_With_Grade: Story = {
     ),
   },
 }
+const [__, setDeleteModalOpen] = useState<boolean>(false)
+const [_, setEditCardModalOpen] = useState<boolean>(false)
+const classNames = {
+  btn: clsx(s.btn),
+}
 
 export const Data_Cell_With_Actions: Story = {
   args: {
     children: (
       <Table.DataCell className={s.row}>
-        <TableActions
-          item={data[0]}
-          isDeleteModalOpen={false}
-          setDeleteModalOpen={() => {}}
-          isEditCardModalOpen={false}
-          setEditCardModalOpen={() => {}}
-        />
+        <button className={classNames.btn} onClick={() => setEditCardModalOpen(true)}>
+          <EditIcon />
+        </button>
+        <button className={classNames.btn} onClick={() => setDeleteModalOpen(true)}>
+          <DeleteIcon />
+        </button>
       </Table.DataCell>
     ),
   },

@@ -50,12 +50,12 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
         </MenuItem>
       </EditDeckModal>
       <DeleteModal
-        item={{ id: deckId, title: deckName }}
         title={'Delete Deck'}
         isOpen={isDeleteModalOpen}
-        onClick={onDelete}
+        onClick={() => onDelete(deckId)}
         setIsOpen={setDeleteModalOpen}
         buttonTitle={'Delete Deck'}
+        itemName={deckName}
       >
         <MenuItem separator={false}>
           <DeleteIcon />

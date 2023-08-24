@@ -9,7 +9,7 @@ import { editPackSchema } from './edit-deck-modal-schema.ts'
 import { Button, ControlledCheckbox, ControlledTextField, Modal } from '@/components'
 
 type EditPackModalProps = {
-  children: ReactNode
+  children?: ReactNode
   isPrivate: boolean
   deckName: string
   onSubmit: (data: Form) => void

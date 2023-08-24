@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { useAppDispatch, useAppSelector } from '@/common'
+import { useAppDispatch, useAppSelector, useDebounce } from '@/common'
 import {
   useAuthMeQuery,
   useCreateCardMutation,
@@ -56,15 +56,9 @@ export const useCards = () => {
     dispatch(cardsAction.setQueryParams({ currentPage: value }))
   }
 
-  const handleCreateCard = (data: FormData) =>
-    // question: string,
-    // answer: string,
-    // questionImg: string,
-    // answerImg: string
-    {
-      console.log(data)
-      createCard({ id: deckId ?? '', data })
-    }
+  const handleCreateCard = (data: FormData) => {
+    createCard({ id: deckId ?? '', data })
+  }
 
   const handleUpdateDeck = (name: string, isPrivate: boolean) => {
     updateDeck({ id: deckId ?? '', name, isPrivate })
@@ -81,6 +75,7 @@ export const useCards = () => {
   const authorDeckId = deckData?.userId ?? ''
   const isMyDeck = myId === authorDeckId
   const totalCount = deckData?.cardsCount ?? 10
+  const debounceAnswerValue = useDebounce(answer, 500)
 
   useEffect(() => {
     setDeckId(id ?? '')
@@ -105,5 +100,6 @@ export const useCards = () => {
     handleCreateCard,
     handleUpdateDeck,
     handleDeleteDeck,
+    debounceAnswerValue,
   }
 }

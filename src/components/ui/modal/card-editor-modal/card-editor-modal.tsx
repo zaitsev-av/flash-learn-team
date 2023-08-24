@@ -13,7 +13,7 @@ import { Modal } from '@/components/ui/modal'
 type AddNewCardModalPropsType = {
   modalTitle: string
   buttonName: string
-  children: ReactNode
+  children?: ReactNode
   question?: string
   answer?: string
   questionImg?: string
@@ -43,13 +43,8 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     questionImg,
     question,
   } = props
-  //todo не летят с запросом картинки хотя в data есть
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<AddCardsForm>({
+
+  const { handleSubmit, control, reset } = useForm<AddCardsForm>({
     resolver: zodResolver(cardEditorModal),
     mode: 'onSubmit',
     values: {
@@ -60,70 +55,77 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     },
   })
 
-  console.log(errors)
-
   const onSubmitForm = handleSubmit(data => {
     const formData = new FormData()
 
-    console.log(data)
     formData.append('answer', data.answer)
     formData.append('question', data.question)
-    data.answerImg && formData.append('answerImg', data.answerImg)
-    data.answerImg && formData.append('questionImg', data.answerImg)
+    data.answerImg &&
+      typeof data.answerImg !== 'string' &&
+      formData.append('answerImg', data.answerImg)
+    data.questionImg &&
+      typeof data.questionImg !== 'string' &&
+      formData.append('questionImg', data.questionImg)
 
     onSubmit(formData)
     setIsOpen(false)
     reset(defaultValues)
   })
 
-  const questionType = (
-    <>
-      <ControlledTextField
-        style={{ marginBottom: '0.5rem' }}
-        name={'question'}
-        control={control}
-        title={'Question'}
-        inputType={'text'}
-      />
-      <ControlledInputFile name={'questionImg'} control={control}>
-        {onClick => (
-          <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
-            <Typography variant={'subtitle2'}>Change Cover</Typography>
-          </Button>
-        )}
-      </ControlledInputFile>
-      <ControlledTextField
-        style={{ marginBottom: '0.5rem' }}
-        name={'answer'}
-        control={control}
-        title={'Answer'}
-        inputType={'text'}
-      />
-      <ControlledInputFile name={'answerImg'} control={control}>
-        {onClick => (
-          <Button
-            variant={'secondary'}
-            fullWidth
-            style={{ marginBottom: '3px' }}
-            onClick={onClick}
-            type={'button'}
-          >
-            <Typography variant={'subtitle2'}>Change Cover</Typography>
-          </Button>
-        )}
-      </ControlledInputFile>
-    </>
-  )
+  const onOpenHandler = (isOpen: boolean) => {
+    setIsOpen(isOpen)
+    reset(defaultValues)
+  }
 
   return (
-    <Modal.Root title={modalTitle} trigger={children} onOpenChange={setIsOpen} isOpen={isOpen}>
+    <Modal.Root
+      title={modalTitle}
+      trigger={children}
+      onOpenChange={isOpen => onOpenHandler(isOpen)}
+      isOpen={isOpen}
+    >
       <form onSubmit={onSubmitForm}>
-        <Modal.Body>{questionType}</Modal.Body>
+        <Modal.Body>
+          <ControlledTextField
+            style={{ marginBottom: '0.5rem' }}
+            name={'question'}
+            control={control}
+            title={'Question'}
+            inputType={'text'}
+          />
+          <ControlledInputFile name={'questionImg'} control={control}>
+            {onClick => (
+              <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
+                <Typography variant={'subtitle2'}>Change Cover</Typography>
+              </Button>
+            )}
+          </ControlledInputFile>
+          <ControlledTextField
+            style={{ marginBottom: '0.5rem' }}
+            name={'answer'}
+            control={control}
+            title={'Answer'}
+            inputType={'text'}
+          />
+          <ControlledInputFile name={'answerImg'} control={control}>
+            {onClick => (
+              <Button
+                variant={'secondary'}
+                fullWidth
+                style={{ marginBottom: '3px' }}
+                onClick={onClick}
+                type={'button'}
+              >
+                <Typography variant={'subtitle2'}>Change Cover</Typography>
+              </Button>
+            )}
+          </ControlledInputFile>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant={'primary'} type={'submit'}>
             <Typography variant={'subtitle2'}>{buttonName}</Typography>
           </Button>
-          <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
+          <Button variant={'secondary'} onClick={() => onOpenHandler(false)}>
             <Typography variant={'subtitle2'}>Cancel</Typography>
           </Button>
         </Modal.Footer>

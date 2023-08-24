@@ -41,6 +41,8 @@
     background-color: var(--color-dark-100);
     border-radius: 50%;
     box-shadow: 0 0 0 0.5rem var(--color-dark-100);
+    transition: transform 0.5s;
+    transform: scale(1.08);
   }
 
   &:active {

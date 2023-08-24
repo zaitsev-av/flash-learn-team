@@ -5,26 +5,19 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import s from './cards.module.scss'
 
-import { ArrowLeftIcon, DeleteIcon, EditIcon } from '@/assets'
-import { transformDate, useAppDispatch, useSort } from '@/common'
+import { ArrowLeftIcon } from '@/assets'
+import { useImageOpen, useSort } from '@/common'
 import {
   Button,
   CardEditorModal,
   DeckEditMenu,
-  DeleteModal,
-  Grade,
-  GradeType,
-  ItemType,
+  ImageModal,
   Pagination,
-  Sort,
-  Table,
   TextField,
   Typography,
 } from '@/components'
-import { columns } from '@/components/ui/cards/table-columns.ts'
-import { CardsItem, CardsResponseType, useGetCardsQuery } from '@/services'
-import { useDeleteCardMutation, useUpdateCardMutation } from '@/services/cards/cards-api.ts'
-import { cardsAction } from '@/services/cards/cards-slice.ts'
+import { CardTable } from '@/components/ui/cards/cards-table/cards-table.tsx'
+import { useGetCardsQuery } from '@/services'
 import { useCards } from '@/services/cards/useCards.ts'
 
 type CardsPropsType = {}
@@ -32,6 +25,7 @@ type CardsPropsType = {}
 export const Cards: FC<CardsPropsType> = () => {
   const { handlerSort, sort, setSortValue } = useSort()
   const navigate = useNavigate()
+  const { openImageInModal, setImageModalOpen, image, isImageModalOpen } = useImageOpen()
 
   const {
     page,
@@ -46,9 +40,11 @@ export const Cards: FC<CardsPropsType> = () => {
     totalCount,
     setPage,
     setPageSize,
+    setAnswer,
     handleUpdateDeck,
     handleDeleteDeck,
     handleCreateCard,
+    debounceAnswerValue,
   } = useCards()
 
   const navigateBack = () => {
@@ -57,15 +53,16 @@ export const Cards: FC<CardsPropsType> = () => {
 
   const { data: cardsData } = useGetCardsQuery({
     id: deckId,
-    answer: answer,
+    answer: debounceAnswerValue,
     question: question,
     itemsPerPage: pageSize,
     currentPage: page,
     orderBy,
   })
+
   const deckImage = deckImg && (
-    <div style={{ width: '170px', height: '107px' }}>
-      <img src={deckImg} alt="" style={{ width: '170px', height: '107px' }} />
+    <div style={{ width: '170px', height: '107px' }} onClick={() => openImageInModal(deckImg)}>
+      <img src={deckImg} alt="" style={{ width: '170px', height: '107px', cursor: 'pointer' }} />
     </div>
   )
 
@@ -80,6 +77,12 @@ export const Cards: FC<CardsPropsType> = () => {
 
   return (
     <div className={classNames.container}>
+      <ImageModal
+        src={image}
+        alt={'image'}
+        isOpen={isImageModalOpen}
+        setIsOpen={setImageModalOpen}
+      />
       <Button variant={'link'} onClick={navigateBack} className={classNames.back}>
         <Typography variant={'body2'} className={classNames.backArrow}>
           <ArrowLeftIcon /> Back to Decks List
@@ -99,7 +102,13 @@ export const Cards: FC<CardsPropsType> = () => {
 
       {deckImage}
 
-      <TextField inputType={'search'} className={classNames.textField} />
+      <TextField
+        inputType={'search'}
+        placeholder={'search'}
+        value={answer}
+        onChange={e => setAnswer(e.currentTarget.value)}
+        className={classNames.textField}
+      />
 
       <CardTable
         rowData={cardsData}
@@ -119,80 +128,6 @@ export const Cards: FC<CardsPropsType> = () => {
         onPageSizeChange={setPageSize}
       />
     </div>
-  )
-}
-
-type CardTablePropsType = {
-  isMyDeck: boolean
-  pageSize: number
-  sort: Sort
-  rowData: CardsResponseType | undefined
-  setSortValue: (sort: Sort, handler: (sort: string) => void) => void
-  handlerSort: (key: string, sortable?: boolean) => void
-}
-const CardTable: FC<CardTablePropsType> = props => {
-  const dispatch = useAppDispatch()
-  const { rowData, isMyDeck, pageSize, sort, handlerSort, setSortValue } = props
-  const classNames = {
-    head: clsx(s.tableHead),
-    tableRot: clsx(s.tableRoot),
-  }
-
-  return (
-    <Table.Root className={s.tableRoot}>
-      <Table.Head
-        columns={columns}
-        onSort={sort =>
-          setSortValue(sort, sort => dispatch(cardsAction.setQueryParams({ orderBy: sort })))
-        }
-        sort={sort}
-        handlerSort={handlerSort}
-        className={classNames.head}
-      />
-      <Table.Body>
-        {rowData?.items.slice(0, pageSize).map(el => TableRows(el, isMyDeck))}
-      </Table.Body>
-    </Table.Root>
-  )
-}
-const TableRows = (el: CardsItem, isMyDeck: boolean) => {
-  return (
-    <Table.Row key={el.id}>
-      <Table.DataCell>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={s.getCards}>
-          {el.question}
-          {el.questionImg === null ? (
-            ''
-          ) : (
-            <img src={el.questionImg} alt="" width="70px" height="50px" />
-          )}
-        </span>
-      </Table.DataCell>
-      <Table.DataCell>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={s.getCards}>
-          {el.answer}
-          {el.answerImg === null ? (
-            ''
-          ) : (
-            <img src={el.answerImg} alt="" width="70px" height="50px" />
-          )}
-        </span>
-      </Table.DataCell>
-      <Table.DataCell>{transformDate(el.updated)}</Table.DataCell>
-      <Table.DataCell>
-        <Grade grade={el.grade as GradeType} />
-      </Table.DataCell>
-      <Table.DataCell style={{ padding: '6px 24px' }}>
-        <TableActions
-          answer={el.answer}
-          question={el.question}
-          answerImg={el.answerImg}
-          questionImg={el.questionImg}
-          item={{ id: el.id, title: el.question }}
-          editable={isMyDeck}
-        />
-      </Table.DataCell>
-    </Table.Row>
   )
 }
 
@@ -250,77 +185,5 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
       {addNewCardSection}
       {learnToPackButton}
     </>
-  )
-}
-
-type TableActionsProps = {
-  item: ItemType
-  question: string
-  answer: string
-  questionImg: string
-  answerImg: string
-  editable?: boolean
-}
-const TableActions: FC<TableActionsProps> = props => {
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-  const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
-
-  const { item, editable = true, question, answer, answerImg, questionImg } = props
-  const [updateCard] = useUpdateCardMutation()
-  const [deleteCard] = useDeleteCardMutation()
-
-  const handlerUpdateCard = (data: FormData) => {
-    updateCard({ id: item.id, data })
-  }
-
-  const classNames = {
-    btn: clsx(s.btn),
-  }
-
-  return (
-    <div style={{ display: 'flex', gap: '10px' }}>
-      {editable && (
-        <>
-          <CardEditorModal
-            answer={answer}
-            question={question}
-            answerImg={answerImg}
-            questionImg={questionImg}
-            buttonName={'Edit Card'}
-            modalTitle={'Edit Card'}
-            onSubmit={data => handlerUpdateCard(data)}
-            isOpen={isEditCardModalOpen}
-            setIsOpen={setEditCardModalOpen}
-          >
-            <button className={classNames.btn}>
-              <EditIcon />
-            </button>
-          </CardEditorModal>
-          {/*<EditCard*/}
-          {/*  question={question}*/}
-          {/*  answer={answer}*/}
-          {/*  onSubmit={({ question, answer }) => updateCard({ id: item.id, question, answer })}*/}
-          {/*  isOpen={isEditCardModalOpen}*/}
-          {/*  setIsOpen={setEditCardModalOpen}*/}
-          {/*>*/}
-          {/*  <button className={classNames.btn}>*/}
-          {/*    <EditIcon />*/}
-          {/*  </button>*/}
-          {/*</EditCard>*/}
-          <DeleteModal
-            isOpen={isDeleteModalOpen}
-            setIsOpen={setDeleteModalOpen}
-            buttonTitle={'Delete Card'}
-            item={item}
-            onClick={id => deleteCard(id)}
-            title={'Delete Card'}
-          >
-            <button className={classNames.btn}>
-              <DeleteIcon />
-            </button>
-          </DeleteModal>
-        </>
-      )}
-    </div>
   )
 }

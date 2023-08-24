@@ -11,9 +11,9 @@ type DeckTablePropsType = {
   isMe: string
   data: ItemsType[]
   sort: Sort
-  setSortValue: (sort: Sort, handler: (sort: string) => void) => void
   pageSize: number
   handlerSort: (key: string, sortable?: boolean) => void
+  setSortValue: (sort: Sort, handler: (sort: string) => void) => void
 }
 
 export const DeckTable: FC<DeckTablePropsType> = props => {

@@ -16,7 +16,6 @@ import { useDecksFilter } from '@/services/decks/hooks/useDecksFilter.ts'
 type PacksProps = {}
 export const Decks: FC<PacksProps> = () => {
   const [isAddDeckModalOpen, setAddDeckModalOpen] = useState<boolean>(false)
-
   const dispatch = useAppDispatch()
   const { sort, handlerSort, setSortValue, setSort } = useSort()
   const {
@@ -83,7 +82,7 @@ export const Decks: FC<PacksProps> = () => {
           <AddNewDeckModal
             trigger={<Button>Add New Deck</Button>}
             onSubmit={data => {
-              createDeck({ name: data.namePack, isPrivate: data.private ?? false })
+              createDeck(data)
             }}
             isOpen={isAddDeckModalOpen}
             setIsOpen={setAddDeckModalOpen}
@@ -106,9 +105,9 @@ export const Decks: FC<PacksProps> = () => {
           isMe={isMe ?? ''}
           data={data?.items ?? []}
           sort={sort}
-          setSortValue={setSortValue}
           pageSize={pageSize ?? 10}
           handlerSort={handlerSort}
+          setSortValue={setSortValue}
         />
         <Pagination
           currentPage={page ?? 1}

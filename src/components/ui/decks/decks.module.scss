@@ -1,3 +1,4 @@
+@import "src/styles/mixins";
 .pageTitle {
   display: flex;
   align-items: center;
@@ -35,5 +36,24 @@
     cursor: pointer;
     transition: transform 0.3s;
     transform: scale(1.03);
+  }
+}
+
+
+.action_container {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: flex-end;
+
+  .action_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      @include _animation;
+      color: var(--color-warning-100);
+    }
   }
 }

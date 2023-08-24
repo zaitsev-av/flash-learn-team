@@ -47,56 +47,54 @@ export const decksApi = flashLearnApi.injectEndpoints({
         },
         providesTags: ['Decks'],
       }),
-      createDeck: builder.mutation<ItemsType, { cover?: string; name: string; isPrivate: boolean }>(
-        {
-          query: body => {
-            return {
-              method: 'POST',
-              url: `v1/decks`,
-              body,
-            }
-          },
-          async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
-            const state = getState() as RootState
+      createDeck: builder.mutation<ItemsType, FormData>({
+        query: data => {
+          return {
+            method: 'POST',
+            url: `v1/decks`,
+            body: data,
+          }
+        },
+        async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+          const state = getState() as RootState
 
-            const {
-              name,
-              orderBy,
-              currentPage,
-              itemsPerPage,
-              maxCardsCount,
-              minCardsCount,
-              authorId,
-            } = state.decks.queryParams
+          const {
+            name,
+            orderBy,
+            currentPage,
+            itemsPerPage,
+            maxCardsCount,
+            minCardsCount,
+            authorId,
+          } = state.decks.queryParams
 
-            try {
-              const res = await queryFulfilled
+          try {
+            const res = await queryFulfilled
 
-              dispatch(
-                decksApi.util.updateQueryData(
-                  'getDecks',
-                  {
-                    name,
-                    orderBy,
-                    currentPage,
-                    itemsPerPage,
-                    maxCardsCount,
-                    minCardsCount,
-                    authorId,
-                  },
-                  draft => {
-                    draft.items.pop()
-                    draft.items.unshift(res.data)
-                  }
-                )
+            dispatch(
+              decksApi.util.updateQueryData(
+                'getDecks',
+                {
+                  name,
+                  orderBy,
+                  currentPage,
+                  itemsPerPage,
+                  maxCardsCount,
+                  minCardsCount,
+                  authorId,
+                },
+                draft => {
+                  draft.items.pop()
+                  draft.items.unshift(res.data)
+                }
               )
-            } catch {
-              // patchResult.undo()
-            }
-          },
-          invalidatesTags: ['Decks'],
-        }
-      ),
+            )
+          } catch {
+            // patchResult.undo()
+          }
+        },
+        invalidatesTags: ['Decks'],
+      }),
       updateDeck: builder.mutation<ItemsType, UpdateDeckResponseType>({
         query: ({ id, name, cover, isPrivate }) => {
           return {
