@@ -13,10 +13,11 @@ type CardsTableRowsPropsType = {
   isMyDeck: boolean
   onClickEditHandler: () => void
   onClickDeleteHandler: () => void
+  openImageInModal: (src: string) => void
 }
 
 export const CardsTableRows: FC<CardsTableRowsPropsType> = props => {
-  const { item, isMyDeck, onClickEditHandler, onClickDeleteHandler } = props
+  const { item, isMyDeck, onClickEditHandler, onClickDeleteHandler, openImageInModal } = props
 
   const classNames = {
     btn: clsx(s.btn),
@@ -30,7 +31,13 @@ export const CardsTableRows: FC<CardsTableRowsPropsType> = props => {
           {item.questionImg === null ? (
             ''
           ) : (
-            <img src={item.questionImg} alt="" width="70px" height="50px" />
+            <img
+              src={item.questionImg}
+              alt=""
+              width="70px"
+              height="50px"
+              onClick={() => openImageInModal(item.questionImg)}
+            />
           )}
         </span>
       </Table.DataCell>
@@ -40,7 +47,13 @@ export const CardsTableRows: FC<CardsTableRowsPropsType> = props => {
           {item.answerImg === null ? (
             ''
           ) : (
-            <img src={item.answerImg} alt="" width="70px" height="50px" />
+            <img
+              src={item.answerImg}
+              alt=""
+              width="70px"
+              height="50px"
+              onClick={() => openImageInModal(item.answerImg)}
+            />
           )}
         </span>
       </Table.DataCell>

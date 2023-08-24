@@ -19,9 +19,9 @@ type ModalProps = {
   children?: ReactNode
 }
 
-const Root: FC<ModalProps> = ({ title, isOpen, trigger, onOpenChange, children }) => {
-  const cNames = {
-    content: clsx(s.content),
+const Root: FC<ModalProps> = ({ title, isOpen, trigger, onOpenChange, children, className }) => {
+  const classNames = {
+    content: clsx(s.content, className),
     overlay: clsx(s.overlay),
     body: clsx(s.body),
     footer: clsx(s.footer),
@@ -31,8 +31,8 @@ const Root: FC<ModalProps> = ({ title, isOpen, trigger, onOpenChange, children }
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className={cNames.overlay} />
-        <Dialog.Content className={cNames.content}>
+        <Dialog.Overlay className={classNames.overlay} />
+        <Dialog.Content className={classNames.content}>
           {title && <ModalTitle title={title} />}
           {children}
         </Dialog.Content>
@@ -63,19 +63,19 @@ type ModalChildType = {
 }
 
 const Body: FC<ModalChildType> = ({ className, children }) => {
-  const cNames = {
+  const classNames = {
     body: clsx(s.body, className),
   }
 
-  return <div className={cNames.body}>{children}</div>
+  return <div className={classNames.body}>{children}</div>
 }
 
 const Footer: FC<ModalChildType> = ({ className, children }) => {
-  const cNames = {
+  const classNames = {
     footer: clsx(s.footer, className),
   }
 
-  return <div className={cNames.footer}>{children}</div>
+  return <div className={classNames.footer}>{children}</div>
 }
 
 export const Modal = { Root, Body, Footer }

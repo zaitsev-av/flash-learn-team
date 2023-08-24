@@ -3,7 +3,7 @@ import { FC, useState } from 'react'
 import { clsx } from 'clsx'
 
 import { useAppDispatch } from '@/common'
-import { CardEditorModal, DeleteModal, Sort, Table } from '@/components'
+import { CardEditorModal, DeleteModal, ImageModal, Sort, Table } from '@/components'
 import { CardsTableRows } from '@/components/ui/cards/cards-table/cards-table-rows.tsx'
 import s from '@/components/ui/cards/cards.module.scss'
 import { columns } from '@/components/ui/cards/table-columns.ts'
@@ -24,6 +24,8 @@ export const CardTable: FC<CardTablePropsType> = props => {
   const [selectedCard, setSelectedCard] = useState<CardsItem>({} as CardsItem)
   const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
   const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
+  const [isImageModalOpen, setImageModalOpen] = useState<boolean>(false)
+  const [image, setImage] = useState<string>('')
 
   const [updateCard] = useUpdateCardMutation()
   const [deleteCard] = useDeleteCardMutation()
@@ -35,6 +37,10 @@ export const CardTable: FC<CardTablePropsType> = props => {
   }
   const handlerDeleteCard = () => {
     deleteCard(selectedCard.id)
+  }
+  const openImageInModal = (src: string) => {
+    setImageModalOpen(true)
+    setImage(src)
   }
 
   const classNames = {
@@ -62,6 +68,12 @@ export const CardTable: FC<CardTablePropsType> = props => {
         onClick={handlerDeleteCard}
         title={'Delete Card'}
         itemName={selectedCard.question}
+      />
+      <ImageModal
+        src={image}
+        alt={'image'}
+        isOpen={isImageModalOpen}
+        setIsOpen={setImageModalOpen}
       />
       <Table.Root className={s.tableRoot}>
         <Table.Head
@@ -91,6 +103,7 @@ export const CardTable: FC<CardTablePropsType> = props => {
                 isMyDeck={isMyDeck}
                 onClickEditHandler={onClickEditHandler}
                 onClickDeleteHandler={onClickDeleteHandler}
+                openImageInModal={openImageInModal}
               />
             )
           })}

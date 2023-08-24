@@ -1,0 +1,33 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 700px;
+
+.closeIcon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-light-100);
+    right: 12px;
+    top: 12px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-dark-100);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0.5rem var(--color-dark-100);
+      transition: transform 0.9s;
+      transform: scale(1.08);
+    }
+
+    &:active {
+      color: var(--color-dark-300);
+    }
+  }
+.image {
+  width: 100%;
+  height: 100%;
+}
+}
