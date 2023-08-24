@@ -13,7 +13,7 @@ import { Modal } from '@/components/ui/modal'
 type AddNewCardModalPropsType = {
   modalTitle: string
   buttonName: string
-  children: ReactNode
+  children?: ReactNode
   question?: string
   answer?: string
   questionImg?: string
@@ -55,7 +55,6 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     },
   })
 
-  console.log(question, answer, answerImg, questionImg)
   const onSubmitForm = handleSubmit(data => {
     const formData = new FormData()
 
@@ -77,8 +76,6 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
     setIsOpen(isOpen)
     reset(defaultValues)
   }
-
-  //todo при нажатии на эдит не приходят стартовые значения
 
   return (
     <Modal.Root

@@ -20,12 +20,10 @@ export const Default: Story = {
   args: {
     title: 'Delete Pack',
     buttonTitle: 'Delete Pack',
-    item: { title: 'SomePackName', id: 'pack_ID_ajkskg' },
+    itemName: 'SomeDeckName',
     isOpen: false,
     setIsOpen: isOpen => console.log(isOpen),
     children: <DeleteIcon />,
-    onClick: id => {
-      console.log(id)
-    },
+    onClick: () => {},
   },
 }

@@ -41,7 +41,7 @@ export const TableRows: FC<TableRowsPropsType> = props => {
     <>
       <DeleteModal
         title={'Delete Deck'}
-        deckName={selectedDeck.name}
+        itemName={selectedDeck.name}
         onClick={handleDeleteDeck}
         buttonTitle={'Delete Deck'}
         isOpen={isDeleteModalOpen}
