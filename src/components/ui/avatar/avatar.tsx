@@ -6,6 +6,9 @@ import { clsx } from 'clsx'
 
 import s from './avatar.module.scss'
 
+import { useImageOpen } from '@/common'
+import { ImageModal } from '@/components'
+
 export type UserAvatarPropsType = {
   className?: string
   userName?: string
@@ -22,8 +25,10 @@ export const Avatar: FC<UserAvatarPropsType> = ({
   src,
   size = '2.25rem',
 }) => {
+  const { openImageInModal, image, setImageModalOpen, isImageModalOpen } = useImageOpen()
+
   const fallbackText = userName?.slice(0, 2).toUpperCase()
-  const avatarSize = { width: size, height: size }
+  const avatarSize = { width: size, height: size, cursor: 'pointer' }
   const classNames = {
     wrapper: clsx(s.wrapper, menuItem),
     root: clsx(s.root, className),
@@ -34,8 +39,18 @@ export const Avatar: FC<UserAvatarPropsType> = ({
 
   return (
     <div className={classNames.wrapper}>
+      <ImageModal
+        src={image}
+        alt={'image'}
+        isOpen={isImageModalOpen}
+        setIsOpen={setImageModalOpen}
+      />
       {showLabel && userName && <Label.Root className={classNames.label}>{userName}</Label.Root>}
-      <AvatarRDX.Root className={classNames.root} tabIndex={0}>
+      <AvatarRDX.Root
+        className={classNames.root}
+        tabIndex={0}
+        onClick={() => openImageInModal(src ?? '')}
+      >
         <AvatarRDX.Image
           className={classNames.avatar}
           src={src}
