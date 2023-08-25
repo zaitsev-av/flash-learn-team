@@ -3,7 +3,6 @@ import { FC, ReactNode } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { clsx } from 'clsx'
 
-//TODO check border-bottom styles
 import s from './modal.module.scss'
 
 import { CloseIcon } from '@/assets'
