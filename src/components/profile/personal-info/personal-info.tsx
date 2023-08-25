@@ -23,7 +23,6 @@ export type PersonalInfoPropsType = {
 }
 export type PersonalInfoForm = z.infer<typeof personalInfo>
 const defaultValues: PersonalInfoForm = {
-  // name: '',
   avatar: '',
 }
 
@@ -36,12 +35,7 @@ export const PersonalInfo: FC<PersonalInfoPropsType> = props => {
     handleInputChange,
     value: editableText,
   } = useEditableText(userName)
-  // const { file, handleFileChange, openFileInput, fileInputRef } = useImageUploader(avatar)
-  // const onButtonSaveHandler = () => {
-  //   console.log(editableText)
-  //   onSave(editableText ?? userName, '')
-  //   setEditMode(false)
-  // }
+
   const {
     handleSubmit,
     control,

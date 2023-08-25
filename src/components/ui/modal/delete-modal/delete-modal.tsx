@@ -27,7 +27,6 @@ export const DeleteModal: FC<DeleteDialogProps> = ({
   isOpen,
   setIsOpen,
 }) => {
-  //TODO body message should warn about deleting all cards if item = Pack
   const bodyMessage = `Do you really want to delete ${itemName}`
 
   const clickHandler = () => {

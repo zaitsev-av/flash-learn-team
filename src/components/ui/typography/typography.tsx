@@ -44,26 +44,6 @@ export const Typography = forwardRef(
       unselectable === 'on' && s.unselectable
     )
 
-    //TODO посмотреть стили
     return <Component className={classNames} ref={ref} {...rest} />
   }
 )
-/*export const Typography = <T extends ElementType>(
-  props: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>
-) => {
-  const {
-    variant = 'body1',
-    as: Component = 'span',
-    color = 'inherit',
-    unselectable,
-    className,
-    ...rest
-  } = props
-  const classNames = clsx(
-    `${className} ${s[variant]} ${s[color]}`,
-    unselectable === 'on' && s.unselectable
-  )
-
-  //TODO посмотреть стили
-  return <Component className={classNames} {...rest} />
-}*/

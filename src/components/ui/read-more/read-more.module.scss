@@ -1,0 +1,11 @@
+.btn{
+  all: unset;
+  margin-left: 5px;
+  color: var(--color-info-100);
+  cursor: pointer;
+  text-decoration: underline dotted var(--color-info-100);
+  font-weight: 700;
+    &:hover {
+    text-decoration: none;
+  }
+}

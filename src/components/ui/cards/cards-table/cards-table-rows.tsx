@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 
 import { DeleteIcon, EditIcon } from '@/assets'
 import { transformDate } from '@/common'
-import { Grade, GradeType, Table } from '@/components'
+import { Grade, GradeType, ReadMore, Table } from '@/components'
 import s from '@/components/ui/cards/cards.module.scss'
 import { CardsItem } from '@/services'
 
@@ -27,7 +27,7 @@ export const CardsTableRows: FC<CardsTableRowsPropsType> = props => {
     <Table.Row key={item.id}>
       <Table.DataCell>
         <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={s.getCards}>
-          {item.question}
+          {<ReadMore text={item.question} />}
           {item.questionImg === null ? (
             ''
           ) : (
@@ -44,7 +44,7 @@ export const CardsTableRows: FC<CardsTableRowsPropsType> = props => {
       </Table.DataCell>
       <Table.DataCell>
         <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className={s.getCards}>
-          {item.answer}
+          {<ReadMore text={item.answer} />}
           {item.answerImg === null ? (
             ''
           ) : (

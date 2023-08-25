@@ -17,7 +17,6 @@ export const useSort = () => {
 
     setSort(null)
   }
-  //todo типизация!
   const setSortValue = (sort: Sort, handler: (sort: string) => void) => {
     const sortValue =
       sort?.direction === undefined || null ? '' : `${sort?.columnKey}-${sort?.direction}`
