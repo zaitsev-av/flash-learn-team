@@ -1,13 +1,9 @@
 import { FC, ReactNode } from 'react'
 
+import { motion } from 'framer-motion'
+
 import { Button, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal'
-
-export type ItemType = {
-  id: string
-  title: string
-  isPrivate?: boolean
-}
 
 type DeleteDialogProps = {
   title: string
@@ -37,15 +33,21 @@ export const DeleteModal: FC<DeleteDialogProps> = ({
   return (
     <div>
       <Modal.Root onOpenChange={setIsOpen} trigger={children} isOpen={isOpen} title={title}>
-        <Modal.Body>{bodyMessage}</Modal.Body>
-        <Modal.Footer>
-          <Button variant={'primary'} onClick={clickHandler}>
-            <Typography variant={'subtitle2'}>{buttonTitle}</Typography>
-          </Button>
-          <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
-          </Button>
-        </Modal.Footer>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+        >
+          <Modal.Body>{bodyMessage}</Modal.Body>
+          <Modal.Footer>
+            <Button variant={'primary'} onClick={clickHandler}>
+              <Typography variant={'subtitle2'}>{buttonTitle}</Typography>
+            </Button>
+            <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
+              <Typography variant={'subtitle2'}>Cancel</Typography>
+            </Button>
+          </Modal.Footer>
+        </motion.div>
       </Modal.Root>
     </div>
   )

@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -38,25 +39,27 @@ export const EditDeckModal: FC<EditPackModalProps> = ({
 
   return (
     <Modal.Root isOpen={isOpen} onOpenChange={setIsOpen} trigger={children} title={'Edit Deck'}>
-      <form onSubmit={onSubmitForm}>
-        <Modal.Body>
-          <ControlledTextField
-            title={'Name Deck'}
-            inputType={'text'}
-            control={control}
-            name={'newNameDeck'}
-          />
-          <ControlledCheckbox control={control} left label={'Private Deck'} name={'isPrivate'} />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant={'primary'} type={'submit'}>
-            Save Changes
-          </Button>
-          <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </form>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+        <form onSubmit={onSubmitForm}>
+          <Modal.Body>
+            <ControlledTextField
+              title={'Name Deck'}
+              inputType={'text'}
+              control={control}
+              name={'newNameDeck'}
+            />
+            <ControlledCheckbox control={control} left label={'Private Deck'} name={'isPrivate'} />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant={'primary'} type={'submit'}>
+              Save Changes
+            </Button>
+            <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </form>
+      </motion.div>
     </Modal.Root>
   )
 }

@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -84,52 +85,54 @@ export const CardEditorModal: FC<AddNewCardModalPropsType> = props => {
       onOpenChange={isOpen => onOpenHandler(isOpen)}
       isOpen={isOpen}
     >
-      <form onSubmit={onSubmitForm}>
-        <Modal.Body>
-          <ControlledTextField
-            style={{ marginBottom: '0.5rem' }}
-            name={'question'}
-            control={control}
-            title={'Question'}
-            inputType={'text'}
-          />
-          <ControlledInputFile name={'questionImg'} control={control}>
-            {onClick => (
-              <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
-                <Typography variant={'subtitle2'}>Change Cover</Typography>
-              </Button>
-            )}
-          </ControlledInputFile>
-          <ControlledTextField
-            style={{ marginBottom: '0.5rem' }}
-            name={'answer'}
-            control={control}
-            title={'Answer'}
-            inputType={'text'}
-          />
-          <ControlledInputFile name={'answerImg'} control={control}>
-            {onClick => (
-              <Button
-                variant={'secondary'}
-                fullWidth
-                style={{ marginBottom: '3px' }}
-                onClick={onClick}
-                type={'button'}
-              >
-                <Typography variant={'subtitle2'}>Change Cover</Typography>
-              </Button>
-            )}
-          </ControlledInputFile>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant={'primary'} type={'submit'}>
-            <Typography variant={'subtitle2'}>{buttonName}</Typography>
-          </Button>
-          <Button variant={'secondary'} onClick={() => onOpenHandler(false)}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
-          </Button>
-        </Modal.Footer>
-      </form>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+        <form onSubmit={onSubmitForm}>
+          <Modal.Body>
+            <ControlledTextField
+              style={{ marginBottom: '0.5rem' }}
+              name={'question'}
+              control={control}
+              title={'Question'}
+              inputType={'text'}
+            />
+            <ControlledInputFile name={'questionImg'} control={control}>
+              {onClick => (
+                <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
+                  <Typography variant={'subtitle2'}>Change Cover</Typography>
+                </Button>
+              )}
+            </ControlledInputFile>
+            <ControlledTextField
+              style={{ marginBottom: '0.5rem' }}
+              name={'answer'}
+              control={control}
+              title={'Answer'}
+              inputType={'text'}
+            />
+            <ControlledInputFile name={'answerImg'} control={control}>
+              {onClick => (
+                <Button
+                  variant={'secondary'}
+                  fullWidth
+                  style={{ marginBottom: '3px' }}
+                  onClick={onClick}
+                  type={'button'}
+                >
+                  <Typography variant={'subtitle2'}>Change Cover</Typography>
+                </Button>
+              )}
+            </ControlledInputFile>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant={'primary'} type={'submit'}>
+              <Typography variant={'subtitle2'}>{buttonName}</Typography>
+            </Button>
+            <Button variant={'secondary'} onClick={() => onOpenHandler(false)}>
+              <Typography variant={'subtitle2'}>Cancel</Typography>
+            </Button>
+          </Modal.Footer>
+        </form>
+      </motion.div>
     </Modal.Root>
   )
 }
