@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -44,33 +45,35 @@ export const AddNewDeckModal: FC<AddNewPackModalPropsType> = props => {
 
   return (
     <Modal.Root title={'Add New Deck'} trigger={trigger} onOpenChange={setIsOpen} isOpen={isOpen}>
-      <form onSubmit={onSubmitForm}>
-        <Modal.Body>
-          <ControlledTextField
-            style={{ marginBottom: '1rem' }}
-            name={'name'}
-            control={control}
-            title={'Name Deck'}
-            inputType={'text'}
-          />
-          <ControlledInputFile name={'cover'} control={control}>
-            {onClick => (
-              <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
-                <Typography variant={'subtitle2'}>Change Cover</Typography>
-              </Button>
-            )}
-          </ControlledInputFile>
-          <ControlledCheckbox control={control} name={'isPrivate'} label={'Private deck'} left />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant={'primary'} type={'submit'}>
-            <Typography variant={'subtitle2'}>Add New Deck</Typography>
-          </Button>
-          <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
-          </Button>
-        </Modal.Footer>
-      </form>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+        <form onSubmit={onSubmitForm}>
+          <Modal.Body>
+            <ControlledTextField
+              style={{ marginBottom: '1rem' }}
+              name={'name'}
+              control={control}
+              title={'Name Deck'}
+              inputType={'text'}
+            />
+            <ControlledInputFile name={'cover'} control={control}>
+              {onClick => (
+                <Button variant={'secondary'} fullWidth onClick={onClick} type={'button'}>
+                  <Typography variant={'subtitle2'}>Change Cover</Typography>
+                </Button>
+              )}
+            </ControlledInputFile>
+            <ControlledCheckbox control={control} name={'isPrivate'} label={'Private deck'} left />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant={'primary'} type={'submit'}>
+              <Typography variant={'subtitle2'}>Add New Deck</Typography>
+            </Button>
+            <Button variant={'secondary'} onClick={() => setIsOpen(false)}>
+              <Typography variant={'subtitle2'}>Cancel</Typography>
+            </Button>
+          </Modal.Footer>
+        </form>
+      </motion.div>
     </Modal.Root>
   )
 }

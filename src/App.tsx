@@ -11,6 +11,7 @@ import {
   Layout,
   LearnDeckPage,
   LoginPage,
+  PageNotFound,
   PersonalInfoPage,
   SignUpPage,
 } from '@/pages'
@@ -19,6 +20,7 @@ const routes = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <PageNotFound />,
     children: [
       {
         element: <PrivateRoute />,
