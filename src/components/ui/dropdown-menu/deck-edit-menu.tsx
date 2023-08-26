@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
 import { DeleteIcon, LearnPackIcon, PencilIcon } from '@/assets'
@@ -33,10 +34,16 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
 
   return (
     <DropdownMenu trigger={<button className={s.icon_button}>{<OpenDeckMenuIcon />}</button>}>
-      <MenuItem as={Link} to={`/learn/${deckId}`}>
-        <LearnPackIcon />
-        <Typography variant={'caption'}>Learn</Typography>
-      </MenuItem>
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.2 }}
+      >
+        <MenuItem as={Link} to={`/learn/${deckId}`}>
+          <LearnPackIcon />
+          <Typography variant={'caption'}>Learn</Typography>
+        </MenuItem>
+      </motion.div>
       <EditDeckModal
         setIsOpen={setEditDeckModalOpen}
         isOpen={isEditDeckModalOpen}
@@ -44,10 +51,16 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
         deckName={deckName}
         onSubmit={({ newNameDeck, isPrivate = false }) => onEdit(newNameDeck, isPrivate)}
       >
-        <MenuItem>
-          <PencilIcon />
-          <Typography variant={'caption'}>Edit</Typography>
-        </MenuItem>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <MenuItem>
+            <PencilIcon />
+            <Typography variant={'caption'}>Edit</Typography>
+          </MenuItem>
+        </motion.div>
       </EditDeckModal>
       <DeleteModal
         title={'Delete Deck'}
@@ -57,10 +70,16 @@ export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
         buttonTitle={'Delete Deck'}
         itemName={deckName}
       >
-        <MenuItem separator={false}>
-          <DeleteIcon />
-          <Typography variant={'caption'}>Delete</Typography>
-        </MenuItem>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <MenuItem separator={false}>
+            <DeleteIcon />
+            <Typography variant={'caption'}>Delete</Typography>
+          </MenuItem>
+        </motion.div>
       </DeleteModal>
     </DropdownMenu>
   )
