@@ -5,7 +5,8 @@ import { v4 } from 'uuid'
 
 import s from './learn-desk.module.scss'
 
-import { Button, Card, RadioGroup } from '@/components'
+import { useImageOpen } from '@/common'
+import { Button, Card, ImageModal, RadioGroup } from '@/components'
 import { RadioGroupItemType } from '@/components/ui/radio-group'
 import { Typography } from '@/components/ui/typography'
 
@@ -35,7 +36,7 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
   } = props
 
   const [showAnswer, setShowAnswer] = useState(false)
-
+  const { openImageInModal, setImageModalOpen, image, isImageModalOpen } = useImageOpen()
   const classNames = {
     container: clsx(s.container),
     question: clsx(s.question),
@@ -49,6 +50,12 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
 
   return (
     <Card className={classNames.container}>
+      <ImageModal
+        src={image}
+        alt={'image'}
+        isOpen={isImageModalOpen}
+        setIsOpen={setImageModalOpen}
+      />
       <Typography variant={'large'} style={{ textAlign: 'center' }}>
         Learn {deckName}
       </Typography>
@@ -56,7 +63,15 @@ export const LearnDesk: FC<LearnPackPropsType> = props => {
       <Typography variant={'body1'} className={classNames.question}>
         <Typography variant={'subtitle1'}>Question: </Typography>
         {question}
-        {questionImg !== null && <img src={questionImg} alt="question" width={350} height={200} />}
+        {questionImg !== null && (
+          <img
+            src={questionImg}
+            alt="question"
+            width={350}
+            height={200}
+            onClick={() => openImageInModal(questionImg)}
+          />
+        )}
       </Typography>
 
       <Typography variant={'body2'} className={classNames.attempts}>
@@ -95,6 +110,7 @@ type AnswerFeedbackPropsType = {
 
 const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
   const { answer, loadNextQuestion, onChange, value, answerImg } = props
+  const { openImageInModal, setImageModalOpen, image, isImageModalOpen } = useImageOpen()
   const classNames = {
     answer: clsx(s.answer),
     feedback: clsx(s.feedback),
@@ -112,10 +128,24 @@ const AnswerFeedback: FC<AnswerFeedbackPropsType> = props => {
 
   return (
     <>
+      <ImageModal
+        src={image}
+        alt={'image'}
+        isOpen={isImageModalOpen}
+        setIsOpen={setImageModalOpen}
+      />
       <Typography variant={'body1'} className={classNames.answer}>
         <Typography variant={'subtitle1'}>Answer: </Typography>
         {answer}
-        {answerImg !== null && <img src={answerImg} alt="question" width={350} height={200} />}
+        {answerImg !== null && (
+          <img
+            src={answerImg}
+            alt="question"
+            width={350}
+            height={200}
+            onClick={() => openImageInModal(answerImg)}
+          />
+        )}
       </Typography>
 
       <Typography variant={'subtitle1'} className={classNames.feedback}>
