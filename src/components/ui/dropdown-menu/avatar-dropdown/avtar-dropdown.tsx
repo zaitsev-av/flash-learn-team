@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
+import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
-import s from './dropdown-menu.module.scss'
+import s from '../dropdown-menu.module.scss'
 
 import { LogoutIcon, ProfileIcon } from '@/assets'
 import { Avatar, DropdownMenu, Typography } from '@/components'
@@ -18,14 +19,13 @@ type AvtarDropdownPropsType = {
 
 export const AvtarDropdown: FC<AvtarDropdownPropsType> = props => {
   const { src, userName, userEmail, onSignOut } = props
+  const cn = { icon: clsx(s.icon_button), item: clsx(s.menu_item), wrapper: clsx(s.wrapper) }
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div className={cn.wrapper}>
       <DropdownMenu
         trigger={
-          <button className={s.icon_button}>
-            {<Avatar src={src} userName={userName} showLabel />}
-          </button>
+          <button className={cn.icon}>{<Avatar src={src} userName={userName} showLabel />}</button>
         }
       >
         <motion.div
@@ -35,7 +35,7 @@ export const AvtarDropdown: FC<AvtarDropdownPropsType> = props => {
         >
           <MenuItem>
             <>
-              <Avatar src={src} menuItem={s.menu_item} userName={userName} />
+              <Avatar src={src} menuItem={cn.item} userName={userName} />
               <div style={{ flexDirection: 'column' }}>
                 <Typography variant={'caption'}>
                   <div>{userName}</div>

@@ -1,3 +1,3 @@
 export * from './dropdown-menu.tsx'
-export { AvtarDropdown } from '@/components/ui/dropdown-menu/avtar-dropdown.tsx'
-export { DeckEditMenu } from '@/components/ui/dropdown-menu/deck-edit-menu.tsx'
+export { AvtarDropdown } from '@/components/ui/dropdown-menu/avatar-dropdown/avtar-dropdown.tsx'
+export { DeckMenu } from '@/components/ui/dropdown-menu/deck-menu/deck-menu.tsx'
