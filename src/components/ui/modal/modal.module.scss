@@ -2,22 +2,25 @@
   position: fixed;
   inset: 0;
 
-  opacity: 0.7;
+  opacity: 0.8;
   background-color: var(--color-dark-900);
   filter: blur(3%);
 }
 
 .content {
   position: fixed;
+  z-index: 6;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   width: 33.875rem;
-
+  max-height: calc(100vh - 2rem);
   background-color: var(--color-dark-700);
   border: 0.06rem solid var(--color-dark-500);
   border-radius: 0.125rem 0.125rem 0 0;
+
+  overflow-y: auto;
 }
 
 .titleContainer {
@@ -26,8 +29,8 @@
   justify-content: space-between;
 
   padding: 1.12rem 1.5rem;
-
   border-bottom: 0.06rem solid var(--color-dark-500);
+  overflow-y: auto;
 }
 
 .closeIcon {
@@ -55,6 +58,8 @@
   flex-direction: column;
   gap: 1.5rem;
   padding: 1.12rem 1.5rem;
+  max-height: calc(100% - 5.25rem);
+  overflow-y: auto;
 }
 
 .footer {

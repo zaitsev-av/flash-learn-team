@@ -19,15 +19,18 @@ export const ControlledInputFile = <T extends FieldValues>({
   const {
     field: { onChange, ref, value, ...field },
   } = useController({ name, control })
-  const { fileInputRef, openFileInput, handleFileChange } = useImageUploader('')
+  const { fileInputRef, openFileInput, handleFileChange, file } = useImageUploader('')
 
   const onChangeHandle = (e: ChangeEvent<HTMLInputElement>) => {
     handleFileChange(e)
     if (e?.target?.files !== null) onChange(e.target.files[0] as any)
   }
 
+  console.log(file)
+
   return (
     <>
+      {file && <img src={file} alt={'user-selected file'} />}
       <input
         hidden
         type="file"
