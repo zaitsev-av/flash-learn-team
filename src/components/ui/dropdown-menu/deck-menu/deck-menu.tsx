@@ -20,7 +20,7 @@ type DeckEditMenuPropsType = {
   setEditDeckModalOpen: (isEditDeckModalOpen: boolean) => void
 }
 
-export const DeckEditMenu: FC<DeckEditMenuPropsType> = props => {
+export const DeckMenu: FC<DeckEditMenuPropsType> = props => {
   const {
     onDelete,
     onEdit,

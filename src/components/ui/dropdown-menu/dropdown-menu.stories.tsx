@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Meta } from '@storybook/react'
 
-import { AvtarDropdown, DeckEditMenu, DropdownMenu } from '@/components'
+import { AvtarDropdown, DeckMenu, DropdownMenu } from '@/components'
 
 const meta = {
   title: 'Components/Dropdown-menu',
@@ -39,7 +39,7 @@ export const Deck_menu = {
     const [isEditCardModalOpen, setEditCardModalOpen] = useState<boolean>(false)
 
     return (
-      <DeckEditMenu
+      <DeckMenu
         isEditDeckModalOpen={isEditCardModalOpen}
         setEditDeckModalOpen={setEditCardModalOpen}
         isDeleteModalOpen={isDeleteModalOpen}

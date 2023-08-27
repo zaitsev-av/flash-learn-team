@@ -7,12 +7,13 @@ import s from './dropdown-menu.module.scss'
 export type DropdownMenuPropsType = {
   trigger: ReactNode
   children: ReactNode
+  onOpen?: () => void
 }
 export const DropdownMenu: FC<DropdownMenuPropsType> = props => {
-  const { trigger, children } = props
+  const { trigger, children, onOpen } = props
 
   return (
-    <DropdownMenuRDX.Root>
+    <DropdownMenuRDX.Root onOpenChange={onOpen}>
       <DropdownMenuRDX.Trigger asChild className={s.trigger}>
         {trigger}
       </DropdownMenuRDX.Trigger>

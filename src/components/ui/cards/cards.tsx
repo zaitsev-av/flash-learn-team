@@ -10,7 +10,7 @@ import { useImageOpen, useSort } from '@/common'
 import {
   Button,
   CardEditorModal,
-  DeckEditMenu,
+  DeckMenu,
   ImageModal,
   Pagination,
   TextField,
@@ -147,7 +147,7 @@ const RenderDeckHeading: FC<RenderDeckHeadingType> = props => {
   const { deckName, isMyDeck, handleCreateCard, onDelete, onEdit, deckId } = props
 
   const editMenu = isMyDeck && (
-    <DeckEditMenu
+    <DeckMenu
       isEditDeckModalOpen={isEditDeckModalOpen}
       setEditDeckModalOpen={setEditDeckModalOpen}
       deckId={deckId}
