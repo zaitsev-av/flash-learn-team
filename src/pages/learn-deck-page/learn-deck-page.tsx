@@ -22,10 +22,8 @@ export const LearnDeckPage: FC = () => {
     }
   }
 
-  console.log(cardIsLoading)
   if (cardIsLoading && deckIsLoading) return <InitialLoader />
 
-  console.log(cardData)
   if (cardData === undefined) {
     return (
       <Page>
