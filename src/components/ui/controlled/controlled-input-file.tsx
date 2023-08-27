@@ -26,8 +26,6 @@ export const ControlledInputFile = <T extends FieldValues>({
     if (e?.target?.files !== null) onChange(e.target.files[0] as any)
   }
 
-  console.log(file)
-
   return (
     <>
       {file && <img src={file} alt={'user-selected file'} />}
