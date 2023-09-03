@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import s from './header.module.scss'
 
-import { Logo } from '@/assets'
+import Logo from '@/assets/Flash_learn__.png'
 import { AvtarDropdown, Button } from '@/components'
 
 export type HeaderPropsType = {
@@ -27,7 +27,7 @@ export const Header: FC<HeaderPropsType> = ({ logout, data }) => {
     <header className={s.wrapper}>
       <div className={classNames.container}>
         <Link to={'/'}>
-          <Logo />
+          <img src={Logo} alt={'logo'} width={120} height={60} />
         </Link>
         {isAuth && (
           <AvtarDropdown
