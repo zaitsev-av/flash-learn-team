@@ -11,7 +11,6 @@ import {
   DeleteIcon,
   HideIcon,
   LearnPackIcon,
-  Logo,
   LogoutIcon,
   Page404,
   PencilIcon,
@@ -91,12 +90,6 @@ export const Hide_Icon: Story = {
 export const Learn_Pack_Icon: Story = {
   render: () => {
     return <LearnPackIcon />
-  },
-}
-
-export const Logo_Incubator: Story = {
-  render: () => {
-    return <Logo />
   },
 }
 
