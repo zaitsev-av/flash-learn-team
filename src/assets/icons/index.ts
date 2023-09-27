@@ -1,6 +1,6 @@
 export { default as LogoutIcon } from './LogoutIcon'
 export { default as CheckedIcon } from './CheckedIcon'
-export { default as Logo } from './Logo'
+// export { default as Logo } from './Logo
 export { default as ShowIcon } from './ShowIcon'
 export { default as HideIcon } from './HideIcon'
 export { default as SearchIcon } from './SearchIcon'
